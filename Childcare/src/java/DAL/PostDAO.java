@@ -70,15 +70,14 @@ public class PostDAO implements DAO<Post>{
 
     @Override
     public void add(Post t) {
-        String sql = "Insert into Post values(?,?,?,?,?,?)";
+        String sql = "Insert into Post(title, description ,detail, cate_id, [image]) values(?,?,?,?,?)";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTitle());
-            ps.setString(2, t.getDescription());
+            ps.setString(2, t.getDetail());
             ps.setString(3, t.getDetail());
-            ps.setDate(4, t.getCreatedAt());
-            ps.setInt(5, t.getCateId());
-            ps.setString(6, t.getImage());
+            ps.setInt(4, t.getCateId());
+            ps.setString(5, t.getImage());
             ps.execute();
         }catch(Exception e){
             status = "Error at insert Post" + e.getMessage();
@@ -114,6 +113,6 @@ public class PostDAO implements DAO<Post>{
         } catch (Exception e) {
             status = "Error at Delete Post" + e.getMessage();
         }
-    }
+    }    
     
 }

@@ -12,7 +12,8 @@
         <title>JSP Page</title>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/add-product.css'>
-        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/theme.min.css'>
+        <!--<link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/theme.min.css'>-->
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/2.035beb6d.chunk.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
     </head>

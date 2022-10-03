@@ -77,7 +77,8 @@ public class PostController extends HttpServlet {
         try {
             switch (action) {
                 case "/manager/post/create":
-                    createPost(request, response);
+                    //createPost(request, response);
+                    request.getRequestDispatcher("../../view/manager/createPost.jsp").forward(request, response);
                     break;
                 case "/manager/Post/update":
                     updatePost(request, response);
@@ -89,7 +90,7 @@ public class PostController extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException(e);
         }
-        
+
     }
 
     /**
@@ -103,8 +104,7 @@ public class PostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-  
+
         String action = request.getServletPath();
         System.out.println(action);
         try {
@@ -140,12 +140,20 @@ public class PostController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Post post = new Post();
         post.setTitle(request.getParameter("title"));
-        post.setCateId(Integer.parseInt(request.getParameter("category")));
+        post.setDescription("123456789");
+//        post.setCateId(Integer.parseInt(request.getParameter("category")));
+        post.setCateId(1);
         post.setDetail(request.getParameter("content"));
         post.setImage(request.getParameter("image"));
         postDao.add(post);
-        
 
+        boolean valid = true;
+        if (valid) {
+            //message
+            request.getRequestDispatcher("../../view/manager/createPost.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("create");
+        }
     }
 
     private void updatePost(HttpServletRequest request, HttpServletResponse response)
@@ -158,4 +166,4 @@ public class PostController extends HttpServlet {
 
     }
 
-} 
+}
