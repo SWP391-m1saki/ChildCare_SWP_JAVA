@@ -117,18 +117,23 @@
                             <form method="POST">
                                 <div class="form-item">
                                     <label for="product_name" class="form-label fw-bold fs-5">Tiêu đề bài viết</label>
-                                    <input type="text" name="name" required="required" placeholder="Type here" class="form-control" id="product_name">
+                                    <input type="text" name="title" required="required" placeholder="Type here" class="form-control" id="product_name">
+                                </div>
+                                
+                                <div class="form-item">
+                                    <label class="form-label fw-bold fs-6">Chọn danh mục</label>
+                                    <select name="category" class="form-control"></select>
                                 </div>
 
                                 <div class="form-item">
                                     <label class="form-label fw-bold fs-6">Nội dung bài viết</label>
-                                    <textarea name="description" id="myTextarea" class="form-control"></textarea>
+                                    <textarea name="content" id="myTextarea" class="form-control"></textarea>
                                 </div>
 
                                 <div class="form-row form-row-2">
                                     <div class="form-item">
                                         <label class="form-label fs-6 fw-bold">Hình ảnh chính</label>
-                                        <input name="thumbnail" accept="image/*" class="form-control" type="file" onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
+                                        <input name="image" accept="image/*" class="form-control" type="file" onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
                                         <img id="image-preview" alt="your image" width="100" />
                                     </div><!-- comment -->
                                 </div> <!-- row.// -->
