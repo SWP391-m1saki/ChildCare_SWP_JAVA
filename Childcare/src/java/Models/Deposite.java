@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Admin
+ * @author Misaki
  */
 public class Deposite {
     private int  depositeId, status;

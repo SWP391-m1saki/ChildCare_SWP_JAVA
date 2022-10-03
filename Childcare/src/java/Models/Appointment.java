@@ -7,7 +7,7 @@ package Models;
 
 /**
  *
- * @author Admin
+ * @author Misaki
  */
 public class Appointment {
     private int appointmentId, doctorId, customerId, slotId, childrenId;

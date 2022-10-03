@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author Admin
+ * @author Misaki
  */
 public class Post {
     private int postId;
