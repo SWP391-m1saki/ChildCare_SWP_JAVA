@@ -4,7 +4,6 @@
  */
 package controller.manager;
 
-import DAL.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,20 +11,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author Admin
  */
-public class CreatePostController extends HttpServlet {
+public class UpdatePostController extends HttpServlet {
 
-    PostDAO postDao;
-    
-    @Override
-    public void init() {
-        postDao = new PostDAO();
-    }
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,10 +34,10 @@ public class CreatePostController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreatePostController</title>");            
+            out.println("<title>Servlet UpdatePostController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreatePostController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdatePostController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -78,7 +69,6 @@ public class CreatePostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
     }
 

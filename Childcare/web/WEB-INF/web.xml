@@ -4,9 +4,21 @@
         <servlet-name>CreatePostController</servlet-name>
         <servlet-class>controller.manager.CreatePostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePostController</servlet-name>
+        <servlet-class>controller.manager.UpdatePostController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreatePostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePostController</servlet-name>
+        <url-pattern>/manager/post/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePostController</servlet-name>
+        <url-pattern>/manager/post/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
