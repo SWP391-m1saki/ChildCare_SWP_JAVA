@@ -13,19 +13,11 @@
         <url-pattern>/manager/post/create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< Updated upstream
-        <servlet-name>UpdatePostController</servlet-name>
-        <url-pattern>/manager/post/update</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdatePostController</servlet-name>
-=======
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/Post/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
->>>>>>> Stashed changes
         <url-pattern>/manager/post/delete</url-pattern>
     </servlet-mapping>
     <session-config>
