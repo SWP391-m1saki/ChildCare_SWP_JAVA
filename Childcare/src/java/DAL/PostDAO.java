@@ -112,6 +112,7 @@ public class PostDAO implements DAO<Post>{
             ps.setInt(1, t.getPostId());
             ps.execute();
         } catch (Exception e) {
+            status = "Error at Delete Post" + e.getMessage();
         }
     }
     

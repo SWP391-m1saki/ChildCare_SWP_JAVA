@@ -4,6 +4,7 @@
  */
 package controller.manager;
 
+import DAL.PostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,6 +19,13 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class CreatePostController extends HttpServlet {
 
+    PostDAO postDao;
+    
+    @Override
+    public void init() {
+        postDao = new PostDAO();
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
