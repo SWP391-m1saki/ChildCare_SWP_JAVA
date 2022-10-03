@@ -20,15 +20,17 @@
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Page Title</title>
+        <title>Viết bài đăng</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/add-product.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
         <script src='${pageContext.request.contextPath}/lib/tinymce/tinymce.min.js'></script>
         <script>
             tinymce.init({
                 selector: '#myTextarea',
-                height: 300,
+                height: 600,
                 plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
                 imagetools_cors_hosts: ['picsum.photos'],
                 menubar: 'file edit view insert format tools table help',
@@ -100,9 +102,9 @@
 
                 <section class="content-main">
                     <div class="content-header">
-                        <h2 class="content-title">Create product </h2>
+                        <h2 class="content-title">Tạo bài viết mới</h2>
                         <div>
-                            <a href="${pageContext.request.getContextPath()}/admin/product" class="btn btn-outline-danger"> × Discard</a>
+                            <a href="${pageContext.request.getContextPath()}/admin/product" class="btn btn-outline-danger"> × Hủy</a>
                         </div>
                     </div>
 
@@ -114,83 +116,27 @@
                         <div class="add-form">
                             <form method="POST">
                                 <div class="form-item">
-                                    <label for="product_name" class="form-label">Post title</label>
+                                    <label for="product_name" class="form-label fw-bold fs-5">Tiêu đề bài viết</label>
                                     <input type="text" name="name" required="required" placeholder="Type here" class="form-control" id="product_name">
                                 </div>
 
                                 <div class="form-item">
-                                    <label class="form-label">Full description</label>
+                                    <label class="form-label fw-bold fs-6">Nội dung bài viết</label>
                                     <textarea name="description" id="myTextarea" class="form-control"></textarea>
                                 </div>
 
                                 <div class="form-row form-row-2">
                                     <div class="form-item">
-                                        <label class="form-label">Main images</label>
+                                        <label class="form-label fs-6 fw-bold">Hình ảnh chính</label>
                                         <input name="thumbnail" accept="image/*" class="form-control" type="file" onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
                                         <img id="image-preview" alt="your image" width="100" />
                                     </div><!-- comment -->
                                 </div> <!-- row.// -->
 
-
-
-                                <div class="form-item">
-                                    <label for="product_name" class="form-label">Tags</label>
-                                    <input name="tags" type="text" class="form-control">
-                                </div>
-
-
-                                <div class="form-row form-row-2">
-                                    <div class="form-item">
-                                        <label class="form-label">Category</label>
-                                        <select class="form-select" required="required" name="category">
-                                        </select>
-                                    </div>
-
-                                    <div class="form-item">
-                                        <label class="form-label">Supplier</label>
-                                        <select class="form-select" required="required" name="supplier">
-                                        </select>
-                                    </div>
-                                </div> <!-- row.// -->
-
-
-                                <div class="form-row">
-
-                                    <div class="form-item">
-                                        <label class="form-label">Hot Date</label>
-                                        <input name="hot" type="date" class="form-control">
-                                    </div><!-- comment -->
-
-                                    <div class="form-item">
-                                        <label class="form-label">Unit Sell</label>
-                                        <input name="unit" type="text" class="form-control">
-                                    </div>
-
-                                    <div class="form-item">
-                                        <label class="form-label">Quantity</label>
-                                        <input name="quantity" type="number" class="form-control">
-                                    </div>
-
-                                </div>   <!-- End form row -->
-
-                                <div class="form-row">
-                                    <div class="form-item">
-                                        <label class="form-label">Unit Price</label>
-                                        <input name="unitprice" type="number" step="1000" class="form-control">
-                                    </div>
-
-                                    <div class="form-item">
-                                        <label class="form-label">Sale Price</label>
-                                        <input name="promotion_price" type="number" step="1000" class="form-control">
-                                    </div>
-                                </div> <!-- End form row -->
-
-                                <button type="submit" class="btn btn-primary">Submit item</button>
+                                <button type="submit" class="btn btn-primary">Đăng bài</button>
                             </form>
                         </div>
                     </div> <!-- card end// -->
-
-
                 </section>
             </main>
         </div>
