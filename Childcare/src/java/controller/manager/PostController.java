@@ -4,28 +4,32 @@
  */
 package controller.manager;
 
+import DAL.CategoryDAO;
 import DAL.PostDAO;
+import Models.Post;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import java.sql.SQLException;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-public class CreatePostController extends HttpServlet {
+public class PostController extends HttpServlet {
 
     PostDAO postDao;
-    
+    CategoryDAO categoryDao;
+
     @Override
     public void init() {
         postDao = new PostDAO();
+        categoryDao = new CategoryDAO();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,10 +47,10 @@ public class CreatePostController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreatePostController</title>");            
+            out.println("<title>Servlet PostController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreatePostController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PostController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +68,28 @@ public class CreatePostController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        postDao.load();
+        categoryDao.load();
+        request.setAttribute("PostList", postDao.getAll());
+        request.setAttribute("CategoryPost", categoryDao.getAll());
+        String action = request.getServletPath();
+        System.out.println(action);
+        try {
+            switch (action) {
+                case "/manager/post/create":
+                    createPost(request, response);
+                    break;
+                case "/manager/Post/update":
+                    updatePost(request, response);
+                    break;
+                case "/manager/post/delete":
+                    deletePost(request, response);
+                    break;
+            }
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+        
     }
 
     /**
@@ -79,7 +104,24 @@ public class CreatePostController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        processRequest(request, response);
+  
+        String action = request.getServletPath();
+        System.out.println(action);
+        try {
+            switch (action) {
+                case "/manager/post/create":
+                    createPost(request, response);
+                    break;
+                case "/manager/Post/update":
+                    updatePost(request, response);
+                    break;
+                case "/manager/post/delete":
+                    deletePost(request, response);
+                    break;
+            }
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
     }
 
     /**
@@ -92,4 +134,28 @@ public class CreatePostController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-}
+    private void createPost(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        Post post = new Post();
+        post.setTitle(request.getParameter("title"));
+        post.setCateId(Integer.parseInt(request.getParameter("category")));
+        post.setDetail(request.getParameter("content"));
+        post.setImage(request.getParameter("image"));
+        postDao.add(post);
+        
+
+    }
+
+    private void updatePost(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+
+    }
+
+    private void deletePost(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+
+    }
+
+} 

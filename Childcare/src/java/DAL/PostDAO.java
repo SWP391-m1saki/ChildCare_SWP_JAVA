@@ -34,7 +34,7 @@ public class PostDAO implements DAO<Post>{
 
     @Override
     public List<Post> getAll() {
-        return null;
+        return postList;
     }
     
     public void load() {

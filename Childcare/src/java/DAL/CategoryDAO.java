@@ -32,7 +32,7 @@ public class CategoryDAO implements DAO<PostCategory> {
 
     @Override
     public List<PostCategory> getAll() {
-        return null;
+        return postCategoryList;
     }
     
     @Override
