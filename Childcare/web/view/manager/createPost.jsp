@@ -95,7 +95,7 @@
 
                 <main class="main-admin-page">
                     <!--HEADER-->
-                <jsp:include page="header.jsp"></jsp:include>
+                <%--<jsp:include page="header.jsp"></jsp:include>--%>
                     <!--HEADER-->
 
                     <section class="content-main">
@@ -143,18 +143,12 @@
                                         <div class="form-item">
                                             <label class="form-label">Category</label>
                                             <select class="form-select" required="required" name="category">
-                                            <c:forEach items="${requestScope.dao.getProductCategories()}" var="p_c" >
-                                                <option value="${p_c.cate_id}"> ${p_c.name} </option>
-                                            </c:forEach>
                                         </select>
                                     </div>
 
                                     <div class="form-item">
                                         <label class="form-label">Supplier</label>
                                         <select class="form-select" required="required" name="supplier">
-                                            <c:forEach items="${requestScope.dao.getSuppliers()}" var="s" >
-                                                <option value="${s.getKey()}"> ${s.getValue().name} </option>
-                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div> <!-- row.// -->
