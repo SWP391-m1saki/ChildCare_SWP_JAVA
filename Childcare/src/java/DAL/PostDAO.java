@@ -70,17 +70,49 @@ public class PostDAO implements DAO<Post>{
 
     @Override
     public void add(Post t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "Insert into Post values(?,?,?,?,?,?)";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, t.getTitle());
+            ps.setString(2, t.getDescription());
+            ps.setString(3, t.getDetail());
+            ps.setDate(4, t.getCreatedAt());
+            ps.setInt(5, t.getCateId());
+            ps.setString(6, t.getImage());
+            ps.execute();
+        }catch(Exception e){
+            status = "Error at insert Post" + e.getMessage();
+        }
     }
 
     @Override
     public void update(Post t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "update Post set title = ?, description = ?, detail = ?,"
+                + "created_at = ?, cate_id= ?, [image] = ? where post_id = ? ";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, t.getTitle());
+            ps.setString(2, t.getDescription());
+            ps.setString(3, t.getDetail());
+            ps.setDate(4, t.getCreatedAt());
+            ps.setInt(5, t.getCateId());
+            ps.setString(6, t.getImage());
+            ps.setInt(7, t.getPostId());
+            ps.execute();
+        }catch(Exception e){
+            status = "Error at Update Post" + e.getMessage();
+        }
     }
 
     @Override
     public void delete(Post t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "delete from Post where post_id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, t.getPostId());
+            ps.execute();
+        } catch (Exception e) {
+        }
     }
     
 }
