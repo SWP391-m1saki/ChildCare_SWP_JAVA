@@ -22,9 +22,9 @@
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
         <title>Page Title</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel='stylesheet' type='text/css' media='screen' href='../../css/admin.css'>
-        <link rel='stylesheet' type='text/css' media='screen' href='../../css/add-product.css'>
-        <script src='../../tinymce/tinymce.min.js'></script>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/add-product.css'>
+        <script src='${pageContext.request.contextPath}/lib/tinymce/tinymce.min.js'></script>
         <script>
             tinymce.init({
                 selector: '#myTextarea',
@@ -96,53 +96,53 @@
                 <main class="main-admin-page">
                     <!--HEADER-->
                 <%--<jsp:include page="header.jsp"></jsp:include>--%>
-                    <!--HEADER-->
+                <!--HEADER-->
 
-                    <section class="content-main">
-                        <div class="content-header">
-                            <h2 class="content-title">Create product </h2>
-                            <div>
-                                <a href="${pageContext.request.getContextPath()}/admin/product" class="btn btn-outline-danger"> × Discard</a>
-                            </div>
+                <section class="content-main">
+                    <div class="content-header">
+                        <h2 class="content-title">Create product </h2>
+                        <div>
+                            <a href="${pageContext.request.getContextPath()}/admin/product" class="btn btn-outline-danger"> × Discard</a>
                         </div>
-                        
-                        <div class="message">
-                            <p class="alert-message">${requestScope.successMess}</p>
-                        </div>
+                    </div>
 
-                        <div class="content-body">
-                            <div class="add-form">
-                                <form method="POST">
+                    <div class="message">
+                        <p class="alert-message">${requestScope.successMess}</p>
+                    </div>
+
+                    <div class="content-body">
+                        <div class="add-form">
+                            <form method="POST">
+                                <div class="form-item">
+                                    <label for="product_name" class="form-label">Post title</label>
+                                    <input type="text" name="name" required="required" placeholder="Type here" class="form-control" id="product_name">
+                                </div>
+
+                                <div class="form-item">
+                                    <label class="form-label">Full description</label>
+                                    <textarea name="description" id="myTextarea" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-row form-row-2">
                                     <div class="form-item">
-                                        <label for="product_name" class="form-label">Product title</label>
-                                        <input type="text" name="name" required="required" placeholder="Type here" class="form-control" id="product_name">
-                                    </div>
+                                        <label class="form-label">Main images</label>
+                                        <input name="thumbnail" accept="image/*" class="form-control" type="file" onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
+                                        <img id="image-preview" alt="your image" width="100" />
+                                    </div><!-- comment -->
+                                </div> <!-- row.// -->
 
+
+
+                                <div class="form-item">
+                                    <label for="product_name" class="form-label">Tags</label>
+                                    <input name="tags" type="text" class="form-control">
+                                </div>
+
+
+                                <div class="form-row form-row-2">
                                     <div class="form-item">
-                                        <label class="form-label">Full description</label>
-                                        <textarea name="description" id="myTextarea" class="form-control"></textarea>
-                                    </div>
-
-                                    <div class="form-row form-row-2">
-                                        <div class="form-item">
-                                            <label class="form-label">Main images</label>
-                                            <input name="thumbnail" accept="image/*" class="form-control" type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-                                            <img id="blah" alt="your image" width="100" />
-                                        </div><!-- comment -->
-                                    </div> <!-- row.// -->
-
-
-
-                                    <div class="form-item">
-                                        <label for="product_name" class="form-label">Tags</label>
-                                        <input name="tags" type="text" class="form-control">
-                                    </div>
-
-
-                                    <div class="form-row form-row-2">
-                                        <div class="form-item">
-                                            <label class="form-label">Category</label>
-                                            <select class="form-select" required="required" name="category">
+                                        <label class="form-label">Category</label>
+                                        <select class="form-select" required="required" name="category">
                                         </select>
                                     </div>
 

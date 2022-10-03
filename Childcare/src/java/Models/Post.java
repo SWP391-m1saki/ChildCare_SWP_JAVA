@@ -5,7 +5,8 @@
  */
 package Models;
 
-import java.time.LocalDate;
+import java.util.Date;
+
 
 /**
  *
@@ -13,20 +14,21 @@ import java.time.LocalDate;
  */
 public class Post {
     private int postId;
-    private String title, description, detail;
-    private LocalDate createdAt;
+    private String title, description, detail, image;
+    private Date createdAt;
     private int cateId;
 
     public Post() {
     }
 
-    public Post(int postId, String title, String description, String detail, LocalDate createdAt, int cateId) {
+    public Post(int postId, String title, String description, String detail, Date createdAt, int cateId, String image) {
         this.postId = postId;
         this.title = title;
         this.description = description;
         this.detail = detail;
         this.createdAt = createdAt;
         this.cateId = cateId;
+        this.image = image;
     }
 
     public int getPostId() {
@@ -61,11 +63,11 @@ public class Post {
         this.detail = detail;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -76,6 +78,13 @@ public class Post {
     public void setCateId(int cateId) {
         this.cateId = cateId;
     }
-    
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     
 }
