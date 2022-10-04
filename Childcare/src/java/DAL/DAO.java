@@ -10,6 +10,7 @@ import java.util.List;
 /**
  *
  * @author Misaki
+ * @param <T>
  */
 public interface DAO<T> {
     List<T> getAll();

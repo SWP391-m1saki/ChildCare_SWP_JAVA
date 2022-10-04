@@ -7,7 +7,7 @@ package Models;
 
 /**
  *
- * @author Admin
+ * @author Misaki
  */
 public class Role {
     private int roleId;

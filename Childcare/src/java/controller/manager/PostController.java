@@ -4,6 +4,7 @@
  */
 package controller.manager;
 
+import Controllers.Utility;
 import DAL.CategoryDAO;
 import DAL.PostDAO;
 import Models.Post;
@@ -78,10 +79,10 @@ public class PostController extends HttpServlet {
             switch (action) {
                 case "/manager/post/create":
                     //createPost(request, response);
-                    request.getRequestDispatcher("../../view/manager/createPost.jsp").forward(request, response);
+                    request.getRequestDispatcher("../../Views/manager/createPost.jsp").forward(request, response);
                     break;
                 case "/manager/Post/update":
-                    updatePost(request, response);
+                    fetchPost(request, response);
                     break;
                 case "/manager/post/delete":
                     deletePost(request, response);
@@ -149,7 +150,7 @@ public class PostController extends HttpServlet {
         boolean valid = true;
         if (valid) {
             //message
-            request.getRequestDispatcher("../../view/manager/createPost.jsp").forward(request, response);
+            request.getRequestDispatcher("../../Views/manager/createPost.jsp").forward(request, response);
         } else {
             response.sendRedirect("create");
         }
@@ -166,16 +167,36 @@ public class PostController extends HttpServlet {
         post.setDetail(request.getParameter("content"));
         post.setImage(request.getParameter("image"));
         postDao.update(post);
-
     }
 
     private void deletePost(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        Post post = new Post();
+        
+        //get postId from URL, default value = -1
+        int postId = Utility.parseIntParameter(request.getParameter("id"), -1);
+        postDao.load();
+        Post post = postDao.get(postId);
+
+        //check if post exist
+        if(post == null){
+            //Hien thi message
+             // chuyen ve manager/post
+        } else {
+            //update
+            //chuyen to manager/post
+        }
+        
         post.setPostId(1);
         postDao.delete(post);
+    }
+
+    private void fetchPost(HttpServletRequest request, HttpServletResponse response) 
+            throws SQLException, ServletException, IOException {
+        
+        //request.setAttribute, this);
+        
     }
 
 }

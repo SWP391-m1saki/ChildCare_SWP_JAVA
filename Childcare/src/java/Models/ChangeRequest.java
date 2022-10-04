@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Admin
+ * @author Misaki
  */
 public class ChangeRequest {
     private int requestId;
