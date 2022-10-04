@@ -43,9 +43,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.jsp" class="nav-item nav-link active">Home</a>
-                        <a href="about.jsp" class="nav-item nav-link">About</a>
-                        <a href="team.jsp" class="nav-item nav-link">Our Doctors</a>
+                        <a href="loadHomePage" class="nav-item nav-link active">Home</a>
+                        <a href="loadAbout" class="nav-item nav-link">About</a>
+                        <a href="loadDoctor" class="nav-item nav-link">Our Doctors</a>
                         <a href="blog.jsp" class="nav-item nav-link">Blog</a>
                         <a href="#" class="nav-item nav-link">Login</a>
                     </div>

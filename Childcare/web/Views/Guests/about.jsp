@@ -25,14 +25,14 @@
         <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="../css/style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>    
     
     <body>
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="../header.jsp"/>
 
 <!--     Topbar Start 
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
