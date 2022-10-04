@@ -89,7 +89,7 @@ public class PostController extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException(e);
         }
-        
+
     }
 
     /**
@@ -103,8 +103,6 @@ public class PostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-  
         String action = request.getServletPath();
         System.out.println(action);
         try {
@@ -144,18 +142,30 @@ public class PostController extends HttpServlet {
         post.setDetail(request.getParameter("content"));
         post.setImage(request.getParameter("image"));
         postDao.add(post);
-        
 
     }
 
     private void updatePost(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        Post post = new Post();
+        post.setPostId(1);
+        post.setTitle(request.getParameter("title"));
+        post.setCateId(Integer.parseInt(request.getParameter("category")));
+        post.setDetail(request.getParameter("content"));
+        post.setImage(request.getParameter("image"));
+        postDao.update(post);
 
     }
 
     private void deletePost(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        Post post = new Post();
+        post.setPostId(1);
+        postDao.delete(post);
     }
 
-} 
+}
