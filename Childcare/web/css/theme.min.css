@@ -1699,6 +1699,7 @@
     --dark-hover-color:#344050;
     --dark-border-color:#344050;
      --dark-search-border-color:#344050;
+    --dark-search-border-color:#344050;
     --search-icon-color:#4d5969;
     --dark-category-button-color:#9da9bb;
     --dark-secondary-text-color:#748194;
@@ -18810,6 +18811,8 @@ pre[class*=language-]{
     background-color:var(--falcon-primary);
     color:#fff!important
 }
+    background-color:var(--falcon-gray-200)
+
 
 .react-datepicker .react-datepicker__month{
     background-color:var(--falcon-react-datepicker-bg)!important
