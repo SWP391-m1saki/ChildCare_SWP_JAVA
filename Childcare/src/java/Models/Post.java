@@ -10,7 +10,7 @@ import java.sql.Date;
 
 /**
  *
- * @author Admin
+ * @author Misaki
  */
 public class Post {
     private int postId;
