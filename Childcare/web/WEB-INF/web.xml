@@ -7,6 +7,10 @@
         <servlet-name>PostController</servlet-name>
         <servlet-class>Controllers.PostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostManagerController</servlet-name>
+        <servlet-class>Controllers.PostManager</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
@@ -50,6 +54,10 @@
     <servlet-mapping>
         <servlet-name>loadDoctor</servlet-name>
         <url-pattern>/loadDoctor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostManagerController</servlet-name>
+        <url-pattern>/manager/post</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

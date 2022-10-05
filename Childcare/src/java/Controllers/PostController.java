@@ -139,7 +139,11 @@ public class PostController extends HttpServlet {
         post.setDescription(request.getParameter("description"));
         post.setCateId(Utility.parseIntParameter(request.getParameter("category"), -1));
         post.setDetail(request.getParameter("content"));
-        post.setImage(request.getParameter("image"));
+        if(request.getParameter("image") != null){
+            post.setImage(request.getParameter("image"));
+        } else {
+            post.setImage(postDao.get(postId).getImage());
+        }
 
         postDao.update(post);
         request.getRequestDispatcher("../../Views/manager/updatePost.jsp").forward(request, response);
