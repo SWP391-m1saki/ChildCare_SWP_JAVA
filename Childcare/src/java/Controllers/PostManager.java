@@ -66,6 +66,7 @@ public class PostManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        postDao.load();
         request.setAttribute("postCategory", categoryDao.getAll());
         request.setAttribute("postList", postDao.getAll());
         request.getRequestDispatcher("../Views/manager/post.jsp").forward(request, response);

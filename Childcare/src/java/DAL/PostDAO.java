@@ -103,7 +103,6 @@ public class PostDAO implements DAO<Post> {
             ps.setString(5, t.getImage());
             ps.setInt(6, t.getPostId());
             ps.executeUpdate();
-
             load();
         } catch (SQLException e) {
             System.out.println("UPdate that bai!");

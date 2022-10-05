@@ -169,7 +169,7 @@ public class PostController extends HttpServlet {
             post.setPostId(postId);
             postDao.delete(post);
         }
-        response.sendRedirect("../../Views/manager/post.jsp");
+        response.sendRedirect("../post");
 
     }
 
