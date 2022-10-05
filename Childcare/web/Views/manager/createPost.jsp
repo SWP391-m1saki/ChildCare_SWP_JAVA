@@ -119,7 +119,7 @@
                                     <label for="product_name" class="form-label fw-bold fs-5">Tiêu đề bài viết</label>
                                     <input type="text" name="title" required="required" placeholder="Type here" class="form-control" id="product_name">
                                 </div>
-                                
+
                                 <div class="form-item">
                                     <label class="form-label fw-bold fs-6">Chọn danh mục</label>
                                     <select name="category" class="form-control">
@@ -128,7 +128,12 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-
+                                
+                                <div class="form-item">
+                                    <label class="form-label fw-bold fs-6">Mô tả bài viết</label>
+                                    <textarea name="description" class="form-control"></textarea>
+                                </div>
+                                
                                 <div class="form-item">
                                     <label class="form-label fw-bold fs-6">Nội dung bài viết</label>
                                     <textarea name="content" id="myTextarea" class="form-control"></textarea>

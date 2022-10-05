@@ -14,21 +14,24 @@ import java.sql.Date;
  */
 public class Post {
     private int postId;
-    private String title, detail, image;
+    private String title, detail, image,description;
     private Date createdAt;
     private int cateId;
 
     public Post() {
     }
 
-    public Post(int postId, String title, String detail, Date createdAt, int cateId, String image) {
+    public Post(int postId, String title, String detail, String image, String description, Date createdAt, int cateId) {
         this.postId = postId;
         this.title = title;
         this.detail = detail;
+        this.image = image;
+        this.description = description;
         this.createdAt = createdAt;
         this.cateId = cateId;
-        this.image = image;
     }
+
+    
 
     public int getPostId() {
         return postId;
@@ -78,6 +81,15 @@ public class Post {
         this.image = image;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
     @Override
     public String toString() {
         return "Post{" + "postId=" + postId + ", title=" + title + ", image=" + image + ", createdAt=" + createdAt + ", cateId=" + cateId + '}';

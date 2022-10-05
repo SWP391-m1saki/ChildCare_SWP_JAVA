@@ -20,13 +20,10 @@ public class testData {
            System.out.println(p1);
        }
        Post p  = new Post();
-       p.setPostId(9);
-       p.setCateId(3);
-       p.setTitle("Nha no");
-       p.setDetail("123456");
-       p.setImage("123456");
-        //pdao.update(p);
-        System.out.println(pdao.get(9));
+       p.setPostId(10);
+       
+        pdao.delete(p);
+        System.out.println(pdao.get(10));
     }
     
 }

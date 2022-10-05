@@ -48,6 +48,7 @@ public class PostDAO implements DAO<Post> {
                 Post p = new Post();
                 p.setPostId(rs.getInt("post_id"));
                 p.setTitle(rs.getNString("title"));
+                p.setDescription(rs.getNString("description"));
                 p.setDetail(rs.getNString("detail"));
                 p.setCreatedAt(rs.getDate("created_at"));
                 p.setCateId(rs.getInt("cate_id"));
@@ -71,13 +72,14 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void add(Post t) {
-        String sql = "Insert into Post(title, detail, cate_id, [image]) values(?,?,?,?)";
+        String sql = "Insert into Post(title,description, detail, cate_id, [image]) values(?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTitle());
-            ps.setString(2, t.getDetail());
-            ps.setInt(3, t.getCateId());
-            ps.setString(4, t.getImage());
+            ps.setString(2, t.getDescription());
+            ps.setString(3, t.getDetail());
+            ps.setInt(4, t.getCateId());
+            ps.setString(5, t.getImage());
             ps.executeUpdate();
 
             //load list again
@@ -90,15 +92,16 @@ public class PostDAO implements DAO<Post> {
     @Override
     public void update(Post t) {
         String sql = "update Post \n"
-                + "set title = ?, detail = ?,\n"
+                + "set title = ?, description = ?,detail = ?,\n"
                 + "cate_id= ?,[image] = ? where post_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTitle());
-            ps.setString(2, t.getDetail());
-            ps.setInt(3, t.getCateId());
-            ps.setString(4, t.getImage());
-            ps.setInt(5, t.getPostId());
+            ps.setString(2, t.getDescription());
+            ps.setString(3, t.getDetail());
+            ps.setInt(4, t.getCateId());
+            ps.setString(5, t.getImage());
+            ps.setInt(6, t.getPostId());
             ps.executeUpdate();
 
             load();
@@ -115,7 +118,6 @@ public class PostDAO implements DAO<Post> {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getPostId());
             ps.executeUpdate();
-
             load();
         } catch (SQLException e) {
             status = "Error at Delete Post" + e.getMessage();

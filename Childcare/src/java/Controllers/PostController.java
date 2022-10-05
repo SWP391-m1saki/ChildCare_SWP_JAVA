@@ -113,6 +113,7 @@ public class PostController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Post post = new Post();
         post.setTitle(request.getParameter("title"));
+        post.setDescription(request.getParameter("description"));
         post.setCateId(Utility.parseIntParameter(request.getParameter("category"), -1));
         post.setDetail(request.getParameter("content"));
         post.setImage(request.getParameter("image"));
@@ -135,6 +136,7 @@ public class PostController extends HttpServlet {
         Post post = new Post();
         post.setPostId(postId);
         post.setTitle(request.getParameter("title"));
+        post.setDescription(request.getParameter("description"));
         post.setCateId(Utility.parseIntParameter(request.getParameter("category"), -1));
         post.setDetail(request.getParameter("content"));
         post.setImage(request.getParameter("image"));
@@ -157,14 +159,14 @@ public class PostController extends HttpServlet {
         //check if post exist
         if (post == null) {
             //Hien thi message
+            request.setAttribute("mess", "PostId khong hop le");
             // chuyen ve manager/post
         } else {
-            //update
-            //chuyen to manager/post
+            post.setPostId(postId);
+            postDao.delete(post);
         }
+        response.sendRedirect("../../Views/manager/post.jsp");
 
-        post.setPostId(1);
-        postDao.delete(post);
     }
 
     //Load exist post to update form

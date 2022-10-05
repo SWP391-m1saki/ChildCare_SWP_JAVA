@@ -131,8 +131,12 @@
                                     </select>                          
                                 </div>
                                 <div class="form-item">
+                                    <label class="form-label fw-bold fs-6">Mô tả bài viết</label>
+                                    <textarea name="description" lass="form-control" ">${requestScope.post.description}</textarea>
+                                </div>
+                                <div class="form-item">
                                     <label class="form-label fw-bold fs-6">Nội dung bài viết</label>
-                                    <textarea name="content" id="myTextarea" class="form-control" value="${requestScope.post.detail}"></textarea>
+                                    <textarea name="content" id="myTextarea" class="form-control">${requestScope.post.detail}</textarea>
                                 </div>
 
                                 <div class="form-row form-row-2">

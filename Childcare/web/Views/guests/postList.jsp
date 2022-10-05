@@ -156,8 +156,7 @@
                                 <div class="p-4">
                                     <a class="h3 d-block mb-3" href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">${post.title}</a>
                                     <input type="hidden" name="postid" value="${post.postId}">
-                                    <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                        rebum clita rebum dolor stet amet justo</p>
+                                    <p class="m-0">${post.description}</p>
                                 </div>
                             </div>
                         </div>
