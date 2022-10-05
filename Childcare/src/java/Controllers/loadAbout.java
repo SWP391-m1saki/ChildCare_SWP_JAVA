@@ -1,5 +1,5 @@
 
-package Controller;
+package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
