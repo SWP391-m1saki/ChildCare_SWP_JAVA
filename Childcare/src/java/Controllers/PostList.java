@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PostList", urlPatterns = {"/bai-viet"})
 public class PostList extends HttpServlet {
+
     PostDAO postDao;
     CategoryDAO categoryDao;
 
@@ -47,7 +48,7 @@ public class PostList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PostList</title>");            
+            out.println("<title>Servlet PostList</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet PostList at " + request.getContextPath() + "</h1>");
@@ -68,8 +69,11 @@ public class PostList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //int cateId = Utility.parseIntParameter(request.getParameter("cid"),-1);
-        //request.setAttribute("postList", postDao.getPostByCate(cateId));
+        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
+//        request.setAttribute("postList", postDao.getPostByCate(cateId));
+        request.setAttribute("categoryList", categoryDao.getAll());
+        request.setAttribute("cid", cateId);
+        request.setAttribute("postList", postDao.getAll());
         request.getRequestDispatcher("Views/guests/postList.jsp").forward(request, response);
     }
 

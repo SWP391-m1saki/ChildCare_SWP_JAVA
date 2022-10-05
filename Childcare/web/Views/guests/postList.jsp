@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,8 +114,12 @@
             <div class="container">
                 <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <c:forEach items="${requestScope.categoryList}" var="c">
+                                <c:if test="${c.cateId == requestScope.cid}">${c.cateName}</c:if>
+                            </c:forEach>
+                            </li>
                     </ol>
                 </nav>
             </div>
@@ -123,7 +128,6 @@
 
         <!-- Blog Start -->
         <style>
-
             .bg-light {
                 background-color: #fbfbfb !important;
             }
@@ -134,16 +138,7 @@
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5">Bài viết mới nhất</h4>
                 </div>
                 <div class="row g-5">
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-1.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
                             <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-2.jpg" alt="">
@@ -154,76 +149,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-3.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
+                    <c:forEach items="${requestScope.postList}" var="post">
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="bg-light rounded overflow-hidden">
+                                <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/${post.image}" alt="">
+                                <div class="p-4">
+                                    <a class="h3 d-block mb-3" href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">${post.title}</a>
+                                    <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+                                        rebum clita rebum dolor stet amet justo</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-2.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-3.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-1.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-3.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-1.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6">
-                        <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-2.jpg" alt="">
-                            <div class="p-4">
-                                <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                                <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                    rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>   
                     <div class="col-12 text-center">
                         <button class="btn btn-primary py-3 px-5">Load More</button>
                     </div>

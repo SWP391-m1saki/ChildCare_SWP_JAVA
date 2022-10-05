@@ -139,7 +139,8 @@ public class PostController extends HttpServlet {
         post.setDetail(request.getParameter("content"));
         post.setImage(request.getParameter("image"));
         postDao.update(post);
-        response.sendRedirect("../post");
+        request.getRequestDispatcher("../../Views/manager/updatePost.jsp").forward(request, response);
+        //response.sendRedirect("../post");
     }
 
     private void deletePost(HttpServletRequest request, HttpServletResponse response)

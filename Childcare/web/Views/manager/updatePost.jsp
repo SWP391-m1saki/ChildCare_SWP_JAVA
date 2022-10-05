@@ -104,7 +104,7 @@
                     <div class="content-header">
                         <h2 class="content-title">Chỉnh sửa bài viết</h2>
                         <div>
-                            <a href="${pageContext.request.getContextPath()}/admin/product" class="btn btn-outline-danger"> × Hủy</a>
+                            <a href="${pageContext.request.getContextPath()}/manager/post" class="btn btn-outline-danger"> × Hủy</a>
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@
                                                     ${(requestScope.post.cateId == c.cateId) ?'selected': ''}
                                                     >${c.cateName}</option>
                                         </c:forEach>
-                                    </select>                                
+                                    </select>                          
                                 </div>
                                 <div class="form-item">
                                     <label class="form-label fw-bold fs-6">Nội dung bài viết</label>
