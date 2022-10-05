@@ -20,7 +20,7 @@
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Viết bài đăng</title>
+        <title>Chỉnh sửa bài đăng</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/add-product.css'>
@@ -102,14 +102,14 @@
 
                 <section class="content-main">
                     <div class="content-header">
-                        <h2 class="content-title">Chỉnh sửa viết mới</h2>
+                        <h2 class="content-title">Chỉnh sửa bài viết</h2>
                         <div>
                             <a href="${pageContext.request.getContextPath()}/admin/product" class="btn btn-outline-danger"> × Hủy</a>
                         </div>
                     </div>
 
                     <div class="message">
-                        <p class="alert-message">${requestScope.successMess}</p>
+                        <p class="text-success">${requestScope.successMess}</p>
                     </div>
 
                     <div class="content-body">
@@ -117,24 +117,29 @@
                             <form method="POST">
                                 <div class="form-item">
                                     <label for="product_name" class="form-label fw-bold fs-5">Tiêu đề bài viết</label>
-                                    <input type="text" name="title" required="required" placeholder="Type here" class="form-control" id="product_name">
-                                </div>
-                                
-                                <div class="form-item">
-                                    <label class="form-label fw-bold fs-6">Chọn danh mục</label>
-                                    <select name="category" class="form-control"></select>
+                                    <input type="text" name="title" required="required" placeholder="Type here" class="form-control" value="${requestScope.post.title}">
                                 </div>
 
                                 <div class="form-item">
+                                    <label class="form-label fw-bold fs-6">Chọn danh mục</label>
+                                    <select name="category" class="form-control">
+                                        <c:forEach items="${requestScope.postCategory}" var="c">
+                                            <option value="${c.cateId}"
+                                                    ${(requestScope.post.cateId == c.cateId) ?'selected': ''}
+                                                    >${c.cateName}</option>
+                                        </c:forEach>
+                                    </select>                                
+                                </div>
+                                <div class="form-item">
                                     <label class="form-label fw-bold fs-6">Nội dung bài viết</label>
-                                    <textarea name="content" id="myTextarea" class="form-control"></textarea>
+                                    <textarea name="content" id="myTextarea" class="form-control" value="${requestScope.post.detail}"></textarea>
                                 </div>
 
                                 <div class="form-row form-row-2">
                                     <div class="form-item">
                                         <label class="form-label fs-6 fw-bold">Hình ảnh chính</label>
                                         <input name="image" accept="image/*" class="form-control" type="file" onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
-                                        <img id="image-preview" alt="your image" width="100" />
+                                        <img id="image-preview" alt="your image" width="100" src="${context}/img/${requestScope.post.image}"/>
                                     </div><!-- comment -->
                                 </div> <!-- row.// -->
 

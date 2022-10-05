@@ -14,17 +14,16 @@ import java.sql.Date;
  */
 public class Post {
     private int postId;
-    private String title, description, detail, image;
+    private String title, detail, image;
     private Date createdAt;
     private int cateId;
 
     public Post() {
     }
 
-    public Post(int postId, String title, String description, String detail, Date createdAt, int cateId, String image) {
+    public Post(int postId, String title, String detail, Date createdAt, int cateId, String image) {
         this.postId = postId;
         this.title = title;
-        this.description = description;
         this.detail = detail;
         this.createdAt = createdAt;
         this.cateId = cateId;
@@ -45,14 +44,6 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getDetail() {

@@ -109,198 +109,118 @@
 
 
         <!--BreadCrum-->
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
-            </ol>
-        </nav>
+        <div class="container-fluid fs-5">
+            <div class="container">
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div style="height: 1px; background-color: gray; max-width: 1200px; margin-left: 110px"></div>
 
         <!-- Blog Start -->
+        <style>
+
+            .bg-light {
+                background-color: #fbfbfb !important;
+            }
+        </style>
         <div class="container-fluid py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog Post</h5>
-                    <h1 class="display-4">Our Latest Medical Blog Posts</h1>
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5">Bài viết mới nhất</h4>
                 </div>
                 <div class="row g-5">
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-1.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-1.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-2.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-2.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-3.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-3.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-2.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-2.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-3.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-3.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-1.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-1.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-3.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-3.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-1.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-1.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="bg-light rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="img/blog-2.jpg" alt="">
+                            <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/blog-2.jpg" alt="">
                             <div class="p-4">
                                 <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
                                 <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                     rebum clita rebum dolor stet amet justo</p>
-                            </div>
-                            <div class="d-flex justify-content-between border-top p-4">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
-                                    <small>John Doe</small>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
-                                    <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -387,12 +307,12 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/tempusdominus/js/moment.min.js"></script>
-        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <script src="${pageContext.request.contextPath}lib/easing/easing.min.js"></script>
+        <script src="${pageContext.request.contextPath}lib/waypoints/waypoints.min.js"></script>
+        <script src="${pageContext.request.contextPath}lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="${pageContext.request.contextPath}lib/tempusdominus/js/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="${pageContext.request.contextPath}lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>

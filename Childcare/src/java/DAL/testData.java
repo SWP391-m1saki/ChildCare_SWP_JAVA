@@ -4,7 +4,7 @@
  */
 package DAL;
 
-import Models.Post;
+import Models.*;
 
 /**
  *
@@ -13,17 +13,11 @@ import Models.Post;
 public class testData {
     public static void main(String[] args) {
         PostDAO pdao = new PostDAO();
-       Post p = new Post();
-       p.setCateId(1);
-       p.setDetail("123456");
-       p.setDescription("123456");
-       p.setImage("123456");
-       p.setTitle("123456");
-       pdao.add(p);
-       pdao.load();
-       for(Post p1: pdao.getAll()){
-           System.out.println(p1);
-       }
+
+//       for(Post p1: pdao.getAll()){
+//           System.out.println(p1);
+//       }
+        System.out.println(pdao.get(17));
     }
     
 }

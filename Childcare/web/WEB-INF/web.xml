@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <welcome-file-list>
+        <welcome-file>loadHomePage</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>PostController</servlet-name>
-        <servlet-class>controller.manager.PostController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdatePostController</servlet-name>
-        <servlet-class>controller.manager.UpdatePostController</servlet-class>
+        <servlet-class>Controllers.PostController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
@@ -27,8 +26,10 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>loadHomePage</servlet-name>
-        <servlet-class>Controller.loadHomePage</servlet-class>
+        <servlet-class>Controllers.loadHomePage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loadAbout</servlet-name>
@@ -49,14 +50,10 @@
     <servlet-mapping>
         <servlet-name>loadDoctor</servlet-name>
         <url-pattern>/loadDoctor</url-pattern>
-
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>loadHomePage</welcome-file>
-    </welcome-file-list>
 </web-app>

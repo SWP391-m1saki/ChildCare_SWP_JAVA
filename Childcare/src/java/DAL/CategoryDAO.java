@@ -28,17 +28,18 @@ public class CategoryDAO implements DAO<PostCategory> {
             status = "Error connection" + e.getMessage();
         }
         postCategoryList = new ArrayList<PostCategory>();
+        load();
     }
 
     @Override
     public List<PostCategory> getAll() {
         return postCategoryList;
     }
-    
+
     @Override
     public PostCategory get(int id) {
-        for(PostCategory postCategory : postCategoryList){
-            if(postCategory.getCateId() == id) {
+        for (PostCategory postCategory : postCategoryList) {
+            if (postCategory.getCateId() == id) {
                 return postCategory;
             }
         }
@@ -46,12 +47,12 @@ public class CategoryDAO implements DAO<PostCategory> {
     }
 
     @Override
-    public void load(){
+    public void load() {
         String sql = "select * from PostCategory";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 PostCategory pC = new PostCategory();
                 pC.setCateId(rs.getInt("cate_id"));
                 pC.setCateName(rs.getNString("cate_name"));
@@ -61,15 +62,15 @@ public class CategoryDAO implements DAO<PostCategory> {
             status = "Error connection" + e.getMessage();
         }
     }
-    
+
     @Override
     public void add(PostCategory t) {
         String sql = "Insert into PostCategory values(?)";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getCateName());
             ps.execute();
-        }catch(Exception e){
+        } catch (Exception e) {
             status = "Error at insert PostCategory" + e.getMessage();
         }
     }
@@ -77,12 +78,12 @@ public class CategoryDAO implements DAO<PostCategory> {
     @Override
     public void update(PostCategory t) {
         String sql = "update PostCategory set cate_name = ? where cate_id = ? ";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getCateName());
             ps.setInt(2, t.getCateId());
             ps.execute();
-        }catch(Exception e){
+        } catch (Exception e) {
             status = "Error at Update PostCategory" + e.getMessage();
         }
     }

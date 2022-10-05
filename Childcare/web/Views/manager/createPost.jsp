@@ -89,7 +89,7 @@
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <c:set var="context" value="${pageContext.request.contextPath}" />
+        <c:set var="context" value="${pageContext.request.contextPath}"/>
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="message">
-                        <p class="alert-message">${requestScope.successMess}</p>
+                        <p class="text-danger">${requestScope.mess}</p>
                     </div>
 
                     <div class="content-body">
@@ -122,7 +122,11 @@
                                 
                                 <div class="form-item">
                                     <label class="form-label fw-bold fs-6">Chọn danh mục</label>
-                                    <select name="category" class="form-control"></select>
+                                    <select name="category" class="form-control">
+                                        <c:forEach items="${requestScope.postCategory}" var="c">
+                                            <option value="${c.cateId}">${c.cateName}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
 
                                 <div class="form-item">

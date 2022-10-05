@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.manager;
+package Controllers;
 
-import Controllers.Utility;
+import Utils.Utility;
 import DAL.CategoryDAO;
 import DAL.PostDAO;
 import Models.Post;
@@ -20,7 +20,7 @@ import java.sql.SQLException;
  *
  * @author ADMIN
  */
-public class PostController extends HttpServlet {
+public class PostController2 extends HttpServlet {
 
     PostDAO postDao;
     CategoryDAO categoryDao;
@@ -75,13 +75,15 @@ public class PostController extends HttpServlet {
         request.setAttribute("CategoryPost", categoryDao.getAll());
         String action = request.getServletPath();
         System.out.println(action);
+        request.getRequestDispatcher("../../Views/manager/createPost.jsp").forward(request, response);
+
         try {
             switch (action) {
                 case "/manager/post/create":
                     //createPost(request, response);
                     request.getRequestDispatcher("../../Views/manager/createPost.jsp").forward(request, response);
                     break;
-                case "/manager/Post/update":
+                case "/manager/post/update":
                     fetchPost(request, response);
                     break;
                 case "/manager/post/delete":
@@ -112,7 +114,7 @@ public class PostController extends HttpServlet {
                 case "/manager/post/create":
                     createPost(request, response);
                     break;
-                case "/manager/Post/update":
+                case "/manager/post/update":
                     updatePost(request, response);
                     break;
                 case "/manager/post/delete":
