@@ -24,6 +24,10 @@
         <servlet-name>loadDoctor</servlet-name>
         <servlet-class>Controllers.loadDoctor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>Controllers.RegisterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadHomePage</servlet-name>
         <url-pattern>/loadHomePage</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
