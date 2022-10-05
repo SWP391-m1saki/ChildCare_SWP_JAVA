@@ -19,7 +19,13 @@ public class testData {
        for(Post p1: pdao.getAll()){
            System.out.println(p1);
        }
-        pdao.update(new Post(9, "123", "123456", new Date(1000), 4, "123456"));
+       Post p  = new Post();
+       p.setPostId(9);
+       p.setCateId(3);
+       p.setTitle("Nha no");
+       p.setDetail("123456");
+       p.setImage("123456");
+        //pdao.update(p);
         System.out.println(pdao.get(9));
     }
     

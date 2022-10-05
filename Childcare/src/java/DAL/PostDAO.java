@@ -37,6 +37,7 @@ public class PostDAO implements DAO<Post> {
         return postList;
     }
 
+    @Override
     public void load() {
         postList.clear();
         String sql = "SELECT * FROM Post";
@@ -77,7 +78,10 @@ public class PostDAO implements DAO<Post> {
             ps.setString(2, t.getDetail());
             ps.setInt(3, t.getCateId());
             ps.setString(4, t.getImage());
-            ps.execute();
+            ps.executeUpdate();
+
+            //load list again
+            load();
         } catch (SQLException e) {
             status = "Error at insert Post" + e.getMessage();
         }
@@ -85,9 +89,9 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void update(Post t) {
-        String sql = "update Post"
-                + "set title = ?, detail = ?,"
-                + "cate_id= ?, [image] = ? where post_id = ? ";
+        String sql = "update Post \n"
+                + "set title = ?, detail = ?,\n"
+                + "cate_id= ?,[image] = ? where post_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTitle());
@@ -95,8 +99,11 @@ public class PostDAO implements DAO<Post> {
             ps.setInt(3, t.getCateId());
             ps.setString(4, t.getImage());
             ps.setInt(5, t.getPostId());
-            ps.execute();
+            ps.executeUpdate();
+
+            load();
         } catch (SQLException e) {
+            System.out.println("UPdate that bai!");
             status = "Error at Update Post" + e.getMessage();
         }
     }
@@ -107,7 +114,9 @@ public class PostDAO implements DAO<Post> {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getPostId());
-            ps.execute();
+            ps.executeUpdate();
+
+            load();
         } catch (SQLException e) {
             status = "Error at Delete Post" + e.getMessage();
         }

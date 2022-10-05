@@ -51,7 +51,6 @@ public class PostController extends HttpServlet {
         try {
             switch (action) {
                 case "/manager/post/create":
-                    //createPost(request, response);
                     request.getRequestDispatcher("../../Views/manager/createPost.jsp").forward(request, response);
                     break;
                 case "/manager/post/update":
@@ -131,13 +130,15 @@ public class PostController extends HttpServlet {
             throws SQLException, ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        Post post = new Post();
         int postId = Utility.parseIntParameter(request.getParameter("id"), -1);
-        post.setCateId(postId);
+
+        Post post = new Post();
+        post.setPostId(postId);
         post.setTitle(request.getParameter("title"));
         post.setCateId(Utility.parseIntParameter(request.getParameter("category"), -1));
         post.setDetail(request.getParameter("content"));
         post.setImage(request.getParameter("image"));
+
         postDao.update(post);
         request.getRequestDispatcher("../../Views/manager/updatePost.jsp").forward(request, response);
         //response.sendRedirect("../post");
