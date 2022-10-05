@@ -4,9 +4,8 @@
  */
 package Controllers;
 
-import DAL.CategoryDAO;
 import DAL.PostDAO;
-import Utils.Utility;
+import Models.Post;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,18 +16,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-@WebServlet(name = "PostList", urlPatterns = {"/chuyen-muc"})
-public class PostList extends HttpServlet {
+@WebServlet(name = "PostDetail", urlPatterns = {"/bai-viet"})
+public class PostDetail extends HttpServlet {
 
     PostDAO postDao;
-    CategoryDAO categoryDao;
 
     @Override
     public void init() {
         postDao = new PostDAO();
-        categoryDao = new CategoryDAO();
+        
     }
 
     /**
@@ -48,10 +46,10 @@ public class PostList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PostList</title>");
+            out.println("<title>Servlet PostDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PostList at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PostDetail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,12 +67,10 @@ public class PostList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
-//        request.setAttribute("postList", postDao.getPostByCate(cateId));
-        request.setAttribute("categoryList", categoryDao.getAll());
-        request.setAttribute("cid", cateId);
-        request.setAttribute("postList", postDao.getAll());
-        request.getRequestDispatcher("Views/Guests/postList.jsp").forward(request, response);
+        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
+        Post post = postDao.get(id);
+        request.setAttribute("postDetail", post);
+        request.getRequestDispatcher("Views/Guests/postDetail.jsp").forward(request, response);
     }
 
     /**

@@ -112,16 +112,16 @@
         <!--BreadCrum-->
         <div class="container-fluid fs-5">
             <div class="container">
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            <c:forEach items="${requestScope.categoryList}" var="c">
-                                <c:if test="${c.cateId == requestScope.cid}">${c.cateName}</c:if>
-                            </c:forEach>
-                            </li>
-                    </ol>
-                </nav>
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <c:forEach items="${requestScope.categoryList}" var="c">
+                            <c:if test="${c.cateId == requestScope.cid}">${c.cateName}</c:if>
+                        </c:forEach>
+                    </li>
+                </ol>
+
             </div>
         </div>
         <div style="height: 1px; background-color: gray; max-width: 1200px; margin-left: 110px"></div>
@@ -155,6 +155,7 @@
                                 <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/${post.image}" alt="">
                                 <div class="p-4">
                                     <a class="h3 d-block mb-3" href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">${post.title}</a>
+                                    <input type="hidden" name="postid" value="${post.postId}">
                                     <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
                                         rebum clita rebum dolor stet amet justo</p>
                                 </div>
