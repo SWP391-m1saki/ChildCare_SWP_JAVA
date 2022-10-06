@@ -44,6 +44,7 @@ public class PostController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("postCategory", categoryDao.getAll());
+        postDao.load();
         String action = request.getServletPath();
         System.out.println(action);
         System.out.println(request.getContextPath());
@@ -77,6 +78,7 @@ public class PostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        postDao.load();
         request.setAttribute("postCategory", categoryDao.getAll());
         String action = request.getServletPath();
         System.out.println(action);
@@ -139,15 +141,17 @@ public class PostController extends HttpServlet {
         post.setDescription(request.getParameter("description"));
         post.setCateId(Utility.parseIntParameter(request.getParameter("category"), -1));
         post.setDetail(request.getParameter("content"));
-        if(request.getParameter("image") != null){
+        if (request.getParameter("image") != null) {
             post.setImage(request.getParameter("image"));
         } else {
             post.setImage(postDao.get(postId).getImage());
         }
 
         postDao.update(post);
+        request.setAttribute("post", post);
+//        request.setAttribute("mess", new String[]{"success", "Chỉnh sửa bài viết thành công"});
+        request.setAttribute("mess","Chỉnh sửa bài viết thành công");
         request.getRequestDispatcher("../../Views/manager/updatePost.jsp").forward(request, response);
-        //response.sendRedirect("../post");
     }
 
     private void deletePost(HttpServletRequest request, HttpServletResponse response)
@@ -157,19 +161,18 @@ public class PostController extends HttpServlet {
 
         //get postId from URL, default value = -1
         int postId = Utility.parseIntParameter(request.getParameter("id"), -1);
-        postDao.load();
         Post post = postDao.get(postId);
 
         //check if post exist
         if (post == null) {
             //Hien thi message
-            request.setAttribute("mess", "PostId khong hop le");
-            // chuyen ve manager/post
+            request.setAttribute("mess", new String[]{"error", "Xóa thất bại. Bài viết không tồn tại"});
         } else {
             post.setPostId(postId);
             postDao.delete(post);
+            request.setAttribute("mess", new String[]{"success", "Xóa bài viết thành công"});
         }
-        response.sendRedirect("../../Views/manager/post.jsp");
+        response.sendRedirect("../post");
 
     }
 

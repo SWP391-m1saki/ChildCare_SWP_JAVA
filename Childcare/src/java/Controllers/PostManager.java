@@ -6,6 +6,7 @@ package Controllers;
 
 import DAL.CategoryDAO;
 import DAL.PostDAO;
+import Models.PageInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -40,18 +41,23 @@ public class PostManager extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PostManager</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PostManager at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.setAttribute("postCategory", categoryDao.getAll());
+        postDao.load();
+
+//        //PAGING
+        int[] nrppArr = {5, 10, 20};
+        request.setAttribute("nrppArr", nrppArr);
+        int pagesize = Utils.Utility.parseIntParameter(request.getParameter("pagesize"), 5);
+        int pageindex = Utils.Utility.parseIntParameter(request.getParameter("page"), 1);
+
+        String searchTxt = request.getParameter("search");
+        int totalrecords = postDao.getPostBySearch(searchTxt).size();  // total record of p_cid category
+        PageInfo page = new PageInfo(pageindex, pagesize, totalrecords);
+        page.calc();
+        request.setAttribute("page", page);
+        request.setAttribute("postList", postDao.getPostsByPage(page, postDao.getPostBySearch(searchTxt)));
+//        request.setAttribute("postList", postDao.getAll());
+        request.getRequestDispatcher("../Views/manager/post.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,9 +72,7 @@ public class PostManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("postCategory", categoryDao.getAll());
-        request.setAttribute("postList", postDao.getAll());
-        request.getRequestDispatcher("../Views/manager/post.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

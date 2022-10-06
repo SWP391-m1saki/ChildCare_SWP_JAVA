@@ -93,7 +93,6 @@ function pagger(id, pageindex, totalpage, gap, cid) {
     }
 
 
-
     containter.innerHTML += result;
 }
 

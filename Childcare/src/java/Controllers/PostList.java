@@ -74,7 +74,7 @@ public class PostList extends HttpServlet {
         request.setAttribute("categoryList", categoryDao.getAll());
         request.setAttribute("cid", cateId);
         request.setAttribute("postList", postDao.getAll());
-        request.getRequestDispatcher("Views/Guests/postList.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/guests/postList.jsp").forward(request, response);
     }
 
     /**

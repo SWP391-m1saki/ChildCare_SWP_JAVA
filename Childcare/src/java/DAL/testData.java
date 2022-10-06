@@ -22,8 +22,7 @@ public class testData {
        Post p  = new Post();
        p.setPostId(10);
        
-        pdao.delete(p);
-        System.out.println(pdao.get(10));
+        //System.out.println(pdao.get(10));
     }
     
 }

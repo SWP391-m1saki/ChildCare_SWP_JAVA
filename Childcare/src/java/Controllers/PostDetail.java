@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import DAL.CategoryDAO;
 import DAL.PostDAO;
 import Models.Post;
 import java.io.IOException;
@@ -20,13 +21,14 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PostDetail", urlPatterns = {"/bai-viet"})
 public class PostDetail extends HttpServlet {
-
+    
     PostDAO postDao;
-
+    CategoryDAO categoryDao;
+    
     @Override
     public void init() {
         postDao = new PostDAO();
-        
+        categoryDao = new CategoryDAO();
     }
 
     /**
@@ -70,7 +72,10 @@ public class PostDetail extends HttpServlet {
         int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
         Post post = postDao.get(id);
         request.setAttribute("postDetail", post);
-        request.getRequestDispatcher("Views/Guests/postDetail.jsp").forward(request, response);
+        if (post != null) {
+            request.setAttribute("category", categoryDao.get(post.getPostId()));
+        }
+        request.getRequestDispatcher("Views/guests/postDetail.jsp").forward(request, response);
     }
 
     /**

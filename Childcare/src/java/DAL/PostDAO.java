@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Models.PageInfo;
 import Models.Post;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -121,6 +122,32 @@ public class PostDAO implements DAO<Post> {
             load();
         } catch (SQLException e) {
             status = "Error at Delete Post" + e.getMessage();
+        }
+    }
+
+    // Get posts by pageindex
+    public List<Post> getPostsByPage(PageInfo page, List<Post> fullList) {
+        List<Post> posts = new ArrayList<Post>();
+        int maxIndex = page.getPageindex() * page.getPagesize();
+        maxIndex = (maxIndex > fullList.size() ) ? fullList.size() : maxIndex;
+        for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) {
+            posts.add(fullList.get(i));
+        }
+        return posts;
+    }
+
+    // Get post filter by search bar
+    public List<Post> getPostBySearch(String searchText) {
+        if (searchText == null || "".equals(searchText)) {
+            return postList;
+        } else {
+            List<Post> posts = new ArrayList<Post>();
+            for (Post p : postList) {
+                if (p.getTitle().toLowerCase().contains(searchText.toLowerCase())) {  // check if post title contains(ignore case) searchTxt
+                    posts.add(p);
+                }
+            }
+            return posts;
         }
     }
 
