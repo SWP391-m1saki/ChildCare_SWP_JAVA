@@ -47,39 +47,13 @@
                         }
                     }
                 </script>
-                <style>
-                    .pagger button {
-                        background: rgb(45, 135, 243);
-                        color: rgb(255, 255, 255);
-                        text-decoration: none;
-                        transition: all 0.3s ease 0s;
-                        display: inline-flex;
-                        width: 32px;
-                        height: 32px;
-                        -webkit-box-align: center;
-                        align-items: center;
-                        -webkit-box-pack: center;
-                        justify-content: center;
-                        margin: 0px 3px;
-                        border: 1px solid rgba(0,0,0,.25);
-                        border-radius: 4px;
-                        cursor: pointer;
-                        font-size: 14px;
-                        font-weight: 700;
-                    }
-
-                    .pagger button[type="submit"]{
-                        color: rgb(38, 38, 38);
-                        background-color: #fff;
-                    }
-                </style>
 
                 <section class="content-main">
 
                     <div class="content-header">
                         <h2 class="content-title">Quản lí bài viết</h2>
                     </div>
-                    <div class="b-2">
+                    <div class="mb-3">
                         <a href="${context}/manager/post/create" class="btn btn-primary"><i class="material-icons md-plus"></i>Viết bài mới</a>
                     </div>
 
@@ -93,36 +67,37 @@
                                 </div>
 
                                 <div class="col-lg-2 col-md-3 col-6">
-                                    <select class="form-select" name="status" onchange="this.form.submit();" form="main-form">
-                                        <option value="-1" <c:if test="${requestScope.status==-1}">selected</c:if>>
-                                                Trạng thái</option>
-                                            <option value="1" <c:if test="${requestScope.status==1}">selected</c:if>>
-                                                Active</option>
-                                            <option value="2" <c:if test="${requestScope.status==2}">selected</c:if>>
-                                                Inactive</option>
-                                            <option value="3" <c:if test="${requestScope.status==3}">selected</c:if>>
-                                                Unverified</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 col-md-3 col-6">
-                                    </div>
-
+                                    <select class="form-select fw-bold" name="cid" onchange="this.form.submit();" form="main-form">
+                                        <option value="-1" ${(requestScope.cid == -1)?'selected':''}>
+                                        <span>Chuyên mục</span>
+                                        </option>
+                                        <c:forEach items="${requestScope.postCategory}" var="c">
+                                            <option value="${c.cateId}"
+                                                    <c:if test="${requestScope.cid== c.cateId}">selected</c:if> >
+                                                ${c.cateName}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
-                            </header> <!-- card-header end// -->
-                            <div class="card-body">
+                                <div class="col-lg-2 col-md-3 col-6">
+                                </div>
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Bài viết</th>
-                                                <th>Tiêu đề</th>
-                                                <th>Chuyên mục</th>
-                                                <th>Ngày viết</th>
-                                                <th class="text-end"> Hành động </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                            </div>
+                        </header> <!-- card-header end// -->
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Bài viết</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Chuyên mục</th>
+                                            <th>Ngày viết</th>
+                                            <th class="text-end"> Hành động </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         <c:forEach items="${requestScope.postList}" var="p">
                                             <tr>
                                                 <td>

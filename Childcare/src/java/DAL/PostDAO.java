@@ -128,7 +128,7 @@ public class PostDAO implements DAO<Post> {
     public List<Post> getPostsByPage(PageInfo page, List<Post> fullList) {
         List<Post> posts = new ArrayList<Post>();
         int maxIndex = page.getPageindex() * page.getPagesize();
-        maxIndex = (maxIndex > fullList.size() ) ? fullList.size() : maxIndex;
+        maxIndex = (maxIndex > fullList.size()) ? fullList.size() : maxIndex;
         for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) {
             posts.add(fullList.get(i));
         }
@@ -158,10 +158,42 @@ public class PostDAO implements DAO<Post> {
      * @return
      */
     public List<Post> getPostByCate(int cateId) {
+        if (cateId == -1) {
+            return postList;
+        }
         List<Post> posts = new ArrayList<Post>();
         for (Post p : postList) {
             if (p.getCateId() == cateId) {
                 posts.add(p);
+            }
+        }
+        return posts;
+    }
+
+    public List<Post> getPostBySearchAndCategory(String searchTxt, int cateId) {
+        List<Post> posts = new ArrayList<Post>();
+        if (cateId == -1) {
+            if (searchTxt == null || "".equals(searchTxt)) {
+                return postList;
+            } else {
+                for (Post p : postList) {
+                    if (p.getTitle().toLowerCase().contains(searchTxt.toLowerCase())) {  // check if post title contains(ignore case) searchTxt
+                        posts.add(p);
+                    }
+                }
+                return posts;
+            }
+        }
+        
+        for (Post p : postList) {
+            if (p.getCateId() == cateId) {
+                if (searchTxt == null || "".equals(searchTxt)) {
+                    posts.add(p);
+                } else {
+                    if (p.getTitle().toLowerCase().contains(searchTxt.toLowerCase())) {
+                        posts.add(p);
+                    }
+                }
             }
         }
         return posts;

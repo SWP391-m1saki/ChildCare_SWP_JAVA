@@ -7,12 +7,15 @@ package Controllers;
 import DAL.CategoryDAO;
 import DAL.PostDAO;
 import Models.PageInfo;
+import Models.Post;
+import Utils.Utility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -44,6 +47,9 @@ public class PostManager extends HttpServlet {
         request.setAttribute("postCategory", categoryDao.getAll());
         postDao.load();
 
+        //cateogry
+        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
+
 //        //PAGING
         int[] nrppArr = {5, 10, 20};
         request.setAttribute("nrppArr", nrppArr);
@@ -51,12 +57,14 @@ public class PostManager extends HttpServlet {
         int pageindex = Utils.Utility.parseIntParameter(request.getParameter("page"), 1);
 
         String searchTxt = request.getParameter("search");
-        int totalrecords = postDao.getPostBySearch(searchTxt).size();  // total record of p_cid category
+        List<Post> filteredList = postDao.getPostBySearchAndCategory(searchTxt, cateId);
+        int totalrecords = filteredList.size();  // total record of p_cid category
         PageInfo page = new PageInfo(pageindex, pagesize, totalrecords);
         page.calc();
         request.setAttribute("page", page);
-        request.setAttribute("postList", postDao.getPostsByPage(page, postDao.getPostBySearch(searchTxt)));
-//        request.setAttribute("postList", postDao.getAll());
+        request.setAttribute("cid", cateId);
+        request.setAttribute("search", searchTxt);
+        request.setAttribute("postList", postDao.getPostsByPage(page, filteredList));
         request.getRequestDispatcher("../Views/manager/post.jsp").forward(request, response);
     }
 
