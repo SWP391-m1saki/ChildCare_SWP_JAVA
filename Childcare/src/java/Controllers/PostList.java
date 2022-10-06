@@ -70,10 +70,12 @@ public class PostList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
+        postDao.load();
+        categoryDao.load();
 //        request.setAttribute("postList", postDao.getPostByCate(cateId));
         request.setAttribute("categoryList", categoryDao.getAll());
         request.setAttribute("cid", cateId);
-        request.setAttribute("postList", postDao.getAll());
+        request.setAttribute("postList", postDao.getPostByCate(cateId));
         request.getRequestDispatcher("Views/guests/postList.jsp").forward(request, response);
     }
 

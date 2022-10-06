@@ -43,7 +43,7 @@
                 width: 100%;
             }
         </style>
-        
+
         <!-- Topbar Start -->
         <div class="container-fluid py-2 border-bottom d-none d-lg-block">
             <div class="container">
@@ -127,17 +127,17 @@
                         <!--<img class="img-fluid w-100 rounded mb-5" src="${pageContext.request.contextPath}/img/${post.image}" alt="">-->
                         <h1 class="mb-4">${post.title}</h1>
                         <p>${post.detail}</p>
-                        
-<!--                        <div class="d-flex justify-content-between bg-light rounded p-4 mt-4 mb-4">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-2" src="img/user.jpg" width="40" height="40" alt="">
-                                <span>John Doe</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <span class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</span>
-                                <span class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</span>
-                            </div>
-                        </div>-->
+
+                        <!--                        <div class="d-flex justify-content-between bg-light rounded p-4 mt-4 mb-4">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="rounded-circle me-2" src="img/user.jpg" width="40" height="40" alt="">
+                                                        <span>John Doe</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</span>
+                                                        <span class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</span>
+                                                    </div>
+                                                </div>-->
                     </div>
                     <!-- Blog Detail End -->
 
@@ -156,45 +156,34 @@
 
                     <!-- Category Start -->
                     <div class="mb-5">
-                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Categories</h4>
+                        <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Categories</h4>                       
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Web Design</a>
-                            <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Web Development</a>
-                            <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Web Development</a>
-                            <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Keyword Research</a>
-                            <a class="h5 bg-light rounded py-2 px-3 mb-2" href="#"><i class="fa fa-angle-right me-2"></i>Email Marketing</a>
+                            <c:forEach items="${requestScope.categoryAll}" var="categoryAll">
+                                <a class="h5 bg-light rounded py-2 px-3 mb-2" href="chuyen-muc?cid=${categoryAll.cateId}">
+                                    <i class="fa fa-angle-right me-2"></i>${categoryAll.cateName}
+                                </a>
+                            </c:forEach>
+
+
+                           
                         </div>
                     </div>
                     <!-- Category End -->
 
-                    <!-- Recent Post Start -->
+                    <!-- Recent Post Start -->        
                     <div class="mb-5">
                         <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Recent Post</h4>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-2.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-3.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-1.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
-                        <div class="d-flex rounded overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/blog-2.jpg" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                            <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">Lorem ipsum dolor sit amet consec adipis elit
-                            </a>
-                        </div>
+                        <c:forEach items="${requestScope.postRecent}" var="rcPost" >
+                            <c:if test="${post.postId != rcPost.postId}">
+                                <div class="d-flex rounded overflow-hidden mb-3">
+                                    <img class="img-fluid" src="${pageContext.request.contextPath}/img/${rcPost.image}" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                                    <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">${rcPost.title}
+                                    </a>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+
+
                     </div>
                     <!-- Recent Post End -->
 
