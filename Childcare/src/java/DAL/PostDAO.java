@@ -127,6 +127,9 @@ public class PostDAO implements DAO<Post> {
     // Get posts by pageindex
     public List<Post> getPostsByPage(PageInfo page, List<Post> fullList) {
         List<Post> posts = new ArrayList<Post>();
+        if(fullList.isEmpty()){
+            return posts;
+        }
         int maxIndex = page.getPageindex() * page.getPagesize();
         maxIndex = (maxIndex > fullList.size()) ? fullList.size() : maxIndex;
         for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) {

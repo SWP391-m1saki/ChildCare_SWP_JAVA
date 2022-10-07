@@ -7,9 +7,9 @@
             <div class="input-group">
                 <input type="text" name="search" class="form-control p-3" placeholder="Tìm bài viết"/>
                 <c:if test="${requestScope.postDetail == null && requestScope.cid != -1}">
+                    <input type="hidden" name="cid" value="${requestScope.cid}"/>
                 </c:if>
                 <button class="btn btn-primary px-3"><i class="fa fa-search"></i></button>
-                <input type="hidden" name="cid" value="${requestScope.cid}"/>
             </div>
         </form>
     </div>
@@ -34,9 +34,9 @@
         <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4">Bài viết gần đây</h4>
         <c:forEach items="${requestScope.postRecent}" var="rcPost" >
             <c:if test="${post.postId != rcPost.postId}">
-                <div class="d-flex rounded overflow-hidden mb-3">
+                <div class="d-flex rounded overflow-hidden mb-3 w-300">
                     <img class="img-fluid" src="${pageContext.request.contextPath}/img/${rcPost.image}" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                    <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0">${rcPost.title}
+                    <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0" style="min-width: 300px">${rcPost.title}
                     </a>
                 </div>
             </c:if>

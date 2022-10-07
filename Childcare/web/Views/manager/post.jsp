@@ -85,69 +85,82 @@
                             </div>
                         </header> <!-- card-header end// -->
                         <div class="card-body">
+                            <c:if test="${requestScope.postList != null && requestScope.postList.size() != 0}">
 
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Bài viết</th>
-                                            <th>Tiêu đề</th>
-                                            <th>Chuyên mục</th>
-                                            <th>Ngày viết</th>
-                                            <th class="text-end"> Hành động </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${requestScope.postList}" var="p">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    <a href="#" class="itemside">
-                                                        <img src="${context}/img/${p.image}" class="img-lg image p-1" alt="User Photo" id="show-avatar">
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <div style="max-width: 430px">
-                                                        <h4>${p.title}</h4>
-                                                        <p style="
-                                                           max-height: 100px;
-                                                           white-space: normal;
-                                                           overflow: hidden;
-                                                           text-overflow: ellipsis;
-                                                           ">${p.description}</p>
-                                                    </div>
-                                                </td>
-                                                <td class="fw-bold">
-                                                    <c:forEach items="${requestScope.postCategory}" var="c">
-                                                        <c:if test="${c.cateId == p.cateId}">${c.cateName}</c:if>
-                                                    </c:forEach>
-                                                </td>
-                                                <td>
-                                                    <fmt:formatDate pattern="dd/MM/yyyy" value="${p.createdAt}"></fmt:formatDate>
-                                                    </td>
-                                                    <td class="text-end">
-                                                        <div class="mb-2">
-                                                            <a href="${context}/bai-viet?id=${p.postId}" class="btn btn-light">Chi tiết</a>
-                                                    </div>
-                                                    <div class="mb-2">
-                                                        <a class="btn btn-secondary" href="${context}/manager/post/update?id=${p.postId}">Chỉnh sửa</a>
-                                                        <a class="btn btn-danger"  onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="${context}/manager/post/delete?id=${p.postId}">Xóa</a>
-                                                    </div>
-                                                </td>
+                                                <th>Bài viết</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Chuyên mục</th>
+                                                <th>Ngày viết</th>
+                                                <th class="text-end"> Hành động </th>
                                             </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table> <!-- table-responsive.// -->
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${requestScope.postList}" var="p">
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="itemside">
+                                                            <img src="${context}/img/${p.image}" class="img-lg image p-1" alt="Ảnh bài viết" id="show-avatar">
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <div style="max-width: 430px">
+                                                            <h4>${p.title}</h4>
+                                                            <p style="
+                                                               max-height: 100px;
+                                                               white-space: normal;
+                                                               overflow: hidden;
+                                                               text-overflow: ellipsis;
+                                                               ">${p.description}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td class="fw-bold">
+                                                        <c:forEach items="${requestScope.postCategory}" var="c">
+                                                            <c:if test="${c.cateId == p.cateId}">${c.cateName}</c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <fmt:formatDate pattern="dd/MM/yyyy" value="${p.createdAt}"></fmt:formatDate>
+                                                        </td>
+                                                        <td class="text-end">
+                                                            <div class="mb-2">
+                                                                <a href="${context}/bai-viet?id=${p.postId}" class="btn btn-light">Chi tiết</a>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <a class="btn btn-secondary" href="${context}/manager/post/update?id=${p.postId}">Chỉnh sửa</a>
+                                                            <a class="btn btn-danger"  onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="${context}/manager/post/delete?id=${p.postId}">Xóa</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table> <!-- table-responsive.// -->
+                                </c:if>
+                                <c:if test="${requestScope.postList == null || requestScope.postList.size() == 0}">
+                                    <h3>Không có bài viết nào</h3>
+                                </c:if>
                             </div>
-
                         </div> <!-- card-body end// -->
                     </div> <!-- card end// -->
-
-                    <jsp:include page="../Share/_Paging.jsp"></jsp:include>
-
-                    </section>
-                </main>
-            </div>
-            <script src="${context}/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+                    
+                    <!--Display PAGING if list has item
+                            Else empty form-->
+                    <c:choose>
+                        <c:when test="${requestScope.postList != null && requestScope.postList.size() != 0}">
+                            <jsp:include page="../Share/_Paging.jsp"></jsp:include>
+                        </c:when> 
+                        <c:otherwise>
+                            <form method="post" id="main-form"> 
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
+                </section>
+            </main>
+        </div>
+        <script src="${context}/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
     </body>
 </html>

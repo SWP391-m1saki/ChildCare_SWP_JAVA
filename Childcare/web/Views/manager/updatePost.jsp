@@ -100,7 +100,7 @@
                                 <div class="form-row form-row-2">
                                     <div class="form-item">
                                         <label class="form-label fs-6 fw-bold">Hình ảnh chính</label>
-                                        <input name="image" accept="image/*" class="form-control" type="file" onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
+                                        <input name="image" accept="image/*" value="${requestScope.post.image}" class="form-control" type="file" onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
                                         <img id="image-preview" alt="your image" width="150" src="${context}/img/${requestScope.post.image}"/>
                                     </div><!-- comment -->
                                 </div> <!-- row.// -->

@@ -115,6 +115,23 @@
         </div>
         <!-- Navbar End -->
 
+        <!--BreadCrum-->
+        <div class="container-fluid fs-5">
+            <div class="container">
+
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <c:forEach items="${requestScope.categoryList}" var="c">
+                            <c:if test="${c.cateId == requestScope.cid}">${c.cateName}</c:if>
+                        </c:forEach>
+                        <c:if test="${requestScope.cid == -1}">Bài viết
+                        </c:if>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
 
         <!-- Blog Start -->
         <c:set var="post" value="${requestScope.postDetail}">
@@ -129,10 +146,12 @@
                         <c:forEach items="${requestScope.postList}" var="post">
                             <div class="col-xl-6 col-lg-6">
                                 <div class="bg-light rounded overflow-hidden">
-                                    <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/${post.image}" alt="">
+                                    <a href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">
+                                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}/img/${post.image}" alt="">
+
+                                    </a>
                                     <div class="p-4">
                                         <a class="h3 d-block mb-3" href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">${post.title}</a>
-                                        <input type="hidden" name="postid" value="${post.postId}">
                                         <p class="m-0">${post.description}</p>
                                     </div>
                                 </div>
