@@ -6,6 +6,7 @@ package Controllers;
 
 import DAL.CategoryDAO;
 import DAL.PostDAO;
+import Models.Post;
 import Utils.Utility;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -71,12 +73,13 @@ public class PostList extends HttpServlet {
             throws ServletException, IOException {
         int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
         postDao.load();
-        categoryDao.load();
 //        request.setAttribute("postList", postDao.getPostByCate(cateId));
         request.setAttribute("categoryList", categoryDao.getAll());
         request.setAttribute("cid", cateId);
-        request.setAttribute("postList", postDao.getPostByCate(cateId));
-        request.getRequestDispatcher("Views/guests/postList.jsp").forward(request, response);
+
+        String searchTxt = request.getParameter("search");
+        request.setAttribute("postList", postDao.getPostBySearchAndCategory(searchTxt, cateId));
+        request.getRequestDispatcher("Views/guests/postList_prototype.jsp").forward(request, response);
     }
 
     /**

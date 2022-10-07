@@ -21,10 +21,10 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PostDetail", urlPatterns = {"/bai-viet"})
 public class PostDetail extends HttpServlet {
-    
+
     PostDAO postDao;
     CategoryDAO categoryDao;
-    
+
     @Override
     public void init() {
         postDao = new PostDAO();
@@ -72,11 +72,9 @@ public class PostDetail extends HttpServlet {
         int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
         Post post = postDao.get(id);
         request.setAttribute("postDetail", post);
-        request.setAttribute("categoryAll",categoryDao.getAll());
-        if (post != null) {
-            request.setAttribute("category", categoryDao.get(post.getPostId()));
-            request.setAttribute("postRecent", postDao.getPostByCate(post.getCateId()));
-        }
+        request.setAttribute("cid", post.getCateId());
+        request.setAttribute("categoryList", categoryDao.getAll());
+        request.setAttribute("postRecent", postDao.getPostByCate(post.getCateId()));
         request.getRequestDispatcher("Views/guests/postDetail.jsp").forward(request, response);
     }
 

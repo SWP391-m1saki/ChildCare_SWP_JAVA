@@ -56,7 +56,7 @@
                     <div class="content-header">
                         <h2 class="content-title">Chỉnh sửa bài viết</h2>
                         <div>
-                            <a href="${pageContext.request.getContextPath()}/manager/post" class="btn btn-danger"> × Hủy</a>
+                            <a href="${pageContext.request.getContextPath()}/manager/post" class="btn btn-danger fw-bold"> × Hủy</a>
                         </div>
                     </div>
 

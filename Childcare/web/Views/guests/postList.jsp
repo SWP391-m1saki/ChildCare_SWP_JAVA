@@ -119,6 +119,8 @@
                         <c:forEach items="${requestScope.categoryList}" var="c">
                             <c:if test="${c.cateId == requestScope.cid}">${c.cateName}</c:if>
                         </c:forEach>
+                        <c:if test="${requestScope.cid == -1}">Bài viết
+                        </c:if>
                     </li>
                 </ol>
 

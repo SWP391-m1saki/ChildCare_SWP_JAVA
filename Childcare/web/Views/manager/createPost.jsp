@@ -50,7 +50,7 @@
                     <div class="content-header">
                         <h2 class="content-title">Tạo bài viết mới</h2>
                         <div>
-                            <a href="${pageContext.request.getContextPath()}/manager/post" class="btn btn-danger"> × Hủy</a>
+                            <a href="${pageContext.request.getContextPath()}/manager/post" class="btn btn-danger fw-bold"> × Hủy</a>
                         </div>
                     </div>
 
@@ -66,14 +66,35 @@
                                 </div>
 
                                 <div class="form-row form-row-2">
-                                    <div class="form-item form-row-2">
+                                    <div class="form-item">
                                         <label class="form-label fw-bold fs-6">Chọn danh mục</label>
                                         <select name="category" class="form-select">
                                             <c:forEach items="${requestScope.postCategory}" var="c">
                                                 <option value="${c.cateId}">${c.cateName}</option>
                                             </c:forEach>
-                                        </select>                          
+                                        </select>            
                                     </div>
+                                    <style>
+                                        .fa-plus{
+                                            height: fit-content;
+                                            width: fit-content;
+                                            padding: 3px;
+                                            border-radius: 5px;
+                                            margin: auto 0;
+                                            border: 1px solid #e8e8e8;
+                                            transition: ease-in-out 100ms;
+                                        }
+                                        .fa-plus:hover {
+                                            background: #e8e8e8;
+                                            transform: scaleX(1.1);
+                                        }
+                                    </style>
+                                    <i class="fa-solid fa-plus fs-5 text-primary fw-bold"></i>
+<!--                                    <form method="post">
+                                        <div class="form-item">
+                                            <input type="text" name="title" required="required" placeholder="Tiêu đề bài viết" class="form-control">
+                                        </div>
+                                    </form>-->
                                 </div>
 
                                 <div class="form-item">
