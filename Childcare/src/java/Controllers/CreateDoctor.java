@@ -4,12 +4,15 @@
  */
 package Controllers;
 
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -69,7 +72,20 @@ public class CreateDoctor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        User doctor = new User();
+        doctor.setName(request.getParameter("fullname"));
+        doctor.setGmail(request.getParameter("gmail"));
+        doctor.setPassword("123456789");
+        
+        String dob = request.getParameter("dob");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate localDateDob = LocalDate.parse(dob, formatter);
+        doctor.setDob(localDateDob);
+        
+        doctor.setPhoneNumber(request.getParameter("phone"));
+        doctor.setAddress(request.getParameter("address"));
+    
+//        processRequest(request, response);
     }
 
     /**

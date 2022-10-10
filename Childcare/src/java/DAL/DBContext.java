@@ -31,7 +31,7 @@ public class DBContext {
     private static String dbName = "SWP";
     private static String portNumber = "1311";
     private static String userID = "sa";
-    private static String password = "123456";
+    private static String password = "123";
     
 //    public static void main(String[] args) throws Exception {
 //        Connection con = DBContext.getConnection();
