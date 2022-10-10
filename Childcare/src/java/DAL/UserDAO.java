@@ -64,7 +64,6 @@ public class UserDAO implements DAO<User>{
             ResultSet rs = ps.executeQuery();
             while(rs.next()){          
                 int id = rs.getInt(1);
-                String username = rs.getString(2);
                 String password = rs.getString(3);
                 String gmail = rs.getString(4);
                 String phone = rs.getString(5);
