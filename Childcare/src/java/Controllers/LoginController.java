@@ -47,33 +47,33 @@ public class LoginController extends HttpServlet {
 
     private void LOGIN(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        System.out.print("Hello");
-        HttpSession session = request.getSession();
-        
-        User userLogin = dao.ValidateLogin(username, password);
-        
-        if(userLogin !=null){
-            if(userLogin.getStatus() == 1){
-                session.setAttribute("UserLogined", userLogin);
-                response.sendRedirect("loadHomePage");
-                //request.getRequestDispatcher("loadHomePage").forward(request, response);
-                System.out.println("HELLO");
-            }
-            else if (userLogin.getStatus()  == 0){
-                request.setAttribute("UserDAO", dao);
-                request.setAttribute("NOTIFICATION", "This account is inactive! ");
-                request.getRequestDispatcher("Views/login.jsp").forward(request, response);
-                System.out.println("inactive");
-            }
-        }
-        else{
-            request.setAttribute("UserDAO", dao);
-            request.setAttribute("NOTIFICATION", "Wrong username or password");
-            request.getRequestDispatcher("Views/login.jsp").forward(request, response);
-            System.out.println("wrong");
-        }
+//        String username = request.getParameter("username");
+//        String password = request.getParameter("password");
+//        System.out.print("Hello");
+//        HttpSession session = request.getSession();
+//        
+//        User userLogin = dao.ValidateLogin(username, password);
+//        
+//        if(userLogin !=null){
+//            if(userLogin.getStatus() == 1){
+//                session.setAttribute("UserLogined", userLogin);
+//                response.sendRedirect("loadHomePage");
+//                //request.getRequestDispatcher("loadHomePage").forward(request, response);
+//                System.out.println("HELLO");
+//            }
+//            else if (userLogin.getStatus()  == 0){
+//                request.setAttribute("UserDAO", dao);
+//                request.setAttribute("NOTIFICATION", "This account is inactive! ");
+//                request.getRequestDispatcher("Views/login.jsp").forward(request, response);
+//                System.out.println("inactive");
+//            }
+//        }
+//        else{
+//            request.setAttribute("UserDAO", dao);
+//            request.setAttribute("NOTIFICATION", "Wrong username or password");
+//            request.getRequestDispatcher("Views/login.jsp").forward(request, response);
+//            System.out.println("wrong");
+//        }
     }
 
 }

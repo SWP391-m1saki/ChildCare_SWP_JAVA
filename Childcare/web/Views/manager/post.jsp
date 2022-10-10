@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
@@ -150,7 +149,7 @@
                             Else empty form-->
                     <c:choose>
                         <c:when test="${requestScope.postList != null && requestScope.postList.size() != 0}">
-                            <jsp:include page="../Share/_Paging.jsp"></jsp:include>
+                            <jsp:include page="../Shared/_Paging.jsp"></jsp:include>
                         </c:when> 
                         <c:otherwise>
                             <form method="post" id="main-form"> 

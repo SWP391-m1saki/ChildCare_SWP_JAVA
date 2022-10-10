@@ -11,22 +11,26 @@ package Models;
  */
 public class DoctorProfile {
     private int doctorId;
-    private String education;
-    private double price;
-    private String workExp;
     private String description;
+    private String qualification;
+    private double price;
     private int departmentId;
+    private String title;  //-- vd BS, TS, BS.CK1
+    private User user;
+    //
 
     public DoctorProfile() {
+        
     }
 
-    public DoctorProfile(int doctorId, String education, double price, String workExp, String description, int departmentId) {
+    public DoctorProfile(int doctorId, String description, String qualification, double price, int departmentId, String title, User user) {
         this.doctorId = doctorId;
-        this.education = education;
-        this.price = price;
-        this.workExp = workExp;
         this.description = description;
+        this.qualification = qualification;
+        this.price = price;
         this.departmentId = departmentId;
+        this.title = title;
+        this.user = user;
     }
 
     public int getDoctorId() {
@@ -37,13 +41,6 @@ public class DoctorProfile {
         this.doctorId = doctorId;
     }
 
-    public String getEducation() {
-        return education;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
 
     public double getPrice() {
         return price;
@@ -51,14 +48,6 @@ public class DoctorProfile {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getWorkExp() {
-        return workExp;
-    }
-
-    public void setWorkExp(String workExp) {
-        this.workExp = workExp;
     }
 
     public String getDescription() {
@@ -76,6 +65,31 @@ public class DoctorProfile {
     public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
     }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     
     
 }

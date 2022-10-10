@@ -1,6 +1,5 @@
 package Models;
 
-
 import java.time.LocalDate;
 
 /**
@@ -8,8 +7,11 @@ import java.time.LocalDate;
  * @author Misaki
  */
 public class User {
+
     private int id;
-    private String username, password, gmail, phoneNumber;
+    private String gmail;
+    private String password;
+    private String phoneNumber;
     private int roleId;
     private LocalDate dob;
     private String name, address, avatar;
@@ -19,11 +21,10 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String password, String gmail, String phoneNumber, int roleId, LocalDate dob, String name, String address, String avatar, int status, boolean gender) {
+    public User(int id, String gmail, String password, String phoneNumber, int roleId, LocalDate dob, String name, String address, String avatar, int status, boolean gender) {
         this.id = id;
-        this.username = username;
-        this.password = password;
         this.gmail = gmail;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.roleId = roleId;
         this.dob = dob;
@@ -34,20 +35,13 @@ public class User {
         this.gender = gender;
     }
 
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -121,13 +115,12 @@ public class User {
     public void setStatus(int status) {
         this.status = status;
     }
-    
-    public boolean isGender(){
+
+    public boolean isGender() {
         return gender;
     }
-    
-    public void setGender(boolean gender){
+
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 }
- 

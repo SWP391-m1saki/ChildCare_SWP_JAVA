@@ -11,6 +11,22 @@
         <servlet-name>PostManagerController</servlet-name>
         <servlet-class>Controllers.PostManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateDoctorController</servlet-name>
+        <servlet-class>Controllers.CreateDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDoctorProfile</servlet-name>
+        <servlet-class>Controllers.UpdateDoctorProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorListManage</servlet-name>
+        <servlet-class>Controllers.DoctorListManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorProfileDetailManage</servlet-name>
+        <servlet-class>Controllers.DoctorProfileDetailManage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
@@ -58,6 +74,22 @@
     <servlet-mapping>
         <servlet-name>PostManagerController</servlet-name>
         <url-pattern>/manager/post</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateDoctorController</servlet-name>
+        <url-pattern>/manager/doctor/new</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDoctorProfile</servlet-name>
+        <url-pattern>/manager/doctor/profile/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorListManage</servlet-name>
+        <url-pattern>/manager/doctor/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorProfileDetailManage</servlet-name>
+        <url-pattern>/manager/doctor/profile/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
