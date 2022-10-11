@@ -77,7 +77,7 @@ public class UserDAO implements DAO<User>{
                 list.add(new User(id, password, gmail, phone, roleId, dob.toLocalDate(), name, address, avatar, status, gender));
             } 
         }
-        catch(Exception e){
+                catch(Exception e){
             status = "Error getAll student " + e.getMessage();
         }
     }

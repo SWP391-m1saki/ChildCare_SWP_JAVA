@@ -78,7 +78,7 @@ public class CreateDoctor extends HttpServlet {
         doctor.setPassword("123456789");
         
         String dob = request.getParameter("dob");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDateDob = LocalDate.parse(dob, formatter);
         doctor.setDob(localDateDob);
         
