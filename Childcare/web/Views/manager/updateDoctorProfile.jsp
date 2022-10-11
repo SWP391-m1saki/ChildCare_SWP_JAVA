@@ -61,8 +61,8 @@
                                     <div class="col-6  mb-3">
                                         <label class="form-label fw-bold fs-6">Chọn chuyên khoa</label>
                                         <select name="category" class="form-select">
-                                            <c:forEach items="${requestScope.postCategory}" var="c">
-                                                <option value="${c.cateId}">${c.cateName}</option>
+                                            <c:forEach items="${requestScope.departments}" var="d">
+                                                <option value="${d.key}">${d.value.getDepartmentName()}</option>
                                             </c:forEach>
                                         </select>
                                     </div>

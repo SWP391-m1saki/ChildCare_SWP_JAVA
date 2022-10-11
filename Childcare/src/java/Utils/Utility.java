@@ -74,6 +74,17 @@ public class Utility {
         }
         return number;
     }
+    
+     public static double parseDoubleParameter(String raw_input, double defaultValue) {
+        raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;
+        double number;
+        try {
+            number = Double.parseDouble(raw_input);
+        } catch (NumberFormatException numberFormatException) {
+            number = defaultValue;
+        }
+        return number;
+    }
 
     public static int parseIntParameter(String raw_input, int defaultValue, int minValue, int maxValue) {
         raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;

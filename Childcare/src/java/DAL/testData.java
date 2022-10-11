@@ -6,6 +6,7 @@ package DAL;
 
 import Models.*;
 import java.sql.Date;
+import java.util.Map;
 
 /**
  *
@@ -14,13 +15,12 @@ import java.sql.Date;
 public class testData {
 
     public static void main(String[] args) {
-        PostDAO pdao = new PostDAO();
-
-       for(Post p1: pdao.getAll()){
-           System.out.println(p1);
-       }
-       Post p  = new Post();
-       p.setPostId(10);
+        DepartmentDAO dp = new DepartmentDAO();
+        dp.load();
+        for(Map.Entry<Integer,Department> entry : dp.getAllHasMap().entrySet()){
+            System.out.println(entry.getKey() + "-");
+        }
+        
        
         //System.out.println(pdao.get(10));
     }
