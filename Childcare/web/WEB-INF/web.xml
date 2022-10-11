@@ -8,6 +8,10 @@
         <servlet-class>Controllers.PostController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>Controllers.RegisterController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PostManagerController</servlet-name>
         <servlet-class>Controllers.PostManager</servlet-class>
     </servlet>
@@ -46,6 +50,10 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
