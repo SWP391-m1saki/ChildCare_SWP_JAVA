@@ -73,7 +73,7 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("Views/Guests/register.jsp").forward(request, response);
         } 
         else {
-            User newUser = new User(0, email, password, name, gender, dob, 3, phoneNumber, address, avatar, 0);
+            User newUser = new User(0, email, password, name, gender, dob, 4, phoneNumber, address, avatar, 0);
             dao.add(newUser);
             sendEmail sm = new sendEmail();
             String code = sm.getRandom();
