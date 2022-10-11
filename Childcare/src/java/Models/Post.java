@@ -5,7 +5,8 @@
  */
 package Models;
 
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 /**
  *
@@ -13,21 +14,24 @@ import java.time.LocalDate;
  */
 public class Post {
     private int postId;
-    private String title, description, detail;
-    private LocalDate createdAt;
+    private String title, detail, image,description;
+    private Date createdAt;
     private int cateId;
 
     public Post() {
     }
 
-    public Post(int postId, String title, String description, String detail, LocalDate createdAt, int cateId) {
+    public Post(int postId, String title, String detail, String image, String description, Date createdAt, int cateId) {
         this.postId = postId;
         this.title = title;
-        this.description = description;
         this.detail = detail;
+        this.image = image;
+        this.description = description;
         this.createdAt = createdAt;
         this.cateId = cateId;
     }
+
+    
 
     public int getPostId() {
         return postId;
@@ -45,14 +49,6 @@ public class Post {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getDetail() {
         return detail;
     }
@@ -61,11 +57,11 @@ public class Post {
         this.detail = detail;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -76,6 +72,26 @@ public class Post {
     public void setCateId(int cateId) {
         this.cateId = cateId;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     
-    
+    @Override
+    public String toString() {
+        return "Post{" + "postId=" + postId + ", title=" + title + ", image=" + image + ", createdAt=" + createdAt + ", cateId=" + cateId + '}';
+    }    
 }

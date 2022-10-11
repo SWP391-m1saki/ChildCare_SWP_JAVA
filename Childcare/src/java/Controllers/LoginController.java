@@ -21,7 +21,9 @@ public class LoginController extends HttpServlet {
     private UserDAO dao;
     
     public void init(){
+
         dao = new UserDAO();
+
     }
     
     @Override

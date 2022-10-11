@@ -60,11 +60,12 @@
                         </div>
                     </div>
 
-                    <c:if test="${requestScope.mess != null}">
-                        <script>
+                    <script type="text/javascript">
+                        if (${requestScope.mess != null}) {
                             toastr.success(${requestScope.mess});
-                        </script>
-                    </c:if>
+                        }
+                    </script>
+
                     <div class="content-body">
                         <div class="add-form">
                             <form method="POST">

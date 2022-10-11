@@ -40,7 +40,11 @@
                 <!--Message display-->
                 <script type="text/javascript">
                     if (${requestScope.mess != null}) {
-                        toastr.success(${requestScope.mess});
+                        if (${requestScope.mess[0] == "sucess"}) {
+                            toastr.success(${requestScope.mess[1]});
+                        } else {
+                            toastr.error(${requestScope.mess[1]});
+                        }
                     }
                 </script>
 
@@ -141,7 +145,7 @@
                             </div>
                         </div> <!-- card-body end// -->
                     </div> <!-- card end// -->
-
+                    
                     <!--Display PAGING if list has item
                             Else empty form-->
                     <c:choose>

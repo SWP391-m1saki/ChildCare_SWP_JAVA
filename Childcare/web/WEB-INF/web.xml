@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <welcome-file-list>
+        <welcome-file>loadHomePage</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>PostController</servlet-name>
+        <servlet-class>Controllers.PostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostManagerController</servlet-name>
+        <servlet-class>Controllers.PostManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PostController</servlet-name>
+        <url-pattern>/manager/post/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostController</servlet-name>
+        <url-pattern>/manager/post/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostController</servlet-name>
+        <url-pattern>/manager/post/delete</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>Controllers.LoginController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>Controllers.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ResetPasswordController</servlet-name>
@@ -22,7 +41,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>loadHomePage</servlet-name>
@@ -30,15 +49,11 @@
     </servlet>
     <servlet>
         <servlet-name>loadAbout</servlet-name>
-        <servlet-class>Controllers.loadAbout</servlet-class>
+        <servlet-class>Controller.loadAbout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loadDoctor</servlet-name>
-        <servlet-class>Controllers.loadDoctor</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RegisterController</servlet-name>
-        <servlet-class>Controllers.RegisterController</servlet-class>
+        <servlet-class>Controller.loadDoctor</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loadHomePage</servlet-name>
@@ -53,12 +68,8 @@
         <url-pattern>/loadDoctor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LogoutController</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RegisterController</servlet-name>
-        <url-pattern>/register</url-pattern>
+        <servlet-name>PostManagerController</servlet-name>
+        <url-pattern>/manager/post</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResetPasswordController</servlet-name>
@@ -77,7 +88,4 @@
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>loadHomePage</welcome-file>
-    </welcome-file-list>
 </web-app>
