@@ -9,10 +9,7 @@
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
 
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
 
-        <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
 
@@ -41,10 +38,10 @@
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
                         <img src="img/logo.png"
-                             class="img-fluid" alt="Sample image">
+                             class="img" alt="Sample image">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form action="login" method="post">
+                        <form action="register" method="post">
                             <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                                 <p class="lead fw-normal mb-0 me-3">Sign in with</p>
                                 <button type="button" class="btn btn-primary btn-floating mx-1">
@@ -64,44 +61,67 @@
                                 <p class="text-center fw-bold mx-3 mb-0">Or</p>
                             </div>
 
-                            <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="form3Example3" class="form-control form-control-lg" name="username"/>
-                                <label class="form-label" for="form3Example3">Username</label>
+                                <input type="email" id="email" class="form-control form-control-lg" name="email"/>
+                                <label class="form-label" for="gmail">Email</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-3">
-                                <input type="password" id="form3Example4" class="form-control form-control-lg" name="password"/>
-                                <label class="form-label" for="form3Example4">Password</label>
+                                <input type="password" id="password" class="form-control form-control-lg" name="password"/>
+                                <label class="form-label" for="password">Password</label>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- Checkbox -->
-                                <div class="form-check mb-0">
-                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                                    <label class="form-check-label" for="form2Example3">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="#!" class="text-body">Forgot password?</a>
+                            <div class="form-outline mb-3">
+                                <input type="password" id="passwordConfirm" class="form-control form-control-lg" name="passwordConfirm"/>
+                                <label class="form-label" for="passwordConfirm">Confirm Password</label>
                             </div>
-<!--                            <div class="pt-1 mb-4">
-                                <button class="btn btn-dark btn-lg btn-block" type="submit">Sign in</button>
-                            </div>-->
-                            <div class="text-center text-lg-start mt-4 pt-2">
-                                <button class="btn btn-primary btn-lg" type="submit"
-                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href=""
-                                                                                                  class="link-danger">Register</a></p>
+
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="name" class="form-control form-control-lg" name="name"/>
+                                <label class="form-label" for="name">Full name</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                Gender: <input type='radio' name='gender' value='male'> Male
+                                <input type='radio' name='gender' value='female'> Female<br/>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="phonenumber" class="form-control form-control-lg" name="phonenumber"/>
+                                <label class="form-label" for="phonenumber">Phone number</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="date" id="dob" class="form-control form-control-lg" name="dob"/>
+                                <label class="form-label" for="dob">Date of birth</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="address" class="form-control form-control-lg" name="address"/>
+                                <label class="form-label" for="address">Address</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="avatar" class="form-control form-control-lg" name="avatar"/>
+                                <label class="form-label" for="avatar">Avatar</label>
+                            </div>
+
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-center text-lg-start mt-4 pt-2">
+                                    <button class="btn btn-primary btn-lg" type="submit"
+                                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Sign in</button>
+
+                                </div>
                             </div>
 
                         </form>
                     </div>
                 </div>
-
+            </div>
         </section>
 
     </body>
 </html>
-<!-- Pills content -->
