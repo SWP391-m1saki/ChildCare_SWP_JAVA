@@ -47,7 +47,7 @@
                                     width: fit-content;
                                     border-radius: 10px;
                                     border: 1px solid #f0f0f0;
-                                    ">Bác sĩ Hoàng Minh Nhựt</h5>
+                                    ">${doctorProfile.user.name}</h5>
                             </div>
 
                             <form method="POST">

@@ -123,5 +123,12 @@ public class User {
     public void setGender(boolean gender){
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", gender=" + gender + ", dob=" + dob + ", roleId=" + roleId + ", phoneNumber=" + phoneNumber + ", address=" + address + ", avatar=" + avatar + ", status=" + status + '}';
+    }
+    
+    
 }
  

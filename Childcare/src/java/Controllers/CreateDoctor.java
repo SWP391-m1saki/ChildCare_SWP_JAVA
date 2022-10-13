@@ -74,7 +74,7 @@ public class CreateDoctor extends HttpServlet {
             throws ServletException, IOException {
         User doctor = new User();
         doctor.setName(request.getParameter("fullname"));
-        doctor.setGmail(request.getParameter("gmail"));
+        doctor.setEmail(request.getParameter("gmail"));
         doctor.setPassword("123456789");
         
         String dob = request.getParameter("dob");

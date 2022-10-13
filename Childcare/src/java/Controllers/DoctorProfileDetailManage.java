@@ -4,6 +4,8 @@
  */
 package Controllers;
 
+import DAL.DepartmentDAO;
+import DAL.DoctorProfileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,6 +18,15 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Admin
  */
 public class DoctorProfileDetailManage extends HttpServlet {
+
+    DepartmentDAO departmentDAO;
+    DoctorProfileDAO doctorProfileDAO;
+
+    @Override
+    public void init() {
+        departmentDAO = new DepartmentDAO();
+        doctorProfileDAO = new DoctorProfileDAO();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +45,7 @@ public class DoctorProfileDetailManage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DoctorProfileDetailManage</title>");            
+            out.println("<title>Servlet DoctorProfileDetailManage</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet DoctorProfileDetailManage at " + request.getContextPath() + "</h1>");
@@ -55,7 +66,12 @@ public class DoctorProfileDetailManage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            request.getRequestDispatcher("../../../Views/manager/doctor-profile-detail.jsp").forward(request, response);
+        departmentDAO.load();
+        doctorProfileDAO.load();
+        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
+        request.setAttribute("doctorProfile", doctorProfileDAO.get(id));
+        request.setAttribute("departments", departmentDAO.getAllHasMap());
+        request.getRequestDispatcher("../../../Views/manager/doctor-profile-detail.jsp").forward(request, response);
     }
 
     /**

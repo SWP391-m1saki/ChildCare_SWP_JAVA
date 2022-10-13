@@ -89,6 +89,11 @@ public class DoctorProfile {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "DoctorProfile{" + "doctorId=" + doctorId + ", description=" + description + ", qualification=" + qualification + ", price=" + price + ", departmentId=" + departmentId + ", title=" + title + ", user=" + user + '}';
+    }
     
     
     

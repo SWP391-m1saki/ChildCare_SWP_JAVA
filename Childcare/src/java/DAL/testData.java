@@ -6,6 +6,7 @@ package DAL;
 
 import Models.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +17,11 @@ public class testData {
 
     public static void main(String[] args) {
       DoctorProfileDAO dao = new DoctorProfileDAO();
-      DoctorProfile d = new DoctorProfile(14, "KonoHoho", "KonoShiaba", Utils.Utility.parseDoubleParameter("30000", 0),2, "Tiến sĩ",null);
-     dao.update(d);
+      List<DoctorProfile> d  = dao.getAll();
+      for(DoctorProfile de : d){
+        System.out.println(de.toString());  
+      }
+        
      
        
         //System.out.println(pdao.get(10));

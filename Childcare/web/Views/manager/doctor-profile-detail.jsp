@@ -24,6 +24,7 @@
     </head>
     <body>
         <c:set var="context" value="${pageContext.request.contextPath}" />
+        <c:set var="doctorProfile" value="${requestScope.doctorProfile}" />
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -145,7 +146,7 @@
                             margin-bottom: 8px;
                             font-weight: 700;
                         }
-                        
+
                         .account-info span {
                             font-weight: 600;
                         }
@@ -158,13 +159,17 @@
                                 </div>
                                 <div class="doctorInfoHeader">
                                     <h1 class="fs-4">
-                                        <span class="title">ThS.BS</span> 
-                                        <span class="fullname">Tôn Thất Thanh Long</span>
+                                        <span class="title">${doctorProfile.title}</span> 
+                                        <span class="fullname">${doctorProfile.user.name}</span>
                                     </h1>
-                                    <p class="text-sm-start">Đa khoa</p>
+                                    <c:forEach items="${requestScope.departments}" var="d">
+<!--                                        <option ${d.key == doctorProfile.departmentId ? 'selected' : ''} value="${d.key}">${d.value.getDepartmentName()}</option>-->
+                                         <p class="text-sm-start" ${d.key != doctorProfile.departmentId ? 'hidden' : ''}>${d.value.getDepartmentName()}</p>
+                                    </c:forEach>
+                                   
                                 </div>
                                 <div class="action">
-                                    <a class="btn btn-primary fw-bold" href="${context}/manager/doctor/profile/update">Chỉnh sửa</a>
+                                    <a class="btn btn-primary fw-bold" href="${context}/manager/doctor/profile/update?id=${doctorProfile.doctorId}">Chỉnh sửa</a>
                                     <a href="${context}/manager/doctor/profile" class="btn btn-secondary fw-bold" >Quay lại</a>
                                 </div>
                             </div><!-- End doctor header -->
@@ -179,13 +184,7 @@
                                         <div class="doctor-detail">
                                             <div class="description-section">
                                                 <h4 style="color:#1b3250" class="header">Thông tin bác sĩ</h4>
-                                                <p>Bác sĩ Tôn Thất Thanh Long bắt đầu làm việc tại Phòng khám
-                                                    Đa khoa Thành Công vào tháng 4/2021. Bác sĩ hiện tại đang
-                                                    là Bác sĩ chuyên khoa Nội tại phòng khám. Với hơn 4 năm kinh
-                                                    nghiệm trong ngành, Bác sĩ chuyên thăm khám và điều trị các 
-                                                    trường hợp về Nội tiết, Tiêu hóa, Gan mật. Chuyên môn vững 
-                                                    chắc cùng sự tận tình với bệnh nhân, Bác sĩ hy vọng có thể 
-                                                    đem lại quá trình thăm khám và điều trị tốt nhất.</p>
+                                                <p>${doctorProfile.description}</p>
                                             </div>
                                             <div class="service-section">
                                                 <h6 class="header ps-0">
@@ -209,7 +208,7 @@
                                                     <h6 class="">Thăm khám và tư vấn</h6>
                                                     <p class="price-des">
                                                         <i class="fa-solid fa-sack-dollar" style="color: #838181;"></i>                                                       <span>Phí tư vấn cố định </span>
-                                                        <span class="price">120.000&nbsp;₫</span></p>
+                                                        <span class="price">${doctorProfile.price}&nbsp;₫</span></p>
                                                 </div>
                                             </div>
                                             <div class="qualification-section">
@@ -226,9 +225,8 @@
                                                 </h6>
                                                 <div class="qualication-detail">
                                                     <ul>
-                                                        <li><p> Hơn 15 năm kinh nghiệm Khám và điều trị bệnh Mắt - đã thực hiện nhiều ca chấp lẹo, mộng thịt, cũng như nhiều phẫu thuật khác về mắt Kinh nghiệm</p></li>
-                                                        <li><p> Chuyên khoa Mắt Lĩnh vực chuyên sâu</p></li>
-                                                        <li><p>Bắt đầu làm việc tại Phòng khám Đa khoa Thành Công vào tháng 2/2008</p></li>
+                                                        <li><p>${doctorProfile.qualification}</p></li>
+                                                       
                                                     </ul>
                                                 </div>
                                             </div>
@@ -241,9 +239,9 @@
                                 <div class="col-lg-4">
                                     <div class="account-info">
                                         <h6 class="account-infor_header">Thông tin tài khoản</h6>
-                                        <p><span>Số điện thoại:  </span> 0961595581</p>
-                                        <p><span>Ngày sinh:  </span> 12/12/1988</p>
-                                        <p class="ps-1"><span>Địa chỉ:  </span>số 8, Hoàng Hoa Thám, Q.Hai Bà Trưng, Tp.Hà Nội</p>
+                                        <p><span>Số điện thoại:  </span> ${doctorProfile.user.phoneNumber}</p>
+                                        <p><span>Ngày sinh:  </span>  ${doctorProfile.user.address}</p>
+                                        <p class="ps-1"><span>Địa chỉ:  </span> ${doctorProfile.user.address}</p>
                                     </div>
                                 </div>
                             </div>

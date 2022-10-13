@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,10 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
                 DoctorProfile doctor = new DoctorProfile();
                 user.setName(rs.getString("name"));
                 user.setAvatar(rs.getString("avatar"));
+                user.setAddress(rs.getString("address"));
+                //! DOB va gmail
+                user.setEmail("gmail");
+                user.setPhoneNumber(rs.getString("phone_number"));
                 doctor.setDoctorId(rs.getInt("doctor_id"));
                 doctor.setTitle(rs.getString("title"));
                 doctor.setPrice(rs.getDouble("price"));
