@@ -8,6 +8,10 @@
         <servlet-class>Controllers.PostController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>Controllers.RegisterController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PostManagerController</servlet-name>
         <servlet-class>Controllers.PostManager</servlet-class>
     </servlet>
@@ -43,9 +47,33 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>Controllers.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>Controllers.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>Controllers.ResetPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserVerifyController</servlet-name>
+        <servlet-class>Controllers.UserVerifyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>Controllers.ChangePasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
-        <url-pattern>/LoginController</url-pattern>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>loadHomePage</servlet-name>
@@ -90,6 +118,16 @@
     <servlet-mapping>
         <servlet-name>DoctorProfileDetailManage</servlet-name>
         <url-pattern>/manager/doctor/profile/detail</url-pattern>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/ResetPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserVerifyController</servlet-name>
+        <url-pattern>/UserVerify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

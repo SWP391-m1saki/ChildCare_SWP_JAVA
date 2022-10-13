@@ -1,5 +1,6 @@
 package Models;
 
+
 import java.time.LocalDate;
 
 /**
@@ -7,34 +8,32 @@ import java.time.LocalDate;
  * @author Misaki
  */
 public class User {
-
     private int id;
-    private String gmail;
-    private String password;
-    private String phoneNumber;
-    private int roleId;
-    private LocalDate dob;
-    private String name, address, avatar;
-    private int status;
+    private String email, password, name;
     private boolean gender;
+    private LocalDate dob;
+    private int roleId;
+    private String phoneNumber, address, avatar;
+    private int status;
 
     public User() {
     }
 
-    public User(int id, String gmail, String password, String phoneNumber, int roleId, LocalDate dob, String name, String address, String avatar, int status, boolean gender) {
+    public User(int id, String email, String password, String name, boolean gender, LocalDate dob, int roleId, String phoneNumber, String address, String avatar, int status) {
         this.id = id;
-        this.gmail = gmail;
+        this.email = email;
         this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.roleId = roleId;
-        this.dob = dob;
         this.name = name;
+        this.gender = gender;
+        this.dob = dob;
+        this.roleId = roleId;
+        this.phoneNumber = phoneNumber;
         this.address = address;
         this.avatar = avatar;
         this.status = status;
-        this.gender = gender;
     }
 
+   
 
     public int getId() {
         return id;
@@ -44,6 +43,7 @@ public class User {
         this.id = id;
     }
 
+
     public String getPassword() {
         return password;
     }
@@ -52,12 +52,12 @@ public class User {
         this.password = password;
     }
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {
@@ -115,12 +115,13 @@ public class User {
     public void setStatus(int status) {
         this.status = status;
     }
-
-    public boolean isGender() {
+    
+    public boolean isGender(){
         return gender;
     }
-
-    public void setGender(boolean gender) {
+    
+    public void setGender(boolean gender){
         this.gender = gender;
     }
 }
+ 
