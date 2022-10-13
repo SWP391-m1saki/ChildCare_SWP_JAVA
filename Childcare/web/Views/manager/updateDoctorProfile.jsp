@@ -23,6 +23,7 @@
     </head>
     <body>
         <c:set var="context" value="${pageContext.request.contextPath}" />
+        <c:set var="doctorProfile" value="${requestScope.doctorProfile}"/>
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -54,34 +55,34 @@
                                 <div class="row gx-3">
                                     <div class="col-6  mb-3">
                                         <label class="form-label fw-bold fs-6">Chức danh</label>
-                                        <input name="title" class="form-control" type="text" placeholder="Nhập gì đó">
+                                        <input name="title" class="form-control" value="${doctorProfile.title}" type="text" placeholder="Nhập gì đó">
                                     </div> <!-- col .// -->
                                 </div><!-- comment -->
 
                                 <div class="row gx-3">
                                     <div class="col-6  mb-3">
                                         <label class="form-label fw-bold fs-6">Chọn chuyên khoa</label>
-                                        <select name="category" class="form-select">
+                                        <select name="department" class="form-select">
                                             <c:forEach items="${requestScope.departments}" var="d">
-                                                <option value="${d.key}">${d.value.getDepartmentName()}</option>
+                                                <option ${d.key == doctorProfile.departmentId ? 'selected' : ''} value="${d.key}">${d.value.getDepartmentName()}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Thông tin giới thiệu</label>
-                                        <textarea name="content" class="form-control"></textarea>
+                                        <textarea name="qualification" class="form-control">${doctorProfile.description}</textarea>
                                     </div>
 
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Học vấn và kinh nghiệm làm việc</label>
-                                        <textarea name="description" class="form-control" style="min-height: 100px"></textarea>
+                                        <textarea name="description" class="form-control" style="min-height: 100px">${doctorProfile.qualification}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="row gx-3">
                                     <div class="col-2  mb-3">
                                         <label class="form-label fw-bold fs-6">Giá thăm khám</label>
-                                        <input name="title" class="form-control" type="text" placeholder="">
+                                        <input name="price" class="form-control" type="text" placeholder="" value="${doctorProfile.price}">
                                     </div> <!-- col .// -->
                                 </div><!-- comment -->
 

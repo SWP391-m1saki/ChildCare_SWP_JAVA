@@ -42,8 +42,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
 
     @Override
     public void load() {
-//        List<DoctorProfile> list = new ArrayList<DoctorProfile>();
-//        list.clear();
+        list.clear();
 
         String sql = "select * from [User] full outer join DoctorProfile \n"
                 + "  on [User].id = DoctorProfile.doctor_id";
@@ -69,14 +68,6 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
         }
     }
 
-    public static void main(String[] args) {
-        DoctorProfileDAO dao = new DoctorProfileDAO();
-        dao.load();
-        for (DoctorProfile doc : dao.getAll()) {
-            System.out.println(doc.toString());
-        }
-    }
-
     @Override
     public void add(DoctorProfile t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -85,7 +76,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
     @Override
     public void update(DoctorProfile t) {
         String sql = "update DoctorProfile set price = ?, qualification = ?,"
-                + "description = ?, department_id = ?, title = ? where department_id = ?";
+                + "[description] = ?, department_id = ?, title = ? where doctor_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDouble(1, t.getPrice());

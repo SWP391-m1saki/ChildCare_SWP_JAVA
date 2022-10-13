@@ -15,12 +15,10 @@ import java.util.Map;
 public class testData {
 
     public static void main(String[] args) {
-        DepartmentDAO dp = new DepartmentDAO();
-        dp.load();
-        for(Map.Entry<Integer,Department> entry : dp.getAllHasMap().entrySet()){
-            System.out.println(entry.getKey() + "-");
-        }
-        
+      DoctorProfileDAO dao = new DoctorProfileDAO();
+      DoctorProfile d = new DoctorProfile(14, "KonoHoho", "KonoShiaba", Utils.Utility.parseDoubleParameter("30000", 0),2, "Tiến sĩ",null);
+     dao.update(d);
+     
        
         //System.out.println(pdao.get(10));
     }

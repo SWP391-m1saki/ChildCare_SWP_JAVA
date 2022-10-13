@@ -86,16 +86,16 @@ public class UpdateDoctorProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doctorProfileDAO.load();
         DoctorProfile doctor = new DoctorProfile();
         doctor.setDoctorId(Utils.Utility.parseIntParameter(request.getParameter("id"), -1));
         doctor.setPrice(Utils.Utility.parseDoubleParameter(request.getParameter("price"), -1));
         doctor.setQualification(request.getParameter("qualification"));
-        doctor.setDescription("description");
-        doctor.setDepartmentId(Utils.Utility.parseIntParameter("department", -1));
+        doctor.setDescription(request.getParameter("description"));
+        doctor.setDepartmentId(Utils.Utility.parseIntParameter(request.getParameter("department"), -1));
         doctor.setTitle(request.getParameter("title"));
         doctorProfileDAO.update(doctor);
-        request.getRequestDispatcher("../../../Views/manager/updateDoctorProfile.jsp").forward(request, response);
+        doctorProfileDAO.load();
+        doGet(request, response);
         
     }
 
