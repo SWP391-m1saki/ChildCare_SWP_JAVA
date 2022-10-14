@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package controller.manager;
 
 import DAL.CategoryDAO;
 import DAL.PostDAO;
@@ -23,7 +23,7 @@ import java.sql.SQLException;
 public class PostController extends HttpServlet {
 
     PostDAO postDao;
-    CategoryDAO categoryDao;
+    CategoryDAO categoryDao;    
 
     @Override
     public void init() {

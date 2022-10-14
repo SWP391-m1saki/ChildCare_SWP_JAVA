@@ -26,14 +26,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <link href="${pageContext.request.contextPath}/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     </head>
     <body>
         <jsp:include page="../Shared/_Header.jsp"/>
@@ -43,7 +43,7 @@
                 <div class="row" style="margin-top:60px">
                     <div class="col-sm-12">
                         <div class="w-50 mx-auto text-center">
-                            <img src="${pageContext.request.contextPath}/images/not-found.png" width="350" alt="Page Not Found">
+                            <img src="${pageContext.request.contextPath}/img/not-found.png" width="350" alt="Page Not Found">
                         <h3 class="mt-4">Oops! Trang không tìm thấy</h3>
                         <p>Có thể bạn đã nhập sai đường dẫn hoặc trang không còn tồn tại. Đừng lo lắng... chuyện này xảy ra với tất cả chúng ta. Bạn hãy thử
                             kiểm tra lại đường dẫn</p>

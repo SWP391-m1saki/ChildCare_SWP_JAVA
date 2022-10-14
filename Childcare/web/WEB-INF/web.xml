@@ -9,7 +9,7 @@
     </error-page>
     <servlet>
         <servlet-name>PostController</servlet-name>
-        <servlet-class>Controllers.PostController</servlet-class>
+        <servlet-class>controller.manager.PostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
@@ -17,23 +17,23 @@
     </servlet>
     <servlet>
         <servlet-name>PostManagerController</servlet-name>
-        <servlet-class>Controllers.PostManager</servlet-class>
+        <servlet-class>controller.manager.PostManager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateDoctorController</servlet-name>
-        <servlet-class>Controllers.CreateDoctor</servlet-class>
+        <servlet-class>controller.manager.CreateDoctor</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateDoctorProfile</servlet-name>
-        <servlet-class>Controllers.UpdateDoctorProfile</servlet-class>
+        <servlet-class>controller.manager.UpdateDoctorProfile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DoctorListManage</servlet-name>
-        <servlet-class>Controllers.DoctorListManage</servlet-class>
+        <servlet-class>controller.manager.DoctorListManage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DoctorProfileDetailManage</servlet-name>
-        <servlet-class>Controllers.DoctorProfileDetailManage</servlet-class>
+        <servlet-class>controller.manager.DoctorProfileDetailManage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Error404Handler</servlet-name>

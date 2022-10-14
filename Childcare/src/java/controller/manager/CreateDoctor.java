@@ -2,35 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package controller.manager;
 
-import DAL.CategoryDAO;
-import DAL.PostDAO;
-import Models.Post;
-import Utils.Utility;
+import DAL.DAO;
+import DAL.UserDAO;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "PostList", urlPatterns = {"/chuyen-muc"})
-public class PostList extends HttpServlet {
-
-    PostDAO postDao;
-    CategoryDAO categoryDao;
-
+public class CreateDoctor extends HttpServlet {
+    UserDAO userDAO;
+    
     @Override
     public void init() {
-        postDao = new PostDAO();
-        categoryDao = new CategoryDAO();
+        userDAO = new UserDAO();
     }
 
     /**
@@ -42,6 +37,7 @@ public class PostList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -50,10 +46,10 @@ public class PostList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PostList</title>");
+            out.println("<title>Servlet CreateDoctor</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PostList at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateDoctor at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,15 +67,10 @@ public class PostList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
-        postDao.load();
-//        request.setAttribute("postList", postDao.getPostByCate(cateId));
-        request.setAttribute("categoryList", categoryDao.getAll());
-        request.setAttribute("cid", cateId);
-
-        String searchTxt = request.getParameter("search");
-        request.setAttribute("postList", postDao.getPostBySearchAndCategory(searchTxt, cateId));
-        request.getRequestDispatcher("Views/guests/postList_prototype.jsp").forward(request, response);
+        //default password
+        String defaultPass = "123456789";
+        request.setAttribute("defaultPass", defaultPass);
+        request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
     }
 
     /**
@@ -93,7 +84,16 @@ public class PostList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        User doctor = new User();
+        doctor.setName(request.getParameter("fullname"));
+        doctor.setEmail(request.getParameter("gmail"));
+        doctor.setPassword("123456789");
+        doctor.setDob(LocalDate.parse(request.getParameter("dob")));
+        doctor.setPhoneNumber(request.getParameter("phone"));
+        doctor.setAddress(request.getParameter("address"));
+
+        userDAO.add(doctor);
+        response.sendRedirect("profile/update");
     }
 
     /**

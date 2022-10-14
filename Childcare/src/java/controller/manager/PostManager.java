@@ -2,20 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package controller.manager;
 
+import DAL.CategoryDAO;
+import DAL.PostDAO;
+import Models.PageInfo;
+import Models.Post;
+import Utils.Utility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class DoctorListManage extends HttpServlet {
+public class PostManager extends HttpServlet {
+
+    PostDAO postDao;
+    CategoryDAO categoryDao;
+
+    @Override
+    public void init() {
+        postDao = new PostDAO();
+        categoryDao = new CategoryDAO();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,18 +44,28 @@ public class DoctorListManage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DoctorListManage</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DoctorListManage at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.setAttribute("postCategory", categoryDao.getAll());
+        postDao.load();
+
+        //cateogry
+        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
+
+//        //PAGING
+        int[] nrppArr = {5, 10, 20};
+        request.setAttribute("nrppArr", nrppArr);
+        int pagesize = Utils.Utility.parseIntParameter(request.getParameter("pagesize"), 5);
+        int pageindex = Utils.Utility.parseIntParameter(request.getParameter("page"), 1);
+
+        String searchTxt = request.getParameter("search");
+        List<Post> filteredList = postDao.getPostBySearchAndCategory(searchTxt, cateId);
+        int totalrecords = filteredList.size();  // total record of p_cid category
+        PageInfo page = new PageInfo(pageindex, pagesize, totalrecords);
+        page.calc();
+        request.setAttribute("page", page);
+        request.setAttribute("cid", cateId);
+        request.setAttribute("search", searchTxt);
+        request.setAttribute("postList", postDao.getPostsByPage(page, filteredList));
+        request.getRequestDispatcher("../Views/manager/post.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

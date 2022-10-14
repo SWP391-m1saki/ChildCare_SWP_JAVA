@@ -30,7 +30,7 @@
                 <!--ASIDE-->
                 <main class="main-admin-page">
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
+                <jsp:include page="header.jsp"></jsp:include>
                 <!--HEADER-->
 
                 <section class="content-main" style="max-width: 900px">

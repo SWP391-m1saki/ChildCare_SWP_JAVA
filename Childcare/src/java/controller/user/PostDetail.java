@@ -2,30 +2,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package controller.user;
 
-import DAL.DepartmentDAO;
-import DAL.DoctorProfileDAO;
+import DAL.CategoryDAO;
+import DAL.PostDAO;
+import Models.Post;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-public class DoctorProfileDetailManage extends HttpServlet {
+@WebServlet(name = "PostDetail", urlPatterns = {"/bai-viet"})
+public class PostDetail extends HttpServlet {
 
-    DepartmentDAO departmentDAO;
-    DoctorProfileDAO doctorProfileDAO;
+    PostDAO postDao;
+    CategoryDAO categoryDao;
 
     @Override
     public void init() {
-        departmentDAO = new DepartmentDAO();
-        doctorProfileDAO = new DoctorProfileDAO();
+        postDao = new PostDAO();
+        categoryDao = new CategoryDAO();
     }
 
     /**
@@ -45,10 +48,10 @@ public class DoctorProfileDetailManage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DoctorProfileDetailManage</title>");
+            out.println("<title>Servlet PostDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DoctorProfileDetailManage at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PostDetail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,12 +69,13 @@ public class DoctorProfileDetailManage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        departmentDAO.load();
-        doctorProfileDAO.load();
         int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        request.setAttribute("doctorProfile", doctorProfileDAO.get(id));
-        request.setAttribute("departments", departmentDAO.getAllHasMap());
-        request.getRequestDispatcher("../../../Views/manager/doctor-profile-detail.jsp").forward(request, response);
+        Post post = postDao.get(id);
+        request.setAttribute("postDetail", post);
+        request.setAttribute("cid", post.getCateId());
+        request.setAttribute("categoryList", categoryDao.getAll());
+        request.setAttribute("postRecent", postDao.getPostByCate(post.getCateId()));
+        request.getRequestDispatcher("Views/guests/postDetail.jsp").forward(request, response);
     }
 
     /**

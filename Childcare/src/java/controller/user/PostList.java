@@ -2,31 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package controller.user;
 
-import DAL.DepartmentDAO;
-import DAL.DoctorProfileDAO;
-import Models.DoctorProfile;
+import DAL.CategoryDAO;
+import DAL.PostDAO;
+import Models.Post;
+import Utils.Utility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class UpdateDoctorProfile extends HttpServlet {
+@WebServlet(name = "PostList", urlPatterns = {"/chuyen-muc"})
+public class PostList extends HttpServlet {
 
-    DepartmentDAO departmentDAO;
-    DoctorProfileDAO doctorProfileDAO;
+    PostDAO postDao;
+    CategoryDAO categoryDao;
 
     @Override
     public void init() {
-        departmentDAO = new DepartmentDAO();
-        doctorProfileDAO = new DoctorProfileDAO();
+        postDao = new PostDAO();
+        categoryDao = new CategoryDAO();
     }
 
     /**
@@ -46,10 +50,10 @@ public class UpdateDoctorProfile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateDoctorProfile</title>");
+            out.println("<title>Servlet PostList</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateDoctorProfile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PostList at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,12 +71,15 @@ public class UpdateDoctorProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        departmentDAO.load();
-        doctorProfileDAO.load();
-        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        request.setAttribute("doctorProfile", doctorProfileDAO.get(id));
-        request.setAttribute("departments", departmentDAO.getAllHasMap());
-        request.getRequestDispatcher("../../../Views/manager/updateDoctorProfile.jsp").forward(request, response);
+        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
+        postDao.load();
+//        request.setAttribute("postList", postDao.getPostByCate(cateId));
+        request.setAttribute("categoryList", categoryDao.getAll());
+        request.setAttribute("cid", cateId);
+
+        String searchTxt = request.getParameter("search");
+        request.setAttribute("postList", postDao.getPostBySearchAndCategory(searchTxt, cateId));
+        request.getRequestDispatcher("Views/guests/postList_prototype.jsp").forward(request, response);
     }
 
     /**
@@ -86,17 +93,7 @@ public class UpdateDoctorProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DoctorProfile doctor = new DoctorProfile();
-        doctor.setDoctorId(Utils.Utility.parseIntParameter(request.getParameter("id"), -1));
-        doctor.setPrice(Utils.Utility.parseDoubleParameter(request.getParameter("price"), -1));
-        doctor.setQualification(request.getParameter("qualification"));
-        doctor.setDescription(request.getParameter("description"));
-        doctor.setDepartmentId(Utils.Utility.parseIntParameter(request.getParameter("department"), -1));
-        doctor.setTitle(request.getParameter("title"));
-        doctorProfileDAO.update(doctor);
-        doctorProfileDAO.load();
-        doGet(request, response);
-        
+        processRequest(request, response);
     }
 
     /**
