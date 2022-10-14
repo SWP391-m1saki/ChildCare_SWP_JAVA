@@ -17,12 +17,12 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class DepartmentDAO implements DAO<Department>{
+public class DepartmentDAO{
 
     private String status;
     private Connection con;
     
-    private HashMap<Integer, Department> departmentHashmap;
+    private HashMap<Integer, Department> departments;
 
     public DepartmentDAO() {
          try {
@@ -30,27 +30,27 @@ public class DepartmentDAO implements DAO<Department>{
         } catch (Exception e) {
             status = "Error connection" + e.getMessage();
         }
-        departmentHashmap = new HashMap<>();
+        departments = new HashMap<>();
         load();
     }
     
     public HashMap<Integer,Department> getAllHasMap() {
-        return departmentHashmap;
+        return departments;
     }
     
-    @Override
-    public List<Department> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    //@Override
+    public HashMap<Integer,Department> getAll() {
+        return departments;
     }
 
-    @Override
+    //@Override
     public Department get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    //@Override
     public void load() {
-        departmentHashmap.clear();
+        departments.clear();
         String sql = "SELECT * FROM Department";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -59,14 +59,14 @@ public class DepartmentDAO implements DAO<Department>{
                 Department department = new Department();
                 department.setDepartmentName(rs.getString("department_name"));
                 int departmentId = rs.getInt("department_id");
-                departmentHashmap.put(departmentId, department);
+                departments.put(departmentId, department);
             }
         } catch (SQLException e) {
             status = "Error connection" + e.getMessage();
         }
     }
 
-    @Override
+    //@Override
     public void add(Department t) {
         String sql = "Insert into Department values(?)";
         try {
@@ -81,7 +81,7 @@ public class DepartmentDAO implements DAO<Department>{
         }
     }
 
-    @Override
+    //@Override
     public void update(Department t) {
         String sql = "update Department set department_name = ? where department_id = ?";
         try {
@@ -97,7 +97,7 @@ public class DepartmentDAO implements DAO<Department>{
         }
     }
 
-    @Override
+    //@Override
     public void delete(Department t) {
         String sql = "delete from Department where department_id = ?";
         try {
@@ -109,6 +109,4 @@ public class DepartmentDAO implements DAO<Department>{
             status = "Error at Delete Department" + e.getMessage();
         }
     }
-    
-    
 }

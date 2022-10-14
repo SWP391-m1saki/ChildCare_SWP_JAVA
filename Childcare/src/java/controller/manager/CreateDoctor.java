@@ -2,34 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package controller.manager;
 
-import DAL.CategoryDAO;
-import DAL.PostDAO;
-import Models.PageInfo;
-import Models.Post;
-import Utils.Utility;
+import DAL.DAO;
+import DAL.UserDAO;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author Admin
  */
-public class PostManager extends HttpServlet {
-
-    PostDAO postDao;
-    CategoryDAO categoryDao;
-
+public class CreateDoctor extends HttpServlet {
+    UserDAO userDAO;
+    
     @Override
     public void init() {
-        postDao = new PostDAO();
-        categoryDao = new CategoryDAO();
+        userDAO = new UserDAO();
     }
 
     /**
@@ -41,31 +37,22 @@ public class PostManager extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("postCategory", categoryDao.getAll());
-        postDao.load();
-
-        //cateogry
-        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
-
-//        //PAGING
-        int[] nrppArr = {5, 10, 20};
-        request.setAttribute("nrppArr", nrppArr);
-        int pagesize = Utils.Utility.parseIntParameter(request.getParameter("pagesize"), 5);
-        int pageindex = Utils.Utility.parseIntParameter(request.getParameter("page"), 1);
-
-        String searchTxt = request.getParameter("search");
-        List<Post> filteredList = postDao.getPostBySearchAndCategory(searchTxt, cateId);
-        int totalrecords = filteredList.size();  // total record of p_cid category
-        PageInfo page = new PageInfo(pageindex, pagesize, totalrecords);
-        page.calc();
-        request.setAttribute("page", page);
-        request.setAttribute("cid", cateId);
-        request.setAttribute("search", searchTxt);
-        request.setAttribute("postList", postDao.getPostsByPage(page, filteredList));
-        request.getRequestDispatcher("../Views/manager/post.jsp").forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CreateDoctor</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CreateDoctor at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -80,7 +67,10 @@ public class PostManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //default password
+        String defaultPass = "123456789";
+        request.setAttribute("defaultPass", defaultPass);
+        request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
     }
 
     /**
@@ -94,7 +84,16 @@ public class PostManager extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        User doctor = new User();
+        doctor.setName(request.getParameter("fullname"));
+        doctor.setEmail(request.getParameter("gmail"));
+        doctor.setPassword("123456789");
+        doctor.setDob(LocalDate.parse(request.getParameter("dob")));
+        doctor.setPhoneNumber(request.getParameter("phone"));
+        doctor.setAddress(request.getParameter("address"));
+
+        userDAO.add(doctor);
+        response.sendRedirect("profile/update");
     }
 
     /**
