@@ -41,7 +41,7 @@ public class PostDAO implements DAO<Post> {
     @Override
     public void load() {
         postList.clear();
-        String sql = "SELECT * FROM Post";
+        String sql = "SELECT * FROM Post ORDER BY created_at DESC";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -70,6 +70,18 @@ public class PostDAO implements DAO<Post> {
         }
         return null;
     }
+    
+    public List<Post> loadMoreWithFilter(int currentSize, int numberOfFetch, String searchTxt, int cateId) {
+        List<Post> fullList = getPostBySearchAndCategory(searchTxt, cateId);
+        List<Post> posts = new ArrayList<Post>();
+        if(currentSize >= fullList.size()){
+            return posts;
+        }
+        int end = Math.min(fullList.size(), currentSize + numberOfFetch);
+        return fullList.subList(currentSize, end);
+    }
+    
+    
 
     @Override
     public void add(Post t) {

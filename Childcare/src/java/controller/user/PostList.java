@@ -11,17 +11,14 @@ import Utils.Utility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "PostList", urlPatterns = {"/chuyen-muc"})
 public class PostList extends HttpServlet {
 
     PostDAO postDao;
@@ -45,18 +42,15 @@ public class PostList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PostList</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PostList at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
+        request.setAttribute("categoryList", categoryDao.getAll());
+        request.setAttribute("cid", cateId);
+
+        String searchTxt = request.getParameter("search");
+        request.setAttribute("search", searchTxt);
+        request.setAttribute("postList", postDao.loadMoreWithFilter(0, 6, searchTxt, cateId));
+        request.setAttribute("postRecent", postDao.loadMoreWithFilter(0, 4, "", -1));
+        request.getRequestDispatcher("Views/guests/postList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,15 +65,7 @@ public class PostList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
-        postDao.load();
-//        request.setAttribute("postList", postDao.getPostByCate(cateId));
-        request.setAttribute("categoryList", categoryDao.getAll());
-        request.setAttribute("cid", cateId);
-
-        String searchTxt = request.getParameter("search");
-        request.setAttribute("postList", postDao.getPostBySearchAndCategory(searchTxt, cateId));
-        request.getRequestDispatcher("Views/guests/postList_prototype.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

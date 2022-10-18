@@ -16,12 +16,11 @@ import java.util.Map;
 public class testData {
 
     public static void main(String[] args) {
-      DoctorProfileDAO dao = new DoctorProfileDAO();
-      List<DoctorProfile> d  = dao.getAll();
-      for(DoctorProfile de : d){
-        System.out.println(de.toString());  
+      PostDAO dao = new PostDAO();
+      
+      for(Post p: dao.loadMoreWithFilter(0, 3, "", 1)){
+          System.out.println(p);
       }
-        
      
        
         //System.out.println(pdao.get(10));

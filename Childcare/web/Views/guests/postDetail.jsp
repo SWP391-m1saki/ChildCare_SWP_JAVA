@@ -13,8 +13,6 @@
         <meta charset="utf-8">
         <title>MEDINOVA - Hospital Website Template</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
 
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
@@ -55,6 +53,7 @@
             }
             body {
                 color: #5d6573;
+                background-color: #fbfbfb;
             }
             .entry-cat a:hover {
                 color: var(--main-color-1);
@@ -98,8 +97,8 @@
 
         <!-- Blog Start -->
         <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-8">
+            <div class="row g-5" style="margin-left: 50px">
+                <div class="col-lg-8 p-4" style="background: white;">
                     <!-- Blog Detail Start -->
                     <div class="mb-5">
                         <!--<img class="img-fluid w-100 rounded mb-5" src="${pageContext.request.contextPath}/img/${post.image}" alt="">-->
@@ -108,7 +107,6 @@
                         <div class="entry-post_info">
                             <span><i class="fa-regular fa-clock"></i> <fmt:formatDate pattern="dd/MM/yyyy" value="${post.createdAt}"></fmt:formatDate>
                                 </span>
-                                <!-- <span><i class="fa fa-eye"></i> 35.105 lượt xem</span> -->
                             </div>
 
                             <p>${post.detail}</p>

@@ -20,6 +20,14 @@
         <servlet-class>controller.manager.PostManager</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>PostList</servlet-name>
+        <servlet-class>controller.user.PostList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostDetail</servlet-name>
+        <servlet-class>controller.user.PostDetail</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CreateDoctorController</servlet-name>
         <servlet-class>controller.manager.CreateDoctor</servlet-class>
     </servlet>
@@ -39,6 +47,18 @@
         <servlet-name>Error404Handler</servlet-name>
         <servlet-class>Controllers.Error404Handler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxDoctorList</servlet-name>
+        <servlet-class>controller.manager.AjaxDoctorList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxPostList</servlet-name>
+        <servlet-class>controller.manager.AjaxPostList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxPostLoadmore</servlet-name>
+        <servlet-class>controller.manager.AjaxPostLoadmore</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
@@ -50,6 +70,14 @@
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostList</servlet-name>
+        <url-pattern>/chuyen-muc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetail</servlet-name>
+        <url-pattern>/bai-viet</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -142,6 +170,26 @@
     <servlet-mapping>
         <servlet-name>Error404Handler</servlet-name>
         <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxDoctorList</servlet-name>
+        <url-pattern>/AjaxDoctorList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxDoctorList</servlet-name>
+        <url-pattern>/AjaxDoctorPaging</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxPostList</servlet-name>
+        <url-pattern>/AjaxPostList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxPostList</servlet-name>
+        <url-pattern>/AjaxPostPaging</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxPostLoadmore</servlet-name>
+        <url-pattern>/ajax/post/loadmore</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

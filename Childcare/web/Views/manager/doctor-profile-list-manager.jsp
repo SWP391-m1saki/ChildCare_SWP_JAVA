@@ -20,6 +20,8 @@
 
         <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
         <script src='${pageContext.request.contextPath}/js/pagger.js'></script>
         <link href="${pageContext.request.contextPath}/css/pagger.css" rel="stylesheet" type="text/css"/>
@@ -33,17 +35,17 @@
                 <main class="main-admin-page">
                     <!--HEADER-->
                 <jsp:include page="header.jsp"></jsp:include>
-                <!--HEADER-->
+                    <!--HEADER-->
 
-                <!--Message display-->
-                <script type="text/javascript">
-                    if (${requestScope.mess != null}) {
-                        if (${requestScope.mess[0] == "sucess"}) {
-                            toastr.success(${requestScope.mess[1]});
-                        } else {
-                            toastr.error(${requestScope.mess[1]});
+                    <!--Message display-->
+                    <script type="text/javascript">
+                        if (${requestScope.mess != null}) {
+                            if (${requestScope.mess[0] == "sucess"}) {
+                                toastr.success(${requestScope.mess[1]});
+                            } else {
+                                toastr.error(${requestScope.mess[1]});
+                            }
                         }
-                    }
                 </script>
 
                 <section class="content-main">
@@ -57,15 +59,15 @@
 
                     <div class="card mb-4">
                         <header class="card-header">
-                            <div class="row gx-3">
+                            <div class="row gx-3" id="filter-control">
 
                                 <!--SEARCH BAR-->
                                 <div class="col-lg-4 col-md-6 me-auto">
-                                    <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên bác sĩ" class="form-control fw-bold" value="${requestScope.search}">
+                                    <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên bác sĩ" class="form-control fw-bold" value="${requestScope.search}" onkeyup="doctorListAjax();">
                                 </div>
 
                                 <div class="col-lg-2 col-md-3 col-6">
-                                    <select class="form-select fw-bold" name="depId" onchange="this.form.submit();" form="main-form">
+                                    <select class="form-select fw-bold" name="depId" form="main-form">
                                         <option value="-1" ${(requestScope.depId == -1)?'selected':''}>
                                         <span>Chuyên khoa</span>
                                         </option>
@@ -83,48 +85,50 @@
                             </div>
                         </header> <!-- card-header end// -->
                         <div class="card-body">
-                            <c:if test="${requestScope.doctorList != null && requestScope.doctorList.size() != 0}">
+                            <div id="list-display">                         
+                                <c:if test="${requestScope.doctorList != null && requestScope.doctorList.size() != 0}">
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Bác sĩ</th>
-                                                <th>Chuyên khoa</th>
-                                                <th>Chức danh</th>
-                                                <th class="text-end"> Hành động </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${requestScope.doctorList}" var="d">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
                                                 <tr>
-                                                    <td width="40%">
-                                                        <a href="${context}/manager/doctor/profile/detail?id=${d.doctorId}" class="itemside">
-                                                            <div class="left">
-                                                                <img src="${context}/img/${d.user.avatar}" class="img-md image p-1" alt="Ảnh bac si" id="show-avatar">
-                                                            </div>
-                                                            <div class="info pl-3">
-                                                                <h6 class="mb-0 title">${d.user.name}</h6>
-                                                            </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="fw-bold">${requestScope.departments.get(d.departmentId).departmentName}</td>
-                                                    <td>
-                                                        ${d.title}
-                                                    </td>
-                                                    <td class="text-end">
-                                                        <a href="${context}/manager/doctor/profile/detail?id=${d.doctorId}" class="btn btn-light">Chi tiết</a>
-                                                        <a class="btn btn-primary" style="padding: 0.4rem"  onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="#">Phân việc</a>
-                                                    </td>
+                                                    <th>Bác sĩ</th>
+                                                    <th>Chuyên khoa</th>
+                                                    <th>Chức danh</th>
+                                                    <th class="text-end"> Hành động </th>
                                                 </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach items="${requestScope.doctorList}" var="d">
+                                                    <tr>
+                                                        <td width="40%">
+                                                            <a href="${context}/manager/doctor/profile/detail?id=${d.doctorId}" class="itemside">
+                                                                <div class="left">
+                                                                    <img src="${context}/img/${d.user.avatar}" class="img-md image p-1" alt="Ảnh bac si" id="show-avatar">
+                                                                </div>
+                                                                <div class="info pl-3">
+                                                                    <h6 class="mb-0 title">${d.user.name}</h6>
+                                                                </div>
+                                                            </a>
+                                                        </td>
+                                                        <td class="fw-bold">${requestScope.departments.get(d.departmentId).departmentName}</td>
+                                                        <td>
+                                                            ${d.title}
+                                                        </td>
+                                                        <td class="text-end">
+                                                            <a href="${context}/manager/doctor/profile/detail?id=${d.doctorId}" class="btn btn-light">Chi tiết</a>
+                                                            <a class="btn btn-primary" style="padding: 0.4rem"  onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="#">Phân việc</a>
+                                                        </td>
+                                                    </tr>
 
-                                            </c:forEach>
-                                        </tbody>
-                                    </table> <!-- table-responsive.// -->
-                                </c:if>
-                                <c:if test="${requestScope.doctorList == null || requestScope.doctorList.size() == 0}">
-                                    <h3>Không có bác sĩ nào</h3>
-                                </c:if>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table> <!-- table-responsive.// -->
+                                    </c:if>
+                                    <c:if test="${requestScope.doctorList == null || requestScope.doctorList.size() == 0}">
+                                        <h3>Không có bác sĩ nào</h3>
+                                    </c:if>
+                                </div>
                             </div>
                         </div> <!-- card-body end// -->
                     </div> <!-- card end// -->
@@ -136,7 +140,7 @@
                             <jsp:include page="../Shared/_Paging.jsp"></jsp:include>
                         </c:when> 
                         <c:otherwise>
-                            <form method="post" id="main-form"> 
+                            <form method="post" id="main-form">
                             </form>
                         </c:otherwise>
                     </c:choose>
@@ -145,5 +149,42 @@
         </div>
         <script src="${context}/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+                                                                function doctorListAjax() {
+                                                                    ajaxCall('/Childcare/AjaxDoctorList', 'list-display');
+                                                                    ajaxCall('/Childcare/AjaxDoctorPaging', 'paging-div');
+                                                                }
+
+                                                                function ajaxCall(url, id) {
+                                                                    $.ajax({
+                                                                        url: url,
+                                                                        type: "POST",
+                                                                        data: {
+                                                                            search: document.querySelector('input[name="search"]').value,
+                                                                            depId: document.querySelector('select[name="depId"]').value,
+                                                                            pagesize: document.querySelector('select[name="pagesize"]').value,
+                                                                            page: document.querySelector('input[name="pageindex"]').value
+                                                                        },
+                                                                        async: true,
+                                                                        success: function (data) {
+                                                                            var row = document.getElementById(id);
+                                                                            row.innerHTML = data;
+                                                                        },
+                                                                        error: function () {
+                                                                            alert('Errore');
+                                                                        },
+                                                                        complete: function () {
+                                                                            if (id === 'paging-div') {
+                                                                                pagger('pagger', parseInt(document.querySelector('input[name="pageindex"]').value, 10), document.querySelector('input[name="totalpage"]').value, 2, -1);
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                                document.querySelector('select[name="depId"]').addEventListener('change', function () {
+                                                                    doctorListAjax();
+                                                                    alert();
+                                                                });
+        </script>
     </body>
 </html>
