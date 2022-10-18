@@ -76,7 +76,7 @@
         <c:set var="post" value="${requestScope.postDetail}"/>
 
         <!--BreadCrum-->
-        <div class="container-fluid fs-6 mt-5">
+        <div class="container-fluid fs-6 mt-5 ms-5">
             <div class="container">
 
                 <ol class="breadcrumb">
@@ -96,7 +96,7 @@
         </div>
 
         <!-- Blog Start -->
-        <div class="container py-5">
+        <div class="container py-5 pt-3">
             <div class="row g-5" style="margin-left: 50px">
                 <div class="col-lg-8 p-4" style="background: white;">
                     <!-- Blog Detail Start -->
@@ -128,7 +128,7 @@
                                     <c:if test="${c.cateId == requestScope.cid}">${c.cateName}</c:if>
                                 </c:forEach>
                             </a>
-                        </div>                    
+                        </div>
                     </div>
                     <!-- Blog Detail End -->
 
@@ -161,7 +161,5 @@
         <script src="${pageContext.request.contextPath}lib/tempusdominus/js/moment-timezone.min.js"></script>
         <script src="${pageContext.request.contextPath}lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
     </body>
 </html>

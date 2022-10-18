@@ -29,9 +29,9 @@ public class DBContext {
  /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
     private static String serverName = "localhost";
     private static String dbName = "SWP";
-    private static String portNumber = "1234";
+    private static String portNumber = "1311";
     private static String userID = "sa";
-    private static String password = "123";
+    private static String password = "123456";
     
 //    public static void main(String[] args) throws Exception {
 //        Connection con = DBContext.getConnection();
