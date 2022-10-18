@@ -31,23 +31,24 @@
                 <main class="main-admin-page">
                     <!--HEADER-->
                 <jsp:include page="header.jsp"></jsp:include>
-                <!--HEADER-->
+                    <!--HEADER-->
 
-                <section class="content-main" style="max-width: 900px">
-                    <div class="content-header p-1 ps-3 mb-3">
-                        <h3 class="content-title">Chỉnh sửa hồ sơ bác sĩ</h3>
-                    </div>
+                    <section class="content-main" style="max-width: 900px">
+                        <div class="content-header p-1 ps-3 mb-3">
+                            <h3 class="content-title">Chỉnh sửa hồ sơ bác sĩ</h3>
+                        </div>
 
-                    <div class="content-body">
-                        <div class="add-form ms-3">
-                            <div class="form-item">
-                                <h5 class="p-3" style="
-                                    color: #4644a3;
-                                    background: #fdfdfd;
-                                    width: fit-content;
-                                    border-radius: 10px;
-                                    border: 1px solid #f0f0f0;
-                                    ">${doctorProfile.user.name}</h5>
+                        <div class="content-body">
+                            <div class="add-form ms-3">
+                                <div class="form-item">
+                                    <h5 class="p-3" style="
+                                        color: #4644a3;
+                                        background: #fdfdfd;
+                                        width: fit-content;
+                                        border-radius: 10px;
+                                        border: 1px solid #f0f0f0;
+                                        ">${doctorProfile.user.name}
+                                </h5>
                             </div>
 
                             <form method="POST">
@@ -70,12 +71,13 @@
                                     </div>
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Thông tin giới thiệu</label>
-                                        <textarea name="qualification" class="form-control">${doctorProfile.description}</textarea>
+                                        <textarea name="qualification" class="form-control" oninput='this.style.height = this.scrollHeight + "px"'>${doctorProfile.description}</textarea>
                                     </div>
 
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Học vấn và kinh nghiệm làm việc</label>
-                                        <textarea name="description" class="form-control" style="min-height: 100px">${doctorProfile.qualification}</textarea>
+                                        <textarea name="description" class="form-control" style="min-height: 100px" 
+                                                  oninput='this.style.height = this.scrollHeight + "px"'>${doctorProfile.qualification}</textarea>
                                     </div>
                                 </div>
 

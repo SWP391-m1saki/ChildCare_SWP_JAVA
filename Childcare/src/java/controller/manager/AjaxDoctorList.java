@@ -33,32 +33,6 @@ public class AjaxDoctorList extends HttpServlet {
         doctorDAO.load();
     }
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AjaxDoctorList</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AjaxDoctorList at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -71,7 +45,6 @@ public class AjaxDoctorList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -117,7 +90,7 @@ public class AjaxDoctorList extends HttpServlet {
                     for (DoctorProfile d : doctorList) {
                         s += "<tr>\n"
                                 + "                                                        <td width=\"40%\">\n"
-                                + "                                                            <a href=\"${context}/manager/doctor/profile/detail?id=" + d.getDoctorId() + "\" class=\"itemside\">\n"
+                                + "                                                            <a href=\"../../manager/doctor/profile/detail?id=" + d.getDoctorId() + "\" class=\"itemside\">\n"
                                 + "                                                                <div class=\"left\">\n"
                                 + "                                                                    <img src=\"../../img/" + d.getUser().getAvatar() + "\" class=\"img-md image p-1\" alt=\"Ảnh bac si\" id=\"show-avatar\">\n"
                                 + "                                                                </div>\n"
@@ -131,8 +104,8 @@ public class AjaxDoctorList extends HttpServlet {
                                 + "                                                            " + d.getTitle() + "\n"
                                 + "                                                        </td>\n"
                                 + "                                                        <td class=\"text-end\">\n"
-                                + "                                                            <a href=\"${context}/manager/doctor/profile/detail?id=" + d.getDoctorId() + "\" class=\"btn btn-light\">Chi tiết</a>\n"
-                                + "                                                            <a class=\"btn btn-primary\" style=\"padding: 0.4rem\"  onclick=\"return confirm('Bạn có chắc chắn muốn xóa?')\" href=\"#\">Phân việc</a>\n"
+                                + "                                                            <a href=\"../../manager/doctor/profile/detail?id=" + d.getDoctorId() + "\" class=\"btn btn-light\">Chi tiết</a>\n"
+                                + "                                                            <a class=\"btn btn-primary\" style=\"padding: 0.4rem\" href=\"#\">Phân việc</a>\n"
                                 + "                                                        </td>\n"
                                 + "</tr>\n"
                                 + "\n";

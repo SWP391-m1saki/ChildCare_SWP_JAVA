@@ -48,7 +48,7 @@
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 3; /* number of lines to show */
                 line-height: 1.5em;        /* fallback */
-                max-height: 4.5em; 
+                max-height: 4.5em;
                 color: #464646;
             }
 
@@ -67,7 +67,7 @@
         <jsp:include page="../Shared/_Header.jsp"/>
 
         <!--BreadCrum-->
-        <div class="container-fluid fs-5">
+        <div class="container-fluid fs-5 mt-4 ms-5">
             <div class="container">
 
                 <ol class="breadcrumb">
@@ -91,26 +91,33 @@
                     <div class="text-center mx-auto mb-5">
                         <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5">Bài viết mới nhất</h4>
                     </div>
-                    <div class="row g-5 pb-3" style="background: #f6f6f685;" id="post-list">
-                        <c:forEach items="${requestScope.postList}" var="post">
-                            <div class="post col-xl-6 col-lg-6" >
-                                <div class="bg-light rounded overflow-hidden" style="height: 460px">
-                                    <a href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">
-                                        <img class="img-fluid w-100" style="aspect-ratio: 3 / 2;" src="${pageContext.request.contextPath}/img/${post.image}" alt="">
-                                    </a>
-                                    <div class="p-4">
-                                        <a class="h4 d-block mb-3 post-title" href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">${post.title}</a>
-                                        <p class="m-0 post-description">${post.description}</p>
+                    <c:choose>
+                        <c:when test="${requestScope.postList.isEmpty()}">
+                            <h2 class="text-center">Không có bài viết nào</h2>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="row g-5 pb-3" style="background: #f6f6f685;" id="post-list">
+                                <c:forEach items="${requestScope.postList}" var="post">
+                                    <div class="post col-xl-6 col-lg-6" >
+                                        <div class="bg-light rounded overflow-hidden" style="height: 460px">
+                                            <a href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">
+                                                <img class="img-fluid w-100" style="aspect-ratio: 3 / 2;" src="${pageContext.request.contextPath}/img/${post.image}" alt="">
+                                            </a>
+                                            <div class="p-4">
+                                                <a class="h4 d-block mb-3 post-title" href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">${post.title}</a>
+                                                <p class="m-0 post-description">${post.description}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </c:forEach>
                             </div>
-                        </c:forEach>
-                    </div>
-                    <c:if test="${requestScope.postList.size() >= 6}">
-                        <div class="col-12 text-center mt-4">
-                            <button class="btn btn-primary py-3 px-5 load-more">Xem thêm</button>
-                        </div>
-                    </c:if>
+                            <c:if test="${requestScope.postList.size() >= 6}">
+                                <div class="col-12 text-center mt-4">
+                                    <button class="btn btn-primary py-3 px-5 load-more">Xem thêm</button>
+                                </div>
+                            </c:if>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <!-- Sidebar Start -->
