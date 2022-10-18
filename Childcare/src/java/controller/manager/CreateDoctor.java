@@ -21,8 +21,9 @@ import java.time.format.DateTimeFormatter;
  * @author Admin
  */
 public class CreateDoctor extends HttpServlet {
+
     UserDAO userDAO;
-    
+
     @Override
     public void init() {
         userDAO = new UserDAO();
@@ -37,7 +38,6 @@ public class CreateDoctor extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -84,16 +84,43 @@ public class CreateDoctor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        userDAO.load();
         User doctor = new User();
-        doctor.setName(request.getParameter("fullname"));
-        doctor.setEmail(request.getParameter("gmail"));
-        doctor.setPassword("123456789");
-        doctor.setDob(LocalDate.parse(request.getParameter("dob")));
-        doctor.setPhoneNumber(request.getParameter("phone"));
-        doctor.setAddress(request.getParameter("address"));
+        String name = request.getParameter("fullname");
+        String gmail = request.getParameter("gmail");
+        LocalDate dob = LocalDate.parse(request.getParameter("dob"));
+        LocalDate now = LocalDate.now();
+        String phoneNumber = request.getParameter("phone");
+        String address = request.getParameter("address");
+        if (!Utils.Utility.validateString(gmail, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            request.setAttribute("mess", "Email không hợp lệ");
+            request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
+        } else if (userDAO.EmailDuplicate(gmail)) {
+            request.setAttribute("mess", "Email lặp");
+            request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
+        } else if (!Utils.Utility.validateString(phoneNumber, "(84|0[3|5|7|8|9])+([0-9]{8})")) {
+            request.setAttribute("mess", "Số điện thoại không hợp lệ");
+            request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
+        } else if (address.length() > 250) {
+            request.setAttribute("mess", "Địa chỉ quá dài, địa chỉ phải có độ dài ít hơn 250 ký tự");
+            request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
+        }else if((now.getYear()  - dob.getYear()) <= 23 ){
+            request.setAttribute("mess", "Tuổi không hợp lệ");
+            request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
+        }
+        else {
+            doctor.setName(name);
+            doctor.setEmail(gmail);
+            doctor.setPassword("123456789");
+            doctor.setDob(dob);
+            doctor.setPhoneNumber(phoneNumber);
+            doctor.setAddress(address);
+            userDAO.add(doctor);
+            userDAO.load();
+            int id = userDAO.ValidateLogin(gmail, "123456789").getId();
+            response.sendRedirect("profile/update?id=" + id);
+        }
 
-        userDAO.add(doctor);
-        response.sendRedirect("profile/update");
     }
 
     /**

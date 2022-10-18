@@ -70,9 +70,14 @@ public class UpdateDoctorProfile extends HttpServlet {
         departmentDAO.load();
         doctorProfileDAO.load();
         int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        request.setAttribute("doctorProfile", doctorProfileDAO.get(id));
-        request.setAttribute("departments", departmentDAO.getAllHasMap());
-        request.getRequestDispatcher("../../../Views/manager/updateDoctorProfile.jsp").forward(request, response);
+        if (id < 0 || doctorProfileDAO.get(id) == null) {
+            response.sendRedirect("../profile");
+        } else {
+            request.setAttribute("doctorProfile", doctorProfileDAO.get(id));
+            request.setAttribute("departments", departmentDAO.getAllHasMap());
+            request.getRequestDispatcher("../../../Views/manager/updateDoctorProfile.jsp").forward(request, response);
+        }
+
     }
 
     /**
@@ -87,16 +92,32 @@ public class UpdateDoctorProfile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DoctorProfile doctor = new DoctorProfile();
-        doctor.setDoctorId(Utils.Utility.parseIntParameter(request.getParameter("id"), -1));
-        doctor.setPrice(Utils.Utility.parseDoubleParameter(request.getParameter("price"), -1));
-        doctor.setQualification(request.getParameter("qualification"));
-        doctor.setDescription(request.getParameter("description"));
-        doctor.setDepartmentId(Utils.Utility.parseIntParameter(request.getParameter("department"), -1));
-        doctor.setTitle(request.getParameter("title"));
-        doctorProfileDAO.update(doctor);
-        doctorProfileDAO.load();
-        doGet(request, response);
-        
+        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
+        double price = Utils.Utility.parseDoubleParameter(request.getParameter("price"), -1);
+        String qualification = request.getParameter("qualification");
+        String description = request.getParameter("description");
+        String title = request.getParameter("title");
+        if (price <= 0) {
+            request.setAttribute("mess", "Giá không hợp lệ");
+            doGet(request, response);
+        } else if (qualification.length() >= 500) {
+            request.setAttribute("mess", "Học vấn và kinh nghiệm phải có độ dài bé hơn 500");
+            doGet(request, response);
+        } else if (title.length() >= 50) {
+            request.setAttribute("mess", "Chức vụ phải có độ dài bé hơn 50");
+            doGet(request, response);
+        } else {
+            doctor.setDoctorId(id);
+            doctor.setPrice(price);
+            doctor.setQualification(qualification);
+            doctor.setDescription(description);
+            doctor.setDepartmentId(Utils.Utility.parseIntParameter(request.getParameter("department"), -1));
+            doctor.setTitle(title);
+            doctorProfileDAO.update(doctor);
+            doctorProfileDAO.load();
+            response.sendRedirect("detail?id=" + id);
+        }
+
     }
 
     /**
