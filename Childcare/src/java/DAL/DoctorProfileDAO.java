@@ -60,7 +60,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
                 user.setAvatar(rs.getString("avatar"));
                 user.setAddress(rs.getString("address"));
                 //! DOB va gmail
-                user.setDob(LocalDate.parse("dob"));
+                user.setDob(LocalDate.parse(rs.getString("dob")));
                 user.setEmail("gmail");
                 user.setPhoneNumber(rs.getString("phone_number"));
                 doctor.setDoctorId(rs.getInt("doctor_id"));
