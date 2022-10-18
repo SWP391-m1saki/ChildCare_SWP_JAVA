@@ -240,7 +240,7 @@
                                     <div class="account-info">
                                         <h6 class="account-infor_header">Thông tin tài khoản</h6>
                                         <p><span>Số điện thoại:  </span> ${doctorProfile.user.phoneNumber}</p>
-                                        <p><span>Ngày sinh:  </span>  ${doctorProfile.user.address}</p>
+                                        <p><span>Ngày sinh:  </span>  ${doctorProfile.user.dob}</p>
                                         <p class="ps-1"><span>Địa chỉ:  </span> ${doctorProfile.user.address}</p>
                                     </div>
                                 </div>
