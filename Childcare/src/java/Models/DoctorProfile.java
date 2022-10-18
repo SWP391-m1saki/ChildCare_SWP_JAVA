@@ -5,28 +5,26 @@
  */
 package Models;
 
-/**
- *
- * @author Misaki
- */
 public class DoctorProfile {
     private int doctorId;
-    private String education;
+    private String title;
     private double price;
-    private String workExp;
+    private String qualification;
     private String description;
     private int departmentId;
+    private User user;
 
     public DoctorProfile() {
     }
 
-    public DoctorProfile(int doctorId, String education, double price, String workExp, String description, int departmentId) {
+    public DoctorProfile(int doctorId, String title, double price, String qualification, String description, int departmentId, User user) {
         this.doctorId = doctorId;
-        this.education = education;
+        this.title = title;
         this.price = price;
-        this.workExp = workExp;
+        this.qualification = qualification;
         this.description = description;
         this.departmentId = departmentId;
+        this.user = user;
     }
 
     public int getDoctorId() {
@@ -37,12 +35,12 @@ public class DoctorProfile {
         this.doctorId = doctorId;
     }
 
-    public String getEducation() {
-        return education;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEducation(String education) {
-        this.education = education;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public double getPrice() {
@@ -53,12 +51,12 @@ public class DoctorProfile {
         this.price = price;
     }
 
-    public String getWorkExp() {
-        return workExp;
+    public String getQualification() {
+        return qualification;
     }
 
-    public void setWorkExp(String workExp) {
-        this.workExp = workExp;
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
     public String getDescription() {
@@ -76,6 +74,18 @@ public class DoctorProfile {
     public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
     }
-    
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorProfile{" + "doctorId=" + doctorId + ", title=" + title + ", price=" + price + ", qualification=" + qualification + ", description=" + description + ", departmentId=" + departmentId + ", user=" + user.getName() + '}';
+    }
+
 }

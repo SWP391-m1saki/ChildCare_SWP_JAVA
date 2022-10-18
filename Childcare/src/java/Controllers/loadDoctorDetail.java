@@ -8,8 +8,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class loadDoctor extends HttpServlet {
+public class loadDoctorDetail extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -18,21 +27,38 @@ public class loadDoctor extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loadDoctor</title>");
+            out.println("<title>Servlet loadDoctorDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loadDoctor at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet loadDoctorDetail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-    final DoctorProfileDAO daoDoctor = new DoctorProfileDAO();
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    DoctorProfileDAO daoDoctor;
+
+    @Override
+    public void init() {
+        daoDoctor = new DoctorProfileDAO();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        daoDoctor.load();
-        request.setAttribute("doctors", daoDoctor.getAll());
-        request.getRequestDispatcher("Views/Guests/team.jsp").forward(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        //daoDoctor.load();
+        request.setAttribute("doctors", daoDoctor.get(id));
+        request.getRequestDispatcher("Views/Guests/doctor-profile-detail.jsp").forward(request, response);
     }
 
     /**
@@ -54,7 +80,6 @@ public class loadDoctor extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @SuppressWarnings("SameReturnValue")
     @Override
     public String getServletInfo() {
         return "Short description";
