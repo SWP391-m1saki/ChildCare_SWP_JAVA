@@ -59,6 +59,10 @@
         <servlet-name>AjaxPostLoadmore</servlet-name>
         <servlet-class>controller.manager.AjaxPostLoadmore</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxCreateCategory</servlet-name>
+        <servlet-class>controller.manager.AjaxCreateCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
@@ -190,6 +194,10 @@
     <servlet-mapping>
         <servlet-name>AjaxPostLoadmore</servlet-name>
         <url-pattern>/ajax/post/loadmore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxCreateCategory</servlet-name>
+        <url-pattern>/ajax/post/create-category</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

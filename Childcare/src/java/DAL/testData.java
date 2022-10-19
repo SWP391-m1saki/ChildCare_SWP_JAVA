@@ -16,14 +16,16 @@ import java.util.Map;
 public class testData {
 
     public static void main(String[] args) {
-      PostDAO dao = new PostDAO();
-      
-      for(Post p: dao.loadMoreWithFilter(0, 3, "", 1)){
-          System.out.println(p);
-      }
-     
-       
+        CategoryDAO categorydao = new CategoryDAO();
+        PostCategory category = new PostCategory();
+        category.setCateName("Sức khỏe sinh sản");
+        categorydao.add(category);
+        categorydao.load();
+        for (PostCategory cate : categorydao.getAll()) {
+            System.out.println(cate.getCateName());
+        }
+
         //System.out.println(pdao.get(10));
     }
-    
+
 }

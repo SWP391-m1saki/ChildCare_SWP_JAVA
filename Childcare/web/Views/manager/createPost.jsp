@@ -119,15 +119,15 @@
                                             <div>
                                                 <input type="text" name="new-category" required="required" placeholder="chuyên mục" class="form-control w-60 mb-3"
                                                        style="display: inline-block">
-                                                <button class="btn btn-primary pb-1">Thêm</button>
+                                                <div class="btn btn-primary pb-1 btn-category-add">Thêm</div>
                                             </div>
                                             <ul class="list-group list-category">
                                                 <c:forEach items="${requestScope.postCategory}" var="c">
                                                     <li value="${c.cateId}" class="list-group-item">
                                                         <span>${c.cateName}</span>
-<!--                                                        <button>
-                                                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                        </button>-->
+                                                        <!--                                                        <button>
+                                                                                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                                                                                </button>-->
                                                     </li>
                                                 </c:forEach>
                                             </ul>
@@ -168,6 +168,8 @@
                 </section>
             </main>
         </div>
+        <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
             var editor1 = new RichTextEditor("#div_editor1");
             const expandBtn = document.querySelector('.open');
@@ -180,6 +182,28 @@
             });
 
             closeBtn.addEventListener('click', function (e) {
+                addCategoryDiv.style.display = "none";
+                expandBtn.style.display = "block";
+            });
+
+            function ajaxCall() {
+                $.ajax({
+                    url: '/Childcare/ajax/post/create-category',
+                    type: "POST",
+                    data: {
+                        new_category: document.querySelector('input[name="new-category"]').value
+                    },
+                    async: true,
+                    success: function (data) {
+                        var row = document.querySelector('select[name="category"]');
+                        row.innerHTML = data;
+                    }
+                });
+
+            }
+
+            document.querySelector('.btn-category-add').addEventListener('click', function () {
+                ajaxCall();
                 addCategoryDiv.style.display = "none";
                 expandBtn.style.display = "block";
             });
