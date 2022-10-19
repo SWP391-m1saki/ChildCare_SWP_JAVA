@@ -43,22 +43,6 @@ public class AjaxPostList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AjaxPostList</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AjaxPostList at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -72,7 +56,6 @@ public class AjaxPostList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -92,13 +75,13 @@ public class AjaxPostList extends HttpServlet {
         int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
 
 //        //PAGING
-        int[] nrppArr = {5, 10, 20};
+        int[] availPageSize = {5, 10, 20};
         String searchTxt = request.getParameter("search");
-        List<Post> filteredList = postDao.getPostBySearchAndCategory(searchTxt, cateId);
+        List<Post> filteredPosts = postDao.getPostBySearchAndCategory(searchTxt, cateId);
         PageInfo page = new PageInfo();
-        page.pagination(request, filteredList, nrppArr);
+        page.pagination(request, filteredPosts, availPageSize);
 
-        List<Post> postList = postDao.getPostsByPage(page, filteredList);
+        List<Post> postList = postDao.getPostsByPage(page, filteredPosts);
 
         try ( PrintWriter out = response.getWriter()) {
             if (request.getServletPath().equals("/AjaxPostList")) {
@@ -172,8 +155,8 @@ public class AjaxPostList extends HttpServlet {
                             + "        <div id=\"pagger\" class=\"pagger\"></div>\n"
                             + "        <div class=\"nrpp\">\n"
                             + "            <select name=\"pagesize\" onchange=\"this.form.submit()\">\n";
-                    for (int i = 0; i < nrppArr.length; i++) {
-                        s += "<option value=\"" + nrppArr[i] + "\" " + (page.getPagesize() == nrppArr[i] ? "selected" : "") + ">" + nrppArr[i] + "</option>\n";
+                    for (int i = 0; i < availPageSize.length; i++) {
+                        s += "<option value=\"" + availPageSize[i] + "\" " + (page.getPagesize() == availPageSize[i] ? "selected" : "") + ">" + availPageSize[i] + "</option>\n";
                     }
 
                     s += "            </select>\n"

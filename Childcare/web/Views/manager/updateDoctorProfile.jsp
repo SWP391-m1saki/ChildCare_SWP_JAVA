@@ -71,12 +71,13 @@
                                     </div>
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Thông tin giới thiệu</label>
-                                        <textarea name="qualification" class="form-control" oninput='this.style.height = this.scrollHeight + "px"'>${doctorProfile.description}</textarea>
+                                        <textarea name="qualification" class="form-control" style="min-height: 150px" 
+                                                  oninput='this.style.height = this.scrollHeight + "px"'>${doctorProfile.description}</textarea>
                                     </div>
 
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Học vấn và kinh nghiệm làm việc</label>
-                                        <textarea name="description" class="form-control" style="min-height: 100px" 
+                                        <textarea name="description" class="form-control" style="min-height: 150px" 
                                                   oninput='this.style.height = this.scrollHeight + "px"'>${doctorProfile.qualification}</textarea>
                                     </div>
                                 </div>
@@ -89,7 +90,10 @@
                                 </div><!-- comment -->
 
 
-                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                <div class="action">
+                                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                    <a href="${context}/manager/doctor/profile" class="btn btn-secondary fw-bold ms-2" >Hủy</a>
+                                </div>
                             </form>
                         </div>
                     </div> <!-- card end// -->

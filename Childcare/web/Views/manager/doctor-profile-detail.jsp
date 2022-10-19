@@ -164,9 +164,9 @@
                                     </h1>
                                     <c:forEach items="${requestScope.departments}" var="d">
 <!--                                        <option ${d.key == doctorProfile.departmentId ? 'selected' : ''} value="${d.key}">${d.value.getDepartmentName()}</option>-->
-                                         <p class="text-sm-start" ${d.key != doctorProfile.departmentId ? 'hidden' : ''}>${d.value.getDepartmentName()}</p>
+                                        <p class="text-sm-start" ${d.key != doctorProfile.departmentId ? 'hidden' : ''}>${d.value.getDepartmentName()}</p>
                                     </c:forEach>
-                                   
+
                                 </div>
                                 <div class="action">
                                     <a class="btn btn-primary fw-bold" href="${context}/manager/doctor/profile/update?id=${doctorProfile.doctorId}">Chỉnh sửa</a>
@@ -226,7 +226,7 @@
                                                 <div class="qualication-detail">
                                                     <ul>
                                                         <li><p>${doctorProfile.qualification}</p></li>
-                                                       
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -242,6 +242,12 @@
                                         <p><span>Số điện thoại:  </span> ${doctorProfile.user.phoneNumber}</p>
                                         <p><span>Ngày sinh:  </span>  ${doctorProfile.user.dob}</p>
                                         <p class="ps-1"><span>Địa chỉ:  </span> ${doctorProfile.user.address}</p>
+                                        <div class="action">
+                                            <a class="btn btn-success rounded-pill py-1 fs-bold" 
+                                               href="${context}/manager/doctor/profile/update?id=${doctorProfile.doctorId}"
+                                               style="background: #4ae882;">Chỉnh sửa</a>
+                                            <a href="mailto:${doctorProfile.user.email}?subject=Feedback&body=Message" target="_blank" class="btn btn-secondary rounded-pill py-1">Liên hệ</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
