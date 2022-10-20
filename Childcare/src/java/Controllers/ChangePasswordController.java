@@ -1,6 +1,7 @@
 package Controllers;
 
 import DAL.UserDAO;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -37,7 +38,16 @@ public class ChangePasswordController extends HttpServlet {
             request.getRequestDispatcher("Views/Customers/changePassword.jsp").forward(request, response);
         }
         else{
-            dao.ChangePassword(session.getAttribute("verifyingEmail").toString(), password);
+            String id="";
+            if(session.getAttribute("verifyingEmail") != null) id =session.getAttribute("verifyingEmail").toString();
+            User userLogined = (User)session.getAttribute("UserLogined");
+            if(userLogined != null){
+                session.removeAttribute("UserLogined");
+                id = userLogined.getEmail();
+            }
+           
+            dao.ChangePassword(id, password);
+            request.setAttribute("NOTIFICATION", "Change password successful, please login!");
             response.sendRedirect("login");
         }
     }

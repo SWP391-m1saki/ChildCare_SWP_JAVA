@@ -13,6 +13,7 @@ import java.util.Map;
  *
  * @author Admin
  */
+@SuppressWarnings("WriteOnlyObject")
 public class testData {
 
     public static void main(String[] args) {

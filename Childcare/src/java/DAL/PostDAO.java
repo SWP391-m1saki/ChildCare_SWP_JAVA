@@ -17,12 +17,14 @@ import java.util.List;
  *
  * @author Admin
  */
+
 public class PostDAO implements DAO<Post> {
 
     private String status;
     private Connection con;
     private final List<Post> postList;
 
+    @SuppressWarnings("Convert2Diamond")
     public PostDAO() {
         try {
             con = DBContext.getConnection();
@@ -104,9 +106,7 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void update(Post t) {
-        String sql = "update Post \n"
-                + "set title = ?, description = ?,detail = ?,\n"
-                + "cate_id= ?,[image] = ? where post_id = ?";
+        String sql = "update Post set title = ?, description = ?,detail = ?,cate_id= ?,[image] = ? where post_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTitle());
@@ -165,11 +165,12 @@ public class PostDAO implements DAO<Post> {
         }
     }
 
+    @SuppressWarnings("JavadocDeclaration")
     /**
      * *
      * Get Post from List by CateId
      *
-     * @param cateId
+     * @param cateId to get category
      * @return
      */
     public List<Post> getPostByCate(int cateId) {

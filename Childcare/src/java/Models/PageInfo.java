@@ -28,9 +28,9 @@ public class PageInfo<T> {
     }
     
     public void calc(){
-        pageindex = pageindex > 1 ? pageindex : 1;
+        pageindex = Math.max(pageindex, 1);
         totalpage = (totalrecords % pagesize == 0) ? (totalrecords / pagesize) : (totalrecords / pagesize) + 1;
-        pageindex = pageindex < totalpage ? pageindex : totalpage;
+        pageindex = Math.min(pageindex, totalpage);
     }
 
     public int getPageindex() {

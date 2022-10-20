@@ -36,7 +36,7 @@ public class ResetPasswordController extends HttpServlet {
         System.out.println(email);
         if(dao.EmailDuplicate(email)) {
             sendEmail sm = new sendEmail();
-            String code = sm.getRandom();
+            String code = new sendEmail().getRandom();
             boolean test = sm.SendEmail(email, code);
             if(test){
                 HttpSession session = request.getSession();

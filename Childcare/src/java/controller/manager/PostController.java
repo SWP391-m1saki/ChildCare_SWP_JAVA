@@ -19,6 +19,7 @@ import java.sql.SQLException;
 /**
  *
  * @author Admin
+ * @noinspection ConstantConditions
  */
 public class PostController extends HttpServlet {
 

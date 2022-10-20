@@ -5,10 +5,6 @@
  */
 package Models;
 
-/**
- *
- * @author Misaki
- */
 public class DoctorProfile {
     private int doctorId;
     private String description;

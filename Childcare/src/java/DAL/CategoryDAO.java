@@ -19,7 +19,7 @@ public class CategoryDAO implements DAO<PostCategory> {
 
     private String status;
     private Connection con;
-    private List<PostCategory> postCategoryList;
+    private final List<PostCategory> postCategoryList;
 
     public CategoryDAO() {
         try {

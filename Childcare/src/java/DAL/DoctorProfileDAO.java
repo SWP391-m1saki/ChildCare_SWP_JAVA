@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DoctorProfileDAO implements DAO<DoctorProfile> {
 
-    private List<DoctorProfile> list;
+    private final List<DoctorProfile> list;
     private Connection con;
     private String status;
 
@@ -74,6 +74,14 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             }
         } catch (Exception e) {
             status = "Error getAll doctorProfile " + e.getMessage();
+        }
+    }
+
+    public static void main(String[] args) {
+        DoctorProfileDAO dao = new DoctorProfileDAO();
+        dao.load();
+        for (DoctorProfile doc : dao.getAll()) {
+            System.out.println(doc.toString());
         }
     }
 
