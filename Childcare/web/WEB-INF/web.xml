@@ -87,6 +87,14 @@
         <servlet-name>VerifyByOldPassword</servlet-name>
         <servlet-class>Controllers.VerifyByOldPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerListController</servlet-name>
+        <servlet-class>controller.manager.CustomerList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerDetailController</servlet-name>
+        <servlet-class>controller.manager.CustomerDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -230,8 +238,8 @@
     <servlet-mapping>
         <servlet-name>AjaxCreateCategory</servlet-name>
         <url-pattern>/ajax/post/create-category</url-pattern>
-     </servlet-mapping>
-     <servlet-mapping>   
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UserProfileController</servlet-name>
         <url-pattern>/userProfile</url-pattern>
     </servlet-mapping>
@@ -254,6 +262,14 @@
     <servlet-mapping>
         <servlet-name>VerifyByOldPassword</servlet-name>
         <url-pattern>/verifyByOldPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListController</servlet-name>
+        <url-pattern>/manager/customer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDetailController</servlet-name>
+        <url-pattern>/manager/customer/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
