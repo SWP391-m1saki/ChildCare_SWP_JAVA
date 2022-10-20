@@ -21,6 +21,7 @@ import java.time.LocalDate;
  *
  * @author Misaki
  */
+
 public class RegisterController extends HttpServlet {
 
     UserDAO dao;
@@ -38,6 +39,7 @@ public class RegisterController extends HttpServlet {
     }
 
     @Override
+    @SuppressWarnings("ThrowablePrintedToSystemOut")
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -52,11 +54,7 @@ public class RegisterController extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("passwordConfirm");
         String name = request.getParameter("name");
-        boolean gender = request.getParameter("gender").equals("male");
-        String phoneNumber = request.getParameter("phonenumber");
-        LocalDate dob = LocalDate.parse(request.getParameter("dob"));
-        String address = request.getParameter("address");
-        String avatar = request.getParameter("avatar");
+        String avatar = "img/defaultAvatar.png";
 
         boolean b1 = password.equals(confirmPassword);
         boolean b2 = dao.EmailDuplicate(email);
@@ -65,16 +63,12 @@ public class RegisterController extends HttpServlet {
             if(b2) request.setAttribute("NOTFICATION", "Email have been used!");
             request.setAttribute("email", email);
             request.setAttribute("name", name);
-            request.setAttribute("gender", gender);
-            request.setAttribute("phonenumber", phoneNumber);
-            request.setAttribute("dob", dob);
-            request.setAttribute("address", address);
-            request.setAttribute("avatar", avatar);
             request.getRequestDispatcher("Views/Guests/register.jsp").forward(request, response);
         } 
         else {
-            User newUser = new User(0, email, password, name, gender, dob, 4, phoneNumber, address, avatar, 0);
+            User newUser = new User(0, email, password, name, true, null, 4, null, null, avatar, 0);
             dao.add(newUser);
+            //System.out.println("concakkk");
             sendEmail sm = new sendEmail();
             String code = sm.getRandom();
             boolean test = sm.SendEmail(email, code);

@@ -15,6 +15,26 @@
         <servlet-name>PostManagerController</servlet-name>
         <servlet-class>Controllers.PostManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddChildrenController</servlet-name>
+        <servlet-class>Controllers.AddChildrenController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadChildrenProfile</servlet-name>
+        <servlet-class>Controllers.LoadChildrenProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateChildrenProfile</servlet-name>
+        <servlet-class>Controllers.UpdateChildrenProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteChildrenController</servlet-name>
+        <servlet-class>Controllers.DeleteChildrenController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyByOldPassword</servlet-name>
+        <servlet-class>Controllers.VerifyByOldPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
@@ -46,6 +66,10 @@
     <servlet>
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>Controllers.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserProfileController</servlet-name>
+        <servlet-class>Controllers.UserProfileController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -98,6 +122,30 @@
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileController</servlet-name>
+        <url-pattern>/userProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddChildrenController</servlet-name>
+        <url-pattern>/addChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadChildrenProfile</servlet-name>
+        <url-pattern>/loadChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateChildrenProfile</servlet-name>
+        <url-pattern>/updateChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteChildrenController</servlet-name>
+        <url-pattern>/deleteChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyByOldPassword</servlet-name>
+        <url-pattern>/verifyByOldPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

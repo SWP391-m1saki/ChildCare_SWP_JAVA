@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,17 +15,21 @@ import java.util.Date;
 public class ChildrenProfile {
     private int childrenId;
     private String name;
-    private Date dob;
+    private Boolean gender;
+    private LocalDate dob;
     private int parentId;
+    private String avatar;
 
     public ChildrenProfile() {
     }
 
-    public ChildrenProfile(int childrenId, String name, Date dob, int parentId) {
+    public ChildrenProfile(int childrenId, String name, Boolean gender, LocalDate dob, int parentId, String avatar) {
         this.childrenId = childrenId;
         this.name = name;
+        this.gender = gender;
         this.dob = dob;
         this.parentId = parentId;
+        this.avatar = avatar;
     }
 
     public int getChildrenId() {
@@ -43,11 +48,11 @@ public class ChildrenProfile {
         this.name = name;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -57,6 +62,22 @@ public class ChildrenProfile {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
     
     
