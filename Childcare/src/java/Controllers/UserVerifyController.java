@@ -34,7 +34,7 @@ public class UserVerifyController extends HttpServlet {
         if(verifying.equals(code) && register == null){
             response.sendRedirect("ChangePassword");
         }
-        else if(verifying.equals(code) && register != null){
+        else if(verifying.equals(code)){
             UserDAO dao = new UserDAO();
             dao.ActiveUser(session.getAttribute("verifyingEmail").toString());
             response.sendRedirect("login");

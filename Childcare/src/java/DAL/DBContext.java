@@ -25,6 +25,17 @@ public class DBContext {
         return sqlDate.toLocalDate();
     }
 
+
+
+    private static final String serverName = "localhost";
+
+    private static final String dbName = "SWP";
+
+    private static final String portNumber = "1209";
+
+    private static final String userID = "sa";
+
+    private static final String password = "khai1209";
     /*Insert your other code right after this comment*/
  /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
     private static String serverName = "localhost";
@@ -32,6 +43,7 @@ public class DBContext {
     private static String portNumber = "1433";
     private static String userID = "sa";
     private static String password = "dangngoclan2002";
+ main
     
 //    public static void main(String[] args) throws Exception {
 //        Connection con = DBContext.getConnection();

@@ -60,9 +60,16 @@
                             <div class="divider d-flex align-items-center my-4">
                                 <p class="text-center fw-bold mx-3 mb-0">Or</p>
                             </div>
-
+                            <div class="alert alert-success center mb-4" role="alert">
+                                <p>${NOTIFICATION}</p>
+                            </div>
                             <div class="form-outline mb-4">
-                                <input type="email" id="email" class="form-control form-control-lg" name="email"/>
+                                <input type="text" id="name" class="form-control form-control-lg" name="name" value="${requestScope.name}"/>
+                                <label class="form-label" for="name">Full name</label>
+                            </div>
+                            
+                            <div class="form-outline mb-4">
+                                <input type="email" id="email" class="form-control form-control-lg" name="email" value="${requestScope.email}"/>
                                 <label class="form-label" for="gmail">Email</label>
                             </div>
 
@@ -77,42 +84,10 @@
                                 <label class="form-label" for="passwordConfirm">Confirm Password</label>
                             </div>
 
-
-                            <div class="form-outline mb-4">
-                                <input type="text" id="name" class="form-control form-control-lg" name="name"/>
-                                <label class="form-label" for="name">Full name</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                Gender: <input type='radio' name='gender' value='male'> Male
-                                <input type='radio' name='gender' value='female'> Female<br/>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="text" id="phonenumber" class="form-control form-control-lg" name="phonenumber"/>
-                                <label class="form-label" for="phonenumber">Phone number</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="date" id="dob" class="form-control form-control-lg" name="dob"/>
-                                <label class="form-label" for="dob">Date of birth</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="text" id="address" class="form-control form-control-lg" name="address"/>
-                                <label class="form-label" for="address">Address</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input type="text" id="avatar" class="form-control form-control-lg" name="avatar"/>
-                                <label class="form-label" for="avatar">Avatar</label>
-                            </div>
-
-
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                     <button class="btn btn-primary btn-lg" type="submit"
-                                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Sign in</button>
+                                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Sign up</button>
 
                                 </div>
                             </div>

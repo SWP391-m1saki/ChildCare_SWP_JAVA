@@ -11,6 +11,7 @@ import java.sql.Date;
  *
  * @author Admin
  */
+@SuppressWarnings("WriteOnlyObject")
 public class testData {
 
     public static void main(String[] args) {

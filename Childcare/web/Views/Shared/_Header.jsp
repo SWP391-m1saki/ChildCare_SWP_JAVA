@@ -52,18 +52,24 @@
                     <c:if test="${sessionScope.UserLogined == null}">
                         <a href="login" class="nav-item nav-link">Login</a>
                     </c:if>
+
                     <c:if test="${sessionScope.UserLogined != null}">
+
+                        <a class="nav-item nav-link">${sessionScope.UserLogined.name}</a>
                         <div class="btn-group">
-                            <button class="btn btn-infor btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                ${sessionScope.UserLogined.name}
+                            <button type="img" class="btn btn-infor"> <img src="${sessionScope.UserLogined.getAvatar()}" class="rounded-circle"
+                                                                           height="30" alt="Avatar" loading="lazy" /></button>
+                            <button type="button" class="btn btn-infor btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Edit account</a></li>
-                                <li><a class="dropdown-item" href="#">Children's profiles</a></li>
-                                <li><a class="dropdown-item" href="#">Appointment</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="logout">Logout</a></li>
-                            </ul>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="userProfile">Edit Account</a>
+                                <a class="dropdown-item" href="loadChildren">Children's profiles</a>
+                                <a class="dropdown-item" href="#">Appointment</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="logout">Logout</a>
+                            </div>
                         </div>
                     </c:if>
                 </div>
