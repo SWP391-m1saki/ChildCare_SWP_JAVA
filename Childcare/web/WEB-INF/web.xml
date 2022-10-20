@@ -4,6 +4,10 @@
         <welcome-file>loadHomePage</welcome-file>
     </welcome-file-list>
     <servlet>
+        <servlet-name>loadDoctorDetail</servlet-name>
+        <servlet-class>Controllers.loadDoctorDetail</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PostController</servlet-name>
         <servlet-class>Controllers.PostController</servlet-class>
     </servlet>
@@ -35,6 +39,10 @@
         <servlet-name>VerifyByOldPassword</servlet-name>
         <servlet-class>Controllers.VerifyByOldPassword</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>loadDoctorDetail</servlet-name>
+        <url-pattern>/loadDoctorDetail</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>

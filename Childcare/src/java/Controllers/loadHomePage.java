@@ -1,6 +1,7 @@
 
 package Controllers;
 
+import DAL.DoctorProfileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -24,10 +25,13 @@ public class loadHomePage extends HttpServlet {
             out.println("</html>");
         }
     }
+    final DoctorProfileDAO daoDoctor = new DoctorProfileDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        daoDoctor.load();
+        request.setAttribute("doctors", daoDoctor.getAll());
         request.getRequestDispatcher("Views/index.jsp").forward(request, response);
     }
 
