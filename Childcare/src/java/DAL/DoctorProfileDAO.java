@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DoctorProfileDAO implements DAO<DoctorProfile> {
 
-    private final List<DoctorProfile> list;
+    private List<DoctorProfile> list;
     private Connection con;
     private String status;
 
