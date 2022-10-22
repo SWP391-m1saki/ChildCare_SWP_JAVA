@@ -6,6 +6,7 @@ package controller.manager;
 
 import DAL.DepartmentDAO;
 import DAL.DoctorProfileDAO;
+import DAL.UserDAO;
 import Models.DoctorProfile;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,12 +20,14 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Admin
  */
 public class UpdateDoctorProfile extends HttpServlet {
-
+    
+    UserDAO userDAO;
     DepartmentDAO departmentDAO;
     DoctorProfileDAO doctorProfileDAO;
 
     @Override
     public void init() {
+        userDAO = new UserDAO();
         departmentDAO = new DepartmentDAO();
         doctorProfileDAO = new DoctorProfileDAO();
     }
@@ -69,10 +72,12 @@ public class UpdateDoctorProfile extends HttpServlet {
             throws ServletException, IOException {
         departmentDAO.load();
         doctorProfileDAO.load();
+        userDAO.load();
         int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
         if (doctorId == -1 || doctorProfileDAO.get(doctorId) == null) {
             response.sendRedirect("../profile");
         } else {
+            request.setAttribute("doctorName", userDAO.get(doctorId));
             request.setAttribute("doctorProfile", doctorProfileDAO.get(doctorId));
             request.setAttribute("departments", departmentDAO.getAllHasMap());
             request.getRequestDispatcher("../../../Views/manager/updateDoctorProfile.jsp").forward(request, response);
@@ -92,7 +97,7 @@ public class UpdateDoctorProfile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DoctorProfile doctor = new DoctorProfile();
-        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("doctorId"), -1);
+        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
         double price = Utils.Utility.parseDoubleParameter(request.getParameter("price"), -1);
         String qualification = request.getParameter("qualification");
         String description = request.getParameter("description");

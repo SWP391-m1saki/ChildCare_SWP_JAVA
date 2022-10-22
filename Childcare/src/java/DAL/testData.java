@@ -6,6 +6,7 @@ package DAL;
 
 import Models.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +18,11 @@ import java.util.Map;
 public class testData {
 
     public static void main(String[] args) {
-        CategoryDAO categorydao = new CategoryDAO();
-        PostCategory category = new PostCategory();
-        category.setCateName("Sức khỏe sinh sản");
-        categorydao.add(category);
-        categorydao.load();
-        for (PostCategory cate : categorydao.getAll()) {
-            System.out.println(cate.getCateName());
-        }
+       UserDAO dao = new UserDAO();
+       dao.load();
+       for(User di : dao.getAll()){
+           System.out.println(di.toString());
+       }
 
         //System.out.println(pdao.get(10));
     }

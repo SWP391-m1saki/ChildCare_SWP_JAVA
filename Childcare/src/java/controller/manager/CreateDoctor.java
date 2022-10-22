@@ -5,7 +5,9 @@
 package controller.manager;
 
 import DAL.DAO;
+import DAL.DoctorProfileDAO;
 import DAL.UserDAO;
+import Models.DoctorProfile;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,10 +25,12 @@ import java.time.format.DateTimeFormatter;
 public class CreateDoctor extends HttpServlet {
 
     UserDAO userDAO;
+    DoctorProfileDAO doctorDAO;
 
     @Override
     public void init() {
         userDAO = new UserDAO();
+        doctorDAO = new DoctorProfileDAO();
     }
 
     /**
@@ -84,12 +88,15 @@ public class CreateDoctor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String defaultPass = "123456789";
+        request.setAttribute("defaultPass", defaultPass);
         userDAO.load();
         User doctor = new User();
         String name = request.getParameter("fullname");
         String gmail = request.getParameter("gmail");
         LocalDate dob = LocalDate.parse(request.getParameter("dob"));
         LocalDate now = LocalDate.now();
+        boolean gender = request.getParameter("gender").equals("Male");
         String phoneNumber = request.getParameter("phone");
         String address = request.getParameter("address");
         if (!Utils.Utility.validateString(gmail, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
@@ -104,20 +111,25 @@ public class CreateDoctor extends HttpServlet {
         } else if (address.length() > 250) {
             request.setAttribute("mess", "Địa chỉ quá dài, địa chỉ phải có độ dài ít hơn 250 ký tự");
             request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
-        }else if((now.getYear()  - dob.getYear()) <= 23 ){
+        } else if ((now.getYear() - dob.getYear()) <= 23) {
             request.setAttribute("mess", "Tuổi không hợp lệ");
             request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
-        }
-        else {
+        } else {
+            DoctorProfile doctorProfile = new DoctorProfile();
             doctor.setName(name);
             doctor.setEmail(gmail);
             doctor.setPassword("123456789");
             doctor.setDob(dob);
             doctor.setPhoneNumber(phoneNumber);
+            doctor.setGender(gender);
             doctor.setAddress(address);
-            userDAO.add(doctor);
+            doctor.setRoleId(3);
+            doctor.setStatus(1);
+            userDAO.addDoctorDetail(doctor);
             userDAO.load();
             int id = userDAO.ValidateLogin(gmail, "123456789").getId();
+            doctorProfile.setDoctorId(id);
+            doctorDAO.add(doctorProfile);
             response.sendRedirect("profile/update?id=" + id);
         }
 

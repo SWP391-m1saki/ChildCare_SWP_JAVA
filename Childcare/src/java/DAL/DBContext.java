@@ -31,11 +31,11 @@ public class DBContext {
 
     private static final String dbName = "SWP";
 
-    private static final String portNumber = "1209";
+    private static final String portNumber = "1234";
 
     private static final String userID = "sa";
 
-    private static final String password = "khai1209";
+    private static final String password = "123";
     
     
 //    public static void main(String[] args) throws Exception {

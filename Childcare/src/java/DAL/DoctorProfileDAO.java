@@ -46,10 +46,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
     @Override
     public void load() {
         list.clear();
-        list = getDummyData();
-
-        String sql = "select * from [User]"
-                + "inner join DoctorProfile on [User].id = DoctorProfile.doctor_id";
+        String sql = "select * from [User] inner join DoctorProfile on [User].id = DoctorProfile.doctor_id";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -60,8 +57,10 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
                 user.setAvatar(rs.getString("avatar"));
                 user.setAddress(rs.getString("address"));
                 //! DOB va gmail
-                user.setDob(LocalDate.parse(rs.getString("dob")));
+                Date dob = rs.getDate("dob");
+                user.setDob(dob == null ? null : dob.toLocalDate());
                 user.setEmail("gmail");
+                user.setRoleId(rs.getInt("role_id"));
                 user.setPhoneNumber(rs.getString("phone_number"));
                 doctor.setDoctorId(rs.getInt("doctor_id"));
                 doctor.setTitle(rs.getString("title"));
@@ -87,7 +86,19 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
 
     @Override
     public void add(DoctorProfile t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "insert into DoctorProfile(doctor_id,price,qualification,description,department_id,title)  values(?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, t.getDoctorId());
+            ps.setDouble(2, 0);
+            ps.setString(3, "1");
+            ps.setString(4, "2");
+            ps.setInt(5, 1);
+            ps.setString(6, "3");
+            ps.execute();
+        } catch (Exception ex) {
+            status = "Error add DoctorProfile " + ex.getMessage();
+        }
     }
 
     @Override

@@ -55,7 +55,7 @@ public class DoctorListManage extends HttpServlet {
         // send list of department
         request.setAttribute("departments", departmentDAO.getAll());
 
-//        //PAGING
+        //PAGING
         int[] nrppArr = {5, 10, 20};
         String searchTxt = request.getParameter("search");
         List<DoctorProfile> filteredList = doctorDAO.getDoctorBySearchAndDepId(searchTxt, depId);

@@ -4,12 +4,17 @@
  */
 package controller.manager;
 
+import DAL.UserDAO;
+import Models.DoctorProfile;
+import Models.PageInfo;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -17,6 +22,14 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class CustomerList extends HttpServlet {
 
+    UserDAO userDAO;
+    
+     @Override
+    public void init() {
+        userDAO = new UserDAO();
+        userDAO.load();
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -26,11 +39,7 @@ public class CustomerList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("../Views/manager/customer-info-list.jsp").forward(request, response);
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,7 +53,21 @@ public class CustomerList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        userDAO.load();
+        response.setContentType("text/html;charset=UTF-8"); 
+        
+         //PAGING
+        int[] pageSizes = {5, 10, 20};
+        String searchTxt = request.getParameter("search");
+        List<User> filteredList = userDAO.searchByMailAndName(searchTxt);
+        PageInfo page = new PageInfo();
+        page.pagination(request, filteredList, pageSizes);
+
+        request.setAttribute("nrppArr", pageSizes);
+        request.setAttribute("page", page);
+        request.setAttribute("search", searchTxt);
+        request.setAttribute("userList", userDAO.getUserByPage(page, filteredList));
+        request.getRequestDispatcher("../Views/manager/customer-info-list.jsp").forward(request, response);
     }
 
     /**
@@ -58,7 +81,7 @@ public class CustomerList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
     /**

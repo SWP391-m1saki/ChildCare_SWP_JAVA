@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -155,7 +155,7 @@
                         <div class="card-body">
                             <div class="row doctor-profile-header">
                                 <div class="profileImage">
-                                    <img class="mb-3 rounded-circle shadow-4" src="${context}/img/blog-1.jpg" style="width: 100px;height:100px" alt="Avatar"/>
+                                    <img class="mb-3 rounded-circle shadow-4" src="${context}/img/${doctorProfile.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/>
                                 </div>
                                 <div class="doctorInfoHeader">
                                     <h1 class="fs-4">
@@ -244,7 +244,7 @@
                                         <p class="ps-1"><span>Địa chỉ:  </span> ${doctorProfile.user.address}</p>
                                         <div class="action">
                                             <a class="btn btn-success rounded-pill py-1 fs-bold" 
-                                               href="${context}/manager/doctor/profile/update?id=${doctorProfile.doctorId}"
+                                               href="${context}/manager/user/detail?id=${doctorProfile.doctorId}"
                                                style="background: #4ae882;">Chỉnh sửa</a>
                                             <a href="mailto:${doctorProfile.user.email}?subject=Feedback&body=Message" target="_blank" class="btn btn-secondary rounded-pill py-1">Liên hệ</a>
                                         </div>

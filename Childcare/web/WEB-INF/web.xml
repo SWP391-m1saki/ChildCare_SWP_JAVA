@@ -265,11 +265,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerListController</servlet-name>
-        <url-pattern>/manager/customer</url-pattern>
+        <url-pattern>/manager/user</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerDetailController</servlet-name>
-        <url-pattern>/manager/customer/detail</url-pattern>
+        <url-pattern>/manager/user/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

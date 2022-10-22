@@ -24,6 +24,7 @@
     <body>
         <c:set var="context" value="${pageContext.request.contextPath}" />
         <c:set var="doctorProfile" value="${requestScope.doctorProfile}"/>
+        <c:set var="doctorName" value="${requestScope.doctorName}"/>
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -47,7 +48,7 @@
                                         width: fit-content;
                                         border-radius: 10px;
                                         border: 1px solid #f0f0f0;
-                                        ">${doctorProfile.user.name}
+                                        ">${doctorName.name}
                                 </h5>
                             </div>
 

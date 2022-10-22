@@ -60,13 +60,21 @@
                                                             <label class="form-label">Mật khẩu</label>
                                                             <input readonly="readonly" name="password" class="form-control" type="text" value="${requestScope.defaultPass}">
                                                         </div> <!-- col .// -->
-                                                        <div class="col-lg-6  mb-3">
+                                                        <div class="col-lg-4  mb-3">
                                                             <label class="form-label">Ngày sinh</label>
                                                             <input name="dob" class="form-control" type="date">
                                                         </div> <!-- col .// -->
-                                                        <div class="col-lg-6  mb-3">
+                                                        <div class="col-lg-4  mb-3">
                                                             <label class="form-label">Số điện thoại</label>
                                                             <input name="phone" class="form-control" type="tel" placeholder="+1234567890" >
+                                                        </div> <!-- col .// -->
+                                                        <div class="col-lg-4  mb-3">
+                                                            <label class="form-label">Giới tính</label>
+                                                            <select name="gender" class="form-select">
+                                                                <option class="" value="Male" selected>Nam</option>
+                                                                <option value="Female">Nữ</option>
+                                                               
+                                                            </select>
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-12  mb-3">
                                                             <label class="form-label">Địa chỉ</label>

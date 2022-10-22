@@ -30,6 +30,7 @@
     </head>
     <body>
         <c:set var="context" value="${pageContext.request.contextPath}" />
+        <c:set value="${requestScope.user}" var="u" />
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -41,11 +42,12 @@
                     <!--HEADER-->
 
                     <section class="content-main edit-account">
-
-                        <div class="content-header">
-                            <h2 class="content-title">Profile setting </h2>
+                        <div>
+                            <h2 >${requestScope.mess}</h2>
                         </div>
-
+                        <div class="content-header">
+                            <h2 class="content-title">Chỉnh sửa thông tin </h2>
+                        </div>
                         <div class="card">
                             <header class="card-header">
                                 <div class="row gx-3">
@@ -64,7 +66,7 @@
                                     </div>
                                     <div class="col-lg-2 col-md-3 col-6">
                                         <div>
-                                            <a href="${context}/admin/user" class="btn btn-primary p-1 ms-2">Quay lại</a>
+                                            <a href="${context}/manager/user" class="btn btn-primary p-1 ms-2">Quay lại</a>
                                     </div>
                                 </div>
                             </div>
@@ -80,29 +82,29 @@
                                                     <div class="row gx-3">
                                                         <div class="col-6  mb-3 me-3">
                                                             <label class="form-label">Họ và tên</label>
-                                                            <input name="fullname" class="form-control" type="text" placeholder="Type here">
+                                                            <input name="name" class="form-control" type="text" placeholder="Type here" value="${u.name}">
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-6  mb-3">
-                                                            <label class="form-label">Gmail</label>
-                                                            <input name="gmail" class="form-control" type="email" placeholder="example@mail.com">
+                                                            <label class="form-label">Email</label>
+                                                            <input name="email" class="form-control" type="email" placeholder="example@mail.com" value="${u.email}">
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-6  mb-3">
                                                             <label class="form-label">Ngày sinh</label>
-                                                            <input name="dob" class="form-control" type="date">
+                                                            <input name="dob" class="form-control" type="date" value="${u.dob}">
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-6  mb-3">
                                                             <label class="form-label">Số điện thoại</label>
-                                                            <input name="phone" class="form-control" type="tel" placeholder="+1234567890" >
+                                                            <input name="phoneNumber" class="form-control" type="tel" placeholder="+1234567890" value="${u.phoneNumber.trim()}" >
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-12  mb-3">
                                                             <label class="form-label">Địa chỉ</label>
-                                                            <input name="address" class="form-control" type="text" placeholder="Type here">
+                                                            <input name="address" class="form-control" type="text" placeholder="Type here" value="${u.address}">
                                                         </div> <!-- col .// -->
                                                     </div> <!-- row.// -->
                                                 </div> <!-- col.// -->
                                                 <div class="col-lg-4 avatar-input">
                                                     <figure class="text-lg-center">
-                                                        <img src="${context}/img/default-avatar.jpg" class="img-lg mb-3 img-avatar" alt="User Photo" id="show-avatar">
+                                                        <img src="${context}/img/${u.avatar==null?'default-avatar.jpg':u.avatar}" class="img-lg mb-3 img-avatar" alt="User Photo" id="show-avatar">
                                                         <figcaption>
                                                             <div class="btn btn-outline-primary" id="my-button" onclick="document.getElementById('my-file').click()">
                                                                 <i class="fa-solid fa-cloud-arrow-up" style="color: blue"></i> Upload
