@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
 import java.time.LocalDate;
@@ -14,20 +9,20 @@ import java.time.LocalDate;
 public class Slot {
     private int slotId;
     private LocalDate date;
-    private int index;
     private boolean isExamination;
-    private int status, doctorId;
+    private int status;
+    private int slotTimeId, scheduleId;
 
     public Slot() {
     }
 
-    public Slot(int slotId, LocalDate date, int index, boolean isExamination, int status, int doctorId) {
+    public Slot(int slotId, LocalDate date, boolean isExamination, int status, int slotTimeId, int scheduleId) {
         this.slotId = slotId;
         this.date = date;
-        this.index = index;
         this.isExamination = isExamination;
         this.status = status;
-        this.doctorId = doctorId;
+        this.slotTimeId = slotTimeId;
+        this.scheduleId = scheduleId;
     }
 
     public int getSlotId() {
@@ -46,14 +41,6 @@ public class Slot {
         this.date = date;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
     public boolean isIsExamination() {
         return isExamination;
     }
@@ -70,13 +57,25 @@ public class Slot {
         this.status = status;
     }
 
-    public int getDoctorId() {
-        return doctorId;
+    public int getSlotTimeId() {
+        return slotTimeId;
     }
 
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
+    public void setSlotTimeId(int slotTimeId) {
+        this.slotTimeId = slotTimeId;
     }
+
+    public int getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+
+    
+
+   
     
     
 }
