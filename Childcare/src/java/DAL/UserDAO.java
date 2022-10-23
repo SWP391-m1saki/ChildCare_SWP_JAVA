@@ -1,5 +1,6 @@
 package DAL;
 
+import Models.PageInfo;
 import Models.User;
 import static java.lang.System.in;
 import java.sql.Connection;
@@ -7,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -57,9 +59,11 @@ public class UserDAO implements DAO<User> {
         return null;
     }
 
-     @Override
+    @Override
     public void load() {
         list = new ArrayList<User>();
+        list.clear();
+        
         String sql = "select * from [User]";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -115,7 +119,12 @@ public class UserDAO implements DAO<User> {
             ps.setString(2, t.getPassword());
             ps.setString(3, t.getName());
             ps.setInt(4, t.getRoleId());
-            ps.setString(5, t.getAvatar());
+            if (t.getAvatar() == null || t.getAvatar().length() == 0) {
+                ps.setString(5, "default-avatar.jpg");
+            } else {
+                ps.setString(5, t.getAvatar());
+            }
+
             ps.setInt(6, t.getStatus());
             //System.out.println(ps.toString());
             ps.execute();
@@ -139,7 +148,7 @@ public class UserDAO implements DAO<User> {
             java.sql.Date date;
             try {
                 date = java.sql.Date.valueOf(t.getDob());
-            }catch(Exception e){
+            } catch (Exception e) {
                 date = null;
             }
             ps.setDate(5, date);
@@ -155,7 +164,7 @@ public class UserDAO implements DAO<User> {
         }
     }
 
-     @Override
+    @Override
     public void delete(User t) {
         String sql = "delete from [user] where id=?";
         try {
@@ -200,6 +209,68 @@ public class UserDAO implements DAO<User> {
             status = "Error active User " + e.getMessage();
         }
     }
+
+    public List<User> searchByMailAndName(String emailOrName){
+        if(emailOrName == null ||emailOrName.length() == 0){
+            return list;
+        }
+        List<User> userSearch = new ArrayList<>();
+        for(User user : list){
+            if(user.getEmail().toLowerCase().contains(emailOrName.toLowerCase()) || user.getName().toLowerCase().contains(emailOrName.toLowerCase())){
+                userSearch.add(user);
+            }
+        }
+        return  userSearch;
+    }
+    
+    public List<User> getUserByPage(PageInfo page, List<User> fullList) {
+        List<User> users = new ArrayList<User>();
+        if (fullList.isEmpty()) {
+            return users;
+        }
+        int maxIndex = page.getPageindex() * page.getPagesize();
+        maxIndex = (maxIndex > fullList.size()) ? fullList.size() : maxIndex;
+        for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) {
+            users.add(fullList.get(i));
+        }
+        return users;
+    }
+    
+    private void createUser() {
+        for (int i = 20; i < 70; i++) {
+            User user = new User(i, "dungmv@fpt.edu.vn", "aaa", "Mai Văn Dũng", true, LocalDate.parse("2022-07-25"), 1, "0352243473", "Hà Nội", "team-" + (i % 3 + 1) + ".jpg", 1);
+            list.add(user);
+        }
+    }
+    
+    public void addDoctorDetail(User t){
+        String sql = "insert into [user] (email, password, name, role_id, avatar, status,phone_number,dob,address,gender) values(?,?,?,?,?,?,?,?,?,?)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, t.getEmail());
+            ps.setString(2, t.getPassword());
+            ps.setString(3, t.getName());
+            ps.setInt(4, t.getRoleId());
+            if (t.getAvatar() == null || t.getAvatar().length() == 0) {
+                ps.setString(5, "default-avatar.jpg");
+            } else {
+                ps.setString(5, t.getAvatar());
+            }
+            ps.setInt(6, t.getStatus());
+            ps.setString(7, t.getPhoneNumber());
+            ps.setDate(8, Date.valueOf(t.getDob()));
+            ps.setString(9, t.getAddress());
+            ps.setBoolean(10, t.isGender());
+            //System.out.println(ps.toString());
+            ps.execute();
+        } catch (SQLException ex) {
+            status = "Error add user " + ex.getMessage();
+            System.out.println(status);
+        }
+    }
+    
 
 //        //System.out.println(dao.ValidateLogin("admin", "123").toString());
 //        // cc = new User(9, "lon", "Lon", "Lon", "long", 3, )

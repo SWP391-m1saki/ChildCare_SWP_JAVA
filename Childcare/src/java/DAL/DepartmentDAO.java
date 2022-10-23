@@ -1,12 +1,16 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package DAL;
 
 import Models.Department;
-import Models.Slot;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -59,6 +63,43 @@ public class DepartmentDAO implements DAO<Department>
     public void load() {
         list.clear();
         String sql = "select * from Department";
+ * @author ADMIN
+ */
+public class DepartmentDAO{
+
+    private String status;
+    private Connection con;
+    
+    private HashMap<Integer, Department> departments;
+
+    public DepartmentDAO() {
+         try {
+            con = DBContext.getConnection();
+        } catch (Exception e) {
+            status = "Error connection" + e.getMessage();
+        }
+        departments = new HashMap<>();
+        load();
+    }
+    
+    public HashMap<Integer,Department> getAllHasMap() {
+        return departments;
+    }
+    
+    //@Override
+    public HashMap<Integer,Department> getAll() {
+        return departments;
+    }
+
+    //@Override
+    public Department get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    //@Override
+    public void load() {
+        departments.clear();
+        String sql = "SELECT * FROM Department";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

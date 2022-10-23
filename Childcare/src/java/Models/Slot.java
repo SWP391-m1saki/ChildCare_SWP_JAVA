@@ -28,6 +28,10 @@ public class Slot {
     public int getSlotId() {
         return slotId;
     }
+    
+//    public Time getStartTime(){
+//        
+//    }
 
     public void setSlotId(int slotId) {
         this.slotId = slotId;

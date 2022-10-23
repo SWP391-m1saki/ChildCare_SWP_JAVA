@@ -123,10 +123,12 @@ public class User {
     public void setGender(Boolean gender){
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", gender=" + gender + ", dob=" + dob + ", roleId=" + roleId + ", phoneNumber=" + phoneNumber + ", address=" + address + ", avatar=" + avatar + ", status=" + status + '}';
+    }
     
-//    public static void main(String[] args) {
-//          User u = new User(4,"khai@gmail", "1209", "khai", null, null, 4, null, null, "avatar", 1);
-//          System.out.println(u.email);
-//    }
+    
 }
  

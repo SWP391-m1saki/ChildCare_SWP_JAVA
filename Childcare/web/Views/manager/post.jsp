@@ -6,14 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Quản lí bài viết</title>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/ui.css'>
@@ -23,6 +22,7 @@
         <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src='${pageContext.request.contextPath}/js/pagger.js'></script>
         <link href="${pageContext.request.contextPath}/css/pagger.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -63,11 +63,11 @@
 
                                 <!--SEARCH BAR-->
                                 <div class="col-lg-4 col-md-6 me-auto">
-                                    <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên bài viết" class="form-control fw-bold" value="${requestScope.search}">
+                                    <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên bài viết" class="form-control fw-bold" value="${requestScope.search}" onkeyup="postAjaxList();">
                                 </div>
 
                                 <div class="col-lg-2 col-md-3 col-6">
-                                    <select class="form-select fw-bold" name="cid" onchange="this.form.submit();" form="main-form">
+                                    <select class="form-select fw-bold" name="cid" form="main-form">
                                         <option value="-1" ${(requestScope.cid == -1)?'selected':''}>
                                         <span>Chuyên mục</span>
                                         </option>
@@ -84,7 +84,7 @@
 
                             </div>
                         </header> <!-- card-header end// -->
-                        <div class="card-body">
+                        <div class="card-body" id='list-display'>
                             <c:if test="${requestScope.postList != null && requestScope.postList.size() != 0}">
 
                                 <div class="table-responsive">
@@ -145,15 +145,15 @@
                             </div>
                         </div> <!-- card-body end// -->
                     </div> <!-- card end// -->
-                    
+
                     <!--Display PAGING if list has item
                             Else empty form-->
                     <c:choose>
                         <c:when test="${requestScope.postList != null && requestScope.postList.size() != 0}">
-                            <jsp:include page="../Share/_Paging.jsp"></jsp:include>
-                        </c:when> 
+                            <jsp:include page="../Shared/_Paging.jsp"></jsp:include>
+                        </c:when>
                         <c:otherwise>
-                            <form method="post" id="main-form"> 
+                            <form method="post" id="main-form">
                             </form>
                         </c:otherwise>
                     </c:choose>
@@ -162,5 +162,49 @@
         </div>
         <script src="${context}/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+                                                                function postAjaxList() {
+                                                                    ajaxCall('/Childcare/AjaxPostList', 'list-display');
+                                                                    ajaxCall('/Childcare/AjaxPostPaging', 'paging-div');
+                                                                }
+
+                                                                function ajaxCall(url, id) {
+                                                                    $.ajax({
+                                                                        url: url,
+                                                                        type: "POST",
+                                                                        data: {
+                                                                            search: document.querySelector('input[name="search"]').value,
+                                                                            cid: document.querySelector('select[name="cid"]').value,
+                                                                            pagesize: document.querySelector('select[name="pagesize"]').value,
+                                                                            page: document.querySelector('input[name="pageindex"]').value
+                                                                        },
+                                                                        async: true,
+                                                                        success: function (data) {
+                                                                            var row = document.getElementById(id);
+                                                                            row.innerHTML = data;
+                                                                        },
+                                                                        error: function () {
+                                                                            alert('Errore');
+                                                                        },
+                                                                        complete: function () {
+                                                                            if (id === 'paging-div') {
+                                                                                pagger('pagger', parseInt(document.querySelector('input[name="pageindex"]').value, 10), document.querySelector('input[name="totalpage"]').value, 2, -1);
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                                document.querySelector('select[name="cid"]').addEventListener('change', function () {
+                                                                    postAjaxList();
+                                                                });
+//                                                                document.querySelector('input[name="search"]').addEventListener('input', function () {
+//                                                                    postAjaxList();
+//                                                                });
+//                                                                $('#main-form').change(function (e) {
+//                                                                    if (e.target.matches('select[name="pagesize"]')) {
+//                                                                        doctorListAjax();
+//                                                                    }
+//                                                                });
+        </script>
     </body>
 </html>
