@@ -1,10 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta charset="utf-8">
-        <title>Childcare System</title>
+        <title>Đăng nhập</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -30,12 +31,8 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-    <!-- Pills navs -->
+
     <body>
-
-
-        <!-- Pills content -->
-
         <section class="vh-100">
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -63,19 +60,25 @@
                             <div class="divider d-flex align-items-center my-4">
                                 <p class="text-center fw-bold mx-3 mb-0">Or</p>
                             </div>
-                            <div class="alert alert-success center mb-4" role="alert">
-                                <p>${NOTIFICATION}</p>
-                            </div>
+
+                            <!--NOTIFICATION - START-->
+                            <c:if test="${requestScope.NOTIFICATION != null}">
+                                <div class="alert alert-danger center mb-4 pb-1" role="alert">
+                                    <p>${NOTIFICATION}</p>
+                                </div>
+                            </c:if>
+                            <!--NOTIFICATION - END -->
+
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" id="form3Example3" class="form-control form-control-lg" name="email" required/>
                                 <label class="form-label" for="form3Example3">Email</label>
+                                <input type="email" id="form3Example3" class="form-control form-control-lg" name="email" required/>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-3">
-                                <input type="password" id="form3Example4" class="form-control form-control-lg" name="password" required/>
                                 <label class="form-label" for="form3Example4">Password</label>
+                                <input type="password" id="form3Example4" class="form-control form-control-lg" name="password" required/>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
@@ -88,9 +91,9 @@
                                 </div>
                                 <a href="ResetPassword" class="text-body">Forgot password?</a>
                             </div>
-<!--                            <div class="pt-1 mb-4">
-                                <button class="btn btn-dark btn-lg btn-block" type="submit">Sign in</button>
-                            </div>-->
+                            <!--                            <div class="pt-1 mb-4">
+                                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Sign in</button>
+                                                        </div>-->
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <button class="btn btn-info btn-lg" type="submit"
                                         style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>

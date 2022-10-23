@@ -27,14 +27,15 @@ public class DBContext {
 
 
 
-    private static final String serverName = "localhost";
+    private static String serverName = "localhost";
+    private static String dbName = "SWP";
+    private static String portNumber = "1311";
+    private static String userID = "sa";
+    private static String password = "123456";
 
-    private static final String dbName = "SWP";
-
-    private static final String portNumber = "1209";
-
-    private static final String userID = "sa";
-
-    private static final String password = "khai1209";
-   
+    
+//    public static void main(String[] args) throws Exception {
+//        Connection con = DBContext.getConnection();
+//        System.out.print(con);
+//    }
 }
