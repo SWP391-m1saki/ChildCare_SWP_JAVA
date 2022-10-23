@@ -39,6 +39,26 @@
         <servlet-name>VerifyByOldPassword</servlet-name>
         <servlet-class>Controllers.VerifyByOldPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditDoctorSchedule</servlet-name>
+        <servlet-class>Controllers.EditDoctorSchedule</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChooseDepartment</servlet-name>
+        <servlet-class>Controllers.ChooseDepartment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddDepartment</servlet-name>
+        <servlet-class>Controllers.AddDepartment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteDepartment</servlet-name>
+        <servlet-class>Controllers.DeleteDepartment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChooseDoctor</servlet-name>
+        <servlet-class>Controllers.ChooseDoctor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -154,6 +174,26 @@
     <servlet-mapping>
         <servlet-name>VerifyByOldPassword</servlet-name>
         <url-pattern>/verifyByOldPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDoctorSchedule</servlet-name>
+        <url-pattern>/editDoctorSchedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChooseDepartment</servlet-name>
+        <url-pattern>/chooseDepartment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddDepartment</servlet-name>
+        <url-pattern>/addDepartment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDepartment</servlet-name>
+        <url-pattern>/deleteDepartment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChooseDoctor</servlet-name>
+        <url-pattern>/chooseDoctor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -7,6 +7,7 @@ import Models.sendEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,8 +50,8 @@ public class LoginController extends HttpServlet {
     }
 
     private void LOGIN(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter("email").toString().trim();
+        String password = request.getParameter("password").toString().trim();
         //System.out.print("Hello");
         HttpSession session = request.getSession();
 
@@ -76,6 +77,18 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("loadHomePage");
                 }
             } else if (userLogin.getStatus() == 1) {
+                String remember = request.getParameter("remember");
+                if (remember != null) {
+                    Cookie cEmail = new Cookie("cookEmail", email);
+                    Cookie cPass = new Cookie("cookPass", password);
+                    Cookie cRemember = new Cookie("cookRemember", remember);
+                    cEmail.setMaxAge(60 * 60 * 24);// 1 day
+                    cPass.setMaxAge(60 * 60 * 24);
+                    cRemember.setMaxAge(60 * 60 * 24);
+                    response.addCookie(cEmail);
+                    response.addCookie(cPass);
+                    response.addCookie(cRemember);
+                }
                 session.setAttribute("UserLogined", userLogin);
                 response.sendRedirect("loadHomePage");
                 //request.getRequestDispatcher("loadHomePage").forward(request, response);

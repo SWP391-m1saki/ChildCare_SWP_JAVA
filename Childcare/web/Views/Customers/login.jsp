@@ -33,6 +33,23 @@
     <!-- Pills navs -->
     <body>
 
+        <%
+            Cookie[] cookies=request.getCookies();
+            String email = "", pass = "",remember="";
+            if (cookies != null) {
+                 for (Cookie cookie : cookies) {
+                   if(cookie.getName().equals("cookEmail")) {
+                     email = cookie.getValue();
+                   }
+                   if(cookie.getName().equals("cookPass")){
+                     pass = cookie.getValue();
+                   }
+                   if(cookie.getName().equals("cookRemember")){
+                     remember = cookie.getValue();
+                   }
+                }
+            }
+        %>
 
         <!-- Pills content -->
 
@@ -68,29 +85,29 @@
                             </div>
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" id="form3Example3" class="form-control form-control-lg" name="email" required/>
+                                <input type="email" id="form3Example3" class="form-control form-control-lg" name="email" value="<%=email%>" required/>
                                 <label class="form-label" for="form3Example3">Email</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-3">
-                                <input type="password" id="form3Example4" class="form-control form-control-lg" name="password" required/>
+                                <input type="password" id="form3Example4" class="form-control form-control-lg" name="password" value="<%=pass%>" required/>
                                 <label class="form-label" for="form3Example4">Password</label>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <!-- Checkbox -->
                                 <div class="form-check mb-0">
-                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                                    <input class="form-check-input me-2" type="checkbox" value="remember" id="form2Example3" name="remember" <%= "remember".equals(remember.trim()) ? "checked=\"checked\"" : "" %>/>
                                     <label class="form-check-label" for="form2Example3">
                                         Remember me
                                     </label>
                                 </div>
                                 <a href="ResetPassword" class="text-body">Forgot password?</a>
                             </div>
-<!--                            <div class="pt-1 mb-4">
-                                <button class="btn btn-dark btn-lg btn-block" type="submit">Sign in</button>
-                            </div>-->
+                            <!--                            <div class="pt-1 mb-4">
+                                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Sign in</button>
+                                                        </div>-->
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <button class="btn btn-info btn-lg" type="submit"
                                         style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
