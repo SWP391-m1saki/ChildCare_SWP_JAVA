@@ -127,12 +127,16 @@ public class CreateDoctor extends HttpServlet {
             doctor.setStatus(1);
             userDAO.addDoctorDetail(doctor);
             userDAO.load();
-            int id = userDAO.ValidateLogin(gmail, "123456789").getId();
-            doctorProfile.setDoctorId(id);
-            doctorDAO.add(doctorProfile);
-            response.sendRedirect("profile/update?id=" + id);
+            User user = userDAO.ValidateLogin(gmail, "123456789");
+            if (user != null) {
+                int id = user.getId();
+                doctorProfile.setDoctorId(id);
+                doctorDAO.add(doctorProfile);
+                response.sendRedirect("profile/update?id=" + id);
+            } else {
+                request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
+            }
         }
-
     }
 
     /**

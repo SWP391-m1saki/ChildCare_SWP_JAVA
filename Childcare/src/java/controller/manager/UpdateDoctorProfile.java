@@ -79,7 +79,7 @@ public class UpdateDoctorProfile extends HttpServlet {
         } else {
             request.setAttribute("doctorName", userDAO.get(doctorId));
             request.setAttribute("doctorProfile", doctorProfileDAO.get(doctorId));
-            request.setAttribute("departments", departmentDAO.getAllHasMap());
+            request.setAttribute("departments", departmentDAO.getAllHashMap());
             request.getRequestDispatcher("../../../Views/manager/updateDoctorProfile.jsp").forward(request, response);
         }
 

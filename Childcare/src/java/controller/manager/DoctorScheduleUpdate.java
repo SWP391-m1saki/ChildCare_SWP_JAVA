@@ -4,8 +4,10 @@
  */
 package controller.manager;
 
-import DAL.DepartmentDAO;
 import DAL.DoctorProfileDAO;
+import DAL.ScheduleDAO;
+import Models.DoctorProfile;
+import Models.Schedule;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,15 +19,16 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class DoctorProfileDetailManage extends HttpServlet {
+public class DoctorScheduleUpdate extends HttpServlet {
 
-    DepartmentDAO departmentDAO;
-    DoctorProfileDAO doctorProfileDAO;
+    DoctorProfileDAO doctorDAO;
+    ScheduleDAO scheduleDAO;
 
     @Override
     public void init() {
-        departmentDAO = new DepartmentDAO();
-        doctorProfileDAO = new DoctorProfileDAO();
+        doctorDAO = new DoctorProfileDAO();
+        scheduleDAO = new ScheduleDAO();
+        scheduleDAO.load();
     }
 
     /**
@@ -37,15 +40,6 @@ public class DoctorProfileDetailManage extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        departmentDAO.load();
-        doctorProfileDAO.load();
-        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        request.setAttribute("doctorProfile", doctorProfileDAO.get(id));
-        request.setAttribute("departments", departmentDAO.getAllHashMap());
-        request.getRequestDispatcher("../../../Views/manager/doctor-profile-detail.jsp").forward(request, response);
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -58,7 +52,14 @@ public class DoctorProfileDetailManage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
+        DoctorProfile doctor = doctorDAO.get(doctorId);
+        if (doctor != null) {
+            request.setAttribute("doctor", doctor);
+            request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -72,7 +73,17 @@ public class DoctorProfileDetailManage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
+        String[] work_shifts = request.getParameterValues("work-shift");
+        for (int i = 0; i < work_shifts.length; i++) {
+            Schedule shift = new Schedule();
+            shift.setDoctorId(doctorId);
+            shift.setIsMorningShift(work_shifts[i].endsWith("S"));
+            shift.setDayOfWeek("T" + work_shifts[i].charAt(0));
+            scheduleDAO.add(shift);
+        }
+        request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
+
     }
 
     /**
