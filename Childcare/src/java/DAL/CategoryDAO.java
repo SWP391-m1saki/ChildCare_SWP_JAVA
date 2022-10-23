@@ -48,6 +48,7 @@ public class CategoryDAO implements DAO<PostCategory> {
 
     @Override
     public void load() {
+        postCategoryList.clear();
         String sql = "select * from PostCategory";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

@@ -2,33 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package controller.manager;
 
-import DAL.CategoryDAO;
-import DAL.PostDAO;
-import Models.Post;
+import DAL.DepartmentDAO;
+import DAL.DoctorProfileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ADMIN
+ * @author Admin
  */
-@WebServlet(name = "PostDetail", urlPatterns = {"/bai-viet"})
-public class PostDetail extends HttpServlet {
+public class DoctorProfileDetailManage extends HttpServlet {
 
-    PostDAO postDao;
-    CategoryDAO categoryDao;
+    DepartmentDAO departmentDAO;
+    DoctorProfileDAO doctorProfileDAO;
 
     @Override
     public void init() {
-        postDao = new PostDAO();
-        categoryDao = new CategoryDAO();
+        departmentDAO = new DepartmentDAO();
+        doctorProfileDAO = new DoctorProfileDAO();
     }
 
     /**
@@ -40,21 +37,13 @@ public class PostDetail extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PostDetail</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PostDetail at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        departmentDAO.load();
+        doctorProfileDAO.load();
+        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
+        request.setAttribute("doctorProfile", doctorProfileDAO.get(id));
+        request.setAttribute("departments", departmentDAO.getAllHasMap());
+        request.getRequestDispatcher("../../../Views/manager/doctor-profile-detail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,13 +58,7 @@ public class PostDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        Post post = postDao.get(id);
-        request.setAttribute("postDetail", post);
-        request.setAttribute("cid", post.getCateId());
-        request.setAttribute("categoryList", categoryDao.getAll());
-        request.setAttribute("postRecent", postDao.getPostByCate(post.getCateId()));
-        request.getRequestDispatcher("Views/guests/postDetail.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
