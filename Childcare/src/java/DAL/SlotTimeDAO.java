@@ -34,6 +34,11 @@ public class SlotTimeDAO implements DAO<SlotTime>
     
     public SlotTimeDAO(){
         list = new ArrayList<SlotTime>();
+        try{
+            con = new DBContext().getConnection();
+        }catch(Exception e){
+            status = "Error connection at Department dao" + e.getMessage();
+        }
     }
     @Override
     public List<SlotTime> getAll() {
@@ -105,6 +110,7 @@ public class SlotTimeDAO implements DAO<SlotTime>
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getSlotTimeId());
+            ps.execute();
         }catch(Exception e){
             status = "Error delete SlotTime " + e.getMessage();
             System.out.println(status);

@@ -34,6 +34,11 @@ public class SlotDAO implements DAO<Slot>
     
     public SlotDAO(){
         list = new ArrayList<Slot>();
+        try{
+            con = new DBContext().getConnection();
+        }catch(Exception e){
+            status = "Error connection at Department dao" + e.getMessage();
+        }
     }
     @Override
     public List getAll() {
@@ -116,6 +121,7 @@ public class SlotDAO implements DAO<Slot>
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getSlotId());
+            ps.execute();
         }catch(Exception e){
             status = "Error delete Slot " + e.getMessage();
             System.out.println(status);
