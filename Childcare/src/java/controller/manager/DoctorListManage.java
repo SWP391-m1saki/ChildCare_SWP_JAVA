@@ -53,7 +53,7 @@ public class DoctorListManage extends HttpServlet {
         // get depID of the current  selected filter
         int depId = Utility.parseIntParameter(request.getParameter("depId"), -1);
         // send list of department
-        request.setAttribute("departments", departmentDAO.getAll());
+        request.setAttribute("departments", departmentDAO.getAllHashMap());
 
         //PAGING
         int[] nrppArr = {5, 10, 20};
@@ -107,7 +107,7 @@ public class DoctorListManage extends HttpServlet {
         // get depID of the current  selected filter
         int depId = Utility.parseIntParameter(request.getParameter("depId"), -1);
         // send list of department
-        request.setAttribute("departments", departmentDAO.getAll());
+        request.setAttribute("departments", departmentDAO.getAllHashMap());
 
 //        //PAGING
         int[] nrppArr = {5, 10, 20};

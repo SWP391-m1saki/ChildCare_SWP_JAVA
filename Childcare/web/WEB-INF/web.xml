@@ -114,6 +114,10 @@
         <servlet-name>CustomerDetailController</servlet-name>
         <servlet-class>controller.manager.CustomerDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DoctorScheduleUpdate</servlet-name>
+        <servlet-class>controller.manager.DoctorScheduleUpdate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -308,6 +312,10 @@
     <servlet-mapping>
         <servlet-name>CustomerDetailController</servlet-name>
         <url-pattern>/manager/user/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorScheduleUpdate</servlet-name>
+        <url-pattern>/manager/doctor/schedule</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

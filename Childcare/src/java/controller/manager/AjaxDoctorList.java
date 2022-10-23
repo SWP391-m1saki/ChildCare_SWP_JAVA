@@ -99,7 +99,7 @@ public class AjaxDoctorList extends HttpServlet {
                                 + "                                                                </div>\n"
                                 + "                                                            </a>\n"
                                 + "                                                        </td>\n"
-                                + "                                                        <td class=\"fw-bold\">" + departmentDAO.getAll().get(d.getDepartmentId()).getDepartmentName() + "</td>\n"
+                                + "                                                        <td class=\"fw-bold\">" + departmentDAO.getAllHashMap().get(d.getDepartmentId()).getDepartmentName() + "</td>\n"
                                 + "                                                        <td>\n"
                                 + "                                                            " + d.getTitle() + "\n"
                                 + "                                                        </td>\n"

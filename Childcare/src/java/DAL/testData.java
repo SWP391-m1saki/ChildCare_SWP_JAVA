@@ -18,13 +18,14 @@ import java.util.Map;
 public class testData {
 
     public static void main(String[] args) {
-       UserDAO dao = new UserDAO();
-       dao.load();
-       for(User di : dao.getAll()){
-           System.out.println(di.toString());
-       }
+        ScheduleDAO dao = new ScheduleDAO();
+        Schedule shift = new Schedule();
+        shift.setDoctorId(2);
+        shift.setIsMorningShift(true);
+        shift.setDayOfWeek("T2");
+        dao.add(shift);
+        System.out.println(dao.getAll().size());
 
-        //System.out.println(pdao.get(10));
     }
 
 }

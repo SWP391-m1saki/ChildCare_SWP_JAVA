@@ -17,83 +17,35 @@ import java.util.List;
  *
  * @author Misaki
  */
-public class DepartmentDAO implements DAO<Department>
-{
+public class DepartmentDAO {
 
-    private List<Department> list ;
+    private List<Department> list;
     private Connection con;
     private String status;
+    private HashMap<Integer, Department> departments;
 
-    public void setList(List<Department> list) {
-        this.list = list;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    public DepartmentDAO(){
+    public DepartmentDAO() {
         list = new ArrayList<Department>();
-        try{
+        departments = new HashMap<>();
+        try {
             con = new DBContext().getConnection();
-        }catch(Exception e){
+        } catch (Exception e) {
             status = "Error connection at Department dao" + e.getMessage();
         }
-    }
-    @Override
-    public List<Department> getAll() {
-        return list;
+        load();
     }
 
-    @Override
     public Department get(int id) {
-        for(Department d: list){
-            if(d.getDepartmentId() == id){
+        for (Department d : list) {
+            if (d.getDepartmentId() == id) {
                 return d;
             }
         }
         return null;
     }
 
-    @Override
-    public void load() {
-        list.clear();
-        String sql = "select * from Department";
- * @author ADMIN
- */
-public class DepartmentDAO{
-
-    private String status;
-    private Connection con;
-    
-    private HashMap<Integer, Department> departments;
-
-    public DepartmentDAO() {
-         try {
-            con = DBContext.getConnection();
-        } catch (Exception e) {
-            status = "Error connection" + e.getMessage();
-        }
-        departments = new HashMap<>();
-        load();
-    }
-    
-    public HashMap<Integer,Department> getAllHasMap() {
+    public HashMap<Integer, Department> getAllHashMap() {
         return departments;
-    }
-    
-    //@Override
-    public HashMap<Integer,Department> getAll() {
-        return departments;
-    }
-
-    //@Override
-    public Department get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     //@Override
@@ -104,10 +56,13 @@ public class DepartmentDAO{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int departmentId = rs.getInt("department_id");  
-                String departmentName =rs.getString("department_name");
-                String image = rs.getString("image");
-                list.add(new Department(departmentId, departmentName, image));
+                Department department = new Department();
+                int departmentId = rs.getInt("department_id");
+                department.setDepartmentId(departmentId);
+                department.setDepartmentName(rs.getString("department_name"));
+//                String image = rs.getString("image");
+//                departments.put(departmentId, new Department(departmentId, departmentName, image));
+                departments.put(departmentId, department);
             }
         } catch (Exception e) {
             status = "Error Load Department " + e.getMessage();
@@ -115,47 +70,44 @@ public class DepartmentDAO{
         }
     }
 
-    @Override
     public void add(Department t) {
         String sql = "insert into Department (department_name, image) values(?,?)";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getDepartmentName());
             ps.setString(2, t.getImage());
             ps.execute();
-        }  catch(Exception e){
+        } catch (Exception e) {
             status = "Error Add Department" + e.getMessage();
             System.out.println(status);
-        }     
+        }
     }
 
-    @Override
     public void update(Department t) {
         String sql = "Update department set department_name=?, image=? where department_id=?";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getDepartmentName());
             ps.setString(2, t.getImage());
             ps.setInt(3, t.getDepartmentId());
             ps.execute();
-        }  catch(Exception e){
+        } catch (Exception e) {
             status = "Error update Department" + e.getMessage();
             System.out.println(status);
-        }     
+        }
     }
 
-    @Override
     public void delete(Department t) {
         String sql = "delete from Department where department_id=?";
         //System.out.println(sql);
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,t.getDepartmentId());
+            ps.setInt(1, t.getDepartmentId());
             ps.execute();
-        }catch(Exception e){
+        } catch (Exception e) {
             status = "Error delete Department " + e.getMessage();
             System.out.println(status);
         }
     }
-    
+
 }
