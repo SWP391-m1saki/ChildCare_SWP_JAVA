@@ -11,14 +11,15 @@ package Models;
  */
 public class Department {
     private int departmentId;
-    private String departmentName;
+    private String departmentName,image;
 
     public Department() {
     }
 
-    public Department(int departmentId, String departmentName) {
+    public Department(int departmentId, String departmentName, String image) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
+        this.image = image;
     }
 
     public int getDepartmentId() {
@@ -35,6 +36,14 @@ public class Department {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
     

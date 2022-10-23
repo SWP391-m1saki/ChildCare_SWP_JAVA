@@ -33,6 +33,11 @@ public class ScheduleDAO implements DAO<Schedule>
     
     public ScheduleDAO(){
         list = new ArrayList<Schedule>();
+        try {
+            con = new DBContext().getConnection();
+        } catch (Exception e) {
+            status = "Error connection at UerDAO " + e.getMessage();
+        }
     }
     
     @Override
@@ -108,6 +113,7 @@ public class ScheduleDAO implements DAO<Schedule>
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getScheduleId());
+            ps.execute();
         }catch(Exception e){
             status = "Error delete Schedule " + e.getMessage();
             System.out.println(status);
