@@ -24,26 +24,28 @@ import java.util.Locale;
 public class testData {
 
     public static void main(String[] args) {
-        SlotDAO dao = new SlotDAO();
-        for(DoctorProfile d : dao.getDoctorListOfShift(44, 2, true)) {
-            System.out.println(d);
-        }
+        getSchedule();
     }
-    
-    private static void getSlotData(){
-        SlotDAO dao = new SlotDAO();
-        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 39));
-        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 50));
-        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 9, 40));
-        dao.add(new Slot(LocalDate.now().plusDays(2), true, 0, 9, 52));
-        dao.load();
-        for(Slot s : dao.getAll()) {
-            System.out.println(s);
-        }
+
+    private static void getSchedule() {
+        ShiftDAO dao = new ShiftDAO();
+
+        System.out.println(dao.getDoctorListOfShift(43, 2, true).size());
     }
-    
-    private static void getSlotTimeData(){
-                SlotTimeDAO dao = new SlotTimeDAO();
+
+//    private static void getSlotData(){
+//        SlotDAO dao = new SlotDAO();
+//        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 39));
+//        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 50));
+//        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 9, 40));
+//        dao.add(new Slot(LocalDate.now().plusDays(2), true, 0, 9, 52));
+//        dao.load();
+//        for(Slot s : dao.getAll()) {
+//            System.out.println(s);
+//        }
+//    }
+    private static void getSlotTimeData() {
+        SlotTimeDAO dao = new SlotTimeDAO();
         dao.add(new SlotTime(1, "7:30", "8:00"));
         dao.add(new SlotTime(2, "8:00", "8:30"));
         dao.add(new SlotTime(3, "8:30", "9:00"));

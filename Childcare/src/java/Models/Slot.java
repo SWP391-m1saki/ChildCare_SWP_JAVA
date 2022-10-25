@@ -8,49 +8,34 @@ import java.time.LocalDate;
  */
 public class Slot {
     private int slotId;
-    private LocalDate date;
     private boolean isExamination;
     private int status;
-    private int slotTimeId, scheduleId;
+    private int slotTimeId, shiftId;
 
     public Slot() {
     }
 
-    public Slot(int slotId, LocalDate date, boolean isExamination, int status, int slotTimeId, int scheduleId) {
+    public Slot(int slotId, boolean isExamination, int status, int slotTimeId, int shiftId) {
         this.slotId = slotId;
-        this.date = date;
         this.isExamination = isExamination;
         this.status = status;
         this.slotTimeId = slotTimeId;
-        this.scheduleId = scheduleId;
+        this.shiftId = shiftId;
     }
     
-    public Slot(LocalDate date, boolean isExamination, int status, int slotTimeId, int scheduleId) {
-        this.date = date;
+    public Slot(boolean isExamination, int status, int slotTimeId, int shiftId) {
         this.isExamination = isExamination;
         this.status = status;
         this.slotTimeId = slotTimeId;
-        this.scheduleId = scheduleId;
+        this.shiftId = shiftId;
     }
 
     public int getSlotId() {
         return slotId;
     }
-    
-//    public Time getStartTime(){
-//        
-//    }
 
     public void setSlotId(int slotId) {
         this.slotId = slotId;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public boolean isIsExamination() {
@@ -77,12 +62,12 @@ public class Slot {
         this.slotTimeId = slotTimeId;
     }
 
-    public int getScheduleId() {
-        return scheduleId;
+    public int getShiftId() {
+        return shiftId;
     }
 
-    public void setScheduleId(int scheduleId) {
-        this.scheduleId = scheduleId;
+    public void setShiftId(int shiftId) {
+        this.shiftId = shiftId;
     }
 
     public boolean isMorningShift(){

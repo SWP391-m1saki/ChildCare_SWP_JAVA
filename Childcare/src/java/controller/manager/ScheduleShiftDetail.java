@@ -4,31 +4,28 @@
  */
 package controller.manager;
 
-import DAL.DoctorProfileDAO;
-import DAL.ScheduleDAO;
+import DAL.ShiftDAO;
 import Models.DoctorProfile;
-import Models.Schedule;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class DoctorScheduleUpdate extends HttpServlet {
+public class ScheduleShiftDetail extends HttpServlet {
 
-    DoctorProfileDAO doctorDAO;
-    ScheduleDAO scheduleDAO;
+    ShiftDAO shiftDAO;
 
     @Override
     public void init() {
-        doctorDAO = new DoctorProfileDAO();
-        scheduleDAO = new ScheduleDAO();
-        scheduleDAO.load();
+        shiftDAO = new ShiftDAO();
+        shiftDAO.load();
     }
 
     /**
@@ -40,6 +37,23 @@ public class DoctorScheduleUpdate extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ScheduleShiftDetail</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ScheduleShiftDetail at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -52,16 +66,15 @@ public class DoctorScheduleUpdate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        DoctorProfile doctor = doctorDAO.get(doctorId);
-        if (doctor != null) {
-            request.setAttribute("doctor", doctor);
-            request.setAttribute("schedules", scheduleDAO.getScheduleOfDoctor(doctorId));
-
-            request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
-        }
+        int week_number = Utils.Utility.parseIntParameter(request.getParameter("weeknum"), Utils.Utility.getCurrentWeekNumber());
+        String shift_string = request.getParameter("shift");
+        int dayOfWeek = Utils.Utility.parseIntParameter(shift_string.substring(1), 1);
+        boolean isMorningShift = shift_string.startsWith("S");
+        
+        List<DoctorProfile> work_doctors = shiftDAO.getDoctorListOfShift(week_number, dayOfWeek, isMorningShift);
+        request.setAttribute("work_doctors", work_doctors);
+        
+        request.getRequestDispatcher("../../Views/manager/schedule-shift-detail.jsp").forward(request, response);
     }
 
     /**
@@ -75,24 +88,7 @@ public class DoctorScheduleUpdate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        String[] work_shifts = request.getParameterValues("work-shift");
-        if (!scheduleDAO.checkExistSchedule(doctorId)) {
-            scheduleDAO.addNewDoctorSchedule(doctorId);
-        }
-        scheduleDAO.clearDoctorScheduleStatus(doctorId);
-        for (String work_shift : work_shifts) {
-            Schedule schedule = new Schedule();
-            schedule.setDoctorId(doctorId);
-            schedule.setIsMorningShift(work_shift.endsWith("S"));
-            schedule.setDayOfWeek(Integer.parseInt(work_shift.substring(0, 1)));
-            scheduleDAO.updateSchedule(schedule);
-        }
-        scheduleDAO.load();
-        request.setAttribute("doctor", doctorDAO.get(doctorId));
-        request.setAttribute("schedules", scheduleDAO.getScheduleOfDoctor(doctorId));
-        request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
-
+        processRequest(request, response);
     }
 
     /**

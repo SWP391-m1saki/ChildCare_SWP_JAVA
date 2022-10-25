@@ -4,7 +4,9 @@
  */
 package controller.manager;
 
+import DAL.ShiftDAO;
 import DAL.SlotDAO;
+import Models.Shift;
 import Models.Slot;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,12 +24,12 @@ import java.util.List;
  */
 public class ScheduleManagement extends HttpServlet {
 
-    SlotDAO slotDAO;
+    ShiftDAO shiftDAO;
 
     @Override
     public void init() {
-        slotDAO = new SlotDAO();
-        slotDAO.load();
+        shiftDAO = new ShiftDAO();
+        shiftDAO.load();
     }
 
     /**
@@ -45,14 +47,14 @@ public class ScheduleManagement extends HttpServlet {
         int selectedWeek = Utils.Utility.parseIntParameter(request.getParameter("selectWeek"), Utils.Utility.getCurrentWeekNumber());
         request.setAttribute("selectedWeek", selectedWeek);
 
-        List<Slot> slotsOfWeek = slotDAO.getSlotsOfWeek(selectedWeek);
+        List<Shift> shiftsOfWeek = shiftDAO.getShiftsOfWeek(selectedWeek);
         ArrayList<String> morningShifts = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
-            morningShifts.add(String.valueOf(slotDAO.getNumOfWorkDoctorOfShift(slotsOfWeek, i, true)));
+            morningShifts.add(String.valueOf(shiftDAO.numOfWorkDoctorOfShift(shiftsOfWeek, i, true)));
         }
         ArrayList<String> afternoonShifts = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
-            afternoonShifts.add(String.valueOf(slotDAO.getNumOfWorkDoctorOfShift(slotsOfWeek, i, false)));
+            afternoonShifts.add(String.valueOf(shiftDAO.numOfWorkDoctorOfShift(shiftsOfWeek, i, false)));
         }
         request.setAttribute("morningShifts", morningShifts);
         request.setAttribute("afternoonShifts", afternoonShifts);

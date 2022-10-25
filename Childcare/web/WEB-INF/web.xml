@@ -107,6 +107,10 @@
         <servlet-name>AjaxDoctorListOfShift</servlet-name>
         <servlet-class>controller.manager.AjaxDoctorListOfShift</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScheduleShiftDetail</servlet-name>
+        <servlet-class>controller.manager.ScheduleShiftDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -294,6 +298,10 @@
     <servlet-mapping>
         <servlet-name>AjaxDoctorListOfShift</servlet-name>
         <url-pattern>/ajax/shift/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleShiftDetail</servlet-name>
+        <url-pattern>/manager/schedule/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

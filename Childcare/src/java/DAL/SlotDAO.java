@@ -62,10 +62,10 @@ public class SlotDAO implements DAO<Slot> {
                 LocalDate date = rs.getDate("date").toLocalDate();
                 int slotTimeId = rs.getInt("slotTimeId");
                 Boolean isExamination = rs.getBoolean("isExamination");
-                int status = rs.getInt("status");
-                int scheduleId = rs.getInt("scheduleId");
+                int slot_status = rs.getInt("status");
+                int shiftId = rs.getInt("shiftId");
                 //System.out.println(roleId);
-                Slot s = new Slot(slotId, date, isExamination, status, slotTimeId, scheduleId);
+                Slot s = new Slot(slotId, isExamination, slot_status, slotTimeId, shiftId);
                 list.add(s);
             }
         } catch (SQLException e) {
@@ -76,14 +76,14 @@ public class SlotDAO implements DAO<Slot> {
 
     @Override
     public void add(Slot t) {
-        String sql = "insert into Slot (date, slotTimeId, isExamination, status, scheduleId) values(?,?,?,?,?)";
+        String sql = "insert into Slot (date, slotTimeId, isExamination, status, shiftId) values(?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
+//            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
             ps.setInt(2, t.getSlotTimeId());
             ps.setBoolean(3, t.isIsExamination());
             ps.setInt(4, t.getStatus());
-            ps.setInt(5, t.getScheduleId());
+            ps.setInt(5, t.getShiftId());
 
             ps.execute();
         } catch (SQLException e) {
@@ -93,18 +93,18 @@ public class SlotDAO implements DAO<Slot> {
 
     @Override
     public void update(Slot t) {
-        String sql = "Update slot set date=?, slotTimeId=?, isExamination=?, status=?, scheduleId=? where slot_id=?";
+        String sql = "Update slot set date=?, slotTimeId=?, isExamination=?, status=?, shiftId=? where slot_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
+//            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
             ps.setInt(2, t.getSlotTimeId());
             ps.setBoolean(3, t.isIsExamination());
             ps.setInt(4, t.getStatus());
-            ps.setInt(5, t.getScheduleId());
+            ps.setInt(5, t.getShiftId());
             ps.setInt(6, t.getSlotId());
 
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error update Slot " + e.getMessage();
             System.out.println(status);
         }
@@ -123,78 +123,17 @@ public class SlotDAO implements DAO<Slot> {
         }
     }
 
-    public List<Slot> getSlotsOfWeek(int week_number) {
-        LocalDate start_date = Utils.Utility.getFirstDayOfWeek(week_number);
-        LocalDate end_date = Utils.Utility.getLastDayOfWeek(start_date);
-
-        List<Slot> slots = new ArrayList<>();
-        for (Slot slot : list) {
-            if (slot.getDate().isBefore(end_date) && slot.getDate().isAfter(start_date)) {
-                slots.add(slot);
-            }
-        }
-        return slots;
-    }
-
-    public int getNumOfWorkDoctorOfShift(List<Slot> slots, int dayOfWeek, boolean isMorningShift) {
-        int countDoctor = 0;
-        for (Slot slot : slots) {
-            if (slot.getDate().getDayOfWeek().getValue() == dayOfWeek) {
-                if (isMorningShift == slot.isMorningShift()) {
-                    countDoctor++;
-                }
-            }
-        }
-        return countDoctor;
-    }
-
-//    public int[] getDoctorListOfShift(List<Slot> slots, int dayOfWeek, boolean isMorningShift) {
-//        ArrayList<Integer>  = new ArrayList<>();
+//    public int getNumOfWorkDoctorOfShift(List<Slot> slots, int dayOfWeek, boolean isMorningShift) {
+//        int countDoctor = 0;
 //        for (Slot slot : slots) {
 //            if (slot.getDate().getDayOfWeek().getValue() == dayOfWeek) {
-//                if (isMorningShift && slot.getSlotTimeId() == 1) {
-//                    doctors.add(slot.getScheduleId());
-//                } else if (!isMorningShift && slot.getSlotTimeId() == 9) {
-//                    doctors.add(slot.getScheduleId());
+//                if (isMorningShift == slot.isMorningShift()) {
+//                    countDoctor++;
 //                }
 //            }
 //        }
-//        return;
+//        return countDoctor;
 //    }
 
-    public List<DoctorProfile> getDoctorListOfShift(int week_number, int dayOfWeek, boolean isMorningShift) {
-        List<DoctorProfile> doctors = new ArrayList<>();
-        LocalDate date = Utils.Utility.getFirstDayOfWeek(week_number).plusDays(dayOfWeek - 1);
-        String sql = "SELECT id, [name], avatar, title FROM Slot s\n"
-                + "INNER JOIN Schedule sch ON s.scheduleId = sch.scheduleId\n"
-                + "INNER JOIN DoctorProfile d ON d.doctor_id = sch.doctorId\n"
-                + "INNER JOIN [User] u ON u.id = d.doctor_id\n"
-                + "WHERE date = ?\n"
-                + "AND isMorningShift = ";
-        if (isMorningShift) {
-            sql += " 1 AND slotTimeId = 1";
-        } else {
-            sql += " 0 AND slotTimeId = 9";
-        }
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDate(1, java.sql.Date.valueOf(date));
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getNString("name"));
-                user.setAvatar(rs.getNString("avatar"));
-                
-                DoctorProfile doctor = new DoctorProfile();
-                doctor.setDoctorId(rs.getInt("id"));
-                doctor.setTitle(rs.getNString("title"));
-                doctor.setUser(user);
-                doctors.add(doctor);   
-            }
-        } catch (SQLException e) {
-            status = "Error Load Slot " + e.getMessage();
-        }
-        return doctors;
-    }
+    
 }

@@ -5,6 +5,7 @@ import Models.SlotTime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ScheduleDAO implements DAO<Schedule> {
     public ScheduleDAO() {
         list = new ArrayList<Schedule>();
         try {
-            con = new DBContext().getConnection();
+            con = DBContext.getConnection();
         } catch (Exception e) {
             status = "Error connection at UerDAO " + e.getMessage();
         }
@@ -54,10 +55,20 @@ public class ScheduleDAO implements DAO<Schedule> {
         return null;
     }
 
-    public List<Schedule> getSchuleOfDoctor(int doctorId) {
+    public List<Schedule> getScheduleOfDoctor(int doctorId) {
         List<Schedule> shifts = new ArrayList<Schedule>();
         for (Schedule s : list) {
-            if (s.getDoctorId() == doctorId) {
+            if (s.getDoctorId() == doctorId && s.isWorked()) {
+                shifts.add(s);
+            }
+        }
+        return shifts;
+    }
+    
+    public List<Schedule> getAllWorkSchedule(int doctorId) {
+        List<Schedule> shifts = new ArrayList<Schedule>();
+        for (Schedule s : list) {
+            if (s.isWorked()) {
                 shifts.add(s);
             }
         }
@@ -74,12 +85,13 @@ public class ScheduleDAO implements DAO<Schedule> {
             while (rs.next()) {
                 int scheduleId = rs.getInt("scheduleId");
                 int doctorId = rs.getInt("doctorId");
-                String dayOfWeek = rs.getString("dayOfWeek");
+                int dayOfWeek = rs.getInt("dayOfWeek");
                 Boolean isMorningShift = rs.getBoolean("isMorningShift");
+                boolean isWork = rs.getBoolean("status");
 
-                list.add(new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift));
+                list.add(new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, isWork));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error Load Schedule " + e.getMessage();
             System.out.println(status);
         }
@@ -87,32 +99,32 @@ public class ScheduleDAO implements DAO<Schedule> {
 
     @Override
     public void add(Schedule t) {
-        String sql = "insert into Schedule (doctorId, dayOfWeek, isMorningShift) values(?,?,?)";
+        String sql = "insert into Schedule (doctorId, dayOfWeek, isMorningShift, [status]) values(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getDoctorId());
-            ps.setString(2, t.getDayOfWeek());
+            ps.setInt(2, t.getDayOfWeek());
             ps.setBoolean(3, t.getIsMorningShift());
+            ps.setBoolean(4, t.isWorked());
 
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error Add Schedule" + e.getMessage();
-            System.out.println(status);
         }
     }
 
     @Override
     public void update(Schedule t) {
-        String sql = "Update Schedule set doctorId=?, dayOfWeek=?, isMorningShift=? where scheduleId=?";
+        String sql = "Update Schedule set doctorId= ?, dayOfWeek= ?, isMorningShift= ?, [status] = ? where scheduleId=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getDoctorId());
-            ps.setString(2, t.getDayOfWeek());
+            ps.setInt(2, t.getDayOfWeek());
             ps.setBoolean(3, t.getIsMorningShift());
-            ps.setInt(4, t.getScheduleId());
-
+            ps.setBoolean(4, t.isWorked());
+            ps.setInt(5, t.getScheduleId());
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error update Schedule " + e.getMessage();
             System.out.println(status);
         }
@@ -125,22 +137,62 @@ public class ScheduleDAO implements DAO<Schedule> {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getScheduleId());
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error delete Schedule " + e.getMessage();
             System.out.println(status);
         }
     }
-    
-    public void deleteScheduleOfDoctor(int doctorId) {
-        String sql = "delete from Schedule where doctorId=?";
+
+    public void updateSchedule(Schedule t) {
+        String sql = "Update Schedule set [status] = 1\n"
+                + "				where doctorId = ?\n"
+                + "				AND [dayOfWeek] = ?\n"
+                + "				AND isMorningShift = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, t.getDoctorId());
+            ps.setInt(2, t.getDayOfWeek());
+            ps.setBoolean(3, t.getIsMorningShift());
+            ps.execute();
+        } catch (SQLException e) {
+            status = "Error delete Schedule " + e.getMessage();
+            System.out.println(status);
+        }
+    }
+
+    public void clearDoctorScheduleStatus(int doctorId) {
+        String sql = "Update Schedule set [status] = 0\n"
+                + "				where doctorId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, doctorId);
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error delete Schedule " + e.getMessage();
             System.out.println(status);
         }
+    }
+
+    public void addNewDoctorSchedule(int doctorId) {
+        for (int i = 1; i <= 7; i++) {
+            Schedule s = new Schedule(doctorId, i, Boolean.TRUE, false);
+            add(s);
+            list.add(s);
+        }
+        for (int i = 1; i <= 7; i++) {
+            Schedule s = new Schedule(doctorId, i, Boolean.FALSE, false);
+            add(s);
+            list.add(s);
+        }
+    }
+
+    public boolean checkExistSchedule(int doctorId) {
+        for (Schedule s : list) {
+            if (s.getDoctorId() == doctorId) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
