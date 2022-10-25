@@ -117,7 +117,7 @@
                                                         </td>
                                                         <td class="text-end">
                                                             <a href="${context}/manager/doctor/profile/detail?id=${d.doctorId}" class="btn btn-light">Chi tiết</a>
-                                                            <a class="btn btn-primary" style="padding: 0.4rem"  onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="#">Phân việc</a>
+                                                            <a class="btn btn-primary" style="padding: 0.4rem" href="${context}/manager/doctor/schedule?id=${d.doctorId}">Lịch trực</a>
                                                         </td>
                                                     </tr>
 

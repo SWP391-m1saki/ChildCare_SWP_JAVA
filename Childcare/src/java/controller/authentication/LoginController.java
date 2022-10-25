@@ -1,4 +1,4 @@
-package Controllers;
+package controller.authentication;
 
 import DAL.DAO;
 import DAL.UserDAO;

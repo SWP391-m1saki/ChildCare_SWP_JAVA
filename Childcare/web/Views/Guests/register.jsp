@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -33,12 +35,12 @@
 
         <!-- Pills content -->
 
-        <section class="vh-100">
+        <section class="vh-100 mt-5">
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
                         <img src="img/logo.png"
-                             class="img" alt="Sample image">
+                             class="img" alt="Sample image" width="600">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form action="register" method="post">
@@ -60,9 +62,12 @@
                             <div class="divider d-flex align-items-center my-4">
                                 <p class="text-center fw-bold mx-3 mb-0">Or</p>
                             </div>
-                            <div class="alert alert-success center mb-4" role="alert">
+                            <c:if test="${NOTIFICATION != null}">
+                                <div class="alert alert-danger center mb-4" role="alert">
                                 <p>${NOTIFICATION}</p>
                             </div>
+                            </c:if>
+                            
                             <div class="form-outline mb-4">
                                 <input type="text" id="name" class="form-control form-control-lg" name="name" value="${requestScope.name}"/>
                                 <label class="form-label" for="name">Full name</label>

@@ -24,6 +24,14 @@ public class Slot {
         this.slotTimeId = slotTimeId;
         this.scheduleId = scheduleId;
     }
+    
+    public Slot(LocalDate date, boolean isExamination, int status, int slotTimeId, int scheduleId) {
+        this.date = date;
+        this.isExamination = isExamination;
+        this.status = status;
+        this.slotTimeId = slotTimeId;
+        this.scheduleId = scheduleId;
+    }
 
     public int getSlotId() {
         return slotId;
@@ -77,9 +85,7 @@ public class Slot {
         this.scheduleId = scheduleId;
     }
 
-    
-
-   
-    
-    
+    public boolean isMorningShift(){
+        return slotTimeId <=8;
+    }
 }

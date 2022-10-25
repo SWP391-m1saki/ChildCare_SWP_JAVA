@@ -120,7 +120,7 @@ public class AjaxDoctorList extends HttpServlet {
                 String s;
                 if (doctorList.isEmpty()) {
                     s = "<form method=\"post\" id=\"main-form\">\n"
-                            + "                            </form>";
+                            + "</form>";
                 } else {
                     s = " <form method=\"POST\" id=\"main-form\">"
                             + "        <div id=\"pagger\" class=\"pagger\"></div>\n"

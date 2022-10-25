@@ -6,13 +6,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Thông tin bác sĩ</title>
+        <title>Lịch làm việc</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/add-product.css'>
@@ -31,13 +32,13 @@
                 <!--ASIDE-->
                 <main class="main-admin-page">
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
+                <jsp:include page="header.jsp"></jsp:include>
                 <!--HEADER-->
 
                 <section class="content-main edit-account">
 
                     <div class="content-header">
-                        <h2 class="content-title">Thông tin bác sĩ</h2>
+                        <h2 class="content-title my-2 mb-4">Lịch làm việc</h2>
                     </div>
                     <style>
                         .doctor-profile-header{
@@ -150,7 +151,7 @@
                             font-weight: 600;
                         }
                     </style>
-                    <div class="card" style="max-width:1120px;">
+                    <div class="card" style="max-width:1120px; min-height: 600px">
                         <div class="card-body">
                             <div class="row doctor-profile-header">
                                 <div class="profileImage">
@@ -162,14 +163,12 @@
                                         <span class="fullname">${doctor.user.name}</span>
                                     </h1>
                                     <c:forEach items="${requestScope.departments}" var="d">
-<!--                                        <option ${d.key == doctor.departmentId ? 'selected' : ''} value="${d.key}">${d.value.getDepartmentName()}</option>-->
                                         <p class="text-sm-start" ${d.key != doctor.departmentId ? 'hidden' : ''}>${d.value.getDepartmentName()}</p>
                                     </c:forEach>
 
                                 </div>
                                 <div class="action">
-                                    <a class="btn btn-primary fw-bold" href="${context}/manager/doctor/profile/update?id=${doctor.doctorId}">Chỉnh sửa</a>
-                                    <a href="${context}/manager/doctor/profile" class="btn btn-secondary fw-bold" >Quay lại</a>
+                                    <a href="${context}/manager/doctor/profile/detail?id=${doctor.doctorId}" class="btn btn-secondary fw-bold" >Quay lại</a>
                                 </div>
                             </div><!-- End doctor header -->
 
@@ -197,10 +196,13 @@
                                                             <span>Sáng</span>
                                                             <div class="small text-secondary">7:30-11:30</div>
                                                         </td>
-                                                        <c:forEach var = "dayOfWeek" begin = "2" end = "8">
+                                                        <c:forEach var = "day" begin = "2" end = "8">
                                                             <td>
                                                                 <div class="pretty p-default p-bigger">
-                                                                    <input type="checkbox" name="work-shift" value="${dayOfWeek}-S">
+                                                                    <input type="checkbox" name="work-shift" value="${day}-S"
+                                                                           <c:forEach items="${requestScope.schedules}" var="s">
+                                                                               ${(day == s.dayOfWeek && s.isMorningShift == true)?'checked':''}
+                                                                           </c:forEach>>
                                                                     <div class="state p-primary">
                                                                         <label></label>
                                                                     </div>
@@ -214,10 +216,13 @@
                                                             <span>Chiều</span>
                                                             <div class="small text-secondary">13:00-16:00</div>
                                                         </td>
-                                                        <c:forEach var = "dayOfWeek" begin = "2" end = "8">
+                                                        <c:forEach var = "day" begin = "2" end = "8">
                                                             <td>
                                                                 <div class="pretty p-default p-bigger">
-                                                                    <input type="checkbox" name="work-shift" value="${dayOfWeek}-C">
+                                                                    <input type="checkbox" name="work-shift" value="${day}-C"
+                                                                           <c:forEach items="${requestScope.schedules}" var="s">
+                                                                               ${(day == s.dayOfWeek && s.isMorningShift == false)?'checked':''}
+                                                                           </c:forEach>>                                                               
                                                                     <div class="state p-primary">
                                                                         <label></label>
                                                                     </div>
@@ -228,7 +233,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="">
+                                        <div class="d-flex justify-content-center">
                                             <button class="btn btn-primary fw-bold" type="submit">Cập nhật</button>
                                         </div>
                                     </form>
