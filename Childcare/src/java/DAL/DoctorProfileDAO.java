@@ -51,17 +51,23 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User();
                 DoctorProfile doctor = new DoctorProfile();
-                user.setName(rs.getString("name"));
-                user.setAvatar(rs.getString("avatar"));
-                user.setAddress(rs.getString("address"));
-                //! DOB va gmail
+                
+//                add user start
+                int id = rs.getInt("id");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                Boolean gender = rs.getBoolean("gender");
                 Date dob = rs.getDate("dob");
-                user.setDob(dob == null ? null : dob.toLocalDate());
-                user.setEmail("gmail");
-                user.setRoleId(rs.getInt("role_id"));
-                user.setPhoneNumber(rs.getString("phone_number"));
+                int roleId = rs.getInt("role_id");
+                String phone = rs.getString("phone_number");
+                String address = rs.getString("address");
+                String avatar = rs.getString("avatar");
+                int statuss = rs.getInt("status");
+                User user = new User(id, email, password, name, gender, dob == null ? null : dob.toLocalDate(), roleId, phone, address, avatar, statuss);
+//                add user end
+
                 doctor.setDoctorId(rs.getInt("doctor_id"));
                 doctor.setTitle(rs.getString("title"));
                 doctor.setPrice(rs.getDouble("price"));

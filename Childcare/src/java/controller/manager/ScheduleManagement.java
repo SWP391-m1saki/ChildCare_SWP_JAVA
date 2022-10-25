@@ -4,31 +4,30 @@
  */
 package controller.manager;
 
-import DAL.DoctorProfileDAO;
-import DAL.ScheduleDAO;
-import Models.DoctorProfile;
-import Models.Schedule;
+import DAL.SlotDAO;
+import Models.Slot;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class DoctorScheduleUpdate extends HttpServlet {
+public class ScheduleManagement extends HttpServlet {
 
-    DoctorProfileDAO doctorDAO;
-    ScheduleDAO scheduleDAO;
+    SlotDAO slotDAO;
 
     @Override
     public void init() {
-        doctorDAO = new DoctorProfileDAO();
-        scheduleDAO = new ScheduleDAO();
-        scheduleDAO.load();
+        slotDAO = new SlotDAO();
+        slotDAO.load();
     }
 
     /**
@@ -40,6 +39,26 @@ public class DoctorScheduleUpdate extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        int selectedWeek = Utils.Utility.parseIntParameter(request.getParameter("selectWeek"), Utils.Utility.getCurrentWeekNumber());
+        request.setAttribute("selectedWeek", selectedWeek);
+
+        List<Slot> slotsOfWeek = slotDAO.getSlotsOfWeek(selectedWeek);
+        ArrayList<String> morningShifts = new ArrayList<>();
+        for (int i = 1; i <= 7; i++) {
+            morningShifts.add(String.valueOf(slotDAO.getNumOfWorkDoctorOfShift(slotsOfWeek, i, true)));
+        }
+        ArrayList<String> afternoonShifts = new ArrayList<>();
+        for (int i = 1; i <= 7; i++) {
+            afternoonShifts.add(String.valueOf(slotDAO.getNumOfWorkDoctorOfShift(slotsOfWeek, i, false)));
+        }
+        request.setAttribute("morningShifts", morningShifts);
+        request.setAttribute("afternoonShifts", afternoonShifts);
+        request.getRequestDispatcher("../Views/manager/doctor-scheduling.jsp").forward(request, response);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -52,16 +71,7 @@ public class DoctorScheduleUpdate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        DoctorProfile doctor = doctorDAO.get(doctorId);
-        if (doctor != null) {
-            request.setAttribute("doctor", doctor);
-            request.setAttribute("schedules", scheduleDAO.getSchuleOfDoctor(doctorId));
-
-            request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -75,21 +85,7 @@ public class DoctorScheduleUpdate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        String[] work_shifts = request.getParameterValues("work-shift");
-        scheduleDAO.deleteScheduleOfDoctor(doctorId);
-        for (String work_shift : work_shifts) {
-            Schedule shift = new Schedule();
-            shift.setDoctorId(doctorId);
-            shift.setIsMorningShift(work_shift.endsWith("S"));
-            shift.setDayOfWeek(String.valueOf(work_shift.charAt(0)));
-            scheduleDAO.add(shift);
-        }
-        scheduleDAO.load();
-        request.setAttribute("doctor", doctorDAO.get(doctorId));
-        request.setAttribute("schedules", scheduleDAO.getSchuleOfDoctor(doctorId));
-        request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
-
+        processRequest(request, response);
     }
 
     /**

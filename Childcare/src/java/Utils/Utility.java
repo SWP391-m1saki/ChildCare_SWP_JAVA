@@ -13,8 +13,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,6 +92,17 @@ public class Utility {
         }
         return number;
     }
+     
+     public static boolean parseBooleanParameter(String raw_input, boolean defaultValue) {
+        raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;
+        boolean value;
+        try {
+            value = Boolean.parseBoolean(raw_input);
+        } catch (NumberFormatException numberFormatException) {
+            value = defaultValue;
+        }
+        return value;
+    }
 
     public static int parseIntParameter(String raw_input, int defaultValue, int minValue, int maxValue) {
         raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;
@@ -143,11 +159,19 @@ public class Utility {
 //        String patternn = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,30}";
     }
 
-    public static void main(String[] args) {
-        int[] a = parseStringArray("1:2:3", ":");
-        System.out.println(a.length);
-        for (int i : a) {
-            System.out.println(i);
-        }
+    public static int getCurrentWeekNumber() {
+        return Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+    }
+    
+    public static LocalDate getFirstDayOfWeek(int weekNumber) {
+        return LocalDate
+                .of(Year.now().getValue(), 2, 1)
+                .with(WeekFields.of(Locale.getDefault()).getFirstDayOfWeek())
+                .with(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(), weekNumber)
+                .plusDays(1);  // For VietNamese
+    }
+    
+    public static LocalDate getLastDayOfWeek(LocalDate firstDateOfWeek) {
+        return firstDateOfWeek.plusDays(6);  // For VietNamese
     }
 }

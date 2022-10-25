@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers;
+package controller.authentication;
 
 import DAL.UserDAO;
 import Models.User;
@@ -35,7 +35,7 @@ public class RegisterController extends HttpServlet {
             throws ServletException, IOException {
         dao.load();
         request.setAttribute("UserDAO", dao.getAll());
-        request.getRequestDispatcher("Views/Guests/register.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/guests/register.jsp").forward(request, response);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class RegisterController extends HttpServlet {
             if(b2) request.setAttribute("NOTFICATION", "Email have been used!");
             request.setAttribute("email", email);
             request.setAttribute("name", name);
-            request.getRequestDispatcher("Views/Guests/register.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/guests/register.jsp").forward(request, response);
         } 
         else {
             User newUser = new User(0, email, password, name, true, null, 4, null, null, avatar, 0);

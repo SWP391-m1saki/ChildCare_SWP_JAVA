@@ -51,4 +51,12 @@ public class Schedule {
         this.isMorningShift = isMorningShift;
     }
     
+    public String getDayOfWeekNumber(){
+        return dayOfWeek.substring(1);
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" + "ScheduleId=" + ScheduleId + ", doctorId=" + doctorId + ", dayOfWeek=" + dayOfWeek + ", isMorningShift=" + isMorningShift + '}';
+    }
 }

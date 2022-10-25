@@ -1,4 +1,4 @@
-package Controllers;
+package controller.authentication;
 
 import java.io.IOException;
 import java.io.PrintWriter;

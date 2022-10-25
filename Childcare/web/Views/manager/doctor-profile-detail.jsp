@@ -230,8 +230,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr class="my-5">
-
+                                        <hr class="mt-5 mb-3">
+                                        <div class="">
+                                            <a class="btn btn-primary ms-3 fw-bold" style="padding: 0.4rem" href="${context}/manager/doctor/schedule?id=${doctorProfile.doctorId}">Lịch làm việc</a>
+                                        </div>
                                     </section> <!-- content-body .// -->
                                 </div> <!-- col.// -->
 

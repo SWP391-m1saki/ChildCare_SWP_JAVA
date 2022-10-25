@@ -17,7 +17,7 @@
     </servlet>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
-        <servlet-class>Controllers.RegisterController</servlet-class>
+        <servlet-class>controller.authentication.RegisterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostManagerController</servlet-name>
@@ -99,6 +99,14 @@
         <servlet-name>DoctorScheduleUpdate</servlet-name>
         <servlet-class>controller.manager.DoctorScheduleUpdate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScheduleManagement</servlet-name>
+        <servlet-class>controller.manager.ScheduleManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxDoctorListOfShift</servlet-name>
+        <servlet-class>controller.manager.AjaxDoctorListOfShift</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -125,15 +133,15 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>Controllers.LoginController</servlet-class>
+        <servlet-class>controller.authentication.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>Controllers.LogoutController</servlet-class>
+        <servlet-class>controller.authentication.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ResetPasswordController</servlet-name>
-        <servlet-class>Controllers.ResetPasswordController</servlet-class>
+        <servlet-class>controller.authentication.ResetPasswordController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserVerifyController</servlet-name>
@@ -278,6 +286,14 @@
     <servlet-mapping>
         <servlet-name>DoctorScheduleUpdate</servlet-name>
         <url-pattern>/manager/doctor/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScheduleManagement</servlet-name>
+        <url-pattern>/manager/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxDoctorListOfShift</servlet-name>
+        <url-pattern>/ajax/shift/schedule</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

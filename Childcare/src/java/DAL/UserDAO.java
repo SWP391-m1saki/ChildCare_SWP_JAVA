@@ -74,16 +74,13 @@ public class UserDAO implements DAO<User> {
                 String password = rs.getString("password");
                 String name = rs.getString("name");
                 Boolean gender = rs.getBoolean("gender");
-                //System.out.println(email +" " +gender );
                 Date dob = rs.getDate("dob");
                 int roleId = rs.getInt("role_id");
                 String phone = rs.getString("phone_number");
                 String address = rs.getString("address");
                 String avatar = rs.getString("avatar");
                 int statuss = rs.getInt("status");
-                //System.out.println(roleId);
                 User newU = new User(id, email, password, name, gender, dob == null ? null : dob.toLocalDate(), roleId, phone, address, avatar, statuss);
-                //System.out.println(newU.getEmail());
                 list.add(newU);
             }
         } catch (Exception e) {

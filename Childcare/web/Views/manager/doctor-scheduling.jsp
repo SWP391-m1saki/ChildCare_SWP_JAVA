@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Lịch làm việc</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
@@ -25,9 +25,9 @@
         <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <script src='${pageContext.request.contextPath}/js/pagger.js'></script>
         <link href="${pageContext.request.contextPath}/css/pagger.css" rel="stylesheet" type="text/css"/>
-    </head>
     <body>
         <style type="text/css">
 
@@ -154,6 +154,16 @@
                 border-top: 1px solid #dee2e6;
             }
 
+            .table th {
+                padding: .25rem 0;
+                font-weight: 500px;
+                font-size:13px;
+            }
+
+            select[name="selectWeek"]{
+                font-size:13px;
+            }
+
             .show-doctor-working:hover {
                 background-color: #4ca520;
                 /* border: 2px solid white; */
@@ -195,283 +205,91 @@
                 margin-right: 0;
             }
         </style>
-        <c:set var="context" value="${pageContext.request.contextPath}" />
+        <!--Message display-->
+        <script type="text/javascript">
+            if (${requestScope.mess != null}) {
+                if (${requestScope.mess[0] == "sucess"}) {
+                    toastr.success(${requestScope.mess[1]});
+                } else {
+                    toastr.error(${requestScope.mess[1]});
+                }
+            }
+        </script>
+        <c:set var="context" value="${pageContext.request.contextPath}" />        
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
                 <!--ASIDE-->
                 <main class="main-admin-page">
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
-                <!--HEADER-->
+                <jsp:include page="header.jsp"></jsp:include>
+                    <!--HEADER-->
 
-                <!--Message display-->
-                <script type="text/javascript">
-                        if (${requestScope.mess != null}) {
-                            if (${requestScope.mess[0] == "sucess"}) {
-                                toastr.success(${requestScope.mess[1]});
-                            } else {
-                                toastr.error(${requestScope.mess[1]});
-                            }
-                        }
-                </script>
+                    <section class="content-main edit-account ms-5" style="max-width: 1120px">
 
-                <section class="content-main">
+                        <div class="content-header">
+                            <h3 class="content-title my-4">Lịch làm việc</h3>
+                        </div>
 
-                    <div class="content-header">
-                        <h2 class="content-title">Quản lí bài viết</h2>
-                    </div>
-
-                    <div class="card mb-4">
-                        <div>
-                            <div class="container" style="max-width: 500px;">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered text-center">
-                                        <thead>
-                                            <tr class="bg-light-gray">
-                                                <th class="text-uppercase">Ngày</th>
-                                                <th class="text-uppercase">T2</th>
-                                                <th class="text-uppercase">T3</th>
-                                                <th class="text-uppercase">T4</th>
-                                                <th class="text-uppercase">T5</th>
-                                                <th class="text-uppercase">T6</th>
-                                                <th class="text-uppercase">T7</th>
-                                                <th class="text-uppercase">CN</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <span>Sáng</span>
-                                                    <div class="small text-secondary">7:30-11:30</div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="container table-schedule">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-center">
+                                            <thead>
+                                                <tr class="bg-light-gray">
+                                                    <th class="text-uppercase" rowspan="2">Thời gian
+                                                        <form method="POST">
+                                                            <select name="selectWeek" class="p-0 mt-2" onchange="this.form.submit()">
+                                                            </select>
+                                                        </form>
+                                                    </th>
+                                                    <th class="text-uppercase">Thứ 2</th>
+                                                    <th class="text-uppercase">Thứ 3</th>
+                                                    <th class="text-uppercase">Thứ 4</th>
+                                                    <th class="text-uppercase">Thứ 5</th>
+                                                    <th class="text-uppercase">Thứ 6</th>
+                                                    <th class="text-uppercase">Thứ 7</th>
+                                                    <th class="text-uppercase">Chủ Nhật</th>
+                                                </tr>
+                                                <tr class="bg-light-gray current-week-day">
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="align-middle">
+                                                        <span>Sáng</span>
+                                                        <div class="margin-10px-top font-size14">10:00-11:00</div>
+                                                    </td>
+                                                <c:forEach var = "day" begin = "1" end = "7">
+                                                    <td>
+                                                        <div class="">
+                                                            <input type="hidden" name="work-shift" value="${day}-S">
+                                                            <span data="{style: 'win2007', icon: 'left', align:'center', fullWidth: true}" class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
+                                                            <div class="margin-10px-top font-size14">${morningShifts[day-1]} bác sĩ</div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                    </td>
+                                                </c:forEach>
                                             </tr>
 
                                             <tr>
                                                 <td class="align-middle">
                                                     <span>Chiều</span>
-                                                    <div class="small text-secondary">13:00-16:00</div>
+                                                    <div class="margin-10px-top font-size14">13:00-16:00</div>
                                                 </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
+                                                <c:forEach var = "day" begin = "1" end = "7">
+                                                    <td>
+                                                        <div class="">
+                                                            <input type="hidden" name="work-shift" value="${day}-C">
+                                                            <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
+                                                            <div class="margin-10px-top font-size14">${afternoonShifts[day-1]} bác sĩ</div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="pretty p-default p-bigger">
-                                                        <input type="checkbox" name="work-shift" value="T2-S">
-                                                        <div class="state p-primary">
-                                                            <label></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                    </td>
+                                                </c:forEach>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="container table-schedule">
-                            <div class="table-responsive">
-                                <table class="table table-bordered text-center">
-                                    <thead>
-                                        <tr class="bg-light-gray">
-                                            <th class="text-uppercase">Thời gian
-                                            </th>
-                                            <th class="text-uppercase">Thứ 2</th>
-                                            <th class="text-uppercase">Thứ 3</th>
-                                            <th class="text-uppercase">Thứ 4</th>
-                                            <th class="text-uppercase">Thứ 5</th>
-                                            <th class="text-uppercase">Thứ 6</th>
-                                            <th class="text-uppercase">Thứ 7</th>
-                                            <th class="text-uppercase">Chủ Nhật</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <span>Sáng</span>
-                                                <div class="margin-10px-top font-size14">10:00-11:00</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="align-middle">
-                                                <span>Chiều</span>
-                                                <div class="margin-10px-top font-size14">13:00-16:00</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                <div class="margin-10px-top font-size14">3 bác sĩ</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
 
@@ -481,74 +299,69 @@
         </div>
         <script src="${context}/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
 
-                            const showBtns = Array.from(document.querySelectorAll('.show-doctor-working'));
-                            showBtns.forEach(btn => btn.addEventListener('click', function () {
-                                    const list = document.createElement("div");
-                                    list.innerHTML = `<div class="display-pop-up">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Danh sách bác sĩ</h5>
-                                                        <button type="button" class="close close-doctor-list fw-bold fs-4"
-                                                         data-dismiss="modal" aria-label="Close">×</button>
-                                                    </div>
-                                                    <ul class="list-doctor-of-slot">
-                                                        <li>
-                                                            <a href="#" class="itemside">
-                                                                    <img src="${context}/img/team-1.jpg" 
-                                                                         class="img-sm img-avatar rounded-circle" alt="User Photo" width="40" id="show-avatar">
-                                                                    <span class="mb-0 title">Ths. Nguyen Văn An</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="itemside">
-                                                                    <img src="${context}/img/team-1.jpg" 
-                                                                         class="img-sm img-avatar rounded-circle" alt="User Photo" width="40" id="show-avatar">
-                                                                    <span class="mb-0 title">Ths. Nguyen Văn An</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="itemside">
-                                                                    <img src="${context}/img/team-1.jpg" 
-                                                                         class="img-sm img-avatar rounded-circle" alt="User Photo" width="40" id="show-avatar">
-                                                                    <span class="mb-0 title">Ths. Nguyen Văn An</span>
-                                                            </a>
-                                                        </li>
-                                                        
-                                                        <li>
-                                                            <a href="#" class="itemside">
-                                                                    <img src="${context}/img/team-1.jpg" 
-                                                                         class="img-sm img-avatar rounded-circle" alt="User Photo" width="40" id="show-avatar">
-                                                                    <span class="mb-0 title">Ths. Nguyen Văn An</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="itemside">
-                                                                    <img src="${context}/img/team-1.jpg" 
-                                                                         class="img-sm img-avatar rounded-circle" alt="User Photo" width="40" id="show-avatar">
-                                                                    <span class="mb-0 title">Ths. Nguyen Văn An</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="itemside">
-                                                                    <img src="${context}/img/team-1.jpg" 
-                                                                         class="img-sm img-avatar rounded-circle" alt="User Photo" width="40" id="show-avatar">
-                                                                    <span class="mb-0 title">Ths. Nguyen Văn An</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>`;
-                                    btn.insertAdjacentElement('afterend', list);
-                                }));
-                            document.querySelector('.table-schedule').addEventListener('click', e => {
-                                if (e.target === document.querySelector('.close-doctor-list')) {
-                                    let list = document.querySelector('.display-pop-up');
-                                    if (list !== null) {
-                                        list.parentElement.remove();
-                                    }
 
-                                }
-                            });
-                        </script>
+                                                                function ajaxCall() {
+
+                                                                }
+
+                                                                const showBtns = Array.from(document.querySelectorAll('.show-doctor-working'));
+                                                                showBtns.forEach(btn => btn.addEventListener('click', function () {
+                                                                        const list = document.createElement("div");
+                                                                        $.ajax({
+                                                                            url: '/Childcare/ajax/shift/schedule',
+                                                                            type: "POST",
+                                                                            data: {
+                                                                                week_number: document.querySelector('select[name="selectWeek"]').value,
+                                                                                dayOfWeek: document.querySelector('select[name="depId"]').value,
+                                                                                isMorningShift: document.querySelector('select[name="pagesize"]').value,
+                                                                            },
+                                                                            async: true,
+                                                                            success: function (data) {
+                                                                                list.innerHTML = data;
+                                                                            },
+                                                                            error: function () {
+                                                                                alert('Errore');
+                                                                            }
+                                                                        });
+                                                                        btn.insertAdjacentElement('afterend', list);
+                                                                    }));
+
+                                                                document.querySelector('.table-schedule').addEventListener('click', e => {
+                                                                    if (e.target === document.querySelector('.close-doctor-list')) {
+                                                                        let list = document.querySelector('.display-pop-up');
+                                                                        if (list !== null) {
+                                                                            list.parentElement.remove();
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                                const selectedWeekNum = ${requestScope.selectedWeek};
+                                                                const currentWeekNum = parseInt(moment().format('w'), 10);
+                                                                $(document).ready(function () {
+                                                                    var weekOptions = ``;
+                                                                    var start_day, end_day;
+                                                                    for (let i = currentWeekNum - 2; i <= currentWeekNum + 2; i++) {
+                                                                        var week = moment().week(i).clone();
+                                                                        start_day = week.isoWeekday(1).format('DD/MM');
+                                                                        end_day = week.isoWeekday(7).format('DD/MM');
+
+                                                                        if (i === selectedWeekNum) {
+                                                                            weekOptions += `<option selected value='` + i + `'>` + start_day + ` To ` + end_day + `</option>\n`;
+                                                                            var dayOfCurrentWeek = '';
+                                                                            for (let j = 1; j <= 7; j++) {
+                                                                                dayOfCurrentWeek += '<th align="center">' + week.isoWeekday(j).format('DD/MM') + '</th>';
+                                                                            }
+                                                                            document.querySelector('.current-week-day').innerHTML = dayOfCurrentWeek;
+                                                                        } else
+                                                                            weekOptions += `<option value='` + i + `'>` + start_day + ` To ` + end_day + `</option>\n`;
+                                                                    }
+                                                                    document.querySelector('select[name="selectWeek"]').innerHTML = weekOptions;
+                                                                });
+        </script>
     </body>
 </html>
+
+

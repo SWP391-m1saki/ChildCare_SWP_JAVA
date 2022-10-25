@@ -12,8 +12,7 @@ import java.util.List;
  *
  * @author Misaki
  */
-public class ScheduleDAO implements DAO<Schedule>
-{
+public class ScheduleDAO implements DAO<Schedule> {
 
     private List<Schedule> list;
     private Connection con;
@@ -30,8 +29,8 @@ public class ScheduleDAO implements DAO<Schedule>
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    public ScheduleDAO(){
+
+    public ScheduleDAO() {
         list = new ArrayList<Schedule>();
         try {
             con = new DBContext().getConnection();
@@ -39,7 +38,7 @@ public class ScheduleDAO implements DAO<Schedule>
             status = "Error connection at UerDAO " + e.getMessage();
         }
     }
-    
+
     @Override
     public List<Schedule> getAll() {
         return list;
@@ -47,10 +46,22 @@ public class ScheduleDAO implements DAO<Schedule>
 
     @Override
     public Schedule get(int id) {
-        for(Schedule s:list){
-            if(s.getScheduleId() == id) return s;
+        for (Schedule s : list) {
+            if (s.getScheduleId() == id) {
+                return s;
+            }
         }
         return null;
+    }
+
+    public List<Schedule> getSchuleOfDoctor(int doctorId) {
+        List<Schedule> shifts = new ArrayList<Schedule>();
+        for (Schedule s : list) {
+            if (s.getDoctorId() == doctorId) {
+                shifts.add(s);
+            }
+        }
+        return shifts;
     }
 
     @Override
@@ -65,7 +76,7 @@ public class ScheduleDAO implements DAO<Schedule>
                 int doctorId = rs.getInt("doctorId");
                 String dayOfWeek = rs.getString("dayOfWeek");
                 Boolean isMorningShift = rs.getBoolean("isMorningShift");
-                
+
                 list.add(new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift));
             }
         } catch (Exception e) {
@@ -77,31 +88,31 @@ public class ScheduleDAO implements DAO<Schedule>
     @Override
     public void add(Schedule t) {
         String sql = "insert into Schedule (doctorId, dayOfWeek, isMorningShift) values(?,?,?)";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getDoctorId());
             ps.setString(2, t.getDayOfWeek());
             ps.setBoolean(3, t.getIsMorningShift());
-            
+
             ps.execute();
-        }  catch(Exception e){
+        } catch (Exception e) {
             status = "Error Add Schedule" + e.getMessage();
             System.out.println(status);
-        }     
+        }
     }
 
     @Override
     public void update(Schedule t) {
         String sql = "Update Schedule set doctorId=?, dayOfWeek=?, isMorningShift=? where scheduleId=?";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getDoctorId());
             ps.setString(2, t.getDayOfWeek());
             ps.setBoolean(3, t.getIsMorningShift());
             ps.setInt(4, t.getScheduleId());
-            
+
             ps.execute();
-        }catch(Exception e){
+        } catch (Exception e) {
             status = "Error update Schedule " + e.getMessage();
             System.out.println(status);
         }
@@ -110,14 +121,26 @@ public class ScheduleDAO implements DAO<Schedule>
     @Override
     public void delete(Schedule t) {
         String sql = "delete from Schedule where scheduleId=?";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getScheduleId());
             ps.execute();
-        }catch(Exception e){
+        } catch (Exception e) {
             status = "Error delete Schedule " + e.getMessage();
             System.out.println(status);
         }
     }
     
+    public void deleteScheduleOfDoctor(int doctorId) {
+        String sql = "delete from Schedule where doctorId=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, doctorId);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error delete Schedule " + e.getMessage();
+            System.out.println(status);
+        }
+    }
+
 }

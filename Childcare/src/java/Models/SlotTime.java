@@ -40,6 +40,9 @@ public class SlotTime {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "SlotTime{" + "slotTimeId=" + slotTimeId + ", startTime=" + startTime + ", endTime=" + endTime + '}';
+    }
 }
