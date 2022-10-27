@@ -72,13 +72,13 @@
                                     </div>
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Thông tin giới thiệu</label>
-                                        <textarea name="qualification" class="form-control" style="min-height: 150px" 
+                                        <textarea name="description" class="form-control" style="min-height: 150px" 
                                                   oninput='this.style.height = this.scrollHeight + "px"'>${doctorProfile.description}</textarea>
                                     </div>
 
                                     <div class="col-10  mb-3">
                                         <label class="form-label fw-bold fs-6">Học vấn và kinh nghiệm làm việc</label>
-                                        <textarea name="description" class="form-control" style="min-height: 150px" 
+                                        <textarea name="qualification" class="form-control" style="min-height: 150px" 
                                                   oninput='this.style.height = this.scrollHeight + "px"'>${doctorProfile.qualification}</textarea>
                                     </div>
                                 </div>

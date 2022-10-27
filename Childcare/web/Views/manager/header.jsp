@@ -29,7 +29,7 @@
                         <img src="${fn:startsWith(sessionScope.user.avatar,'https')?'':pageContext.request.contextPath.concat("/")}${sessionScope.user.avatar}" class="img-user" alt="User Photo">
                     </c:when>
                     <c:otherwise>
-                        <img src="${pageContext.request.contextPath}/img/default-avatar.png" class="img-user" alt="User Photo" id="show-avatar">
+                        <img src="${pageContext.request.contextPath}/img/default-avatar.png" class="img-user" alt="User Photo">
                     </c:otherwise>
                 </c:choose>
                 <i class="fa-solid fa-caret-down"></i>

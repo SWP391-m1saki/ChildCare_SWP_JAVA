@@ -135,13 +135,13 @@ public class ShiftDAO implements DAO<Shift> {
                 + "                INNER JOIN Schedule sch ON s.scheduleId = sch.scheduleId\n"
                 + "                INNER JOIN DoctorProfile d ON d.doctor_id = sch.doctorId\n"
                 + "                INNER JOIN [User] u ON u.id = d.doctor_id\n"
-                + "                WHERE date = '2022-10-18'\n"
+                + "                WHERE date = ?\n"
                 + "                AND isMorningShift = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setDate(1, java.sql.Date.valueOf(date));
-            ps.setBoolean(1, isMorningShift);
+            ps.setDate(1, java.sql.Date.valueOf(date));
+            ps.setBoolean(2, isMorningShift);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println("Okay");
@@ -185,6 +185,7 @@ public class ShiftDAO implements DAO<Shift> {
                 shift.setSchedule(s);
                 shift.setDate(Utils.Utility.getFirstDayOfWeek(week_number).plusDays(s.getDayOfWeek() - 1));
                 add(shift);
+                list.add(shift);
             }
         }
     }

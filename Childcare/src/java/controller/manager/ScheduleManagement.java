@@ -48,6 +48,10 @@ public class ScheduleManagement extends HttpServlet {
         request.setAttribute("selectedWeek", selectedWeek);
 
         List<Shift> shiftsOfWeek = shiftDAO.getShiftsOfWeek(selectedWeek);
+
+        //CHECK if the week has been schedule
+        if (!shiftsOfWeek.isEmpty()) { // IF TRUE
+            request.setAttribute("hadScheduled", "true");
         ArrayList<String> morningShifts = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
             morningShifts.add(String.valueOf(shiftDAO.numOfWorkDoctorOfShift(shiftsOfWeek, i, true)));
@@ -58,6 +62,8 @@ public class ScheduleManagement extends HttpServlet {
         }
         request.setAttribute("morningShifts", morningShifts);
         request.setAttribute("afternoonShifts", afternoonShifts);
+        }
+
         request.getRequestDispatcher("../Views/manager/doctor-scheduling.jsp").forward(request, response);
     }
 
@@ -87,7 +93,31 @@ public class ScheduleManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int selectedWeek = Utils.Utility.parseIntParameter(request.getParameter("selectWeek"), Utils.Utility.getCurrentWeekNumber());
+        request.setAttribute("selectedWeek", selectedWeek);
+
+        String isMappingSchedule = request.getParameter("mapping-schedule");
+        if (isMappingSchedule != null && isMappingSchedule.equalsIgnoreCase("true")) {
+            shiftDAO.mappingDoctorScheduleToWeek(selectedWeek);
+        }
+
+        List<Shift> shiftsOfWeek = shiftDAO.getShiftsOfWeek(selectedWeek);
+
+        //CHECK if the week has been schedule
+        if (!shiftsOfWeek.isEmpty()) { // IF TRUE
+            request.setAttribute("hadScheduled", true);
+            ArrayList<String> morningShifts = new ArrayList<>();
+            for (int i = 1; i <= 7; i++) {
+                morningShifts.add(String.valueOf(shiftDAO.numOfWorkDoctorOfShift(shiftsOfWeek, i, true)));
+            }
+            ArrayList<String> afternoonShifts = new ArrayList<>();
+            for (int i = 1; i <= 7; i++) {
+                afternoonShifts.add(String.valueOf(shiftDAO.numOfWorkDoctorOfShift(shiftsOfWeek, i, false)));
+            }
+            request.setAttribute("morningShifts", morningShifts);
+            request.setAttribute("afternoonShifts", afternoonShifts);
+        }
+        request.getRequestDispatcher("../Views/manager/doctor-scheduling.jsp").forward(request, response);
     }
 
     /**

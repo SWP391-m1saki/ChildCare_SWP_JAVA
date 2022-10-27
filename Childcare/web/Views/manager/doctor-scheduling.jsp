@@ -65,7 +65,7 @@
                                             <thead>
                                                 <tr class="bg-light-gray">
                                                     <th class="text-uppercase" rowspan="2">Thời gian
-                                                        <form method="POST">
+                                                        <form method="POST" id="main-form">
                                                             <select name="selectWeek" class="p-0 mt-2" onchange="this.form.submit()">
                                                             </select>
                                                         </form>
@@ -92,8 +92,8 @@
                                                         <div class="">
                                                             <input type="hidden" name="work-shift" value="${day}-S">
                                                             <a href="${context}/manager/schedule/detail?weeknum=${requestScope.selectedWeek}&shift=S${day}"
-                                                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
-                                                            <div class="margin-10px-top font-size14">${morningShifts[day-1]} bác sĩ</div>
+                                                               class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
+                                                            <div class="margin-10px-top font-size14">${morningShifts != null ? morningShifts[day-1]: 0} bác sĩ</div>
                                                         </div>
                                                     </td>
                                                 </c:forEach>
@@ -109,8 +109,8 @@
                                                         <div class="">
                                                             <input type="hidden" name="work-shift" value="${day}-C">
                                                             <a href="${context}/manager/schedule/detail?weeknum=${requestScope.selectedWeek}&shift=C${day}"
-                                                                 class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
-                                                            <div class="margin-10px-top font-size14">${afternoonShifts[day-1]} bác sĩ</div>
+                                                               class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
+                                                            <div class="margin-10px-top font-size14">${morningShifts != null ? morningShifts[day-1]: 0} bác sĩ</div>
                                                         </div>
                                                     </td>
                                                 </c:forEach>
@@ -119,6 +119,12 @@
                                     </table>
                                 </div>
                             </div>
+                            <c:if test="${requestScope.hadScheduled == null}">
+                                <div class="control-item d-flex justify-content-center">
+                                    <input type="hidden" value="false" name="mapping-schedule" form="main-form">
+                                    <button class="btn btn-primary py-2 mt-3 mapping-schedule-submit" type="submit" form="main-form">Lên lịch cho tuần</button>
+                                </div>
+                            </c:if>
                         </div>
 
                     </div> <!-- card end// -->
@@ -129,42 +135,12 @@
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
-
-
-                                                                function ajaxCall() {
-
+                                                                const mappingBtn = document.querySelector('.mapping-schedule-submit')
+                                                                if (mappingBtn) {
+                                                                    mappingBtn.addEventListener('click', (e) => {
+                                                                        document.querySelector('input[name="mapping-schedule"]').value = 'true';
+                                                                    });
                                                                 }
-
-                                                                const showBtns = Array.from(document.querySelectorAll('.show-doctor-working'));
-                                                                showBtns.forEach(btn => btn.addEventListener('click', function () {
-                                                                        const list = document.createElement("div");
-                                                                        $.ajax({
-                                                                            url: '/Childcare/ajax/shift/schedule',
-                                                                            type: "POST",
-                                                                            data: {
-                                                                                week_number: document.querySelector('select[name="selectWeek"]').value,
-                                                                                dayOfWeek: document.querySelector('select[name="depId"]').value,
-                                                                                isMorningShift: document.querySelector('select[name="pagesize"]').value,
-                                                                            },
-                                                                            async: true,
-                                                                            success: function (data) {
-                                                                                list.innerHTML = data;
-                                                                            },
-                                                                            error: function () {
-                                                                                alert('Errore');
-                                                                            }
-                                                                        });
-                                                                        btn.insertAdjacentElement('afterend', list);
-                                                                    }));
-
-                                                                document.querySelector('.table-schedule').addEventListener('click', e => {
-                                                                    if (e.target === document.querySelector('.close-doctor-list')) {
-                                                                        let list = document.querySelector('.display-pop-up');
-                                                                        if (list !== null) {
-                                                                            list.parentElement.remove();
-                                                                        }
-                                                                    }
-                                                                });
 
                                                                 const selectedWeekNum = ${requestScope.selectedWeek};
                                                                 const currentWeekNum = parseInt(moment().format('w'), 10);

@@ -107,11 +107,6 @@ public class UserDAO implements DAO<User> {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            //System.out.println(t.getName());
-//            System.out.println(t.getRoleId());
-//            System.out.println(t.getAvatar());
-//            System.out.println(t.getStatus());
-
             ps.setString(1, t.getEmail());
             ps.setString(2, t.getPassword());
             ps.setString(3, t.getName());
@@ -121,9 +116,7 @@ public class UserDAO implements DAO<User> {
             } else {
                 ps.setString(5, t.getAvatar());
             }
-
             ps.setInt(6, t.getStatus());
-            //System.out.println(ps.toString());
             ps.execute();
         } catch (SQLException ex) {
             status = "Error add user " + ex.getMessage();
@@ -134,26 +127,24 @@ public class UserDAO implements DAO<User> {
 
     @Override
     public void update(User t) {
-        String sql = "update [user] set email=?, password=?, name=?, gender=?, dob=?, phone_number=?, address=?, avatar=? where id=?";
+        String sql = "update [user] set email=?, name=?, gender=?, dob=?, phone_number=?, address=?, avatar=? where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getEmail());
-            ps.setString(2, t.getPassword());
-            ps.setString(3, t.getName());
-            ps.setBoolean(4, t.isGender());
-
+            ps.setString(2, t.getName());
+            ps.setBoolean(3, t.isGender());
             java.sql.Date date;
             try {
                 date = java.sql.Date.valueOf(t.getDob());
             } catch (Exception e) {
                 date = null;
             }
-            ps.setDate(5, date);
+            ps.setDate(4, date);
 
-            ps.setString(6, t.getPhoneNumber());
-            ps.setString(7, t.getAddress());
-            ps.setString(8, t.getAvatar());
-            ps.setInt(9, t.getId());
+            ps.setString(5, t.getPhoneNumber());
+            ps.setString(6, t.getAddress());
+            ps.setString(7, t.getAvatar());
+            ps.setInt(8, t.getId());
             ps.execute();
         } catch (Exception e) {
             status = "Error update User " + e.getMessage();
@@ -240,7 +231,7 @@ public class UserDAO implements DAO<User> {
         }
     }
     
-    public void addDoctorDetail(User t){
+    public void addDoctorAccount(User t){
         String sql = "insert into [user] (email, password, name, role_id, avatar, status,phone_number,dob,address,gender) values(?,?,?,?,?,?,?,?,?,?)";
 
         try {
@@ -260,7 +251,6 @@ public class UserDAO implements DAO<User> {
             ps.setDate(8, Date.valueOf(t.getDob()));
             ps.setString(9, t.getAddress());
             ps.setBoolean(10, t.isGender());
-            //System.out.println(ps.toString());
             ps.execute();
         } catch (SQLException ex) {
             status = "Error add user " + ex.getMessage();

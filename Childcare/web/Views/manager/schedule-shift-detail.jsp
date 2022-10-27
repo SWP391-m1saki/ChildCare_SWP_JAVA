@@ -16,7 +16,7 @@
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
-
+        <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <c:set var="context" value="${pageContext.request.contextPath}" />        
@@ -37,31 +37,49 @@
 
                         <div class="card mb-4">
                             <div class="card-body">
-                                <div class="container table-schedule">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered text-center">
-                                            <thead>
-                                                <tr class="bg-light-gray">
-                                                    <th>Bac si</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${requestScope.work_doctors}" var="d">
-                                                <tr>
-                                                    <td width="40%">
-                                                        <a href="${context}/manager/doctor/profile/detail?id=${d.doctorId}" class="itemside">
-                                                            <div class="left">
-                                                                <img src="${context}/img/${d.user.avatar}" class="img-md image p-1" alt="Ảnh bac si" id="show-avatar">
-                                                            </div>
-                                                            <div class="info pl-3">
-                                                                <h6 class="mb-0 title">${d.title} ${d.user.name}</h6>
-                                                            </div>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="container">
+
+                                        <c:if test="${requestScope.work_doctors != null && requestScope.work_doctors.size() != 0}">
+
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Bác sĩ</th>
+                                                            <th class="text-end"> Hành động </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach items="${requestScope.work_doctors}" var="d">
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="${context}/manager/doctor/profile/detail?id=${d.doctorId}" class="text-dark d-flex justify-content-start align-items-center">
+                                                                        <div class="left">
+                                                                            <img src="${context}/img/${d.user.avatar}" class="img-xs image p-1 rounded-circle" width="80" height="80" alt="Ảnh bac si">
+                                                                        </div>
+                                                                        <div class="ms-3">
+                                                                            <h6 class="mb-0 title">${d.user.name}</h6>
+                                                                        </div>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="text-end">
+                                                                    <button class="btn btn-close"></button>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table> <!-- table-responsive.// -->
+                                            </c:if>
+                                            <c:if test="${requestScope.work_doctors == null || requestScope.work_doctors.size() == 0}">
+                                                <h3>Không có bác sĩ nào</h3>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+
                                 </div>
                             </div>
                         </div>

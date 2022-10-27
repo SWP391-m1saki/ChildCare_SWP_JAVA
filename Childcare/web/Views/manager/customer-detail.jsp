@@ -41,20 +41,25 @@
                 <jsp:include page="header.jsp"></jsp:include>
                     <!--HEADER-->
 
-                    <section class="content-main edit-account">
-                        <div>
-                            <h2 >${requestScope.mess}</h2>
-                        </div>
-                        <div class="content-header">
-                            <h2 class="content-title">Chỉnh sửa thông tin </h2>
-                        </div>
-                        <div class="card">
-                            <header class="card-header">
-                                <div class="row gx-3">
-                                    <div class="col-lg-4 col-md-6 me-auto"></div>
-                                    <div class="col-lg-2 col-md-3 col-6">
-                                        <select class="form-select" name="status" form="main-form">
-                                            <option value="-1" <c:if test="${requestScope.user.getStatus()==-1}">selected</c:if>>
+                <c:if test="${requestScope.mess != null}">
+                    <div class="alert-danger w-50 mx-4">
+                        <p class="p-2 ps-3">${requestScope.mess}</p>
+                    </div>
+                </c:if>
+                <section class="content-main edit-account">
+                    <div>
+                        <h2 >${requestScope.mess}</h2>
+                    </div>
+                    <div class="content-header">
+                        <h2 class="content-title">Chỉnh sửa thông tin </h2>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <div class="row gx-3">
+                                <div class="col-lg-4 col-md-6 me-auto"></div>
+                                <div class="col-lg-2 col-md-3 col-6">
+                                    <select class="form-select" name="status" form="main-form">
+                                        <option value="-1" <c:if test="${requestScope.user.getStatus()==-1}">selected</c:if>>
                                                 Trạng thái</option>
                                             <option value="1" <c:if test="${requestScope.user.getStatus()==1}">selected</c:if>>
                                                 Active</option>
@@ -109,9 +114,9 @@
                                                             <div class="btn btn-outline-primary" id="my-button" onclick="document.getElementById('my-file').click()">
                                                                 <i class="fa-solid fa-cloud-arrow-up" style="color: blue"></i> Upload
                                                             </div>
-                                                            <input type="file" accept="image/*" name="avatar" id="my-file" style="display: none" onchange="document.getElementById('show-avatar').src = window.URL.createObjectURL(this.files[0])">
+                                                            <input type="file" accept="image/*" name="avatar" id="my-file" style="display: none" 
+                                                                   onchange="document.getElementById('show-avatar').src = window.URL.createObjectURL(this.files[0])">
                                                         </figcaption>
-
                                                     </figure>
                                                 </div> <!-- col.// -->
                                             </div> <!-- row.// -->

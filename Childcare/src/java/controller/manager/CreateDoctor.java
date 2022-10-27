@@ -33,32 +33,6 @@ public class CreateDoctor extends HttpServlet {
         doctorDAO = new DoctorProfileDAO();
     }
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateDoctor</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateDoctor at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -91,7 +65,6 @@ public class CreateDoctor extends HttpServlet {
         String defaultPass = "123456789";
         request.setAttribute("defaultPass", defaultPass);
         userDAO.load();
-        User doctor = new User();
         String name = request.getParameter("fullname");
         String gmail = request.getParameter("gmail");
         LocalDate dob = LocalDate.parse(request.getParameter("dob"));
@@ -99,11 +72,12 @@ public class CreateDoctor extends HttpServlet {
         boolean gender = request.getParameter("gender").equals("Male");
         String phoneNumber = request.getParameter("phone");
         String address = request.getParameter("address");
+        String avatar = request.getParameter("avatar");
         if (!Utils.Utility.validateString(gmail, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             request.setAttribute("mess", "Email không hợp lệ");
             request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
         } else if (userDAO.EmailDuplicate(gmail)) {
-            request.setAttribute("mess", "Email lặp");
+            request.setAttribute("mess", "Email đã tồn tại");
             request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
         } else if (!Utils.Utility.validateString(phoneNumber, "(84|0[3|5|7|8|9])+([0-9]{8})")) {
             request.setAttribute("mess", "Số điện thoại không hợp lệ");
@@ -115,24 +89,14 @@ public class CreateDoctor extends HttpServlet {
             request.setAttribute("mess", "Tuổi không hợp lệ");
             request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
         } else {
-            DoctorProfile doctorProfile = new DoctorProfile();
-            doctor.setName(name);
-            doctor.setEmail(gmail);
-            doctor.setPassword("123456789");
-            doctor.setDob(dob);
-            doctor.setPhoneNumber(phoneNumber);
-            doctor.setGender(gender);
-            doctor.setAddress(address);
-            doctor.setRoleId(3);
-            doctor.setStatus(1);
-            userDAO.addDoctorDetail(doctor);
+            //default-role: 3 - doctor
+            //default-status: 4 - verified
+            userDAO.addDoctorAccount(new User(gmail, defaultPass, name, gender, dob, 3, phoneNumber, address, avatar, 1));
             userDAO.load();
             User user = userDAO.ValidateLogin(gmail, "123456789");
             if (user != null) {
-                int id = user.getId();
-                doctorProfile.setDoctorId(id);
-                doctorDAO.add(doctorProfile);
-                response.sendRedirect("profile/update?id=" + id);
+                doctorDAO.add(new DoctorProfile(user.getId(), "", "", 0, 1, "Bác sĩ", user));
+                response.sendRedirect("profile/update?id=" + user.getId());
             } else {
                 request.getRequestDispatcher("../../Views/manager/createDoctor.jsp").forward(request, response);
             }
