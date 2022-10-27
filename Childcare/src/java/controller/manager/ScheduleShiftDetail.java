@@ -4,6 +4,7 @@
  */
 package controller.manager;
 
+import DAL.DepartmentDAO;
 import DAL.ShiftDAO;
 import Models.DoctorProfile;
 import java.io.IOException;
@@ -21,10 +22,12 @@ import java.util.List;
 public class ScheduleShiftDetail extends HttpServlet {
 
     ShiftDAO shiftDAO;
+    DepartmentDAO departmentDAO;
 
     @Override
     public void init() {
         shiftDAO = new ShiftDAO();
+        departmentDAO = new DepartmentDAO();
         shiftDAO.load();
     }
 
@@ -68,13 +71,22 @@ public class ScheduleShiftDetail extends HttpServlet {
             throws ServletException, IOException {
         int week_number = Utils.Utility.parseIntParameter(request.getParameter("weeknum"), Utils.Utility.getCurrentWeekNumber());
         String shift_string = request.getParameter("shift");
-        int dayOfWeek = Utils.Utility.parseIntParameter(shift_string.substring(1), 1);
-        boolean isMorningShift = shift_string.startsWith("S");
-        
-        List<DoctorProfile> work_doctors = shiftDAO.getDoctorListOfShift(week_number, dayOfWeek, isMorningShift);
-        request.setAttribute("work_doctors", work_doctors);
-        
-        request.getRequestDispatcher("../../Views/manager/schedule-shift-detail.jsp").forward(request, response);
+        if (shift_string != null) {
+            int dayOfWeek = Utils.Utility.parseIntParameter(shift_string.substring(1), 1);
+            boolean isMorningShift = shift_string.startsWith("S");
+            int depId = Utils.Utility.parseIntParameter(request.getParameter("depId"), -1);
+            if (depId != -1) {
+                request.setAttribute("depId", depId);
+            }
+            request.setAttribute("weeknum", week_number);
+            request.setAttribute("shift", shift_string);
+            List<DoctorProfile> work_doctors = shiftDAO.getDoctorListOfShift(week_number, dayOfWeek, isMorningShift, depId);
+            request.setAttribute("work_doctors", work_doctors);
+            request.setAttribute("departments", departmentDAO.getAllHashMap());
+            request.getRequestDispatcher("../../Views/manager/schedule-shift-detail.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("../schedule");
+        }
     }
 
     /**

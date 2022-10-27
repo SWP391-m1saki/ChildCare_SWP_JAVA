@@ -79,7 +79,6 @@
                                                             <select name="gender" class="form-select">
                                                                 <option class="" value="Male" selected>Nam</option>
                                                                 <option value="Female">Nữ</option>
-
                                                             </select>
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-12  mb-3">

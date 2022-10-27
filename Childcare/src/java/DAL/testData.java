@@ -29,8 +29,12 @@ public class testData {
 
     private static void getSchedule() {
         ShiftDAO dao = new ShiftDAO();
+        dao.load();
+//        dao.removeDoctorOfShift(44, 1, true, 2);
+        for (DoctorProfile shift : dao.getDoctorListOfShift(44, 1, false)) {
+            System.out.println(shift);
 
-        System.out.println(dao.getDoctorListOfShift(43, 2, true).size());
+        }
     }
 
 //    private static void getSlotData(){

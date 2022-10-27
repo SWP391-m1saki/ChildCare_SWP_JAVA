@@ -110,7 +110,7 @@
                                                             <input type="hidden" name="work-shift" value="${day}-C">
                                                             <a href="${context}/manager/schedule/detail?weeknum=${requestScope.selectedWeek}&shift=C${day}"
                                                                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
-                                                            <div class="margin-10px-top font-size14">${morningShifts != null ? morningShifts[day-1]: 0} bác sĩ</div>
+                                                            <div class="margin-10px-top font-size14">${afternoonShifts != null ? afternoonShifts[day-1]: 0} bác sĩ</div>
                                                         </div>
                                                     </td>
                                                 </c:forEach>

@@ -111,6 +111,10 @@
         <servlet-name>ScheduleShiftDetail</servlet-name>
         <servlet-class>controller.manager.ScheduleShiftDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxScheduleRemoveDoctor</servlet-name>
+        <servlet-class>controller.manager.AjaxScheduleRemoveDoctor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -302,6 +306,10 @@
     <servlet-mapping>
         <servlet-name>ScheduleShiftDetail</servlet-name>
         <url-pattern>/manager/schedule/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxScheduleRemoveDoctor</servlet-name>
+        <url-pattern>/ajax/schedule/remove-doctor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
