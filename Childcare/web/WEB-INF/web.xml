@@ -95,6 +95,10 @@
         <servlet-name>CustomerDetailController</servlet-name>
         <servlet-class>controller.manager.CustomerDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SendRequestController</servlet-name>
+        <servlet-class>controller.doctor.SendRequestController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -270,6 +274,10 @@
     <servlet-mapping>
         <servlet-name>CustomerDetailController</servlet-name>
         <url-pattern>/manager/user/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendRequestController</servlet-name>
+        <url-pattern>/doctor/request/send</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
