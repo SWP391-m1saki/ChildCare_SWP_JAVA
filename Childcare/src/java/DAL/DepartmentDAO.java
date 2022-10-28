@@ -28,7 +28,7 @@ public class DepartmentDAO {
     public DepartmentDAO() {
         departments = new HashMap<Integer, Department>();
         try {
-            con = new DBContext().getConnection();
+            con = DBContext.getConnection();
         } catch (Exception e) {
             status = "Error connection at Department dao" + e.getMessage();
         }

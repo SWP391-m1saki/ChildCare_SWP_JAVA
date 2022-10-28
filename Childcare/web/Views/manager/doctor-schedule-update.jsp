@@ -196,7 +196,7 @@
                                                             <span>Sáng</span>
                                                             <div class="small text-secondary">7:30-11:30</div>
                                                         </td>
-                                                        <c:forEach var = "day" begin = "2" end = "8">
+                                                        <c:forEach var = "day" begin = "1" end = "7">
                                                             <td>
                                                                 <div class="pretty p-default p-bigger">
                                                                     <input type="checkbox" name="work-shift" value="${day}-S"
@@ -216,7 +216,7 @@
                                                             <span>Chiều</span>
                                                             <div class="small text-secondary">13:00-16:00</div>
                                                         </td>
-                                                        <c:forEach var = "day" begin = "2" end = "8">
+                                                        <c:forEach var = "day" begin = "1" end = "7">
                                                             <td>
                                                                 <div class="pretty p-default p-bigger">
                                                                     <input type="checkbox" name="work-shift" value="${day}-C"

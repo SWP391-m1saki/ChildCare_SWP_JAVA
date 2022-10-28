@@ -33,7 +33,18 @@ public class User {
         this.status = status;
     }
 
-   
+   public User(String email, String password, String name, Boolean gender, LocalDate dob, int roleId, String phoneNumber, String address, String avatar, int status) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.gender = gender;
+        this.dob = dob;
+        this.roleId = roleId;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.avatar = avatar;
+        this.status = status;
+    }
 
     public int getId() {
         return id;

@@ -15,7 +15,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
-        <!--<link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/ui.css'>-->
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/time-table.css'>
         <link href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet">
@@ -31,179 +30,6 @@
     <body>
         <style type="text/css">
 
-            .bg-light-gray {
-                background-color: #f7f7f7;
-            }
-
-            .table-bordered thead td,
-            .table-bordered thead th {
-                border-bottom-width: 2px;
-            }
-
-            .table thead th {
-                vertical-align: bottom;
-                border-bottom: 2px solid #dee2e6;
-            }
-
-            .table-bordered td,
-            .table-bordered th {
-                border: 1px solid #dee2e6;
-            }
-
-
-            .bg-sky.box-shadow {
-                box-shadow: 0px 5px 0px 0px #00a2a7
-            }
-
-            .bg-orange.box-shadow {
-                box-shadow: 0px 5px 0px 0px #af4305
-            }
-
-            .bg-green.box-shadow {
-                box-shadow: 0px 5px 0px 0px #4ca520
-            }
-
-            .bg-yellow.box-shadow {
-                box-shadow: 0px 5px 0px 0px #dcbf02
-            }
-
-            .bg-pink.box-shadow {
-                box-shadow: 0px 5px 0px 0px #e82d8b
-            }
-
-            .bg-purple.box-shadow {
-                box-shadow: 0px 5px 0px 0px #8343e8
-            }
-
-            .bg-lightred.box-shadow {
-                box-shadow: 0px 5px 0px 0px #d84213
-            }
-
-
-            .bg-sky {
-                background-color: #61c262
-            }
-
-            .bg-orange {
-                background-color: #e95601
-            }
-
-            .bg-green {
-                background-color: #5bbd2a
-            }
-
-            .bg-yellow {
-                background-color: #f0d001
-            }
-
-            .bg-pink {
-                background-color: #ff48a4
-            }
-
-            .bg-purple {
-                background-color: #9d60ff
-            }
-
-            .bg-lightred {
-                background-color: #ff5722
-            }
-
-            .padding-15px-lr {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-
-            .padding-5px-tb {
-                padding-top: 5px;
-                padding-bottom: 5px;
-            }
-
-            .margin-10px-bottom {
-                margin-bottom: 10px;
-            }
-
-            .border-radius-5 {
-                border-radius: 5px;
-            }
-
-            .margin-10px-top {
-                margin-top: 10px;
-            }
-
-            .font-size14 {
-                font-size: 14px;
-            }
-
-            .text-light-gray {
-                color: #d6d5d5;
-            }
-
-            .font-size13 {
-                font-size: 13px;
-            }
-
-            .table-bordered td,
-            .table-bordered th {
-                border: 1px solid #dee2e6;
-            }
-
-            .table td,
-            .table th {
-                padding: .75rem;
-                vertical-align: top;
-                border-top: 1px solid #dee2e6;
-            }
-
-            .table th {
-                padding: .25rem 0;
-                font-weight: 500px;
-                font-size:13px;
-            }
-
-            select[name="selectWeek"]{
-                font-size:13px;
-            }
-
-            .show-doctor-working:hover {
-                background-color: #4ca520;
-                /* border: 2px solid white; */
-            }
-
-            .display-pop-up {
-                position: absolute;
-                background-color: white;
-            }
-
-            .list-doctor-of-slot {
-                background-color: #dee2e6;
-                display: inline-block;
-                padding: 15px;
-                padding-top: 0;
-                margin: 0px;
-                list-style: none;
-                overflow: hidden;
-                max-height: 220px;
-                overflow-y: scroll;
-            }
-
-            .list-doctor-of-slot li {
-                background-color: rgb(246, 242, 242);
-                padding: 5px 10px;
-                margin: 5px 0;
-            }
-
-            .modal-header {
-                padding: 8px 15px;
-                background: #d6d5d5;
-            }
-
-            .list-doctor-of-slot a{
-                color: black;
-            }
-
-            div.pretty {
-                margin-right: 0;
-            }
         </style>
         <!--Message display-->
         <script type="text/javascript">
@@ -239,7 +65,7 @@
                                             <thead>
                                                 <tr class="bg-light-gray">
                                                     <th class="text-uppercase" rowspan="2">Thời gian
-                                                        <form method="POST">
+                                                        <form method="POST" id="main-form">
                                                             <select name="selectWeek" class="p-0 mt-2" onchange="this.form.submit()">
                                                             </select>
                                                         </form>
@@ -265,8 +91,9 @@
                                                     <td>
                                                         <div class="">
                                                             <input type="hidden" name="work-shift" value="${day}-S">
-                                                            <span data="{style: 'win2007', icon: 'left', align:'center', fullWidth: true}" class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                            <div class="margin-10px-top font-size14">${morningShifts[day-1]} bác sĩ</div>
+                                                            <a href="${context}/manager/schedule/detail?weeknum=${requestScope.selectedWeek}&shift=S${day}"
+                                                               class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
+                                                            <div class="margin-10px-top font-size14">${morningShifts != null ? morningShifts[day-1]: 0} bác sĩ</div>
                                                         </div>
                                                     </td>
                                                 </c:forEach>
@@ -281,8 +108,9 @@
                                                     <td>
                                                         <div class="">
                                                             <input type="hidden" name="work-shift" value="${day}-C">
-                                                            <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</span>
-                                                            <div class="margin-10px-top font-size14">${afternoonShifts[day-1]} bác sĩ</div>
+                                                            <a href="${context}/manager/schedule/detail?weeknum=${requestScope.selectedWeek}&shift=C${day}"
+                                                               class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
+                                                            <div class="margin-10px-top font-size14">${afternoonShifts != null ? afternoonShifts[day-1]: 0} bác sĩ</div>
                                                         </div>
                                                     </td>
                                                 </c:forEach>
@@ -291,6 +119,12 @@
                                     </table>
                                 </div>
                             </div>
+                            <c:if test="${requestScope.hadScheduled == null}">
+                                <div class="control-item d-flex justify-content-center">
+                                    <input type="hidden" value="false" name="mapping-schedule" form="main-form">
+                                    <button class="btn btn-primary py-2 mt-3 mapping-schedule-submit" type="submit" form="main-form">Lên lịch cho tuần</button>
+                                </div>
+                            </c:if>
                         </div>
 
                     </div> <!-- card end// -->
@@ -301,42 +135,12 @@
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
-
-
-                                                                function ajaxCall() {
-
+                                                                const mappingBtn = document.querySelector('.mapping-schedule-submit')
+                                                                if (mappingBtn) {
+                                                                    mappingBtn.addEventListener('click', (e) => {
+                                                                        document.querySelector('input[name="mapping-schedule"]').value = 'true';
+                                                                    });
                                                                 }
-
-                                                                const showBtns = Array.from(document.querySelectorAll('.show-doctor-working'));
-                                                                showBtns.forEach(btn => btn.addEventListener('click', function () {
-                                                                        const list = document.createElement("div");
-                                                                        $.ajax({
-                                                                            url: '/Childcare/ajax/shift/schedule',
-                                                                            type: "POST",
-                                                                            data: {
-                                                                                week_number: document.querySelector('select[name="selectWeek"]').value,
-                                                                                dayOfWeek: document.querySelector('select[name="depId"]').value,
-                                                                                isMorningShift: document.querySelector('select[name="pagesize"]').value,
-                                                                            },
-                                                                            async: true,
-                                                                            success: function (data) {
-                                                                                list.innerHTML = data;
-                                                                            },
-                                                                            error: function () {
-                                                                                alert('Errore');
-                                                                            }
-                                                                        });
-                                                                        btn.insertAdjacentElement('afterend', list);
-                                                                    }));
-
-                                                                document.querySelector('.table-schedule').addEventListener('click', e => {
-                                                                    if (e.target === document.querySelector('.close-doctor-list')) {
-                                                                        let list = document.querySelector('.display-pop-up');
-                                                                        if (list !== null) {
-                                                                            list.parentElement.remove();
-                                                                        }
-                                                                    }
-                                                                });
 
                                                                 const selectedWeekNum = ${requestScope.selectedWeek};
                                                                 const currentWeekNum = parseInt(moment().format('w'), 10);

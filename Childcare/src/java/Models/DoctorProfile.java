@@ -28,6 +28,15 @@ public class DoctorProfile {
         this.title = title;
         this.user = user;
     }
+    
+    public DoctorProfile(String description, String qualification, double price, int departmentId, String title, User user) {
+        this.description = description;
+        this.qualification = qualification;
+        this.price = price;
+        this.departmentId = departmentId;
+        this.title = title;
+        this.user = user;
+    }
 
     public int getDoctorId() {
         return doctorId;

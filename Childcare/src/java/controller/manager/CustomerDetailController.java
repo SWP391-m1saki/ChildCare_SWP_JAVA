@@ -28,15 +28,6 @@ public class CustomerDetailController extends HttpServlet {
         userDAO.load();
     }
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -73,6 +64,8 @@ public class CustomerDetailController extends HttpServlet {
         LocalDate dob = LocalDate.parse(request.getParameter("dob"));
         String phoneNumber = request.getParameter("phoneNumber");
         String address = request.getParameter("address");
+        boolean gender = request.getParameter("gender") != null ? request.getParameter("gender").equals("Male") : true;
+        String avatar = request.getParameter("avatar");
         LocalDate now = LocalDate.now();
         if (!Utils.Utility.validateString(email, "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             request.setAttribute("mess", "Email không hợp lệ");
@@ -94,7 +87,7 @@ public class CustomerDetailController extends HttpServlet {
             user.setDob(dob);
             user.setPhoneNumber(phoneNumber);
             user.setAddress(address);
-            userDAO.update(user);
+            userDAO.update(new User(id, email, "", name, gender, dob, 1, phoneNumber, address, avatar, 1));
             userDAO.load();
             response.sendRedirect("../../manager/user");
         }

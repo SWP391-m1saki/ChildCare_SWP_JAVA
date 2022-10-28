@@ -42,6 +42,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-11">
+                                    <c:if test="${requestScope.mess != null}">
+                                        <div class="alert-danger w-50 mx-4">
+                                            <p class="p-2 ps-3">${requestScope.mess}</p>
+                                        </div>
+                                    </c:if>
+
 
                                     <section class="content-body p-xl-4">
                                         <form method="POST">
@@ -73,7 +79,6 @@
                                                             <select name="gender" class="form-select">
                                                                 <option class="" value="Male" selected>Nam</option>
                                                                 <option value="Female">Nữ</option>
-                                                               
                                                             </select>
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-12  mb-3">
@@ -91,12 +96,12 @@
                                                             </div>
                                                             <input type="file" accept="image/*" name="avatar" id="my-file" style="display: none" onchange="document.getElementById('show-avatar').src = window.URL.createObjectURL(this.files[0])">
                                                         </figcaption>
-
                                                     </figure>
                                                 </div> <!-- col.// -->
                                             </div> <!-- row.// -->
                                             <br>
-                                            <button class="btn btn-primary" type="submit">Tạo tài khoản</button>
+                                            <button class="btn btn-primary fw-bold" type="submit">Tạo tài khoản</button>
+                                            <a href="${context}/manager/doctor/profile" class="btn btn-secondary fw-bold ms-4" >Quay lại</a>
                                         </form>
 
                                         <hr class="my-5">

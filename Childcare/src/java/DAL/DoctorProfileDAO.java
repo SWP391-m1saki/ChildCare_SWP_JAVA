@@ -96,13 +96,13 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getDoctorId());
-            ps.setDouble(2, 0);
-            ps.setString(3, "1");
-            ps.setString(4, "2");
-            ps.setInt(5, 1);
-            ps.setString(6, "3");
+            ps.setDouble(2, t.getPrice());
+            ps.setString(3, t.getQualification());
+            ps.setString(4, t.getDescription());
+            ps.setInt(5, t.getDepartmentId());
+            ps.setString(6, t.getTitle());
             ps.execute();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             status = "Error add DoctorProfile " + ex.getMessage();
         }
     }

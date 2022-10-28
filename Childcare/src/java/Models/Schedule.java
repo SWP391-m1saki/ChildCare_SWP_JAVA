@@ -5,26 +5,36 @@ package Models;
  * @author Misaki
  */
 public class Schedule {
-    private int ScheduleId, doctorId;
-    private String dayOfWeek;
+
+    private int scheduleId, doctorId;
+    private int dayOfWeek;
     private Boolean isMorningShift;
+    private boolean isWorked;
 
     public Schedule() {
     }
 
-    public Schedule(int ScheduleId, int doctorId, String dayOfWeek, Boolean isMorningShift) {
-        this.ScheduleId = ScheduleId;
+    public Schedule(int scheduleId, int doctorId, int dayOfWeek, Boolean isMorningShift, boolean isWorked) {
+        this.scheduleId = scheduleId;
         this.doctorId = doctorId;
         this.dayOfWeek = dayOfWeek;
         this.isMorningShift = isMorningShift;
+        this.isWorked = isWorked;
+    }
+    
+    public Schedule(int doctorId, int dayOfWeek, Boolean isMorningShift, boolean isWorked) {
+        this.doctorId = doctorId;
+        this.dayOfWeek = dayOfWeek;
+        this.isMorningShift = isMorningShift;
+        this.isWorked = isWorked;
     }
 
     public int getScheduleId() {
-        return ScheduleId;
+        return scheduleId;
     }
 
-    public void setScheduleId(int ScheduleId) {
-        this.ScheduleId = ScheduleId;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public int getDoctorId() {
@@ -35,11 +45,11 @@ public class Schedule {
         this.doctorId = doctorId;
     }
 
-    public String getDayOfWeek() {
+    public int getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public void setDayOfWeek(String dayOfWeek) {
+    public void setDayOfWeek(int dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
@@ -50,13 +60,18 @@ public class Schedule {
     public void setIsMorningShift(Boolean isMorningShift) {
         this.isMorningShift = isMorningShift;
     }
-    
-    public String getDayOfWeekNumber(){
-        return dayOfWeek.substring(1);
+
+    public boolean isWorked() {
+        return isWorked;
     }
+
+    public void setIsWorked(boolean isWorked) {
+        this.isWorked = isWorked;
+    }
+
 
     @Override
     public String toString() {
-        return "Schedule{" + "ScheduleId=" + ScheduleId + ", doctorId=" + doctorId + ", dayOfWeek=" + dayOfWeek + ", isMorningShift=" + isMorningShift + '}';
+        return "Schedule{" + "ScheduleId=" + scheduleId + ", doctorId=" + doctorId + ", dayOfWeek=" + dayOfWeek + ", isMorningShift=" + isMorningShift + ", status=" + isWorked + '}';
     }
 }

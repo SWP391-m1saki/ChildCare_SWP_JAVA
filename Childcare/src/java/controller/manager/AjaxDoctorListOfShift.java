@@ -21,13 +21,6 @@ import java.util.List;
  */
 public class AjaxDoctorListOfShift extends HttpServlet {
 
-    SlotDAO slotDAO;
-
-    @Override
-    public void init() {
-        slotDAO = new SlotDAO();
-        slotDAO.load();
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -83,31 +76,31 @@ public class AjaxDoctorListOfShift extends HttpServlet {
         int week_number = Utils.Utility.parseIntParameter(request.getParameter("week_number"), Utils.Utility.getCurrentWeekNumber());
         int dayOfWeek = Utils.Utility.parseIntParameter(request.getParameter("dayOfWeek"), 1);
         boolean isMorningShift = Utils.Utility.parseBooleanParameter(request.getParameter("isMorningShift"), true);
-
-        List<DoctorProfile> doctors = slotDAO.getDoctorListOfShift(week_number, dayOfWeek, isMorningShift);
-        String s = "<div class=\"display-pop-up\">\n"
-                + "                                                    <div class=\"modal-header\">\n"
-                + "                                                        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Danh sách bác sĩ</h5>\n"
-                + "                                                        <button type=\"button\" class=\"close close-doctor-list fw-bold fs-4\"\n"
-                + "                                                         data-dismiss=\"modal\" aria-label=\"Close\">×</button>\n"
-                + "                                                    </div>\n"
-                + "                                                    <ul class=\"list-doctor-of-slot\">\n";
-        for (DoctorProfile doctor : doctors) {
-            s += "<li>\n"
-                    + "                                                            <a href=\"doctor/profile/detail?id=" + doctor.getDoctorId() + "\" class=\"itemside\">\n"
-                    + "                                                                    <img src=\"../img/" + doctor.getUser().getAvatar() + "\" \n"
-                    + "                                                                         class=\"img-sm img-avatar rounded-circle\" alt=\"User Photo\" width=\"40\" id=\"show-avatar\">\n"
-                    + "                                                                    <span class=\"mb-0 title\">" + doctor.getTitle() + " " + doctor.getUser().getName() + "</span>\n"
-                    + "                                                            </a>\n"
-                    + "                                                        </li>";
-        }
-        s += "                                                    </ul>\n"
-                + "                                                </div>";
-
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            out.println(s);
-        }
+//
+//        List<DoctorProfile> doctors = slotDAO.getDoctorListOfShift(week_number, dayOfWeek, isMorningShift);
+//        String s = "<div class=\"display-pop-up\">\n"
+//                + "                                                    <div class=\"modal-header\">\n"
+//                + "                                                        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Danh sách bác sĩ</h5>\n"
+//                + "                                                        <button type=\"button\" class=\"close close-doctor-list fw-bold fs-4\"\n"
+//                + "                                                         data-dismiss=\"modal\" aria-label=\"Close\">×</button>\n"
+//                + "                                                    </div>\n"
+//                + "                                                    <ul class=\"list-doctor-of-slot\">\n";
+//        for (DoctorProfile doctor : doctors) {
+//            s += "<li>\n"
+//                    + "                                                            <a href=\"doctor/profile/detail?id=" + doctor.getDoctorId() + "\" class=\"itemside\">\n"
+//                    + "                                                                    <img src=\"../img/" + doctor.getUser().getAvatar() + "\" \n"
+//                    + "                                                                         class=\"img-sm img-avatar rounded-circle\" alt=\"User Photo\" width=\"40\" id=\"show-avatar\">\n"
+//                    + "                                                                    <span class=\"mb-0 title\">" + doctor.getTitle() + " " + doctor.getUser().getName() + "</span>\n"
+//                    + "                                                            </a>\n"
+//                    + "                                                        </li>";
+//        }
+//        s += "                                                    </ul>\n"
+//                + "                                                </div>";
+//
+//        response.setContentType("text/html;charset=UTF-8");
+//        try ( PrintWriter out = response.getWriter()) {
+//            out.println(s);
+//        }
     }
 
     /**

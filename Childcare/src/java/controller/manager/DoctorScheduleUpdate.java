@@ -56,7 +56,7 @@ public class DoctorScheduleUpdate extends HttpServlet {
         DoctorProfile doctor = doctorDAO.get(doctorId);
         if (doctor != null) {
             request.setAttribute("doctor", doctor);
-            request.setAttribute("schedules", scheduleDAO.getSchuleOfDoctor(doctorId));
+            request.setAttribute("schedules", scheduleDAO.getScheduleOfDoctor(doctorId));
 
             request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
         } else {
@@ -77,17 +77,20 @@ public class DoctorScheduleUpdate extends HttpServlet {
             throws ServletException, IOException {
         int doctorId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
         String[] work_shifts = request.getParameterValues("work-shift");
-        scheduleDAO.deleteScheduleOfDoctor(doctorId);
+        if (!scheduleDAO.checkExistSchedule(doctorId)) {
+            scheduleDAO.addNewDoctorSchedule(doctorId);
+        }
+        scheduleDAO.clearDoctorScheduleStatus(doctorId);
         for (String work_shift : work_shifts) {
-            Schedule shift = new Schedule();
-            shift.setDoctorId(doctorId);
-            shift.setIsMorningShift(work_shift.endsWith("S"));
-            shift.setDayOfWeek(String.valueOf(work_shift.charAt(0)));
-            scheduleDAO.add(shift);
+            Schedule schedule = new Schedule();
+            schedule.setDoctorId(doctorId);
+            schedule.setIsMorningShift(work_shift.endsWith("S"));
+            schedule.setDayOfWeek(Integer.parseInt(work_shift.substring(0, 1)));
+            scheduleDAO.updateSchedule(schedule);
         }
         scheduleDAO.load();
         request.setAttribute("doctor", doctorDAO.get(doctorId));
-        request.setAttribute("schedules", scheduleDAO.getSchuleOfDoctor(doctorId));
+        request.setAttribute("schedules", scheduleDAO.getScheduleOfDoctor(doctorId));
         request.getRequestDispatcher("../../Views/manager/doctor-schedule-update.jsp").forward(request, response);
 
     }
