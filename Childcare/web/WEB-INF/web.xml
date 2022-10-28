@@ -106,6 +106,7 @@
     <servlet>
         <servlet-name>ChooseDoctor</servlet-name>
         <servlet-class>Controllers.ChooseDoctor</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>CustomerListController</servlet-name>
         <servlet-class>controller.manager.CustomerList</servlet-class>
@@ -313,6 +314,7 @@
     <servlet-mapping>
         <servlet-name>ChooseDoctor</servlet-name>
         <url-pattern>/chooseDoctor</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CustomerListController</servlet-name>
         <url-pattern>/manager/user</url-pattern>

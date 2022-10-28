@@ -29,9 +29,15 @@ public class UserVerifyController extends HttpServlet {
         String code = request.getParameter("VerifyCode");
         HttpSession session = request.getSession();
         String verifying = session.getAttribute("verifying").toString();
-        String register = request.getParameter("register");
+        String register="";
+        try{
+           register = session.getAttribute("register").toString();
+           session.removeAttribute("register");
+        }catch(Exception e){
+            System.out.println("register nhu biu");
+        }
         
-        if(verifying.equals(code) && register == null){
+        if(verifying.equals(code) && register.equals("")){
             response.sendRedirect("ChangePassword");
         }
         else if(verifying.equals(code)){

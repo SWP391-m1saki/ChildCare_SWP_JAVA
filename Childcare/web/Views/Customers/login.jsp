@@ -64,24 +64,7 @@
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form action="login" method="post">
-                            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-                                <button type="button" class="btn btn-info btn-floating mx-1">
-                                    <i class="fab fa-facebook-f"></i>
-                                </button>
-
-                                <button type="button" class="btn btn-info btn-floating mx-1">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
-
-                                <button type="button" class="btn btn-info btn-floating mx-1">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </button>
-                            </div>
-
-                            <div class="divider d-flex align-items-center my-4">
-                                <p class="text-center fw-bold mx-3 mb-0">Or</p>
-                            </div>
+                            
 
                             <!--NOTIFICATION - START-->
                             <c:if test="${requestScope.NOTIFICATION != null}">
@@ -97,7 +80,7 @@
                                 <input type="email" id="form3Example3" class="form-control form-control-lg" name="email" value="<%=email%>" required/>
 
                                 <label class="form-label" for="form3Example3">Email</label>
-                                <input type="email" id="form3Example3" class="form-control form-control-lg" name="email" required/>
+                                
                             </div>
 
                             <!-- Password input -->
@@ -106,7 +89,7 @@
                                 <input type="password" id="form3Example4" class="form-control form-control-lg" name="password" value="<%=pass%>" required/>
 
                                 <label class="form-label" for="form3Example4">Password</label>
-                                <input type="password" id="form3Example4" class="form-control form-control-lg" name="password" required/>
+                                
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
@@ -132,7 +115,7 @@
                         </form>
                     </div>
                 </div>
-
+            </div>
         </section>
 
     </body>

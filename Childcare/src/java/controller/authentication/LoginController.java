@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet {
                         session.removeAttribute("verifyingEmail");
                     }
                     session.setAttribute("verifyingEmail", email);
-                    request.setAttribute("register", true);
+                    session.setAttribute("register", "register");
                     request.getRequestDispatcher("Views/Customers/Verify.jsp").forward(request, response);
                 } else {
                     response.sendRedirect("loadHomePage");

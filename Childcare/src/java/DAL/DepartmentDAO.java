@@ -10,8 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -19,14 +21,12 @@ import java.util.List;
  */
 public class DepartmentDAO {
 
-    private List<Department> list;
     private Connection con;
     private String status;
     private HashMap<Integer, Department> departments;
 
     public DepartmentDAO() {
-        list = new ArrayList<Department>();
-        departments = new HashMap<>();
+        departments = new HashMap<Integer, Department>();
         try {
             con = new DBContext().getConnection();
         } catch (Exception e) {
@@ -36,9 +36,10 @@ public class DepartmentDAO {
     }
 
     public Department get(int id) {
-        for (Department d : list) {
-            if (d.getDepartmentId() == id) {
-                return d;
+        Set<Integer> keySet = departments.keySet();
+        for (Integer key: keySet) {
+            if (departments.get(key).getDepartmentId() == id) {
+                return departments.get(key);
             }
         }
         return null;
@@ -48,6 +49,11 @@ public class DepartmentDAO {
         return departments;
     }
 
+    public List<Department> getAll(){
+        Collection values = departments.values();
+        List<Department> list = new ArrayList(values);
+        return list;
+    }
     //@Override
     public void load() {
         departments.clear();
@@ -60,7 +66,7 @@ public class DepartmentDAO {
                 int departmentId = rs.getInt("department_id");
                 department.setDepartmentId(departmentId);
                 department.setDepartmentName(rs.getString("department_name"));
-//                String image = rs.getString("image");
+                department.setImage(rs.getString("image"));
 //                departments.put(departmentId, new Department(departmentId, departmentName, image));
                 departments.put(departmentId, department);
             }

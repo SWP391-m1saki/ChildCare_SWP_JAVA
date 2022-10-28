@@ -35,7 +35,7 @@ public class RegisterController extends HttpServlet {
             throws ServletException, IOException {
         dao.load();
         request.setAttribute("UserDAO", dao.getAll());
-        request.getRequestDispatcher("Views/guests/register.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Guests/register.jsp").forward(request, response);
     }
 
     @Override

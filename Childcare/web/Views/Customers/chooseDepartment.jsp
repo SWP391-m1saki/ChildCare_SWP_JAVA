@@ -39,16 +39,15 @@
                     <div class="col-sm-8 mx-auto p-5">
 
                         <div class="row">
+                            <h3 style="text-align: center; font-weight: bold; margin-bottom: 30px; margin-top: 70px;">Tìm các bác sĩ theo chuyên khoa</h3>
                             <div class="card-group">
                             <c:forEach items="${requestScope.departmentList}" var="d">
                                 <div class="col-md-4" style="padding:10px 20px" >
                                     <a href="chooseDoctor?DepartmentId=${d.departmentId}">
-                                        <div class="card bg-light mb-5" style="background-color: white;
+                                        <div class="card mb-5" style="background-color: white;
                                              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.08); border-radius: 10px;">
-                                            <img src="${d.image}" class="card-img-top" height="220">
-                                            <div class="card-footer">
-                                                <p class="card-text" style="font-weight: bold; text-align: center;">${d.departmentName}</p>
-                                            </div>
+                                            <img src="${d.image}" class="card-img-top" height="180" style="padding: 50px 50px 20px 50px;">
+                                            <p class="card-text text-dark" style="font-weight: bold; text-align: center; padding-bottom: 30px;">${d.departmentName}</p>
                                         </div>
                                     </a>
                                 </div>

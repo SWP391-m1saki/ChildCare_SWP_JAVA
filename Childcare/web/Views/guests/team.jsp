@@ -42,7 +42,7 @@
                     <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
                     <h1 class="display-4">Qualified Healthcare Professionals </h1>
                 </div>
-                <div class="owl-carousel team-carousel position-relative">
+                <div >
                     <c:forEach items="${requestScope.doctors}" var="d">
                         <div class="team-item">
                             <div class="row g-0 bg-light rounded overflow-hidden">

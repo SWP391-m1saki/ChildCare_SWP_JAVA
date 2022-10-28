@@ -50,51 +50,56 @@
                         </div>
 
                         <div class="col-sm-8 mx-auto p-5">
-                            
-                                <form action="userProfile" method="post">
 
-                                    <div class="form-outline mb-4">
-                                        <input type="email" id="email" class="form-control form-control-lg" name="email" value="${sessionScope.UserLogined.email}" readonly/>
-                                    <label class="form-label" for="gmail">Email</label>
-                                </div>
-
+                            <form action="userProfile" method="post" enctype="multipart/form-data">
 
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="name" class="form-control form-control-lg" name="name" value="${sessionScope.UserLogined.name}"/>
-                                    <label class="form-label" for="name">Full name</label>
+                                    <input type="email" id="email" class="form-control form-control-lg" name="email" value="${sessionScope.UserLogined.email}" readonly/>
+                                <label class="form-label" for="gmail">Email</label>
+                            </div>
+
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="name" class="form-control form-control-lg" name="name" value="${sessionScope.UserLogined.name}"/>
+                                <label class="form-label" for="name">Full name</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                Gender: <input type='radio' name='gender' value='male' ${sessionScope.UserLogined.isGender()?"checked":""} >Male
+                                <input type='radio' name='gender' value='female' ${sessionScope.UserLogined.isGender()?"":"checked"}> Female<br/>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="phonenumber" class="form-control form-control-lg" name="phonenumber" value="${sessionScope.UserLogined.phoneNumber}"/>
+                                <label class="form-label" for="phonenumber">Phone number</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="date" id="dob" class="form-control form-control-lg" name="dob" value="${sessionScope.UserLogined.dob}"/>
+                                <label class="form-label" for="dob">Date of birth</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="address" class="form-control form-control-lg" name="address" value="${sessionScope.UserLogined.address}"/>
+                                <label class="form-label" for="address">Address</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="file" id="avatar" class="form-control form-control-lg" name="avatar"/>
+                                <label class="form-label" for="avatar">Avatar</label>
+                            </div>
+
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="text-center text-lg-start mt-4 pt-2">
+                                    <button class="btn btn-primary btn-lg" type="submit"
+                                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Update</button>
+
                                 </div>
+                            </div>
 
-                                <div class="form-outline mb-4">
-                                    Gender: <input type='radio' name='gender' value='male' ${sessionScope.UserLogined.isGender()?"checked":""} >Male
-                                    <input type='radio' name='gender' value='female' ${sessionScope.UserLogined.isGender()?"":"checked"}> Female<br/>
-                                </div>
+                        </form>
 
-                                <div class="form-outline mb-4">
-                                    <input type="text" id="phonenumber" class="form-control form-control-lg" name="phonenumber" value="${sessionScope.UserLogined.phoneNumber}"/>
-                                    <label class="form-label" for="phonenumber">Phone number</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <input type="date" id="dob" class="form-control form-control-lg" name="dob" value="${sessionScope.UserLogined.dob}"/>
-                                    <label class="form-label" for="dob">Date of birth</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <input type="text" id="address" class="form-control form-control-lg" name="address" value="${sessionScope.UserLogined.address}"/>
-                                    <label class="form-label" for="address">Address</label>
-                                </div>
-
-
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="text-center text-lg-start mt-4 pt-2">
-                                        <button class="btn btn-primary btn-lg" type="submit"
-                                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Update</button>
-
-                                    </div>
-                                </div>
-
-                            </form>
-                        
                     </div>
 
                 </div>
