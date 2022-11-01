@@ -13,17 +13,19 @@ import java.sql.Date;
  */
 public class ChangeRequest {
     private int requestId;
-    private Date requestTime;
-    private String description;
+    private Date requestTime,reponseTime;
+    private String description,reponseDescription;
     private int status, doctorId;
 
     public ChangeRequest() {
     }
 
-    public ChangeRequest(int requestId, Date requestTime, String description, int status, int doctorId) {
+    public ChangeRequest(int requestId, Date requestTime, Date reponseTime, String description, String reponseDescription, int status, int doctorId) {
         this.requestId = requestId;
         this.requestTime = requestTime;
+        this.reponseTime = reponseTime;
         this.description = description;
+        this.reponseDescription = reponseDescription;
         this.status = status;
         this.doctorId = doctorId;
     }
@@ -36,8 +38,16 @@ public class ChangeRequest {
         return requestTime;
     }
 
+    public Date getReponseTime() {
+        return reponseTime;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public String getReponseDescription() {
+        return reponseDescription;
     }
 
     public int getStatus() {
@@ -56,8 +66,16 @@ public class ChangeRequest {
         this.requestTime = requestTime;
     }
 
+    public void setReponseTime(Date reponseTime) {
+        this.reponseTime = reponseTime;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setReponseDescription(String reponseDescription) {
+        this.reponseDescription = reponseDescription;
     }
 
     public void setStatus(int status) {
@@ -67,8 +85,7 @@ public class ChangeRequest {
     public void setDoctorId(int doctorId) {
         this.doctorId = doctorId;
     }
-
-       
+    
     public String getStatusLable(){
         switch (this.status) {
             case 1:

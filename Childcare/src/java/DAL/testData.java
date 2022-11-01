@@ -18,11 +18,14 @@ import java.util.Map;
 public class testData {
 
     public static void main(String[] args) {
-       UserDAO dao = new UserDAO();
-       dao.load();
-       for(User di : dao.getAll()){
-           System.out.println(di.toString());
-       }
+       ChangeRequestDAO cr = new ChangeRequestDAO();
+       cr.load();
+       ChangeRequest c = new ChangeRequest();
+       c.setRequestId(1);
+       c.setReponseTime(Date.valueOf(LocalDate.now()));
+       c.setStatus(1);
+       c.setReponseDescription("aaaaaaaaaaaa");
+       cr.update(c);
 
         //System.out.println(pdao.get(10));
     }

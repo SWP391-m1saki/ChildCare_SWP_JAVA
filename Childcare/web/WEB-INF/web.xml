@@ -99,6 +99,18 @@
         <servlet-name>SendRequestController</servlet-name>
         <servlet-class>controller.doctor.SendRequestController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftList</servlet-name>
+        <servlet-class>controller.doctor.ChangeShiftList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftListDoctor</servlet-name>
+        <servlet-class>controller.manager.ChangeShiftListDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftDoctor</servlet-name>
+        <servlet-class>controller.manager.ChangeShiftDoctor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -278,6 +290,18 @@
     <servlet-mapping>
         <servlet-name>SendRequestController</servlet-name>
         <url-pattern>/doctor/request/send</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftList</servlet-name>
+        <url-pattern>/doctor/request/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftListDoctor</servlet-name>
+        <url-pattern>/manager/doctor/shift/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftDoctor</servlet-name>
+        <url-pattern>/manager/doctor/shift/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
