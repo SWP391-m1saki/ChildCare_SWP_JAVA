@@ -8,7 +8,6 @@ package Models;
 import java.util.Date;
 
 /**
- *
  * @author Misaki
  */
 public class Message {
@@ -67,6 +66,6 @@ public class Message {
     public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
     }
-    
-    
+
+
 }

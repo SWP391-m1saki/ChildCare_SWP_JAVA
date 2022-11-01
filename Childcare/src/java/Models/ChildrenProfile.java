@@ -6,10 +6,8 @@
 package Models;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
- *
  * @author Misaki
  */
 public class ChildrenProfile {
@@ -79,6 +77,6 @@ public class ChildrenProfile {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-    
-    
+
+
 }

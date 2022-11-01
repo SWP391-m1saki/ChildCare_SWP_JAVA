@@ -8,7 +8,6 @@ package Models;
 import java.time.LocalDate;
 
 /**
- *
  * @author Misaki
  */
 public class Feedback {
@@ -67,6 +66,6 @@ public class Feedback {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
-    
-    
+
+
 }

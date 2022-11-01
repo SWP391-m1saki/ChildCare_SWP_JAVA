@@ -7,18 +7,16 @@ package controller.authentication;
 
 import DAL.UserDAO;
 import Models.User;
-import Models.sendEmail;
-import java.io.IOException;
-import java.io.PrintWriter;
+import Utils.sendEmail;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDate;
+
+import java.io.IOException;
 
 /**
- *
  * @author Misaki
  */
 
@@ -39,13 +37,12 @@ public class RegisterController extends HttpServlet {
     }
 
     @Override
-    @SuppressWarnings("ThrowablePrintedToSystemOut")
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             register(request, response);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -59,20 +56,21 @@ public class RegisterController extends HttpServlet {
         boolean b1 = password.equals(confirmPassword);
         boolean b2 = dao.EmailDuplicate(email);
         if (!b1 || b2) {
-            if(!b1) request.setAttribute("NOTIFICATION", "Wrong confirm password");
-            if(b2) request.setAttribute("NOTFICATION", "Email have been used!");
+            if (!b1) request.setAttribute("NOTIFICATION", "Wrong confirm password");
+            if (b2) {
+                request.setAttribute("NOTFICATION", "Email have been used!");
+            }
             request.setAttribute("email", email);
             request.setAttribute("name", name);
             request.getRequestDispatcher("Views/guests/register.jsp").forward(request, response);
-        } 
-        else {
+        } else {
             User newUser = new User(0, email, password, name, true, null, 4, null, null, avatar, 0);
             dao.add(newUser);
             //System.out.println("concakkk");
             sendEmail sm = new sendEmail();
             String code = sm.getRandom();
             boolean test = sm.SendEmail(email, code);
-            if(test){
+            if (test) {
                 HttpSession session = request.getSession();
                 if (session.getAttribute("verifying") != null) {
                     session.removeAttribute("verifying");
@@ -82,10 +80,9 @@ public class RegisterController extends HttpServlet {
                     session.removeAttribute("verifyingEmail");
                 }
                 session.setAttribute("verifyingEmail", email);
-                request.setAttribute("register",true);
+                request.setAttribute("register", true);
                 request.getRequestDispatcher("Views/Customers/Verify.jsp").forward(request, response);
-            }
-            else response.sendRedirect("loadHomePage");
+            } else response.sendRedirect("loadHomePage");
         }
 
     }

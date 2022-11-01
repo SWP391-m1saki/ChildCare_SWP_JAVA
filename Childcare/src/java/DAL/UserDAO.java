@@ -2,20 +2,13 @@ package DAL;
 
 import Models.PageInfo;
 import Models.User;
-import static java.lang.System.in;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
  * @author Misaki
  */
 public class UserDAO implements DAO<User> {
@@ -63,7 +56,7 @@ public class UserDAO implements DAO<User> {
     public void load() {
         list = new ArrayList<User>();
         list.clear();
-        
+
         String sql = "select * from [User]";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -198,19 +191,19 @@ public class UserDAO implements DAO<User> {
         }
     }
 
-    public List<User> searchByMailAndName(String emailOrName){
-        if(emailOrName == null ||emailOrName.length() == 0){
+    public List<User> searchByMailAndName(String emailOrName) {
+        if (emailOrName == null || emailOrName.length() == 0) {
             return list;
         }
         List<User> userSearch = new ArrayList<>();
-        for(User user : list){
-            if(user.getEmail().toLowerCase().contains(emailOrName.toLowerCase()) || user.getName().toLowerCase().contains(emailOrName.toLowerCase())){
+        for (User user : list) {
+            if (user.getEmail().toLowerCase().contains(emailOrName.toLowerCase()) || user.getName().toLowerCase().contains(emailOrName.toLowerCase())) {
                 userSearch.add(user);
             }
         }
-        return  userSearch;
+        return userSearch;
     }
-    
+
     public List<User> getUserByPage(PageInfo page, List<User> fullList) {
         List<User> users = new ArrayList<User>();
         if (fullList.isEmpty()) {
@@ -223,15 +216,15 @@ public class UserDAO implements DAO<User> {
         }
         return users;
     }
-    
+
     private void createUser() {
         for (int i = 20; i < 70; i++) {
             User user = new User(i, "dungmv@fpt.edu.vn", "aaa", "Mai Văn Dũng", true, LocalDate.parse("2022-07-25"), 1, "0352243473", "Hà Nội", "team-" + (i % 3 + 1) + ".jpg", 1);
             list.add(user);
         }
     }
-    
-    public void addDoctorAccount(User t){
+
+    public void addDoctorAccount(User t) {
         String sql = "insert into [user] (email, password, name, role_id, avatar, status,phone_number,dob,address,gender) values(?,?,?,?,?,?,?,?,?,?)";
 
         try {
@@ -257,7 +250,7 @@ public class UserDAO implements DAO<User> {
             System.out.println(status);
         }
     }
-    
+
 
 //        //System.out.println(dao.ValidateLogin("admin", "123").toString());
 //        // cc = new User(9, "lon", "Lon", "Lon", "long", 3, )

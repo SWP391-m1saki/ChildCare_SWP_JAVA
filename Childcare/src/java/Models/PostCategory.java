@@ -6,7 +6,6 @@
 package Models;
 
 /**
- *
  * @author Misaki
  */
 public class PostCategory {
@@ -36,6 +35,6 @@ public class PostCategory {
     public void setCateName(String cateName) {
         this.cateName = cateName;
     }
-    
-    
+
+
 }

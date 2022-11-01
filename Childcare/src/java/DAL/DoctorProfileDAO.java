@@ -3,12 +3,8 @@ package DAL;
 import Models.DoctorProfile;
 import Models.PageInfo;
 import Models.User;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +48,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 DoctorProfile doctor = new DoctorProfile();
-                
+
 //                add user start
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
@@ -180,11 +176,11 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             doctors.add(new DoctorProfile(i,
                     "Bác sĩ Tôn Thất Thanh Long bắt đầu làm việc tại Phòng khám Đa khoa Thành Công vào tháng 4/2021. Bác sĩ hiện tại đang là Bác sĩ chuyên khoa Nội tại phòng khám. Với hơn 4 năm kinh nghiệm trong ngành, Bác sĩ chuyên thăm khám và điều trị các trường hợp về Nội tiết, Tiêu hóa, Gan mật. Chuyên môn vững chắc cùng sự tận tình với bệnh nhân, Bác sĩ hy vọng có thể đem lại quá trình thăm khám và điều trị tốt nhất.",
                     "Hơn 15 năm kinh nghiệm Khám và điều trị bệnh Mắt - đã thực hiện nhiều ca chấp lẹo, mộng thịt, cũng như nhiều phẫu thuật khác về mắt Kinh nghiệm\n"
-                    + "\n"
-                    + "Chuyên khoa Mắt Lĩnh vực chuyên sâu\n"
-                    + "\n"
-                    + "Bắt đầu làm việc tại Phòng khám Đa khoa Thành Công vào tháng 2/2008\n"
-                    + "",
+                            + "\n"
+                            + "Chuyên khoa Mắt Lĩnh vực chuyên sâu\n"
+                            + "\n"
+                            + "Bắt đầu làm việc tại Phòng khám Đa khoa Thành Công vào tháng 2/2008\n"
+                            + "",
                     120000,
                     1, "BS.CK1", user));
         }
@@ -193,11 +189,11 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             doctors.add(new DoctorProfile(i,
                     "Bác sĩ Tôn Thất Thanh Long bắt đầu làm việc tại Phòng khám Đa khoa Thành Công vào tháng 4/2021. Bác sĩ hiện tại đang là Bác sĩ chuyên khoa Nội tại phòng khám. Với hơn 4 năm kinh nghiệm trong ngành, Bác sĩ chuyên thăm khám và điều trị các trường hợp về Nội tiết, Tiêu hóa, Gan mật. Chuyên môn vững chắc cùng sự tận tình với bệnh nhân, Bác sĩ hy vọng có thể đem lại quá trình thăm khám và điều trị tốt nhất.",
                     "Hơn 15 năm kinh nghiệm Khám và điều trị bệnh Mắt - đã thực hiện nhiều ca chấp lẹo, mộng thịt, cũng như nhiều phẫu thuật khác về mắt Kinh nghiệm\n"
-                    + "\n"
-                    + "Chuyên khoa Mắt Lĩnh vực chuyên sâu\n"
-                    + "\n"
-                    + "Bắt đầu làm việc tại Phòng khám Đa khoa Thành Công vào tháng 2/2008\n"
-                    + "",
+                            + "\n"
+                            + "Chuyên khoa Mắt Lĩnh vực chuyên sâu\n"
+                            + "\n"
+                            + "Bắt đầu làm việc tại Phòng khám Đa khoa Thành Công vào tháng 2/2008\n"
+                            + "",
                     200000,
                     i % 5, "BS.CK2", user));
         }

@@ -7,7 +7,6 @@ package Models;
 import java.time.LocalDate;
 
 /**
- *
  * @author Admin
  */
 public class Shift {
@@ -52,5 +51,5 @@ public class Shift {
     public String toString() {
         return "Shift{" + "shiftId=" + shiftId + ", date=" + date + ", schedule=" + schedule + '}';
     }
-    
+
 }

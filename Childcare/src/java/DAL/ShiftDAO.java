@@ -7,8 +7,8 @@ package DAL;
 import Models.DoctorProfile;
 import Models.Schedule;
 import Models.Shift;
-import Models.Slot;
 import Models.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Admin
  */
 public class ShiftDAO implements DAO<Shift> {

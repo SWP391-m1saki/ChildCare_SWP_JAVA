@@ -1,9 +1,8 @@
 package DAL;
 
 import Models.ChildrenProfile;
-import Models.User;
+
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Admin
  */
 public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
@@ -64,7 +62,7 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int childrenId = rs.getInt("children_id");  
+                int childrenId = rs.getInt("children_id");
                 String name = rs.getString("name");
                 Boolean gender = rs.getBoolean("gender");
                 LocalDate dob = rs.getDate("dob").toLocalDate();
@@ -97,7 +95,7 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
             System.out.println(status);
         }
     }
-    
+
 
     @Override
     public void update(ChildrenProfile t) {
@@ -119,21 +117,20 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
     @Override
     public void delete(ChildrenProfile t) {
         String sql = "delete from ChildrenProfile where children_id=?";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getChildrenId());
             ps.execute();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             status = "Error at delete Children Profile";
             System.out.println(status);
         }
     }
-    
-    public ArrayList<ChildrenProfile> getChildrenOfUser(int parentId){
+
+    public ArrayList<ChildrenProfile> getChildrenOfUser(int parentId) {
         ArrayList<ChildrenProfile> list1 = new ArrayList<ChildrenProfile>();
-        for(ChildrenProfile c: list){
-            if(c.getParentId() == parentId) list1.add(c);
+        for (ChildrenProfile c : list) {
+            if (c.getParentId() == parentId) list1.add(c);
         }
         return list1;
     }

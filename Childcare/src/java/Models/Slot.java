@@ -1,9 +1,6 @@
 package Models;
 
-import java.time.LocalDate;
-
 /**
- *
  * @author Misaki
  */
 public class Slot {
@@ -22,7 +19,7 @@ public class Slot {
         this.slotTimeId = slotTimeId;
         this.shiftId = shiftId;
     }
-    
+
     public Slot(boolean isExamination, int status, int slotTimeId, int shiftId) {
         this.isExamination = isExamination;
         this.status = status;
@@ -70,7 +67,7 @@ public class Slot {
         this.shiftId = shiftId;
     }
 
-    public boolean isMorningShift(){
-        return slotTimeId <=8;
+    public boolean isMorningShift() {
+        return slotTimeId <= 8;
     }
 }

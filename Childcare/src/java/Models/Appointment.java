@@ -6,7 +6,6 @@
 package Models;
 
 /**
- *
  * @author Misaki
  */
 public class Appointment {
@@ -62,6 +61,6 @@ public class Appointment {
     public void setChildrenId(int childrenId) {
         this.childrenId = childrenId;
     }
-    
-    
+
+
 }

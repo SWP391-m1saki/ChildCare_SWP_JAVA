@@ -9,12 +9,11 @@ import java.sql.Date;
 
 
 /**
- *
  * @author Misaki
  */
 public class Post {
     private int postId;
-    private String title, detail, image,description;
+    private String title, detail, image, description;
     private Date createdAt;
     private int cateId;
 
@@ -31,7 +30,6 @@ public class Post {
         this.cateId = cateId;
     }
 
-    
 
     public int getPostId() {
         return postId;
@@ -89,9 +87,9 @@ public class Post {
         this.description = description;
     }
 
-    
+
     @Override
     public String toString() {
         return "Post{" + "postId=" + postId + ", title=" + title + ", image=" + image + ", createdAt=" + createdAt + ", cateId=" + cateId + '}';
-    }    
+    }
 }

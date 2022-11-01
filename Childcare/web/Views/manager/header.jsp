@@ -9,11 +9,62 @@
 <c:set var="context" value="${pageContext.request.contextPath}"></c:set>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<header class="main-header navbar">
+<style>
+    .col-search form {
+        width: 480px;
+        position: relative;
+    }
+    .dropdown-menu-list img {
+        width: 16px;
+        margin-right: 10px;
+    }
+    .dropdown-menu-list{
+        font-size: 16px;
+        box-shadow: 0 0 20px 0 rgb(0 0 0 / 30%);
+        border-radius: 5px;
+        border: none;
+    }
+    .search_field input[type="text"] {
+        padding: 1px 2px;
+    }
+    .search_field input {
+        display: inline-block;
+        font-size: 17px;
+        height: 50px;
+        width: 100%;
+        padding-left: 87px;
+        padding-right: 15px;
+        border-bottom: 1px solid #f4f7fc;
+        background: #f5f7fd;
+        border-radius: 30px;
+        border: none;
+    }
+
+    .search-btn{
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: 0 0;
+        font-size: 12px;
+        border: 0;
+        padding-left: 40px;
+        padding-right: 11px;
+    }
+
+</style>
+<header class="main-header navbar py-3 pt-4">
     <div class="col-search">
-        <form role="search" method="POST" class="searchform" action="">
-            <input type="text" name="q" placeholder="Tìm kiếm sản phẩm" required>
-            <button type="submit"><i class="fas fa-search"></i></button>
+        <!--        <form role="search" method="POST" class="searchform" action="">
+                    <input type="text" name="q" placeholder="Tìm kiếm sản phẩm" required>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>-->
+        <form action="#">
+            <div class="search_field">
+                <input type="text" class="text-secondary" style="padding-left: 87px;
+                       padding-right: 15px;" placeholder="Search here...">
+            </div>
+            <button type="submit" class="search-btn"> <img src="${context}/img/search.svg"> </button>
         </form>
     </div>
     <div class="col-user">
@@ -23,22 +74,27 @@
             </a>
         </li>
         <li class="dropdown nav-item">
-            <a class="dropdown-account-toggle" href="#">
+            <a class="dropdown-account-toggle ms-3" href="#">
                 <c:choose>
                     <c:when test="${sessionScope.user.avatar != null}">
                         <img src="${fn:startsWith(sessionScope.user.avatar,'https')?'':pageContext.request.contextPath.concat("/")}${sessionScope.user.avatar}" class="img-user" alt="User Photo">
                     </c:when>
                     <c:otherwise>
-                        <img src="${pageContext.request.contextPath}/img/default-avatar.png" class="img-user" alt="User Photo">
+                        <img src="${pageContext.request.contextPath}/img/default-avatar.jpg" class="img-user" alt="User Photo">
                     </c:otherwise>
                 </c:choose>
-                <i class="fa-solid fa-caret-down"></i>
+                <i class="fa-solid fa-caret-down" style="font-size: 16px"></i>
             </a>
             <div class="dropdown-menu-list dropdown-menu-end">
-                <a class="dropdown-item" href="${context}/home">Về trang chủ</a>
-                <a class="dropdown-item" href="${context}/admin/account">My profile</a>
-                <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item text-danger" href="${context}/logout">Exit</a>
+                <a class="dropdown-item ">
+                    <img src="${context}/img/settings.svg" alt="alt"/> Settings
+                </a>
+                <a class="dropdown-item" href="${context}/manager/account">
+                    <img src="${context}/img/user.svg" alt="alt"/> Thông tin cá nhân
+                </a>
+                <a class="dropdown-item" href="${context}/logout">
+                    <img src="${context}/img/log-out.svg" alt="alt"/> Đăng xuất
+                </a>
             </div>
         </li>
     </div>

@@ -4,7 +4,6 @@ package Models;
 import java.time.LocalDate;
 
 /**
- *
  * @author Misaki
  */
 public class User {
@@ -33,7 +32,7 @@ public class User {
         this.status = status;
     }
 
-   public User(String email, String password, String name, Boolean gender, LocalDate dob, int roleId, String phoneNumber, String address, String avatar, int status) {
+    public User(String email, String password, String name, Boolean gender, LocalDate dob, int roleId, String phoneNumber, String address, String avatar, int status) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -126,12 +125,12 @@ public class User {
     public void setStatus(int status) {
         this.status = status;
     }
-    
-    public Boolean isGender(){
+
+    public Boolean isGender() {
         return gender;
     }
-    
-    public void setGender(Boolean gender){
+
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
@@ -139,7 +138,7 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", gender=" + gender + ", dob=" + dob + ", roleId=" + roleId + ", phoneNumber=" + phoneNumber + ", address=" + address + ", avatar=" + avatar + ", status=" + status + '}';
     }
-    
-    
+
+
 }
  

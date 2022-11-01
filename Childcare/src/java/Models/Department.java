@@ -6,12 +6,11 @@
 package Models;
 
 /**
- *
  * @author Misaki
  */
 public class Department {
     private int departmentId;
-    private String departmentName,image;
+    private String departmentName, image;
 
     public Department() {
     }
@@ -45,6 +44,6 @@ public class Department {
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
+
+
 }
