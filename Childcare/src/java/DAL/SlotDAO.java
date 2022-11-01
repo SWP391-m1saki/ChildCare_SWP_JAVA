@@ -50,6 +50,12 @@ public class SlotDAO implements DAO<Slot> {
         return null;
     }
 
+    public Slot getByShift(int shiftId, int slotTimeId){
+        for(Slot s: list){
+            if(s.getShiftId() == shiftId && s.getSlotTimeId() == slotTimeId) return s;
+        }
+        return null;
+    }
     @Override
     public void load() {
         list.clear();
@@ -59,7 +65,6 @@ public class SlotDAO implements DAO<Slot> {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int slotId = rs.getInt("slot_id");
-                LocalDate date = rs.getDate("date").toLocalDate();
                 int slotTimeId = rs.getInt("slotTimeId");
                 Boolean isExamination = rs.getBoolean("isExamination");
                 int slot_status = rs.getInt("status");
@@ -71,37 +76,39 @@ public class SlotDAO implements DAO<Slot> {
         } catch (SQLException e) {
             status = "Error Load Slot " + e.getMessage();
             System.out.println(status);
+            //System.out.println("Helloooooo");
         }
     }
 
     @Override
     public void add(Slot t) {
-        String sql = "insert into Slot (date, slotTimeId, isExamination, status, shiftId) values(?,?,?,?,?)";
+        String sql = "insert into Slot (slotTimeId, isExamination, status, shiftId) values(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 //            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
-            ps.setInt(2, t.getSlotTimeId());
-            ps.setBoolean(3, t.isIsExamination());
-            ps.setInt(4, t.getStatus());
-            ps.setInt(5, t.getShiftId());
+            ps.setInt(1, t.getSlotTimeId());
+            ps.setBoolean(2, t.isIsExamination());
+            ps.setInt(3, t.getStatus());
+            ps.setInt(4, t.getShiftId());
 
             ps.execute();
         } catch (SQLException e) {
             status = "Error Add slot" + e.getMessage();
+            System.out.println(status);
         }
     }
 
     @Override
     public void update(Slot t) {
-        String sql = "Update slot set date=?, slotTimeId=?, isExamination=?, status=?, shiftId=? where slot_id=?";
+        String sql = "Update slot set slotTimeId=?, isExamination=?, status=?, shiftId=? where slot_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 //            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
-            ps.setInt(2, t.getSlotTimeId());
-            ps.setBoolean(3, t.isIsExamination());
-            ps.setInt(4, t.getStatus());
-            ps.setInt(5, t.getShiftId());
-            ps.setInt(6, t.getSlotId());
+            ps.setInt(1, t.getSlotTimeId());
+            ps.setBoolean(2, t.isIsExamination());
+            ps.setInt(3, t.getStatus());
+            ps.setInt(4, t.getShiftId());
+            ps.setInt(5, t.getSlotId());
 
             ps.execute();
         } catch (SQLException e) {
@@ -135,5 +142,11 @@ public class SlotDAO implements DAO<Slot> {
 //        return countDoctor;
 //    }
 
-    
+//    public static void main(String[] args) {
+//           SlotDAO dao = new SlotDAO();
+//           dao.load();
+//           for(Slot s: dao.getAll()){
+//               System.out.println(s.getSlotId() + " " + s.getSlotTimeId());
+//           }
+//    }
 }

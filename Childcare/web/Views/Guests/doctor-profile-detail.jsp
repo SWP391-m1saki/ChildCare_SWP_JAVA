@@ -148,6 +148,39 @@
                         background-color: rgb(255, 255, 255);
                         box-sizing: border-box;
                     }
+
+                    .gridSlot{
+                        display: grid;
+                        margin: 8px 0;
+                        grid-gap: 7px 8px;
+                        grid-template-columns: 1fr 1fr 1fr;
+                        max-height: 200px;
+                        overflow: auto;
+                    }
+
+                    .gridButton{
+                        display: flex;
+                        min-width: 90px;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 8px 4px;
+                        border: 1px solid #dbdfe5;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        font-size: 13px;
+                        background: #fff;
+                        font-feature-settings: "tnum";
+                        font-variant-numeric: tabular-nums;
+                    }
+                    .active, .btnSlot:hover{
+                        background-color: #1B7ED1;
+                        color: white;
+                    }
+                    .disabled {
+                        cursor: pointer;
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                    }
                 </style>
                 <div class="card">
                     <div class="card-body">
@@ -238,27 +271,85 @@
                                         Bác sĩ chuyên khám và tư vấn các bệnh lý về ... cho trẻ nhỏ
                                     </p>
                                     <div style="position: relative; margin: 20px 40px 20px;">
-                                        <button class="chooseDateButton">
-                                            <form>
-                                                <div class="nativeDatePicker" style="text-align: center;">
-                                                    <input type="date" min="2022-10-30" max="2022-11-15" id="choosedDate" name="choosedDate" />
-                                                    <span class="validity"></span>
-                                                </div>
-                                                
+                                        <div class="nativeDatePicker chooseDateButton" style="text-align: center">
+                                            <form id="frm" action="loadDoctorDetail" method="post">
+                                                <input type="hidden" value="${doctors.doctorId}" name="doctorId">
+                                                <input type="date" min="2022-10-30" max="2022-11-15" id="choosedDate" name="choosedDate" value="${requestScope.choosedDate}" onchange="myFunction()">
+                                                <span class="validity"></span>
                                             </form>
-                                        </button>
+                                        </div>
                                     </div>
-                                    
-                                    
+
+                                    <c:if test="${requestScope.slotList.isEmpty()==true}">
+                                        <div style="padding-bottom: 30px; text-align: center">
+                                            Lịch trống
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${requestScope.slotList.isEmpty()==false}">
+                                        <form id="frmDate" action="chooseChild" method="get">
+                                            <div class="gridSlot" style="padding: 20px" id="myDiv">
+
+                                                <input type="hidden" name="doctorId" value="${doctors.doctorId}">
+                                                <c:if test="${requestScope.morning != null}">
+                                                    <input type="hidden" name="morning" value="${requestScope.morning.shiftId}">
+                                                </c:if>
+                                                <c:if test="${requestScope.afternoon != null}">
+                                                    <input type="hidden" name="afternoon" value="${requestScope.afternoon.shiftId}">
+                                                </c:if>
+
+
+                                                <c:forEach items="${requestScope.slotList}" var="slot">
+                                                    <div class="gridButton btnSlot" name="SlotTimeButton" role="button" data-slotTime-id="${slot.slotTimeId}">
+                                                        ${slot.startTime} - ${slot.endTime}
+                                                    </div>
+                                                </c:forEach>
+                                                <input type="hidden" name="slotTimeId" id="slotTimeId"/>
+                                            </div>
+                                            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 40px;">
+                                                <button id="SubmitButton" type="submit" style="background-color: #1B7ED1; color:white;" disabled="true" onclick="processSlotTime()">Đặt lịch</button>
+                                            </div>
+                                        </form>
+                                    </c:if>
                                 </div>
                             </div>
                         </div> <!-- row.// -->
 
                     </div> <!-- card body end// -->
                 </div> <!-- card end// -->
+                <script>
 
+                    var header = document.getElementById("myDiv");
+                    var btns = header.getElementsByClassName("btnSlot");
+                    for (var i = 0; i < btns.length; i++) {
+                        btns[i].addEventListener("click", function () {
+                            document.getElementById("SubmitButton").disabled = false;
+                            var current = document.getElementsByClassName("active");
+                            current[0].className = current[0].className.replace(" active", "");
+                            if (this.className.indexOf("btnSlot") !== -1)
+                                this.className += " active";
+                        });
+                    }
+
+                    function myFunction() {
+                        //alert("The input value has changed. The new value is: ");
+                        document.getElementById("frm").submit();
+                    }
+
+                    function processSlotTime() {
+
+                        var selectedSlot = document.getElementsByClassName("active");
+                        var SlotTimeId = selectedSlot[0].getAttribute("data-slotTime-id");
+                        //alert(SlotTimeId);
+                        var hiddenSlotTimeId = document.getElementById("slotTimeId");
+                        hiddenSlotTimeId.value = SlotTimeId;
+
+                        var form = document.getElementById("frmDate");
+                        form.submit();
+                    }
+                </script>
 
             </section>
+            <jsp:include page="../Shared/_Footer.jsp"></jsp:include>
         </main>
     </body>
 </html>

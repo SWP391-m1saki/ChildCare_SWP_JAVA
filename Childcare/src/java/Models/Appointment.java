@@ -10,17 +10,17 @@ package Models;
  * @author Misaki
  */
 public class Appointment {
-    private int appointmentId, doctorId, customerId, slotId, childrenId;
+    private int appointmentId;
+    private ChildrenProfile child;
+    private Slot slot;
 
     public Appointment() {
     }
 
-    public Appointment(int appointmentId, int doctorId, int customerId, int slotId, int childrenId) {
+    public Appointment(int appointmentId, ChildrenProfile child, Slot slot) {
         this.appointmentId = appointmentId;
-        this.doctorId = doctorId;
-        this.customerId = customerId;
-        this.slotId = slotId;
-        this.childrenId = childrenId;
+        this.child = child;
+        this.slot = slot;
     }
 
     public int getAppointmentId() {
@@ -31,37 +31,29 @@ public class Appointment {
         this.appointmentId = appointmentId;
     }
 
-    public int getDoctorId() {
-        return doctorId;
+    public ChildrenProfile getChild() {
+        return child;
     }
 
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
+    public void setChild(ChildrenProfile child) {
+        this.child = child;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public Slot getSlot() {
+        return slot;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setSlot(Slot slot) {
+        this.slot = slot;
     }
 
-    public int getSlotId() {
-        return slotId;
+    @Override
+    public String toString() {
+        return "Appointment{" + "appointmentId=" + appointmentId + ", child=" + child + ", slot=" + slot + '}';
     }
+    
+    
 
-    public void setSlotId(int slotId) {
-        this.slotId = slotId;
-    }
-
-    public int getChildrenId() {
-        return childrenId;
-    }
-
-    public void setChildrenId(int childrenId) {
-        this.childrenId = childrenId;
-    }
     
     
 }

@@ -7,12 +7,15 @@ package Controllers;
 
 import DAL.DepartmentDAO;
 import DAL.DoctorProfileDAO;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -38,6 +41,7 @@ public class ChooseDoctor extends HttpServlet {
         request.setAttribute("DepartmentName", depDAO.get(id).getDepartmentName());
         request.setAttribute("DoctorList", dao.getDoctorBySearchAndDepId(null, id));
         request.getRequestDispatcher("Views/Customers/chooseDoctor.jsp").forward(request, response);
+        
     }
 
     

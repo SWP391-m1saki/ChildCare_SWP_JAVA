@@ -52,7 +52,20 @@ public class SlotTimeDAO implements DAO<SlotTime>
         }
         return null;
     }
-
+    public List<SlotTime> getMorning(){
+        List<SlotTime> listMorning = new ArrayList<SlotTime>();
+        for(SlotTime s: list){
+            if(s.getSlotTimeId()<=8) listMorning.add(s);
+        }
+        return listMorning;
+    }
+    public List<SlotTime> getAfternoon(){
+        List<SlotTime> listAfternoon = new ArrayList<SlotTime>();
+        for(SlotTime s: list){
+            if(s.getSlotTimeId()>8) listAfternoon.add(s);
+        }
+        return listAfternoon;
+    }
     @Override
     public void load() {
         list.clear();

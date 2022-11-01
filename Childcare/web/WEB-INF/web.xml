@@ -135,6 +135,14 @@
         <servlet-name>AjaxScheduleRemoveDoctor</servlet-name>
         <servlet-class>controller.manager.AjaxScheduleRemoveDoctor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MakeAppointment</servlet-name>
+        <servlet-class>Controllers.MakeAppointment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChooseChild</servlet-name>
+        <servlet-class>Controllers.ChooseChild</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -350,6 +358,14 @@
     <servlet-mapping>
         <servlet-name>AjaxScheduleRemoveDoctor</servlet-name>
         <url-pattern>/ajax/schedule/remove-doctor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MakeAppointment</servlet-name>
+        <url-pattern>/makeAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChooseChild</servlet-name>
+        <url-pattern>/chooseChild</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

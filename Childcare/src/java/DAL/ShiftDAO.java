@@ -54,14 +54,14 @@ public class ShiftDAO implements DAO<Shift> {
     @Override
     public void load() {
         list.clear();
-        String sql = "select s.shift_id, date, s.scheduleId, doctorId, dayOfWeek, isMorningShift, [status] \n"
+        String sql = "select s.shiftId, date, s.scheduleId, doctorId, dayOfWeek, isMorningShift, [status] \n"
                 + "	from Shift s\n"
                 + "	INNER JOIN Schedule sch ON s.scheduleId = sch.scheduleId";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int shiftId = rs.getInt("shift_id");
+                int shiftId = rs.getInt("shiftId");
                 LocalDate date = rs.getDate("date").toLocalDate();
                 int scheduleId = rs.getInt("scheduleId");
                 Schedule schedule = new Schedule(scheduleId, rs.getInt("doctorId"), rs.getInt("dayOfWeek"), rs.getBoolean("isMorningShift"), rs.getBoolean("status"));
@@ -89,7 +89,7 @@ public class ShiftDAO implements DAO<Shift> {
 
     @Override
     public void update(Shift t) {
-        String sql = "Update Shift set date= ?, scheduleId=? where shift_id = ?";
+        String sql = "Update Shift set date= ?, scheduleId=? where shiftId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
@@ -104,7 +104,7 @@ public class ShiftDAO implements DAO<Shift> {
 
     @Override
     public void delete(Shift t) {
-        String sql = "delete from Shift where shift_id=?";
+        String sql = "delete from Shift where shiftId=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getShiftId());
