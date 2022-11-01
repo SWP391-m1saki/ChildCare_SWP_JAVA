@@ -4,20 +4,10 @@
  */
 package DAL;
 
-import Models.*;
-import java.sql.Date;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.temporal.IsoFields;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import Models.DoctorProfile;
+import Models.SlotTime;
 
 /**
- *
  * @author Admin
  */
 @SuppressWarnings("WriteOnlyObject")
@@ -37,7 +27,7 @@ public class testData {
         }
     }
 
-//    private static void getSlotData(){
+    //    private static void getSlotData(){
 //        SlotDAO dao = new SlotDAO();
 //        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 39));
 //        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 50));

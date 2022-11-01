@@ -8,11 +8,10 @@ package Models;
 import java.util.Date;
 
 /**
- *
  * @author Misaki
  */
 public class Deposite {
-    private int  depositeId, status;
+    private int depositeId, status;
     private Date payDate;
     private String type;
     private int appointmentId;
@@ -67,6 +66,6 @@ public class Deposite {
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
-    
-    
+
+
 }

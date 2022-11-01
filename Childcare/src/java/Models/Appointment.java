@@ -6,7 +6,6 @@
 package Models;
 
 /**
- *
  * @author Misaki
  */
 public class Appointment {
@@ -54,6 +53,18 @@ public class Appointment {
     
     
 
-    
-    
+
+    public void setSlotId(int slotId) {
+        this.slotId = slotId;
+    }
+
+    public int getChildrenId() {
+        return childrenId;
+    }
+
+    public void setChildrenId(int childrenId) {
+        this.childrenId = childrenId;
+    }
+
+
 }

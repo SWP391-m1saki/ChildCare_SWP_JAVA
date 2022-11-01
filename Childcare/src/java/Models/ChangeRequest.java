@@ -8,7 +8,6 @@ package Models;
 import java.util.Date;
 
 /**
- *
  * @author Misaki
  */
 public class ChangeRequest {
@@ -57,6 +56,6 @@ public class ChangeRequest {
     public void setDoctorId(int doctorId) {
         this.doctorId = doctorId;
     }
-    
-    
+
+
 }

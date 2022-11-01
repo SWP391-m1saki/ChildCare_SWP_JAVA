@@ -4,21 +4,13 @@
  */
 package Utils;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -26,7 +18,6 @@ import java.util.regex.Pattern;
 
 
 /**
- *
  * @author Admin
  */
 public class Utility {
@@ -81,8 +72,8 @@ public class Utility {
         }
         return number;
     }
-    
-     public static double parseDoubleParameter(String raw_input, double defaultValue) {
+
+    public static double parseDoubleParameter(String raw_input, double defaultValue) {
         raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;
         double number;
         try {
@@ -92,8 +83,8 @@ public class Utility {
         }
         return number;
     }
-     
-     public static boolean parseBooleanParameter(String raw_input, boolean defaultValue) {
+
+    public static boolean parseBooleanParameter(String raw_input, boolean defaultValue) {
         raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;
         boolean value;
         try {
@@ -144,14 +135,14 @@ public class Utility {
         request.setAttribute("pageindex", pageindex);
         request.setAttribute("totalrecords", totalrecords);
     }
-    
+
     public static boolean isValidPassword(String password, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
 //        String patternn = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,30}";
     }
-    
+
     public static boolean validateString(String password, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
@@ -162,7 +153,7 @@ public class Utility {
     public static int getCurrentWeekNumber() {
         return Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
     }
-    
+
     public static LocalDate getFirstDayOfWeek(int weekNumber) {
         return LocalDate
                 .of(Year.now().getValue(), 2, 1)
@@ -170,7 +161,7 @@ public class Utility {
                 .with(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(), weekNumber)
                 .plusDays(1);  // For VietNamese
     }
-    
+
     public static LocalDate getLastDayOfWeek(LocalDate firstDateOfWeek) {
         return firstDateOfWeek.plusDays(6);  // For VietNamese
     }

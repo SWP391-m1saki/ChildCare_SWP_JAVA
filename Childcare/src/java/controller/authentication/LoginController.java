@@ -1,11 +1,8 @@
 package controller.authentication;
 
-import DAL.DAO;
 import DAL.UserDAO;
 import Models.User;
-import Models.sendEmail;
-import java.io.IOException;
-import java.io.PrintWriter;
+import Utils.sendEmail;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -13,8 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.IOException;
+
 /**
- *
  * @author Misaki
  */
 @SuppressWarnings("InstantiationOfUtilityClass")
@@ -60,7 +58,7 @@ public class LoginController extends HttpServlet {
         if (userLogin != null) {
             if (userLogin.getStatus() == 0) {
                 sendEmail sm = new sendEmail();
-                String code = sm.getRandom();
+                String code = sendEmail.getRandom();
                 boolean test = sm.SendEmail(email, code);
                 if (test) {
                     if (session.getAttribute("verifying") != null) {

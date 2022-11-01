@@ -1,7 +1,7 @@
 package DAL;
 
 import Models.Schedule;
-import Models.SlotTime;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Misaki
  */
 public class ScheduleDAO implements DAO<Schedule> {
@@ -64,7 +63,7 @@ public class ScheduleDAO implements DAO<Schedule> {
         }
         return shifts;
     }
-    
+
     public List<Schedule> getAllWorkSchedule(int doctorId) {
         List<Schedule> shifts = new ArrayList<Schedule>();
         for (Schedule s : list) {

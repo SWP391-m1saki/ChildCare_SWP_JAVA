@@ -7,79 +7,112 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<aside class="left-aside">
-    <div class="aside-top">
-        <a href="#">
-            <img src="${pageContext.request.contextPath}/images/logo.svg" alt="">
+<link itemprop="url" rel="preconnect" href="https://fonts.googleapis.com">
+<link itemprop="url" rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link itemprop="url" href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300&display=swap" rel="stylesheet">
+
+<style>
+    .page-wrapper {
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    .left-aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 19%;
+        height: 100vh;
+        font-family: 'Mulish', sans-serif;
+    }
+
+    main {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 81%;
+    }
+
+    .left-aside .text {
+        font-family: poppins, sans-serif;
+        color: #676b84;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+
+</style>
+
+
+
+<nav class="left-aside fixed-aside bg-white">
+    <div class="aside-top logo d-flex justify-content-between">
+        <a href="${pageContext.request.contextPath}/manager/doctor/profile" class="p-3">
+            <img src="${pageContext.request.contextPath}/img/logo_manager.png" alt="">
         </a>
-        <div>
+        <div class="sidebar_close_icon">
             <button class="btn btn-icon btn-aside-minimize">
-                <i class="fa-solid fa-bars"></i>
+                <i class="fa fa-bars"></i>
             </button>
         </div>
     </div>
 
-    <div class="aside-body">
+    <div class="aside-body p-3">
         <ul class="menu-aside menu">
             <li class="menu-item">
                 <a class="menu-link" href="${pageContext.request.contextPath}/admin/dashboard">
-                    <i class="fa-solid fa-house-user"></i>
-                    <span class="text">Dashboard</span>
+                    <img src="${pageContext.request.contextPath}/img/home.svg">
+                    <span class="text ms-4">Dashboard</span>
                 </a>
             </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/product">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span class="text">Products</span>
+            <li class="menu-item">
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/doctor/profile">
+                    <img src="${pageContext.request.contextPath}/img/users.svg">
+                    <span class="text ms-4">Bác sĩ</span>
                 </a>
             </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/order">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="text">Orders</span>
+            <li class="menu-item">
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/schedule">
+                    <img src="${pageContext.request.contextPath}/img/calendar.svg">
+                    <span class="text ms-4">Lịch làm việc</span>
                 </a>
             </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/user">
-                    <i class="fa-solid fa-user-group"></i>
-                    <span class="text">Users</span>
+            <li class="menu-item">
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/user">
+                    <img src="${pageContext.request.contextPath}/img/users.svg">
+                    <span class="text ms-4">Người dùng</span>
                 </a>
             </li>
 
-            <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-transactions-A.html"> <i
-                        class="icon material-icons md-monetization_on"></i>
-                    <span class="text">Transactions</span>
-                </a>
-            </li> -->
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/account">
-                    <i class="fa-solid fa-gear"></i>
-                    <span class="text">Account Setting</span>
+            <li class="menu-item">
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/account">
+                    <img src="${pageContext.request.contextPath}/img/settings_gray.svg">
+                    <span class="text ms-4">Account Setting</span>
                 </a>
             </li>
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/review">
-                    <i class="fa-solid fa-comment-dots"></i>
-                    <span class="text">Reviews</span>
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/review">
+                    <img src="${pageContext.request.contextPath}/img/calendar.svg">
+                    <span class="text ms-4">Đánh giá</span>
                 </a>
             </li>
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/mail">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span class="text">Quản lí Mail</span> </a>
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/post">
+                    <img src="${pageContext.request.contextPath}/img/edit.svg">
+                    <span class="text ms-4">Quản lí bài viết</span> </a>
             </li>
             <li class="menu-item">
                 <a class="menu-link" href="${pageContext.request.contextPath}/admin/chat">
-                    <i class="fa-solid fa-chat"></i>
-                    <span class="text">Chat với người dùng</span> </a>
+                    <img src="${pageContext.request.contextPath}/img/calendar.svg">
+                    <span class="text ms-4">Chat với người dùng</span> </a>
             </li>
-<!--            <li class="menu-item">
-                <a class="menu-link" disabled="" href="#">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span class="text">Statistics</span>
-                </a>
-            </li>-->
+            <!--            <li class="menu-item">
+                            <a class="menu-link" disabled="" href="#">
+                                <i class="fa fa-chart-line"></i>
+                                <span class="text ms-4">Statistics</span>
+                            </a>
+                        </li>-->
         </ul>
     </div>
-</aside>
+</nav>

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class DBContext {
 
     /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)*/
- /*DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
+    /*DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
     public static Connection getConnection() throws Exception {
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber
                 + ";databaseName=" + dbName;//+"; integratedSecurity=true";
@@ -26,14 +26,13 @@ public class DBContext {
     }
 
 
-
     private static String serverName = "localhost";
     private static String dbName = "SWP";
     private static String portNumber = "1209";
     private static String userID = "sa";
     private static String password = "khai1209";
 
-    
+
 //    public static void main(String[] args) throws Exception {
 //        Connection con = DBContext.getConnection();
 //        System.out.print(con);

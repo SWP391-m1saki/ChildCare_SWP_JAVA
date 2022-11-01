@@ -8,7 +8,6 @@ package Models;
 import java.time.LocalDate;
 
 /**
- *
  * @author Misaki
  */
 public class Slider {
@@ -67,6 +66,6 @@ public class Slider {
     public void setIsShow(boolean isShow) {
         this.isShow = isShow;
     }
-    
-    
+
+
 }

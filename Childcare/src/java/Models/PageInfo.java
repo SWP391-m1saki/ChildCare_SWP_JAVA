@@ -5,12 +5,12 @@
 package Models;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 /**
- *
- * @author Admin
  * @param <T>
+ * @author Admin
  */
 public class PageInfo<T> {
     private int pageindex;
@@ -20,14 +20,14 @@ public class PageInfo<T> {
 
     public PageInfo() {
     }
-    
+
     public PageInfo(int pageindex, int pagesize, int totalrecords) {
         this.pageindex = pageindex;
         this.pagesize = pagesize;
         this.totalrecords = totalrecords;
     }
-    
-    public void calc(){
+
+    public void calc() {
         pageindex = Math.max(pageindex, 1);
         totalpage = (totalrecords % pagesize == 0) ? (totalrecords / pagesize) : (totalrecords / pagesize) + 1;
         pageindex = Math.min(pageindex, totalpage);
@@ -64,8 +64,8 @@ public class PageInfo<T> {
     public void setTotalrecords(int totalrecords) {
         this.totalrecords = totalrecords;
     }
-    
-    public void pagination(HttpServletRequest request, List<T> filteredList, int[] nrppArr){
+
+    public void pagination(HttpServletRequest request, List<T> filteredList, int[] nrppArr) {
         request.setAttribute("nrppArr", nrppArr);
         pagesize = Utils.Utility.parseIntParameter(request.getParameter("pagesize"), 5);
         pageindex = Utils.Utility.parseIntParameter(request.getParameter("page"), 1);

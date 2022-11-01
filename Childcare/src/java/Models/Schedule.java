@@ -1,7 +1,6 @@
 package Models;
 
 /**
- *
  * @author Misaki
  */
 public class Schedule {
@@ -21,7 +20,7 @@ public class Schedule {
         this.isMorningShift = isMorningShift;
         this.isWorked = isWorked;
     }
-    
+
     public Schedule(int doctorId, int dayOfWeek, Boolean isMorningShift, boolean isWorked) {
         this.doctorId = doctorId;
         this.dayOfWeek = dayOfWeek;

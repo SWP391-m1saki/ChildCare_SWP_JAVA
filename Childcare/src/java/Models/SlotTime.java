@@ -1,7 +1,6 @@
 package Models;
 
 /**
- *
  * @author Misaki
  */
 public class SlotTime {

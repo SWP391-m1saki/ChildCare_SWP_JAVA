@@ -16,7 +16,7 @@ public class DoctorProfile {
     //
 
     public DoctorProfile() {
-        
+
     }
 
     public DoctorProfile(int doctorId, String description, String qualification, double price, int departmentId, String title, User user) {
@@ -28,7 +28,7 @@ public class DoctorProfile {
         this.title = title;
         this.user = user;
     }
-    
+
     public DoctorProfile(String description, String qualification, double price, int departmentId, String title, User user) {
         this.description = description;
         this.qualification = qualification;
@@ -99,7 +99,6 @@ public class DoctorProfile {
     public String toString() {
         return "DoctorProfile{" + "doctorId=" + doctorId + ", description=" + description + ", qualification=" + qualification + ", price=" + price + ", departmentId=" + departmentId + ", title=" + title + ", user=" + user + '}';
     }
-    
-    
-    
+
+
 }

@@ -6,6 +6,7 @@ package DAL;
 
 import Models.PageInfo;
 import Models.Post;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Admin
  */
 
@@ -72,18 +72,17 @@ public class PostDAO implements DAO<Post> {
         }
         return null;
     }
-    
+
     public List<Post> loadMoreWithFilter(int currentSize, int numberOfFetch, String searchTxt, int cateId) {
         List<Post> fullList = getPostBySearchAndCategory(searchTxt, cateId);
         List<Post> posts = new ArrayList<Post>();
-        if(currentSize >= fullList.size()){
+        if (currentSize >= fullList.size()) {
             return posts;
         }
         int end = Math.min(fullList.size(), currentSize + numberOfFetch);
         return fullList.subList(currentSize, end);
     }
-    
-    
+
 
     @Override
     public void add(Post t) {
@@ -139,7 +138,7 @@ public class PostDAO implements DAO<Post> {
     // Get posts by pageindex
     public List<Post> getPostsByPage(PageInfo page, List<Post> fullList) {
         List<Post> posts = new ArrayList<Post>();
-        if(fullList.isEmpty()){
+        if (fullList.isEmpty()) {
             return posts;
         }
         int maxIndex = page.getPageindex() * page.getPagesize();
@@ -200,7 +199,7 @@ public class PostDAO implements DAO<Post> {
                 return posts;
             }
         }
-        
+
         for (Post p : postList) {
             if (p.getCateId() == cateId) {
                 if (searchTxt == null || "".equals(searchTxt)) {

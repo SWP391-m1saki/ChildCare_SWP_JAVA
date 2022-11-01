@@ -2,25 +2,26 @@ package Controllers;
 
 import DAL.UserDAO;
 import Models.User;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Files;
 //import java.nio.file.Path;
 import java.nio.file.Paths;
 //import java.nio.file.Path;
+
+
+import java.io.IOException;
+
 import java.time.LocalDate;
-import java.util.List;
 
 /**
- *
  * @author Misaki
  */
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
@@ -69,6 +70,7 @@ public class UserProfileController extends HttpServlet {
         newUser.setDob(dob);
         newUser.setAddress(address);
 
+
         String uploadPath = "C:\\Users\\Admin\\Documents\\GitHub\\ChildCare_SWP_JAVA\\Childcare\\web\\img"; 
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -81,6 +83,8 @@ public class UserProfileController extends HttpServlet {
             part.write(uploadPath + "\\" + fileName);
             newUser.setAvatar("img" + "/ " + fileName);
         }
+
+
         dao.update(newUser);
         session.setAttribute("UserLogined", newUser);
         request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
