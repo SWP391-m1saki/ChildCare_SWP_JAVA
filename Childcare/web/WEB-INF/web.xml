@@ -143,6 +143,10 @@
         <servlet-name>ChooseChild</servlet-name>
         <servlet-class>Controllers.ChooseChild</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadCustomerAppointment</servlet-name>
+        <servlet-class>Controllers.LoadCustomerAppointment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loadDoctorDetail</servlet-name>
         <url-pattern>/loadDoctorDetail</url-pattern>
@@ -366,6 +370,10 @@
     <servlet-mapping>
         <servlet-name>ChooseChild</servlet-name>
         <url-pattern>/chooseChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadCustomerAppointment</servlet-name>
+        <url-pattern>/loadCustomerAppointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

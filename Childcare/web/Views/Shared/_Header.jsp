@@ -66,7 +66,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="userProfile">Edit Account</a>
                                 <a class="dropdown-item" href="loadChildren">Children's profiles</a> 
-                                <a class="dropdown-item" href="#">Appointment</a>
+                                <a class="dropdown-item" href="loadCustomerAppointment">Appointment</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout">Logout</a>
                             </div>

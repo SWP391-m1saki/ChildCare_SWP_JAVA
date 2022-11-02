@@ -72,10 +72,13 @@
                     <div class="col-sm-12 mx-auto p-5">
 
                         <div class="row">
-                            <div class="card-group">
+                            <div style="padding-left: 50px; padding-top: 100px; padding-bottom: 30px;">
+                                <h5>${requestScope.DoctorList.size()} bác sĩ ${requestScope.DepartmentName}: </h5>
+                        </div>
+                        <div class="card-group">
                             <c:forEach items="${requestScope.DoctorList}" var="d">
                                 <div class="col-md-12" style="padding:10px 20px" >
-                                    <form action="chooseDoctor" method="post" onclick="clickk()" id="doctorFrm">
+                                    <form action="chooseDoctor" method="post" id="doctorFrm">
                                         <input type="hidden" name="DoctorId" value="${d.doctorId}">
                                         <div class="card mb-5 text-dark" style="background-color: white;
                                              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.08); border-radius: 10px;">
@@ -101,15 +104,11 @@
                                                 </div>
                                             </div>
                                             <div class="card-footer d-flex justify-content-center">
-                                                <button type="button" class="btn btn-dark">Đặt Lịch</button>
+                                                <button type="submit" class="btn btn-dark">Đặt Lịch</button>
                                             </div>
                                         </div>
                                     </form>
-                                    <script>
-                                        function clickk(){
-                                            document.getElementById('doctorFrm').submit();
-                                        }
-                                    </script>
+
                                 </div>
                             </c:forEach>
                         </div>

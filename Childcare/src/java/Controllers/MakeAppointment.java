@@ -6,7 +6,9 @@
 package Controllers;
 
 import DAL.ChildrenProfileDAO;
+import DAL.ShiftDAO;
 import DAL.SlotDAO;
+import DAL.SlotTimeDAO;
 import Models.Slot;
 import Models.User;
 import java.io.IOException;
@@ -51,8 +53,11 @@ public class MakeAppointment extends HttpServlet {
             int slotTimeId = Integer.parseInt(request.getParameter("slotTimeId"));
             HttpSession session = request.getSession();
             User userLogined = (User)session.getAttribute("UserLogined");
-            
-            Slot newSlot = new Slot(0,true,0,slotTimeId,(slotTimeId<9)?morning:afternoon);
+            SlotTimeDAO daoTime = new SlotTimeDAO();
+            ShiftDAO daoShift = new ShiftDAO();
+            daoTime.load();
+            daoShift.load();
+            Slot newSlot = new Slot(0,true,0,daoTime.get(slotTimeId),daoShift.get((slotTimeId<9)?morning:afternoon));
             daoSlot.add(newSlot);
             
         }catch(Exception e){

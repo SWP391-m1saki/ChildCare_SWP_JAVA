@@ -1,6 +1,7 @@
 package DAL;
 
-import Models.Slot;
+
+import Models.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,16 +44,23 @@ public class SlotDAO implements DAO<Slot> {
         return null;
     }
 
-    public Slot getByShift(int shiftId, int slotTimeId){
-        for(Slot s: list){
-            if(s.getShiftId() == shiftId && s.getSlotTimeId() == slotTimeId) return s;
+    public Slot getByShift(int shiftId, int slotTimeId) {
+        for (Slot s : list) {
+            if (s.getShift().getShiftId() == shiftId && s.getSlotTime().getSlotTimeId() == slotTimeId) {
+                return s;
+            }
         }
         return null;
     }
+
     @Override
     public void load() {
         list.clear();
-        String sql = "select * from Slot";
+        String sql = "select *\n"
+                + "from slot\n"
+                + "inner join [shift] on slot.shiftId = [shift].shiftId\n"
+                + "inner join SlotTime on slot.slotTimeId = SlotTime.slotTimeId\n"
+                + "inner join Schedule on [shift].scheduleId = Schedule.scheduleId";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -62,8 +70,17 @@ public class SlotDAO implements DAO<Slot> {
                 Boolean isExamination = rs.getBoolean("isExamination");
                 int slot_status = rs.getInt("status");
                 int shiftId = rs.getInt("shiftId");
+                LocalDate date = rs.getDate("date").toLocalDate();
+                int scheduleId = rs.getInt("scheduleId");
+                int doctorId = rs.getInt("doctorId");
+                int dayOfWeek = rs.getInt("dayOfWeek");
+                Boolean isMorningShift = rs.getBoolean("isMorningShift");
+                boolean status = rs.getBoolean("status");
+                String startTime = rs.getString("startTime");
+                String endTime = rs.getString("endTime");
                 //System.out.println(roleId);
-                Slot s = new Slot(slotId, isExamination, slot_status, slotTimeId, shiftId);
+                Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime), 
+                        new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
                 list.add(s);
             }
         } catch (SQLException e) {
@@ -73,16 +90,15 @@ public class SlotDAO implements DAO<Slot> {
         }
     }
 
-    @Override
-    public void add(Slot t) {
+    public void add(int slotTimeId, boolean isExamination, int statuss, int shiftId) {
         String sql = "insert into Slot (slotTimeId, isExamination, status, shiftId) values(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 //            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
-            ps.setInt(1, t.getSlotTimeId());
-            ps.setBoolean(2, t.isIsExamination());
-            ps.setInt(3, t.getStatus());
-            ps.setInt(4, t.getShiftId());
+            ps.setInt(1, slotTimeId);
+            ps.setBoolean(2, isExamination);
+            ps.setInt(3, statuss);
+            ps.setInt(4, shiftId);
 
             ps.execute();
         } catch (SQLException e) {
@@ -91,17 +107,17 @@ public class SlotDAO implements DAO<Slot> {
         }
     }
 
-    @Override
-    public void update(Slot t) {
+    
+    public void update(int slotId, int slotTimeId, boolean isExamination, int statuss, int shiftId) {
         String sql = "Update slot set slotTimeId=?, isExamination=?, status=?, shiftId=? where slot_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 //            ps.setDate(1, java.sql.Date.valueOf(t.getDate()));
-            ps.setInt(1, t.getSlotTimeId());
-            ps.setBoolean(2, t.isIsExamination());
-            ps.setInt(3, t.getStatus());
-            ps.setInt(4, t.getShiftId());
-            ps.setInt(5, t.getSlotId());
+            ps.setInt(1, slotTimeId);
+            ps.setBoolean(2, isExamination);
+            ps.setInt(3, statuss);
+            ps.setInt(4, shiftId);
+            ps.setInt(5, slotId);
 
             ps.execute();
         } catch (SQLException e) {
@@ -134,8 +150,6 @@ public class SlotDAO implements DAO<Slot> {
 //        }
 //        return countDoctor;
 //    }
-
-
 //    public static void main(String[] args) {
 //           SlotDAO dao = new SlotDAO();
 //           dao.load();
@@ -144,5 +158,13 @@ public class SlotDAO implements DAO<Slot> {
 //           }
 //    }
 
+    @Override
+    public void add(Slot t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public void update(Slot t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

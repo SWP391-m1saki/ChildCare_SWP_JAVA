@@ -51,6 +51,7 @@ public class ChooseDoctor extends HttpServlet {
         //System.out.println("123434");
         //System.out.println(request.getParameter("DoctorId"));
         int DoctorId = Integer.parseInt(request.getParameter("DoctorId"));
+        //System.out.println(DoctorId);
         getServletContext().setAttribute("ChoosedDoctorId", DoctorId);
         response.sendRedirect("loadDoctorDetail");
     }

@@ -193,7 +193,7 @@
                                     <span class="title">${doctors.title}</span> 
                                     <span class="fullname">${doctors.user.name}</span>
                                 </h1>
-                                <p class="text-sm-start">Đa khoa</p>
+                                    <p class="text-sm-start">${requestScope.DepartmentName}</p>
                             </div>
                         </div>
                         <div class="row doctor-profile-body">

@@ -74,7 +74,9 @@ public class ChooseChild extends HttpServlet {
             throws ServletException, IOException {
         try{
             int childId = Integer.parseInt(request.getParameter("ChildId"));
-            Slot newSlot = new Slot(0,true,0,slotTimeId, (slotTimeId<9)?morning:afternoon);
+            daoTime.load();
+            daoShift.load();
+            Slot newSlot = new Slot(0,true,0,daoTime.get(slotTimeId),daoShift.get((slotTimeId<9)?morning:afternoon));
             daoSlot.add(newSlot);
             daoSlot.load();
             Appointment newApp = new Appointment(0, daoChildren.get(childId), daoSlot.getByShift((slotTimeId<9)?morning:afternoon, slotTimeId));

@@ -39,6 +39,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+
     </head>
     <body>
         <script src="js/DateChoose.js"></script>
@@ -111,14 +112,45 @@
                     -ms-transform: translateY(-50%);
                     transform: translateY(-50%);
                 }
+                .card-hghlght {
+                    pointer-events: auto;
+                    transform: scale(1);
+                    transition: all 0.4s;
+                }
+
+                .card-hghlght:hover {
+                    opacity: 1;
+                    transform: scale(1.02);
+                }
+
+                .content:hover .card-hghlght:not(:hover) {
+                    opacity: 0.5;
+                    transform: scale(0.9);
+                }
+                
+                .disabled {
+                    cursor: pointer;
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+                .cc{
+                    padding: 10px; 
+                    border: 1px solid rgb(228, 232, 236); 
+                    border-radius: 6px; 
+                    margin-bottom: 10px;
+                }
+                .activee{
+                    border: 1px solid #1F77B3;
+                    background-color: white;
+                }
             </style>
             <div class="col-lg-8">
 
                 <div class="row doctor-profile-body">
                     <div class="card-group col-md-6">
                         <c:forEach items="${requestScope.ChildrenList}" var="child">
-                            <div class="col-md-12" style="padding: 10px; border: 1px solid rgb(228, 232, 236); border-radius: 6px; margin-bottom: 10px;">
-                                <form action="chooseChild" method="post" onclick="clickk()" id="childFrm">
+                            <div class="col-md-12  card-hghlght cc" child-id="${child.childrenId}">
+                                <form action="chooseChild" method="post" id="childFrm">
                                     <input type="hidden" name="ChildId" value="${child.childrenId}">
                                     <div class="row main-infor">
                                         <div class="col-md-2">
@@ -155,11 +187,7 @@
                             </div>
                         </c:forEach>   
                     </div>
-                    <script>
-                        function clickk() {
-                            document.getElementById("childFrm").submit();
-                        }
-                    </script>
+
 
 
                     <div class="col-lg-6">

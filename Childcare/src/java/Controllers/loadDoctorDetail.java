@@ -21,44 +21,8 @@ import java.io.PrintWriter;
 
 public class loadDoctorDetail extends HttpServlet {
 
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet loadDoctorDetail</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet loadDoctorDetail at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-
     DoctorProfileDAO daoDoctor;
+    DepartmentDAO daoDepart;
     ScheduleDAO daoSchedule;
     ShiftDAO daoShift;
     SlotDAO daoSlot;
@@ -71,6 +35,7 @@ public class loadDoctorDetail extends HttpServlet {
         daoShift = new ShiftDAO();
         daoSlot = new SlotDAO();
         daoSlotTime = new SlotTimeDAO();
+        daoDepart = new DepartmentDAO();
     }
 
     @Override
@@ -79,7 +44,11 @@ public class loadDoctorDetail extends HttpServlet {
         int id = 0;
         try {
             id = Integer.parseInt(getServletContext().getAttribute("ChoosedDoctorId").toString());
-            request.setAttribute("doctors", daoDoctor.get(id));
+            daoDoctor.load();
+            daoDepart.load();
+            DoctorProfile doctor = daoDoctor.get(id);
+            request.setAttribute("doctors", doctor);
+            request.setAttribute("DepartmentName", daoDepart.get(doctor.getDepartmentId()).getDepartmentName());
             request.getRequestDispatcher("Views/Guests/doctor-profile-detail.jsp").forward(request, response);
             //System.out.println(id);
         } catch (Exception e) {
@@ -128,10 +97,9 @@ public class loadDoctorDetail extends HttpServlet {
                 slotList.addAll(daoSlotTime.getMorning());
                 
                 for(Slot s: daoSlot.getAll()){
-                    System.out.println(s.getShiftId() + " " + morning.getShiftId());
-                    if(s.getShiftId() == morning.getShiftId()){
+                    if(s.getShift().getShiftId() == morning.getShiftId()){
                         for(SlotTime st: slotList) 
-                             if(st.getSlotTimeId() == s.getSlotTimeId()) if(!deleteList.contains(st)) deleteList.add(st);
+                             if(st.getSlotTimeId() == s.getSlotTime().getSlotTimeId()) if(!deleteList.contains(st)) deleteList.add(st);
                     }
                 }
             }
@@ -140,9 +108,9 @@ public class loadDoctorDetail extends HttpServlet {
                 request.setAttribute("afternoon", afternoon);
                 slotList.addAll(daoSlotTime.getAfternoon());
                 for(Slot s: daoSlot.getAll()){
-                    if(s.getShiftId() == afternoon.getShiftId()){
+                    if(s.getShift().getShiftId() == afternoon.getShiftId()){
                         for(SlotTime st: slotList) 
-                            if(st.getSlotTimeId() == s.getSlotTimeId()) if(!deleteList.contains(st)) deleteList.add(st);
+                            if(st.getSlotTimeId() == s.getSlotTime().getSlotTimeId()) if(!deleteList.contains(st)) deleteList.add(st);
                     }
                 }
             }

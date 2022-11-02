@@ -51,20 +51,6 @@ public class Appointment {
         return "Appointment{" + "appointmentId=" + appointmentId + ", child=" + child + ", slot=" + slot + '}';
     }
     
-    
-
-
-    public void setSlotId(int slotId) {
-        this.slotId = slotId;
-    }
-
-    public int getChildrenId() {
-        return childrenId;
-    }
-
-    public void setChildrenId(int childrenId) {
-        this.childrenId = childrenId;
-    }
 
 
 }

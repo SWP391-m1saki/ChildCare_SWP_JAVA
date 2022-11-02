@@ -14,13 +14,11 @@ import java.io.IOException;
  */
 public class UserVerifyController extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("Views/Customers/Verify.jsp").forward(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,30 +27,24 @@ public class UserVerifyController extends HttpServlet {
         HttpSession session = request.getSession();
         String verifying = session.getAttribute("verifying").toString();
 
-        String register="";
-        try{
-           register = session.getAttribute("register").toString();
-           session.removeAttribute("register");
-        }catch(Exception e){
-            System.out.println("register nhu biu");
+        String register = "";
+        if (session.getAttribute("register") != null) {
+            register = session.getAttribute("register").toString();
+            session.removeAttribute("register");
         }
-        
-        if(verifying.equals(code) && register.equals("")){
 
-        String register = request.getParameter("register");
-
-        if (verifying.equals(code) && register == null) {
-
-            response.sendRedirect("ChangePassword");
-        } else if (verifying.equals(code)) {
-            UserDAO dao = new UserDAO();
-            dao.ActiveUser(session.getAttribute("verifyingEmail").toString());
-            response.sendRedirect("login");
+        if (verifying.equals(code)) {
+            if (register.equals("")) {
+                response.sendRedirect("ChangePassword");
+            } else {
+                UserDAO dao = new UserDAO();
+                dao.ActiveUser(session.getAttribute("verifyingEmail").toString());
+                response.sendRedirect("login");
+            }
         } else {
+
             request.setAttribute("NOTIFICATION", "Wrong code");
             request.getRequestDispatcher("Views/Customers/Verify.jsp").forward(request, response);
         }
     }
-
-
 }

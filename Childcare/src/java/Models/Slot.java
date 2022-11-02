@@ -7,24 +7,18 @@ public class Slot {
     private int slotId;
     private boolean isExamination;
     private int status;
-    private int slotTimeId, shiftId;
+    private SlotTime slotTime;
+    private Shift shift;
 
     public Slot() {
     }
 
-    public Slot(int slotId, boolean isExamination, int status, int slotTimeId, int shiftId) {
+    public Slot(int slotId, boolean isExamination, int status, SlotTime slotTime, Shift shift) {
         this.slotId = slotId;
         this.isExamination = isExamination;
         this.status = status;
-        this.slotTimeId = slotTimeId;
-        this.shiftId = shiftId;
-    }
-
-    public Slot(boolean isExamination, int status, int slotTimeId, int shiftId) {
-        this.isExamination = isExamination;
-        this.status = status;
-        this.slotTimeId = slotTimeId;
-        this.shiftId = shiftId;
+        this.slotTime = slotTime;
+        this.shift = shift;
     }
 
     public int getSlotId() {
@@ -51,23 +45,23 @@ public class Slot {
         this.status = status;
     }
 
-    public int getSlotTimeId() {
-        return slotTimeId;
+    public SlotTime getSlotTime() {
+        return slotTime;
     }
 
-    public void setSlotTimeId(int slotTimeId) {
-        this.slotTimeId = slotTimeId;
+    public void setSlotTime(SlotTime slotTime) {
+        this.slotTime = slotTime;
     }
 
-    public int getShiftId() {
-        return shiftId;
+    public Shift getShift() {
+        return shift;
     }
 
-    public void setShiftId(int shiftId) {
-        this.shiftId = shiftId;
+    public void setShift(Shift shift) {
+        this.shift = shift;
     }
 
-    public boolean isMorningShift() {
-        return slotTimeId <= 8;
+    public boolean isMorningShift(){
+        return slotTime.getSlotTimeId() <= 8;
     }
 }
