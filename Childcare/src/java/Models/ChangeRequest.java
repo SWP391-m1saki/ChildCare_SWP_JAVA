@@ -16,7 +16,7 @@ public class ChangeRequest {
     private Date requestTime,reponseTime;
     private String description,reponseDescription;
     private int status, doctorId;
-
+    private DoctorProfile doctor;
     public ChangeRequest() {
     }
 
@@ -30,6 +30,18 @@ public class ChangeRequest {
         this.doctorId = doctorId;
     }
 
+    public ChangeRequest(int requestId, Date requestTime, Date reponseTime, String description, String reponseDescription, int status, int doctorId, DoctorProfile doctor) {
+        this.requestId = requestId;
+        this.requestTime = requestTime;
+        this.reponseTime = reponseTime;
+        this.description = description;
+        this.reponseDescription = reponseDescription;
+        this.status = status;
+        this.doctorId = doctorId;
+        this.doctor = doctor;
+    }
+
+    
     public int getRequestId() {
         return requestId;
     }
@@ -85,6 +97,16 @@ public class ChangeRequest {
     public void setDoctorId(int doctorId) {
         this.doctorId = doctorId;
     }
+
+    public DoctorProfile getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorProfile doctor) {
+        this.doctor = doctor;
+    }
+    
+    
     
     public String getStatusLable(){
         switch (this.status) {

@@ -5,7 +5,10 @@
 package controller.doctor;
 
 import DAL.ChangeRequestDAO;
+import Models.ChangeRequest;
+import Models.PageInfo;
 import Models.User;
+import Utils.Utility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -25,6 +29,7 @@ public class ChangeShiftList extends HttpServlet {
     @Override
     public void init() {
         changeRequestDAO = new ChangeRequestDAO();
+        changeRequestDAO.load();
     }
 
     /**
@@ -40,16 +45,23 @@ public class ChangeShiftList extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ChangeShiftList</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ChangeShiftList at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            HttpSession session = request.getSession();
+            User doctor = (User) session.getAttribute("UserLogined");
+
+            // get depID of the current  selected filter
+            int status = Utility.parseIntParameter(request.getParameter("status"), -1);
+
+            //PAGING
+            int[] nrppArr = {5, 10, 20};
+            List<ChangeRequest> filteredList = changeRequestDAO.getChangeRequestListByStatus(status, doctor.getId());
+            PageInfo page = new PageInfo();
+            page.pagination(request, filteredList, nrppArr);
+
+            request.setAttribute("status", status);
+            request.setAttribute("changeRequestList", changeRequestDAO.getChangeRequestByPage(page, filteredList));
+
+            request.getRequestDispatcher("../../Views/doctor/doctor-change-shift-list.jsp").forward(request, response);
         }
     }
 
@@ -65,11 +77,7 @@ public class ChangeShiftList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        changeRequestDAO.load();
-        HttpSession session = request.getSession();
-        User doctor =(User)session.getAttribute("UserLogined");
-        request.setAttribute("changeRequestList", changeRequestDAO.getChangeRequestListByDoctorID(doctor.getId()));
-        request.getRequestDispatcher("../../Views/doctor/doctor-change-shift-list.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

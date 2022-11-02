@@ -5,6 +5,9 @@
 package DAL;
 
 import Models.ChangeRequest;
+import Models.DoctorProfile;
+import Models.PageInfo;
+import Models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,12 +55,22 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
     @Override
     public void load() {
         changeRequestList.clear();
-        String sql = "select * from ChangeRequest";
+        String sql = "select c.*, title, avatar, name from ChangeRequest c\n"
+                + "inner join DoctorProfile d on c.doctor_id = d.doctor_id\n"
+                + "inner join [User] u on u.id = d.doctor_id\n"
+                + "order by request_time desc";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ChangeRequest cR = new ChangeRequest();
+                User us = new User();
+                us.setName(rs.getString("name"));
+                us.setAvatar(rs.getString("avatar"));
+                DoctorProfile doctor = new DoctorProfile();
+                doctor.setTitle(rs.getString("title"));
+                doctor.setUser(us);
+                cR.setDoctor(doctor);
                 cR.setRequestId(rs.getInt("request_id"));
                 cR.setDescription(rs.getNString("description"));
                 cR.setRequestTime(rs.getDate("request_time"));
@@ -117,6 +130,56 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
             if (c.getDoctorId() == doctorId) {
                 cR.add(c);
             }
+        }
+        return cR;
+    }
+
+    public List<ChangeRequest> getChangeRequestListByStatus(int status, int doctorId) {
+        if (status == -1) {
+            return getChangeRequestListByDoctorID(doctorId);
+        }
+        List<ChangeRequest> cR = new ArrayList<>();
+        for (ChangeRequest c : changeRequestList) {
+            if (c.getStatus() == status && c.getDoctorId() == doctorId) {
+                cR.add(c);
+            }
+        }
+        return cR;
+    }
+
+    public List<ChangeRequest> getChangeRequestListByStatusAndSearch(int status, String search) {
+        if (status == -1) {
+            if (search == null || search.length() == 0) {
+                return getAll();
+            } else {
+                List<ChangeRequest> cR = new ArrayList<>();
+                for (ChangeRequest c : changeRequestList) {
+                    if (c.getDoctor().getUser().getName().toLowerCase().contains(search.toLowerCase())) {
+                        cR.add(c);
+                    }
+                }
+                return cR;
+            }
+        }
+        search = search == null ? "" : search;
+        List<ChangeRequest> cR = new ArrayList<>();
+        for (ChangeRequest c : changeRequestList) {
+            if (c.getStatus() == status && c.getDoctor().getUser().getName().toLowerCase().contains(search.toLowerCase())) {
+                cR.add(c);
+            }
+        }
+        return cR;
+    }
+
+    public List<ChangeRequest> getChangeRequestByPage(PageInfo page, List<ChangeRequest> fullList) {
+        List<ChangeRequest> cR = new ArrayList<>();
+        if (fullList.isEmpty()) {
+            return cR;
+        }
+        int maxIndex = page.getPageindex() * page.getPagesize();
+        maxIndex = (maxIndex > fullList.size()) ? fullList.size() : maxIndex;
+        for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) {
+            cR.add(fullList.get(i));
         }
         return cR;
     }

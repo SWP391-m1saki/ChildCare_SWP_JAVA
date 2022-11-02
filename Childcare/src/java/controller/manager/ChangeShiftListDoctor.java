@@ -6,7 +6,10 @@ package controller.manager;
 
 import DAL.ChangeRequestDAO;
 import DAL.DoctorProfileDAO;
+import Models.ChangeRequest;
+import Models.PageInfo;
 import Models.User;
+import Utils.Utility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -23,13 +27,15 @@ public class ChangeShiftListDoctor extends HttpServlet {
 
     ChangeRequestDAO changeRequestDAO;
     DoctorProfileDAO doctorProfileDAO;
-    
+
     @Override
     public void init() {
         changeRequestDAO = new ChangeRequestDAO();
         doctorProfileDAO = new DoctorProfileDAO();
+        changeRequestDAO.load();
+        doctorProfileDAO.load();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,19 +47,25 @@ public class ChangeShiftListDoctor extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        changeRequestDAO.load();
+        doctorProfileDAO.load();
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ChangeShiftListDoctor</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ChangeShiftListDoctor at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.setCharacterEncoding("UTF-8");
+        // get depID of the current  selected filter
+        int status = Utility.parseIntParameter(request.getParameter("status"), -1);
+        String search = request.getParameter("search");
+        
+        //PAGING
+        int[] nrppArr = {5, 10, 20};
+        List<ChangeRequest> filteredList = changeRequestDAO.getChangeRequestListByStatusAndSearch(status, search);
+        PageInfo page = new PageInfo();
+        page.pagination(request, filteredList, nrppArr);
+
+        request.setAttribute("search", search);
+        request.setAttribute("status", status);
+        request.setAttribute("changeRequestList", changeRequestDAO.getChangeRequestByPage(page, filteredList));
+
+        request.getRequestDispatcher("../../../Views/manager/change-shift-list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,11 +80,7 @@ public class ChangeShiftListDoctor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        changeRequestDAO.load();
-        doctorProfileDAO.load();
-        request.setAttribute("changeRequestList", changeRequestDAO.getAll());
-        request.setAttribute("doctorProfile", doctorProfileDAO.getAll());
-        request.getRequestDispatcher("../../../Views/manager/change-shift-list.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

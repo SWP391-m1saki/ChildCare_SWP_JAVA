@@ -41,9 +41,6 @@
                     <div class="content-header">
                         <h2 class="content-title">Lịch sử đơn thay đổi lịch làm việc</h2>
                     </div>
-                    <div class="mb-3">
-                        <a href="${context}/doctor/request/send" class="btn btn-primary"><i class="material-icons md-plus"></i>Đơn mới</a>
-                    </div>
 
                     <div class="card mb-4">
                         <header class="card-header">
@@ -51,7 +48,15 @@
 
                                 <!--SEARCH BAR-->
                                 <div class="col-lg-4 col-md-6 me-auto">
-                                    <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên bác sĩ" class="form-control fw-bold" value="${requestScope.search}" onkeyup="doctorListAjax();">
+                                    <select class="form-select fw-bold w-50" name="status" form="main-form" onchange="this.form.submit()">
+                                        <option value="-1" ${(requestScope.status == -1)?'selected':''}>
+                                        <span>Trạng thái</span>
+                                        </option>
+                                        <option value="1" ${(requestScope.status == 1)?'selected':''}>Chưa xác nhận</option>
+                                        <option value="2" ${(requestScope.status == 2)?'selected':''}>Chấp nhận</option>
+                                        <option value="3" ${(requestScope.status == 3)?'selected':''}>Từ chối</option>
+                                    </select>
+
                                 </div>
 
                             </div>
@@ -68,14 +73,15 @@
                                                     <th>Trạng thái</th>
                                                     <th>Thời gian trả lời</th>
                                                     <th>Thông tin trả lời</th>
-                                                    <th class="text-end"> Hành động </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.changeRequestList}" var="d">
                                                     <tr>
                                                         <td>${d.requestTime}</td>
-                                                        <td>${d.description}</td>
+                                                        <td style="max-width: 400px;max-height: 4.5rem;line-height: 1.5;overflow: hidden;white-space: normal;">
+                                                            ${d.description}
+                                                        </td>
                                                         <td>
                                                             <c:if test="${d.status == 1}">
                                                                 <span class="badge rounded-pill alert-warning">${d.getStatusLable()}</span>    
@@ -90,14 +96,16 @@
                                                         <td>
                                                             ${d.reponseTime}
                                                         </td>
-                                                        <td>${d.reponseDescription}</td>
+                                                        <td style="max-width: 400px;max-height: 4.5rem;line-height: 1.5;overflow: hidden;white-space: normal;">
+                                                            ${d.reponseDescription}
+                                                        </td>
                                                     </tr>
 
                                                 </c:forEach>
                                             </tbody>
                                         </table> <!-- table-responsive.// -->
                                     </c:if>
-                                    <c:if test="${requestScope.doctorList == null || requestScope.doctorList.size() == 0}">
+                                    <c:if test="${requestScope.changeRequestList == null || requestScope.changeRequestList.size() == 0}">
                                         <h3>Không có đơn nào</h3>
                                     </c:if>
                                 </div>
@@ -108,7 +116,7 @@
                     <!--Display PAGING if list has item
                             Else empty form-->
                     <c:choose>
-                        <c:when test="${requestScope.doctorList != null && requestScope.doctorList.size() != 0}">
+                        <c:when test="${requestScope.changeRequestList != null && requestScope.changeRequestList.size() != 0}">
                             <jsp:include page="../Shared/_Paging.jsp"></jsp:include>
                         </c:when> 
                         <c:otherwise>

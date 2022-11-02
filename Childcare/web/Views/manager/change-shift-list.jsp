@@ -35,14 +35,11 @@
                 <main class="main-admin-page">
                     <!--HEADER-->
                 <%--<jsp:include page="header.jsp"></jsp:include>--%>
-                    <!--HEADER-->
+                <!--HEADER-->
 
-                    <section class="content-main">
-                        <div class="content-header">
-                            <h2 class="content-title">Lịch sử đơn thay đổi lịch làm việc</h2>
-                        </div>
-                        <div class="mb-3">
-                            <a href="${context}/doctor/request/send" class="btn btn-primary"><i class="material-icons md-plus"></i>Đơn mới</a>
+                <section class="content-main">
+                    <div class="content-header">
+                        <h2 class="content-title">Lịch sử đơn thay đổi lịch làm việc</h2>
                     </div>
 
                     <div class="card mb-4">
@@ -52,7 +49,21 @@
                                 <!--SEARCH BAR-->
                                 <div class="col-lg-4 col-md-6 me-auto">
                                     <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên bác sĩ" class="form-control fw-bold" value="${requestScope.search}" onkeyup="doctorListAjax();">
+
                                 </div>
+                                <!-- Select -->
+                                <div class="col-lg-7 col-md-6 me-auto d-flex justify-content-end w-50">
+                                    <select class="form-select fw-bold w-50" name="status" form="main-form" onchange="this.form.submit()">
+                                        <option value="-1" ${(requestScope.status == -1)?'selected':''}>
+                                        <span>Trạng thái</span>
+                                        </option>
+                                        <option value="1" ${(requestScope.status == 1)?'selected':''}>Chưa xác nhận</option>
+                                        <option value="2" ${(requestScope.status == 2)?'selected':''}>Chấp nhận</option>
+                                        <option value="3" ${(requestScope.status == 3)?'selected':''}>Từ chối</option>
+                                    </select>
+
+                                </div>
+
 
                             </div>
                         </header> <!-- card-header end// -->
@@ -76,26 +87,23 @@
                                             <tbody>
                                                 <c:forEach items="${requestScope.changeRequestList}" var="d">
                                                     <tr>
-                                                        <c:forEach items="${requestScope.doctorProfile}" var="doctor">
-                                                            <c:if test="${d.doctorId == doctor.doctorId}">
-                                                                <td><img class="mb-3 rounded-circle shadow-4" src="${context}/img/${doctor.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/></td>
-                                                                <td>${doctor.user.name}</td>
-                                                            </c:if>
-                                                        </c:forEach>
+
+                                                        <td><img class="mb-3 rounded-circle shadow-4" src="${context}/img/${d.doctor.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/></td>
+                                                        <td>${d.doctor.user.name}</td>
                                                         <td>${d.requestTime}</td>
                                                         <td>${d.description}</td>
                                                         <td>
                                                             <c:choose>
-                                                                    <c:when test="${d.status == 1}">
-                                                                        <span class="badge rounded-pill alert-warning">${d.getStatusLable()}</span>
-                                                                    </c:when>
-                                                                    <c:when test="${d.status == 2}">
-                                                                        <span class="badge rounded-pill alert-success">${d.getStatusLable()}</span>
-                                                                    </c:when>
-                                                                    <c:when test="${d.status == 3}">
-                                                                       <span class="badge rounded-pill alert-danger">${d.getStatusLable()}</span>
-                                                                    </c:when>
-                                                                </c:choose>                                                         
+                                                                <c:when test="${d.status == 1}">
+                                                                    <span class="badge rounded-pill alert-warning">${d.getStatusLable()}</span>
+                                                                </c:when>
+                                                                <c:when test="${d.status == 2}">
+                                                                    <span class="badge rounded-pill alert-success">${d.getStatusLable()}</span>
+                                                                </c:when>
+                                                                <c:when test="${d.status == 3}">
+                                                                    <span class="badge rounded-pill alert-danger">${d.getStatusLable()}</span>
+                                                                </c:when>
+                                                            </c:choose>                                                         
                                                         </td>
                                                         <td>
                                                             ${d.reponseTime}
@@ -103,7 +111,7 @@
                                                         <td>${d.reponseDescription}</td>
                                                         <td class="text-end">
                                                             <a href="${context}/manager/doctor/shift/update?id=${d.requestId}" class="btn btn-light">Chi tiết</a>
-                                                            
+
                                                         </td>
                                                     </tr>
 
@@ -111,7 +119,7 @@
                                             </tbody>
                                         </table> <!-- table-responsive.// -->
                                     </c:if>
-                                    <c:if test="${requestScope.doctorList == null || requestScope.doctorList.size() == 0}">
+                                    <c:if test="${requestScope.changeRequestList == null || requestScope.changeRequestList.size() == 0}">
                                         <h3>Không có đơn nào</h3>
                                     </c:if>
                                 </div>
@@ -122,7 +130,7 @@
                     <!--Display PAGING if list has item
                             Else empty form-->
                     <c:choose>
-                        <c:when test="${requestScope.doctorList != null && requestScope.doctorList.size() != 0}">
+                        <c:when test="${requestScope.changeRequestList != null && requestScope.changeRequestList.size() != 0}">
                             <jsp:include page="../Shared/_Paging.jsp"></jsp:include>
                         </c:when> 
                         <c:otherwise>
@@ -137,40 +145,40 @@
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-                                                                function doctorListAjax() {
-                                                                    ajaxCall('/Childcare/AjaxDoctorList', 'list-display');
-                                                                    ajaxCall('/Childcare/AjaxDoctorPaging', 'paging-div');
-                                                                }
+                                        function doctorListAjax() {
+                                            ajaxCall('/Childcare/AjaxDoctorList', 'list-display');
+                                            ajaxCall('/Childcare/AjaxDoctorPaging', 'paging-div');
+                                        }
 
-                                                                function ajaxCall(url, id) {
-                                                                    $.ajax({
-                                                                        url: url,
-                                                                        type: "POST",
-                                                                        data: {
-                                                                            search: document.querySelector('input[name="search"]').value,
-                                                                            depId: document.querySelector('select[name="depId"]').value,
-                                                                            pagesize: document.querySelector('select[name="pagesize"]').value,
-                                                                            page: document.querySelector('input[name="pageindex"]').value
-                                                                        },
-                                                                        async: true,
-                                                                        success: function (data) {
-                                                                            var row = document.getElementById(id);
-                                                                            row.innerHTML = data;
-                                                                        },
-                                                                        error: function () {
-                                                                            alert('Errore');
-                                                                        },
-                                                                        complete: function () {
-                                                                            if (id === 'paging-div') {
-                                                                                pagger('pagger', parseInt(document.querySelector('input[name="pageindex"]').value, 10), document.querySelector('input[name="totalpage"]').value, 2, -1);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                                document.querySelector('select[name="depId"]').addEventListener('change', function () {
-                                                                    doctorListAjax();
-                                                                    alert();
-                                                                });
+                                        function ajaxCall(url, id) {
+                                            $.ajax({
+                                                url: url,
+                                                type: "POST",
+                                                data: {
+                                                    search: document.querySelector('input[name="search"]').value,
+                                                    depId: document.querySelector('select[name="depId"]').value,
+                                                    pagesize: document.querySelector('select[name="pagesize"]').value,
+                                                    page: document.querySelector('input[name="pageindex"]').value
+                                                },
+                                                async: true,
+                                                success: function (data) {
+                                                    var row = document.getElementById(id);
+                                                    row.innerHTML = data;
+                                                },
+                                                error: function () {
+                                                    alert('Errore');
+                                                },
+                                                complete: function () {
+                                                    if (id === 'paging-div') {
+                                                        pagger('pagger', parseInt(document.querySelector('input[name="pageindex"]').value, 10), document.querySelector('input[name="totalpage"]').value, 2, -1);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                        document.querySelector('select[name="depId"]').addEventListener('change', function () {
+                                            doctorListAjax();
+                                            alert();
+                                        });
         </script>
     </body>
 </html>

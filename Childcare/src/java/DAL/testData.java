@@ -20,13 +20,10 @@ public class testData {
     public static void main(String[] args) {
        ChangeRequestDAO cr = new ChangeRequestDAO();
        cr.load();
-       ChangeRequest c = new ChangeRequest();
-       c.setRequestId(1);
-       c.setReponseTime(Date.valueOf(LocalDate.now()));
-       c.setStatus(1);
-       c.setReponseDescription("aaaaaaaaaaaa");
-       cr.update(c);
-
+       List<ChangeRequest> cR = cr.getChangeRequestListByStatusAndSearch(-1, "Đức");
+       for(ChangeRequest c: cR){
+           System.out.println(c.getDoctor());
+       } 
         //System.out.println(pdao.get(10));
     }
 
