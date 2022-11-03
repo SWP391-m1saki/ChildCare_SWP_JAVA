@@ -47,7 +47,7 @@
                     <a href="loadHomePage" class="nav-item nav-link active">Home</a>
                     <a href="loadAbout" class="nav-item nav-link">About</a>
                     <a href="loadDoctor" class="nav-item nav-link">Our Doctors</a>
-                    <a href="blog.jsp" class="nav-item nav-link">Blog</a>
+                    <a href="chuyen-muc" class="nav-item nav-link">Blog</a>
 
                     <c:if test="${sessionScope.UserLogined == null}">
                         <a href="login" class="nav-item nav-link">Login</a>
