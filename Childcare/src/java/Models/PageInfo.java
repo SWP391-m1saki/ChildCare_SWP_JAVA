@@ -4,24 +4,21 @@
  */
 package Models;
 
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  *
  * @author Admin
+ * @param <T>
  */
-public class PageInfo {
+public class PageInfo<T> {
     private int pageindex;
     private int pagesize;
     private int totalpage;
     private int totalrecords;
 
     public PageInfo() {
-    }
-
-    public PageInfo(int pageindex, int pagesize, int totalpage, int totalrecords) {
-        this.pageindex = pageindex;
-        this.pagesize = pagesize;
-        this.totalpage = totalpage;
-        this.totalrecords = totalrecords;
     }
     
     public PageInfo(int pageindex, int pagesize, int totalrecords) {
@@ -31,9 +28,9 @@ public class PageInfo {
     }
     
     public void calc(){
-        pageindex = pageindex > 1 ? pageindex : 1;
+        pageindex = Math.max(pageindex, 1);
         totalpage = (totalrecords % pagesize == 0) ? (totalrecords / pagesize) : (totalrecords / pagesize) + 1;
-        pageindex = pageindex < totalpage ? pageindex : totalpage;
+        pageindex = Math.min(pageindex, totalpage);
     }
 
     public int getPageindex() {
@@ -68,6 +65,13 @@ public class PageInfo {
         this.totalrecords = totalrecords;
     }
     
-    
+    public void pagination(HttpServletRequest request, List<T> filteredList, int[] nrppArr){
+        request.setAttribute("nrppArr", nrppArr);
+        pagesize = Utils.Utility.parseIntParameter(request.getParameter("pagesize"), 5);
+        pageindex = Utils.Utility.parseIntParameter(request.getParameter("page"), 1);
+        totalrecords = filteredList.size();  // total record of p_cid category
+        calc();
+        request.setAttribute("page", this);
+    }
 
 }

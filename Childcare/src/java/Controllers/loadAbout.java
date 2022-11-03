@@ -38,6 +38,7 @@ public class loadAbout extends HttpServlet {
         processRequest(request, response);
     }
 
+    /** @noinspection SameReturnValue*/
     @Override
     public String getServletInfo() {
         return "Short description";

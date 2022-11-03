@@ -3,13 +3,17 @@
     <welcome-file-list>
         <welcome-file>loadHomePage</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error</location>
+    </error-page>
     <servlet>
         <servlet-name>loadDoctorDetail</servlet-name>
         <servlet-class>Controllers.loadDoctorDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostController</servlet-name>
-        <servlet-class>Controllers.PostController</servlet-class>
+        <servlet-class>controller.manager.PostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
@@ -17,7 +21,95 @@
     </servlet>
     <servlet>
         <servlet-name>PostManagerController</servlet-name>
-        <servlet-class>Controllers.PostManager</servlet-class>
+        <servlet-class>controller.manager.PostManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostList</servlet-name>
+        <servlet-class>controller.user.PostList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostDetail</servlet-name>
+        <servlet-class>controller.user.PostDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateDoctorController</servlet-name>
+        <servlet-class>controller.manager.CreateDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDoctorProfile</servlet-name>
+        <servlet-class>controller.manager.UpdateDoctorProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorListManage</servlet-name>
+        <servlet-class>controller.manager.DoctorListManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorProfileDetailManage</servlet-name>
+        <servlet-class>controller.manager.DoctorProfileDetailManage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Error404Handler</servlet-name>
+        <servlet-class>Controllers.Error404Handler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxDoctorList</servlet-name>
+        <servlet-class>controller.manager.AjaxDoctorList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxPostList</servlet-name>
+        <servlet-class>controller.manager.AjaxPostList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxPostLoadmore</servlet-name>
+        <servlet-class>controller.manager.AjaxPostLoadmore</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxCreateCategory</servlet-name>
+        <servlet-class>controller.manager.AjaxCreateCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddChildrenController</servlet-name>
+        <servlet-class>Controllers.AddChildrenController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadChildrenProfile</servlet-name>
+        <servlet-class>Controllers.LoadChildrenProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateChildrenProfile</servlet-name>
+        <servlet-class>Controllers.UpdateChildrenProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteChildrenController</servlet-name>
+        <servlet-class>Controllers.DeleteChildrenController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyByOldPassword</servlet-name>
+        <servlet-class>Controllers.VerifyByOldPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerListController</servlet-name>
+        <servlet-class>controller.manager.CustomerList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerDetailController</servlet-name>
+        <servlet-class>controller.manager.CustomerDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendRequestController</servlet-name>
+        <servlet-class>controller.doctor.SendRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftList</servlet-name>
+        <servlet-class>controller.doctor.ChangeShiftList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftListDoctor</servlet-name>
+        <servlet-class>controller.manager.ChangeShiftListDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftDoctor</servlet-name>
+        <servlet-class>controller.manager.ChangeShiftDoctor</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FeedbackController</servlet-name>
@@ -39,6 +131,14 @@
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/delete</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostList</servlet-name>
+        <url-pattern>/chuyen-muc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetail</servlet-name>
+        <url-pattern>/bai-viet</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>Controllers.LoginController</servlet-class>
@@ -58,6 +158,10 @@
     <servlet>
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>Controllers.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserProfileController</servlet-name>
+        <servlet-class>Controllers.UserProfileController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -100,6 +204,22 @@
         <url-pattern>/manager/post</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CreateDoctorController</servlet-name>
+        <url-pattern>/manager/doctor/new</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDoctorProfile</servlet-name>
+        <url-pattern>/manager/doctor/profile/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorListManage</servlet-name>
+        <url-pattern>/manager/doctor/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorProfileDetailManage</servlet-name>
+        <url-pattern>/manager/doctor/profile/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ResetPasswordController</servlet-name>
         <url-pattern>/ResetPassword</url-pattern>
     </servlet-mapping>
@@ -112,8 +232,82 @@
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FeedbackController</servlet-name>
-        <url-pattern>/FeedbackController</url-pattern>
+
+        <servlet-name>Error404Handler</servlet-name>
+        <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxDoctorList</servlet-name>
+        <url-pattern>/AjaxDoctorList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxDoctorList</servlet-name>
+        <url-pattern>/AjaxDoctorPaging</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxPostList</servlet-name>
+        <url-pattern>/AjaxPostList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxPostList</servlet-name>
+        <url-pattern>/AjaxPostPaging</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxPostLoadmore</servlet-name>
+        <url-pattern>/ajax/post/loadmore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxCreateCategory</servlet-name>
+        <url-pattern>/ajax/post/create-category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileController</servlet-name>
+        <url-pattern>/userProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddChildrenController</servlet-name>
+        <url-pattern>/addChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadChildrenProfile</servlet-name>
+        <url-pattern>/loadChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateChildrenProfile</servlet-name>
+        <url-pattern>/updateChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteChildrenController</servlet-name>
+        <url-pattern>/deleteChildren</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyByOldPassword</servlet-name>
+        <url-pattern>/verifyByOldPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerListController</servlet-name>
+        <url-pattern>/manager/user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDetailController</servlet-name>
+        <url-pattern>/manager/user/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendRequestController</servlet-name>
+        <url-pattern>/doctor/request/send</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftList</servlet-name>
+        <url-pattern>/doctor/request/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftListDoctor</servlet-name>
+        <url-pattern>/manager/doctor/shift/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftDoctor</servlet-name>
+        <url-pattern>/manager/doctor/shift/update</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>

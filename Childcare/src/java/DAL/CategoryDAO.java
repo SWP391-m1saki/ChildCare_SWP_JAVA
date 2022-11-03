@@ -19,7 +19,7 @@ public class CategoryDAO implements DAO<PostCategory> {
 
     private String status;
     private Connection con;
-    private List<PostCategory> postCategoryList;
+    private final List<PostCategory> postCategoryList;
 
     public CategoryDAO() {
         try {
@@ -48,6 +48,7 @@ public class CategoryDAO implements DAO<PostCategory> {
 
     @Override
     public void load() {
+        postCategoryList.clear();
         String sql = "select * from PostCategory";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

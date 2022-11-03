@@ -17,12 +17,14 @@ import java.util.List;
  *
  * @author Admin
  */
+
 public class PostDAO implements DAO<Post> {
 
     private String status;
     private Connection con;
     private final List<Post> postList;
 
+    @SuppressWarnings("Convert2Diamond")
     public PostDAO() {
         try {
             con = DBContext.getConnection();
@@ -41,7 +43,7 @@ public class PostDAO implements DAO<Post> {
     @Override
     public void load() {
         postList.clear();
-        String sql = "SELECT * FROM Post";
+        String sql = "SELECT * FROM Post ORDER BY created_at DESC";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -70,6 +72,18 @@ public class PostDAO implements DAO<Post> {
         }
         return null;
     }
+    
+    public List<Post> loadMoreWithFilter(int currentSize, int numberOfFetch, String searchTxt, int cateId) {
+        List<Post> fullList = getPostBySearchAndCategory(searchTxt, cateId);
+        List<Post> posts = new ArrayList<Post>();
+        if(currentSize >= fullList.size()){
+            return posts;
+        }
+        int end = Math.min(fullList.size(), currentSize + numberOfFetch);
+        return fullList.subList(currentSize, end);
+    }
+    
+    
 
     @Override
     public void add(Post t) {
@@ -92,9 +106,7 @@ public class PostDAO implements DAO<Post> {
 
     @Override
     public void update(Post t) {
-        String sql = "update Post \n"
-                + "set title = ?, description = ?,detail = ?,\n"
-                + "cate_id= ?,[image] = ? where post_id = ?";
+        String sql = "update Post set title = ?, description = ?,detail = ?,cate_id= ?,[image] = ? where post_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getTitle());
@@ -153,11 +165,12 @@ public class PostDAO implements DAO<Post> {
         }
     }
 
+    @SuppressWarnings("JavadocDeclaration")
     /**
      * *
      * Get Post from List by CateId
      *
-     * @param cateId
+     * @param cateId to get category
      * @return
      */
     public List<Post> getPostByCate(int cateId) {

@@ -1,5 +1,6 @@
     package DAL;
 
+import Models.PageInfo;
 import Models.User;
 import static java.lang.System.in;
 import java.sql.Connection;
@@ -7,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Misaki
  */
-public class UserDAO  {
+public class UserDAO implements DAO<User> {
 
     private List<User> list;
     private Connection con;
@@ -38,16 +40,16 @@ public class UserDAO  {
         try {
             con = new DBContext().getConnection();
         } catch (Exception e) {
-            status = "Error connection at NewsDAO " + e.getMessage();
+            status = "Error connection at UerDAO " + e.getMessage();
         }
     }
 
-    //@Override
+    @Override
     public List<User> getAll() {
         return list;
     }
 
-    //@Override
+    @Override
     public User get(int id) {
         for (User u : list) {
             if (u.getId() == id) {
@@ -57,34 +59,47 @@ public class UserDAO  {
         return null;
     }
 
-   // @Override
+    @Override
     public void load() {
         list = new ArrayList<User>();
-        String sql = "select id,gmail,[password],[name],gender,dob,role_id,phone_number,[address],avatar,status from [User]";
+
+        list.clear();
+        
+        String sql = "select * from [User]";
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt(1);
-                String email = rs.getString(2);
-                String password = rs.getString(3);
-                String name = rs.getString(4);
-                boolean gender = rs.getBoolean(5);
-                Date dob = rs.getDate(6);
-                int roleId = rs.getInt(7);
-                String phone = rs.getString(8);
-                String address = rs.getString(9);
-                String avatar = rs.getString(10);
-                int status = rs.getInt(11);
-                list.add(new User(id, email, password, name, gender, dob.toLocalDate(), roleId, phone, address, avatar, status));
+
+                int id = rs.getInt("id");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                Boolean gender = rs.getBoolean("gender");
+                //System.out.println(email +" " +gender );
+                Date dob = rs.getDate("dob");
+                int roleId = rs.getInt("role_id");
+                String phone = rs.getString("phone_number");
+                String address = rs.getString("address");
+                String avatar = rs.getString("avatar");
+                int statuss = rs.getInt("status");
+                //System.out.println(roleId);
+                User newU = new User(id, email, password, name, gender, dob == null ? null : dob.toLocalDate(), roleId, phone, address, avatar, statuss);
+                //System.out.println(newU.getEmail());
+                list.add(newU);
+
             }
         } catch (Exception e) {
-            status = "Error getAll student " + e.getMessage();
+            status = "Error Load " + e.getMessage();
+            System.out.println(status);
         }
     }
 
     public User ValidateLogin(String email, String password) {
+        //System.out.println(email + " " + password);
         for (User u : list) {
+            //System.out.println(u.getEmail() + " " + u.getPassword());
             if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
                 return u;
             }
@@ -92,27 +107,30 @@ public class UserDAO  {
         return null;
     }
 
-    //@Override
+    @Override
     public void add(User t) {
-        String sql = "insert into [user] values(?,?,?,?,?,?,?,?,?,?)";
-        System.out.println(sql);
+        String sql = "insert into [user] (email, password, name, role_id, avatar, status) values(?,?,?,?,?,?)";
+        //System.out.println(sql);
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            //System.out.println(t.getName());
+//            System.out.println(t.getRoleId());
+//            System.out.println(t.getAvatar());
+//            System.out.println(t.getStatus());
+
             ps.setString(1, t.getEmail());
             ps.setString(2, t.getPassword());
             ps.setString(3, t.getName());
-            ps.setBoolean(4, t.isGender());
+            ps.setInt(4, t.getRoleId());
+            if (t.getAvatar() == null || t.getAvatar().length() == 0) {
+                ps.setString(5, "default-avatar.jpg");
+            } else {
+                ps.setString(5, t.getAvatar());
+            }
 
-            java.sql.Date date = java.sql.Date.valueOf(t.getDob());
-            ps.setDate(5, date);
-
-            ps.setInt(6, t.getRoleId());
-            ps.setString(7, t.getPhoneNumber());
-            ps.setString(8, t.getAddress());
-            ps.setString(9, t.getAvatar());
-            ps.setInt(10, t.getStatus());
-
+            ps.setInt(6, t.getStatus());
+            //System.out.println(ps.toString());
             ps.execute();
         } catch (SQLException ex) {
             status = "Error add user " + ex.getMessage();
@@ -121,9 +139,9 @@ public class UserDAO  {
 
     }
 
-    //@Override
+    @Override
     public void update(User t) {
-        String sql = "update [user] set gmail=?, password=?, name=?, gender=?, dob=?, phone_number=?, address=?, avatar=? where id=?";
+        String sql = "update [user] set email=?, password=?, name=?, gender=?, dob=?, phone_number=?, address=?, avatar=? where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, t.getEmail());
@@ -131,7 +149,12 @@ public class UserDAO  {
             ps.setString(3, t.getName());
             ps.setBoolean(4, t.isGender());
 
-            java.sql.Date date = java.sql.Date.valueOf(t.getDob());
+            java.sql.Date date;
+            try {
+                date = java.sql.Date.valueOf(t.getDob());
+            } catch (Exception e) {
+                date = null;
+            }
             ps.setDate(5, date);
 
             ps.setString(6, t.getPhoneNumber());
@@ -141,10 +164,11 @@ public class UserDAO  {
             ps.execute();
         } catch (Exception e) {
             status = "Error update User " + e.getMessage();
+            System.out.println(status);
         }
     }
 
-   // @Override
+    @Override
     public void delete(User t) {
         String sql = "delete from [user] where id=?";
         try {
@@ -156,44 +180,106 @@ public class UserDAO  {
         }
     }
 
-    public boolean EmailDuplicate(String email){
-        for (User u : list){
-            if(u.getEmail().equalsIgnoreCase(email)) return true;
+    public boolean EmailDuplicate(String email) {
+        for (User u : list) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                return true;
+            }
         }
         return false;
     }
-    
-    public void ChangePassword(String email, String newPass){
+
+    public void ChangePassword(String email, String newPass) {
         String sql = "update [user] set password=? where email=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, newPass);
             ps.setString(2, email);
-            
+
             ps.execute();
         } catch (Exception e) {
             status = "Error update Password " + e.getMessage();
         }
-        
+
     }
-    public void ActiveUser(String email){
+
+    public void ActiveUser(String email) {
         String sql = "update [user] set status=1 where email=?";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ps.execute();
-        } catch(Exception e){
+        } catch (Exception e) {
             status = "Error active User " + e.getMessage();
         }
     }
-     public static void main(String[] args) throws Exception {
-        UserDAO dao = new UserDAO();
-        dao.load();
-         for(User u : dao.getAll()) {
-             System.out.println(u.toString());;
-         }
-        //System.out.println(dao.ValidateLogin("admin", "123").toString());
-        // cc = new User(9, "lon", "Lon", "Lon", "long", 3, )
-        //dao.delete(new User);
+
+
+    public List<User> searchByMailAndName(String emailOrName){
+        if(emailOrName == null ||emailOrName.length() == 0){
+            return list;
+        }
+        List<User> userSearch = new ArrayList<>();
+        for(User user : list){
+            if(user.getEmail().toLowerCase().contains(emailOrName.toLowerCase()) || user.getName().toLowerCase().contains(emailOrName.toLowerCase())){
+                userSearch.add(user);
+            }
+        }
+        return  userSearch;
     }
+    
+    public List<User> getUserByPage(PageInfo page, List<User> fullList) {
+        List<User> users = new ArrayList<User>();
+        if (fullList.isEmpty()) {
+            return users;
+        }
+        int maxIndex = page.getPageindex() * page.getPagesize();
+        maxIndex = (maxIndex > fullList.size()) ? fullList.size() : maxIndex;
+        for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) {
+            users.add(fullList.get(i));
+        }
+        return users;
+    }
+    
+    private void createUser() {
+        for (int i = 20; i < 70; i++) {
+            User user = new User(i, "dungmv@fpt.edu.vn", "aaa", "Mai Văn Dũng", true, LocalDate.parse("2022-07-25"), 1, "0352243473", "Hà Nội", "team-" + (i % 3 + 1) + ".jpg", 1);
+            list.add(user);
+        }
+    }
+    
+    public void addDoctorDetail(User t){
+        String sql = "insert into [user] (email, password, name, role_id, avatar, status,phone_number,dob,address,gender) values(?,?,?,?,?,?,?,?,?,?)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, t.getEmail());
+            ps.setString(2, t.getPassword());
+            ps.setString(3, t.getName());
+            ps.setInt(4, t.getRoleId());
+            if (t.getAvatar() == null || t.getAvatar().length() == 0) {
+                ps.setString(5, "default-avatar.jpg");
+            } else {
+                ps.setString(5, t.getAvatar());
+            }
+            ps.setInt(6, t.getStatus());
+            ps.setString(7, t.getPhoneNumber());
+            ps.setDate(8, Date.valueOf(t.getDob()));
+            ps.setString(9, t.getAddress());
+            ps.setBoolean(10, t.isGender());
+            //System.out.println(ps.toString());
+            ps.execute();
+        } catch (SQLException ex) {
+            status = "Error add user " + ex.getMessage();
+            System.out.println(status);
+        }
+    }
+    
+
+//        //System.out.println(dao.ValidateLogin("admin", "123").toString());
+//        // cc = new User(9, "lon", "Lon", "Lon", "long", 3, )
+//        //dao.delete(new User);
+//    }
+
 }

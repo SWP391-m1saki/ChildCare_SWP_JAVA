@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class User {
     private int id;
     private String email, password, name;
-    private boolean gender;
+    private Boolean gender;
     private LocalDate dob;
     private int roleId;
     private String phoneNumber, address, avatar;
@@ -19,7 +19,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String email, String password, String name, boolean gender, LocalDate dob, int roleId, String phoneNumber, String address, String avatar, int status) {
+    public User(int id, String email, String password, String name, Boolean gender, LocalDate dob, int roleId, String phoneNumber, String address, String avatar, int status) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -116,12 +116,19 @@ public class User {
         this.status = status;
     }
     
-    public boolean isGender(){
+    public Boolean isGender(){
         return gender;
     }
     
-    public void setGender(boolean gender){
+    public void setGender(Boolean gender){
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", gender=" + gender + ", dob=" + dob + ", roleId=" + roleId + ", phoneNumber=" + phoneNumber + ", address=" + address + ", avatar=" + avatar + ", status=" + status + '}';
+    }
+    
+    
 }
  

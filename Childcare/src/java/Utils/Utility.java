@@ -16,6 +16,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -74,6 +76,17 @@ public class Utility {
         }
         return number;
     }
+    
+     public static double parseDoubleParameter(String raw_input, double defaultValue) {
+        raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;
+        double number;
+        try {
+            number = Double.parseDouble(raw_input);
+        } catch (NumberFormatException numberFormatException) {
+            number = defaultValue;
+        }
+        return number;
+    }
 
     public static int parseIntParameter(String raw_input, int defaultValue, int minValue, int maxValue) {
         raw_input = (raw_input == null || raw_input.length() == 0) ? String.valueOf(defaultValue) : raw_input;
@@ -114,6 +127,20 @@ public class Utility {
         request.setAttribute("pagesize", pagesize);
         request.setAttribute("pageindex", pageindex);
         request.setAttribute("totalrecords", totalrecords);
+    }
+    
+    public static boolean isValidPassword(String password, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+//        String patternn = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,30}";
+    }
+    
+    public static boolean validateString(String password, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+//        String patternn = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,30}";
     }
 
     public static void main(String[] args) {

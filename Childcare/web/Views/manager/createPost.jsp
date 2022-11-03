@@ -70,9 +70,9 @@
                                         <label class="form-label fw-bold fs-6">Chọn danh mục</label>
                                         <select name="category" class="form-select">
                                             <c:forEach items="${requestScope.postCategory}" var="c">
-                                                <option value="${c.cateId}">${c.cateName}</option>
+                                                <option value="${c.cateId}" class="list-group-item p-2">${c.cateName}</option>
                                             </c:forEach>
-                                        </select>            
+                                        </select>     
                                     </div>
                                     <style>
                                         .fa-plus{
@@ -88,13 +88,52 @@
                                             background: #e8e8e8;
                                             transform: scaleX(1.1);
                                         }
+
+                                        .list-category {
+                                            max-width: 250px;
+                                            max-height: 210px;
+                                            overflow-y: scroll;
+                                            text-overflow: ellipsis;
+                                            white-space: nowrap;
+                                        }
+
+                                        input[name="new-category"] {
+                                            max-width: 250px;
+                                        }
+
+                                        .add-category-div {
+                                            display: none;
+                                            width: 370px;
+                                            background: #eeeeee;
+                                            position: absolute;
+                                            z-index: 2;
+                                        }
                                     </style>
-                                    <i class="fa-solid fa-plus fs-5 text-primary fw-bold"></i>
-<!--                                    <form method="post">
-                                        <div class="form-item">
-                                            <input type="text" name="title" required="required" placeholder="Tiêu đề bài viết" class="form-control">
+                                    <div class="form-item mt-4">
+                                        <i class="fa-solid fa-plus fs-5 mt-2 text-primary fw-bold open"></i>
+                                        <div class="add-category-div  px-4 py-2">
+                                            <div>
+                                                <span class="h5 my-2 me-3" style="display: inline-block">Thêm danh mục mới</span>
+                                                <i class="fa-solid fa-xmark p-1 fs-5 border border-white rounded close bg-dark text-white"></i>
+                                            </div>
+                                            <div>
+                                                <input type="text" name="new-category" required="required" placeholder="chuyên mục" class="form-control w-60 mb-3"
+                                                       style="display: inline-block">
+                                                <div class="btn btn-primary pb-1 btn-category-add">Thêm</div>
+                                            </div>
+                                            <ul class="list-group list-category">
+                                                <c:forEach items="${requestScope.postCategory}" var="c">
+                                                    <li value="${c.cateId}" class="list-group-item">
+                                                        <span>${c.cateName}</span>
+                                                        <!--                                                        <button>
+                                                                                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                                                                                </button>-->
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
                                         </div>
-                                    </form>-->
+                                    </div>
+
                                 </div>
 
                                 <div class="form-item">
@@ -129,8 +168,45 @@
                 </section>
             </main>
         </div>
-        <script>
+        <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
             var editor1 = new RichTextEditor("#div_editor1");
+            const expandBtn = document.querySelector('.open');
+            const closeBtn = document.querySelector('.close');
+            const addCategoryDiv = document.querySelector('.add-category-div');
+
+            expandBtn.addEventListener('click', function (e) {
+                e.target.style.display = "none";
+                addCategoryDiv.style.display = "block";
+            });
+
+            closeBtn.addEventListener('click', function (e) {
+                addCategoryDiv.style.display = "none";
+                expandBtn.style.display = "block";
+            });
+
+            function ajaxCall() {
+                $.ajax({
+                    url: '/Childcare/ajax/post/create-category',
+                    type: "POST",
+                    data: {
+                        new_category: document.querySelector('input[name="new-category"]').value
+                    },
+                    async: true,
+                    success: function (data) {
+                        var row = document.querySelector('select[name="category"]');
+                        row.innerHTML = data;
+                    }
+                });
+
+            }
+
+            document.querySelector('.btn-category-add').addEventListener('click', function () {
+                ajaxCall();
+                addCategoryDiv.style.display = "none";
+                expandBtn.style.display = "block";
+            });
         </script>
     </body>
 </html>
