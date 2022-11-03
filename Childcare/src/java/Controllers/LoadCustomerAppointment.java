@@ -35,7 +35,6 @@ public class LoadCustomerAppointment extends HttpServlet {
         try{
             DoctorProfileDAO daoDoctor = new DoctorProfileDAO();
             daoDoctor.load();
-            System.out.println("TypeID = " + typeId);
             HttpSession session = request.getSession();
             User userLogined = (User)session.getAttribute("UserLogined");
             List<Appointment> listApp = new ArrayList<Appointment>();

@@ -126,15 +126,26 @@ public class SlotDAO implements DAO<Slot> {
         }
     }
 
-    @Override
-    public void delete(Slot t) {
+    public void delete(int slotId) {
         String sql = "delete from Slot where slot_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, t.getSlotId());
+            ps.setInt(1, slotId);
             ps.execute();
         } catch (SQLException e) {
             status = "Error delete Slot " + e.getMessage();
+            System.out.println(status);
+        }
+    }
+    
+    public void updateStatus(int slotId, int newStatus){
+        String sql = "update slot set status=" + newStatus+"where slot_id="+slotId;
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.execute();
+        }
+        catch(Exception e){
+            status = "error update status: " + e.getMessage();
             System.out.println(status);
         }
     }
@@ -165,6 +176,11 @@ public class SlotDAO implements DAO<Slot> {
 
     @Override
     public void update(Slot t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(Slot t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

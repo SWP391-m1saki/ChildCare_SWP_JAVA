@@ -90,13 +90,11 @@
                                 <li><a href="loadCustomerAppointment?typeId=3">Lịch sử đặt lịch</a></li>
                             </ul>
 
-                        </div>
-
-                        <div class="col-sm-8 mx-auto p-5">
-                            <div class="card-group">
+                            <div class="card-group" style="margin-top: 50px;">
+                            <c:if test="${requestScope.AppHm.isEmpty()}"><p style="text-align: center;">Lịch trống</p></c:if>
                             <c:forEach items="${requestScope.AppHm}" var="app">
                                 <div class="col-md-12" style="padding: 10px 20px">
-                                    <form action="loadAppointmentDetail" method="post">
+                                    <form action="cancelAppointment" method="post">
                                         <input type="hidden" name="AppId" value="${app.key.appointmentId}">
                                         <div class="card mb-5 text-dark" style="background-color: white;
                                              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.08); border-radius: 10px;">
@@ -118,28 +116,37 @@
                                                     <div class="description-section">
                                                         <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
                                                             Ngày:    
-                                                            <span style="color:#030B12">${app.value.slot.shift.date}</span>
+                                                            <span style="color:#030B12">${app.key.slot.shift.date}</span>
                                                         </p>
                                                         <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
                                                             Thời gian: 
-                                                            <span style="color:#030B12">${app.value.slot.slotTime.startTime} - ${app.slot.slotTime.endTime}</span>
+                                                            <span style="color:#030B12">${app.key.slot.slotTime.startTime} - ${app.key.slot.slotTime.endTime}</span>
                                                         </p>
                                                         <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
                                                             Phí: 
-                                                            <span style="color:#030B12">${app.value.user.price}</span>
+                                                            <span style="color:#030B12">${app.value.price}</span>
+                                                        </p>
+                                                        <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
+                                                            Trạng thái: 
+                                                            <c:if test="${app.key.slot.status == 0}"><span style="color: #1794DC; font-size: 14px;">Sắp đến</span></c:if>
+                                                            <c:if test="${app.key.slot.status == 1}"><span style="color: #12D80C; font-size: 14px;">Hoàn thành</span></c:if>
+                                                            <c:if test="${app.key.slot.status == 2}"><span style="color: #F33E11; font-size: 14px;">Đã hủy</span></c:if>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-dark">Đặt Lịch</button>
+                                            <div class="card-footer d-flex justify-content-center"> 
+                                            <c:if test="${app.key.slot.status == 0}"><button type="submit" class="btn btn-danger">Hủy</button></c:if>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </c:forEach>
                         </div>
+
                     </div>
+
+
 
                 </div>
             </div>

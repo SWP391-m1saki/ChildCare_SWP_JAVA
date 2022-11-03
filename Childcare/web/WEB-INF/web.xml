@@ -195,6 +195,14 @@
         <servlet-name>UserProfileController</servlet-name>
         <servlet-class>Controllers.UserProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadAppointmentDetail</servlet-name>
+        <servlet-class>Controllers.LoadAppointmentDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelAppointment</servlet-name>
+        <servlet-class>Controllers.CancelAppointment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -374,6 +382,14 @@
     <servlet-mapping>
         <servlet-name>LoadCustomerAppointment</servlet-name>
         <url-pattern>/loadCustomerAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadAppointmentDetail</servlet-name>
+        <url-pattern>/loadAppointmentDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelAppointment</servlet-name>
+        <url-pattern>/cancelAppointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

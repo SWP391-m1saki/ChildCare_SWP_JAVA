@@ -39,7 +39,12 @@ public class AppointmentDAO implements DAO<Appointment> {
 
     @Override
     public Appointment get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(Appointment app : list){
+            if(app.getAppointmentId() ==id){
+                return app;
+            }
+        }
+        return null;
     }
 
     public List<Appointment> getAppointmentOfCustomer(int customerId) {
@@ -98,7 +103,105 @@ public class AppointmentDAO implements DAO<Appointment> {
         }
         return list;
     }
+    
+    public List<Appointment> getAppointmentOfDoctor(int doctorId) {
+        list.clear();
+        String sql = "select *\n"
+                + "from Appointment\n"
+                + "inner join Slot on slot.slot_id = Appointment.slot_id\n"
+                + "inner join ChildrenProfile on ChildrenProfile.children_id = Appointment.children_id\n"
+                + "inner join SlotTime on slot.slotTimeId = SlotTime.slotTimeId\n"
+                + "inner join [shift]  on slot.shiftId = [shift].shiftId\n"
+                + "inner join Schedule on  [shift].scheduleId = Schedule.scheduleId\n"
+                + "where Schedule.doctorId = ";
+        sql += doctorId+"";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("appointment_id");
+                int childrenId = rs.getInt("children_id");
+                String childrenName = rs.getString("name");
+                LocalDate dob = rs.getDate("dob").toLocalDate();
+                Boolean gender = rs.getBoolean("gender");
+                String avatar = rs.getString("avatar");
 
+               int slotId = rs.getInt("slot_id");
+                int slotTimeId = rs.getInt("slotTimeId");
+                Boolean isExamination = rs.getBoolean("isExamination");
+                int slot_status = rs.getInt("status");
+                int shiftId = rs.getInt("shiftId");
+                LocalDate date = rs.getDate("date").toLocalDate();
+                int scheduleId = rs.getInt("scheduleId");
+                int dayOfWeek = rs.getInt("dayOfWeek");
+                Boolean isMorningShift = rs.getBoolean("isMorningShift");
+                boolean status = rs.getBoolean("status");
+                String startTime = rs.getString("startTime");
+                String endTime = rs.getString("endTime");
+                int parentId = rs.getInt("parent_id");
+                //System.out.println(roleId);
+                Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime), 
+                        new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
+                ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, parentId, avatar);
+                Appointment ap = new Appointment(appointmentId, c, s);
+                list.add(ap);
+            }
+        } catch (Exception e) {
+            status = "Error load Appointment for customer " + e.getMessage();
+            System.out.println(status);
+        }
+        return list;
+    }
+    
+
+    public Appointment getAppointmentById(int appId) {
+        String sql = "select *\n"
+                + "from Appointment\n"
+                + "inner join Slot on slot.slot_id = Appointment.slot_id\n"
+                + "inner join ChildrenProfile on ChildrenProfile.children_id = Appointment.children_id\n"
+                + "inner join SlotTime on slot.slotTimeId = SlotTime.slotTimeId\n"
+                + "inner join [shift]  on slot.shiftId = [shift].shiftId\n"
+                + "inner join Schedule on  [shift].scheduleId = Schedule.scheduleId\n"
+                + "where Appointment.appointment_id = ";
+        sql += appId+"";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("appointment_id");
+                int childrenId = rs.getInt("children_id");
+                String childrenName = rs.getString("name");
+                LocalDate dob = rs.getDate("dob").toLocalDate();
+                Boolean gender = rs.getBoolean("gender");
+                String avatar = rs.getString("avatar");
+
+               int slotId = rs.getInt("slot_id");
+                int slotTimeId = rs.getInt("slotTimeId");
+                Boolean isExamination = rs.getBoolean("isExamination");
+                int slot_status = rs.getInt("status");
+                int shiftId = rs.getInt("shiftId");
+                LocalDate date = rs.getDate("date").toLocalDate();
+                int scheduleId = rs.getInt("scheduleId");
+                int doctorId = rs.getInt("doctorId");
+                int dayOfWeek = rs.getInt("dayOfWeek");
+                Boolean isMorningShift = rs.getBoolean("isMorningShift");
+                boolean status = rs.getBoolean("status");
+                String startTime = rs.getString("startTime");
+                String endTime = rs.getString("endTime");
+                int parentId = rs.getInt("parent_id");
+                //System.out.println(roleId);
+                Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime), 
+                        new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
+                ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, parentId, avatar);
+                Appointment ap = new Appointment(appointmentId, c, s);
+                return ap;
+            }
+        } catch (Exception e) {
+            status = "Error load Appointment for customer " + e.getMessage();
+            System.out.println(status);
+        }
+        return null;
+    }
     @Override
     public void load() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -137,6 +240,7 @@ public class AppointmentDAO implements DAO<Appointment> {
     }
 
     public static void main(String[] args) {
-
+        AppointmentDAO dao = new AppointmentDAO();
+        for(Appointment app : dao.getAppointmentOfDoctor(14)) System.out.println(app.getChild().getChildrenId());
     }
 }
