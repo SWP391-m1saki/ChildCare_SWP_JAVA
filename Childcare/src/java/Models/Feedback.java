@@ -1,31 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
-/**
- *
- * @author Misaki
- */
 public class Feedback {
+
     private int feedbackId;
     private String description;
     private int doctorId, customerId;
-    private LocalDate createdAt;
-
+    private Date createdAt;
+    private User user;
     public Feedback() {
     }
 
-    public Feedback(int feedbackId, String description, int doctorId, int customerId, LocalDate createdAt) {
+    public Feedback(int feedbackId, String description, int doctorId, int customerId, Date createdAt,User user) {
         this.feedbackId = feedbackId;
         this.description = description;
         this.doctorId = doctorId;
         this.customerId = customerId;
         this.createdAt = createdAt;
+        this.user = user;
     }
 
     public int getFeedbackId() {
@@ -60,13 +53,22 @@ public class Feedback {
         this.customerId = customerId;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     
-    
+
 }

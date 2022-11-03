@@ -1,4 +1,4 @@
-package DAL;
+    package DAL;
 
 import Models.User;
 import static java.lang.System.in;
@@ -60,7 +60,7 @@ public class UserDAO  {
    // @Override
     public void load() {
         list = new ArrayList<User>();
-        String sql = "select * from [User]";
+        String sql = "select id,gmail,[password],[name],gender,dob,role_id,phone_number,[address],avatar,status from [User]";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -76,7 +76,6 @@ public class UserDAO  {
                 String address = rs.getString(9);
                 String avatar = rs.getString(10);
                 int status = rs.getInt(11);
-
                 list.add(new User(id, email, password, name, gender, dob.toLocalDate(), roleId, phone, address, avatar, status));
             }
         } catch (Exception e) {
@@ -187,11 +186,14 @@ public class UserDAO  {
             status = "Error active User " + e.getMessage();
         }
     }
-//     public static void main(String[] args) throws Exception {
-//        UserDAO dao = new UserDAO();
-//        dao.load();
-//        //System.out.println(dao.ValidateLogin("admin", "123").toString());
-//        // cc = new User(9, "lon", "Lon", "Lon", "long", 3, )
-//        //dao.delete(new User);
-//    }
+     public static void main(String[] args) throws Exception {
+        UserDAO dao = new UserDAO();
+        dao.load();
+         for(User u : dao.getAll()) {
+             System.out.println(u.toString());;
+         }
+        //System.out.println(dao.ValidateLogin("admin", "123").toString());
+        // cc = new User(9, "lon", "Lon", "Lon", "long", 3, )
+        //dao.delete(new User);
+    }
 }
