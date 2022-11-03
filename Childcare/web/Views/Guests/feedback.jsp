@@ -5,7 +5,7 @@
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Thông tin bác sĩ</title>
+        <title>Feedback</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/add-product.css'>
@@ -134,15 +134,6 @@
                     .qualication-detail li {
                         list-style-type: disc;
                     }
-                    #scroll{
-                        height: 300px;
-                        background-color:#FFFFFF;
-                    }
-                    .scroll-content{
-                        width: 600px;
-                        height: 300px;
-                        overflow:auto;
-                    }
                 </style>
                 <div class="card">
                     <div class="card-body">
@@ -162,12 +153,12 @@
                             <div class="col-lg-9">
                                 <section class="content-body p-xl-4">
                                     <div class="row tablist" style="display: grid;grid-template-columns: 160px 140px;grid-template-rows: 50px;">
-                                        <!--<div style="border: 10px">-->
-                                        <li><a href="#">Thông tin cơ bản</a></li>
-                                        <!--                                        </div>    
-                                                                                <div style="border: 10px">
-                                                                                    <li><a href="Views/Guests/feedback.jsp">Phản hồi</a></li>
-                                                                                </div>-->
+                                        <div style="border: 10px">
+                                            <li><a href="loadDoctorDetail">Thông tin cơ bản</a></li>
+                                        </div>    
+                                        <div style="border: 10px">
+                                            <li><a href="loadFeedback">Phản hồi</a></li>
+                                        </div>
                                     </div>
                                     <div class="doctor-detail">
                                         <div class="description-section">
@@ -253,26 +244,22 @@
                                         </h6>
                                         <!--<h6 style="--custom-heading-color:#1b3250" data-tag="h6" class="sc-hBxehG dqWeVm">Nhận xét của khách hàng</h6>-->
                                     </div>
-                                    <div id="scroll">
-                                        <div class="scroll-content">
-                                            <c:forEach items="${requestScope.feedbacks}" var="f">
-                                                <div class="service-detail">
-                                                    <div class="indexstyled__StyledDoctorInfoService-sc-1xtgixm-0 chDyDa">
-                                                        <p style="font-weight: bolder" data-size="p4" data-type="semiBold" class="sc-bcXHqe iHAyeJ">${f.user.name}:</p>
-                                                        <div data-is-collapsed="true" class="indexstyled__StyledDescriptionWrapper-sc-8pttbg-6 kaydiC">
-                                                            <p data-size="p4" data-type="regular" class="sc-bcXHqe eKWdrn description">${f.description}</p>
-                                                        </div>
-                                                    </div>
+                                    <c:forEach items="${requestScope.feedbacks}" var="f">
+                                        <div class="service-detail">
+                                            <div class="indexstyled__StyledDoctorInfoService-sc-1xtgixm-0 chDyDa">
+                                                <p style="font-weight: bolder" data-size="p4" data-type="semiBold" class="sc-bcXHqe iHAyeJ">${f.user.name}:</p>
+                                                <div data-is-collapsed="true" class="indexstyled__StyledDescriptionWrapper-sc-8pttbg-6 kaydiC">
+                                                    <p data-size="p4" data-type="regular" class="sc-bcXHqe eKWdrn description">${f.description}</p>
                                                 </div>
-                                                <br>
-                                            </c:forEach>
+                                            </div>
                                         </div>
+                                        <br>
+                                    </c:forEach>
                                     </div>
-                            </div>
-                            </section> <!-- content-body .// -->
-                        </div> <!-- col.// -->
-                    </div> <!-- row.// -->
-                </div> <!-- card body end// -->
+                                </section> <!-- content-body .// -->
+                            </div> <!-- col.// -->
+                        </div> <!-- row.// -->
+                    </div> <!-- card body end// -->
                 </div> <!-- card end// -->
             </section>
         </main>
