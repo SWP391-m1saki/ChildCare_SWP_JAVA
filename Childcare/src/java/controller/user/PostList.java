@@ -50,7 +50,7 @@ public class PostList extends HttpServlet {
         request.setAttribute("search", searchTxt);
         request.setAttribute("postList", postDao.loadMoreWithFilter(0, 6, searchTxt, cateId));
         request.setAttribute("postRecent", postDao.loadMoreWithFilter(0, 4, "", -1));
-        request.getRequestDispatcher("Views/guests/postList.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Guests/postList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

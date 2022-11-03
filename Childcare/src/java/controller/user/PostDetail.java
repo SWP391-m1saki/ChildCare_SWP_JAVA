@@ -51,7 +51,7 @@ public class PostDetail extends HttpServlet {
             request.setAttribute("postRecent", postDao.getAll());
         }
 
-        request.getRequestDispatcher("Views/guests/postDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Guests/postDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
