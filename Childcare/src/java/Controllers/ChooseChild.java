@@ -72,18 +72,26 @@ public class ChooseChild extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //System.out.println("Hellllllo");
         try{
             int childId = Integer.parseInt(request.getParameter("ChildId"));
             daoTime.load();
+             //System.out.println(0);
             daoShift.load();
+             //System.out.println(1);
             Slot newSlot = new Slot(0,true,0,daoTime.get(slotTimeId),daoShift.get((slotTimeId<9)?morning:afternoon));
-            daoSlot.add(newSlot);
+             //System.out.println(2);
+            daoSlot.add(newSlot.getSlotTime().getSlotTimeId(), newSlot.isIsExamination(), newSlot.getStatus(), newSlot.getShift().getShiftId());
+             //System.out.println(3);
             daoSlot.load();
-            Appointment newApp = new Appointment(0, daoChildren.get(childId), daoSlot.getByShift((slotTimeId<9)?morning:afternoon, slotTimeId));
+            
+            //System.out.println(4);
+            Appointment newApp = new Appointment(0, daoChildren.get(childId), daoSlot.getByShift((slotTimeId<9)?morning:afternoon, slotTimeId), 0);
             AppointmentDAO daoApp = new AppointmentDAO();
             daoApp.add(newApp);
-            response.sendRedirect("loadHomePage");        
+            response.sendRedirect("loadCustomerAppointment");        
         }catch(Exception e){
+            System.out.println("Error at ChooseChild[post]: " + e.getMessage());
             response.sendRedirect("loadHomePage");
         }
     }

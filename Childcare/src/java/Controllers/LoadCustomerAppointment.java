@@ -43,9 +43,9 @@ public class LoadCustomerAppointment extends HttpServlet {
             HashMap<Appointment,DoctorProfile> map = new HashMap<Appointment, DoctorProfile>();
             
             for(Appointment ap: listApp){
-                if(typeId == 1 && ap.getSlot().getStatus()== 0) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
-                if(typeId == 2 && ap.getSlot().getStatus() == 1) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
-                if(typeId == 3 && ap.getSlot().getStatus() != 0) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
+                if(typeId == 1 && ap.getStatus()== 0) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
+                if(typeId == 2 && ap.getStatus() == 1) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
+                if(typeId == 3 && ap.getStatus() != 0) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
             }
             
             request.setAttribute("AppHm", map);

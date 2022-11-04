@@ -12,14 +12,16 @@ public class Appointment {
     private int appointmentId;
     private ChildrenProfile child;
     private Slot slot;
+    private int status;
 
     public Appointment() {
     }
 
-    public Appointment(int appointmentId, ChildrenProfile child, Slot slot) {
+    public Appointment(int appointmentId, ChildrenProfile child, Slot slot, int status) {
         this.appointmentId = appointmentId;
         this.child = child;
         this.slot = slot;
+        this.status = status;
     }
 
     public int getAppointmentId() {
@@ -46,10 +48,15 @@ public class Appointment {
         this.slot = slot;
     }
 
-    @Override
-    public String toString() {
-        return "Appointment{" + "appointmentId=" + appointmentId + ", child=" + child + ", slot=" + slot + '}';
+    public int getStatus() {
+        return status;
     }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    
     
 
 

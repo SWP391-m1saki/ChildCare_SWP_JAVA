@@ -128,15 +128,15 @@
                                                         </p>
                                                         <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
                                                             Trạng thái: 
-                                                            <c:if test="${app.key.slot.status == 0}"><span style="color: #1794DC; font-size: 14px;">Sắp đến</span></c:if>
-                                                            <c:if test="${app.key.slot.status == 1}"><span style="color: #12D80C; font-size: 14px;">Hoàn thành</span></c:if>
-                                                            <c:if test="${app.key.slot.status == 2}"><span style="color: #F33E11; font-size: 14px;">Đã hủy</span></c:if>
+                                                            <c:if test="${app.key.status == 0}"><span style="color: #1794DC; font-size: 14px;">Sắp đến</span></c:if>
+                                                            <c:if test="${app.key.status == 1}"><span style="color: #12D80C; font-size: 14px;">Hoàn thành</span></c:if>
+                                                            <c:if test="${app.key.status == 2}"><span style="color: #F33E11; font-size: 14px;">Đã hủy</span></c:if>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="card-footer d-flex justify-content-center"> 
-                                            <c:if test="${app.key.slot.status == 0}"><button type="submit" class="btn btn-danger">Hủy</button></c:if>
+                                            <c:if test="${app.key.status == 0}"><button type="submit" class="btn btn-danger">Hủy</button></c:if>
                                             </div>
                                         </div>
                                     </form>

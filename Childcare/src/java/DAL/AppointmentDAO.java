@@ -90,11 +90,12 @@ public class AppointmentDAO implements DAO<Appointment> {
                 boolean status = rs.getBoolean("status");
                 String startTime = rs.getString("startTime");
                 String endTime = rs.getString("endTime");
+                int appointmentStatus = rs.getInt("appointmentStatus");
                 //System.out.println(roleId);
                 Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime), 
                         new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
                 ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, customerId, avatar);
-                Appointment ap = new Appointment(appointmentId, c, s);
+                Appointment ap = new Appointment(appointmentId, c, s, appointmentStatus);
                 list.add(ap);
             }
         } catch (Exception e) {
@@ -139,11 +140,12 @@ public class AppointmentDAO implements DAO<Appointment> {
                 String startTime = rs.getString("startTime");
                 String endTime = rs.getString("endTime");
                 int parentId = rs.getInt("parent_id");
+                int appointmentStatus = rs.getInt("appointmentStatus");
                 //System.out.println(roleId);
                 Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime), 
                         new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
                 ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, parentId, avatar);
-                Appointment ap = new Appointment(appointmentId, c, s);
+                Appointment ap = new Appointment(appointmentId, c, s, appointmentStatus);
                 list.add(ap);
             }
         } catch (Exception e) {
@@ -189,11 +191,12 @@ public class AppointmentDAO implements DAO<Appointment> {
                 String startTime = rs.getString("startTime");
                 String endTime = rs.getString("endTime");
                 int parentId = rs.getInt("parent_id");
+                int appointmentStatus = rs.getInt("appointmentStatus");
                 //System.out.println(roleId);
                 Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime), 
                         new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
                 ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, parentId, avatar);
-                Appointment ap = new Appointment(appointmentId, c, s);
+                Appointment ap = new Appointment(appointmentId, c, s, appointmentStatus);
                 return ap;
             }
         } catch (Exception e) {
@@ -209,11 +212,12 @@ public class AppointmentDAO implements DAO<Appointment> {
 
     @Override
     public void add(Appointment t) {
-        String sql = "insert into Appointment(slot_id, children_id) values(?,?)";
+        String sql = "insert into Appointment(slot_id, children_id, appointmentStatus) values(?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, t.getSlot().getSlotId());
             ps.setInt(2, t.getChild().getChildrenId());
+            ps.setInt(3, t.getStatus());
             ps.execute();
         } catch (Exception e) {
             status = "Error add appointment " + e.getMessage();
@@ -238,9 +242,21 @@ public class AppointmentDAO implements DAO<Appointment> {
             System.out.println(status);
         }
     }
+    
+   public void updateStatus(int appointmentId, int newStatus){
+        String sql = "update appointment set appointmentStatus=" + newStatus + "where appointment_id="+appointmentId;
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.execute();
+        }
+        catch(Exception e){
+            status = "error update status of appointment: " + e.getMessage();
+            System.out.println(status);
+        }
+    }
 
     public static void main(String[] args) {
         AppointmentDAO dao = new AppointmentDAO();
-        for(Appointment app : dao.getAppointmentOfDoctor(14)) System.out.println(app.getChild().getChildrenId());
+        for(Appointment app : dao.getAppointmentOfDoctor(14)) System.out.println(app.getStatus());
     }
 }

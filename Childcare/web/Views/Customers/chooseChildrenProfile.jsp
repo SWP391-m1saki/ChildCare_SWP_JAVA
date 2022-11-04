@@ -127,7 +127,7 @@
                     opacity: 0.5;
                     transform: scale(0.9);
                 }
-                
+
                 .disabled {
                     cursor: pointer;
                     opacity: 0.6;
@@ -146,11 +146,11 @@
             </style>
             <div class="col-lg-8">
 
-                <div class="row doctor-profile-body">
+                <div class="row doctor-profile-body" id="ChildDiv">
                     <div class="card-group col-md-6">
                         <c:forEach items="${requestScope.ChildrenList}" var="child">
-                            <div class="col-md-12  card-hghlght cc" child-id="${child.childrenId}">
-                                <form action="chooseChild" method="post" id="childFrm">
+                            <div class="col-md-12  card-hghlght cc " name="ChildCard" child-id="${child.childrenId}">
+                                <form class="childFrm" action="chooseChild" method="post" name="childFrm">
                                     <input type="hidden" name="ChildId" value="${child.childrenId}">
                                     <div class="row main-infor">
                                         <div class="col-md-2">
@@ -185,7 +185,11 @@
                                     </div>
                                 </form>
                             </div>
-                        </c:forEach>   
+                        </c:forEach>
+
+                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 40px;">
+                            <button id="SubmitChildButton" type="button" style="background-color: #1B7ED1; color:white;" disabled="true" onclick="ChildSubmit()">Xác nhận</button>
+                        </div>
                     </div>
 
 
@@ -230,7 +234,31 @@
                 </div> <!-- row.// -->
 
             </div> <!-- card body end// -->
+            <script>
+                var headerr = document.getElementById("ChildDiv");
+                var cards = headerr.getElementsByClassName("card-hghlght");
+                for (var i = 0; i < cards.length; i++) {
+                    cards[i].addEventListener("click", function () {
+                        document.getElementById("SubmitChildButton").disabled = false;
+                        var currentt = document.getElementsByClassName("activee");
+                        for(var i=0;i<currentt.length;i++)
+                        {
+                            currentt[i].className = currentt[i].className.replace(" activee", "");
+                        }
+                        
+                        if (this.className.indexOf("card-hghlght") !== -1)
+                            this.className += " activee";
+                    });
+                }
 
+                
+                function ChildSubmit(){
+                    var ChildDiv2 = document.getElementsByClassName("activee");
+                    var ChildForm = ChildDiv2[0].getElementsByClassName("childFrm");
+                    ChildForm[0].submit();
+                }
+
+            </script>
 
 
         </section>

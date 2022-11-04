@@ -97,7 +97,7 @@ public class loadDoctorDetail extends HttpServlet {
                 slotList.addAll(daoSlotTime.getMorning());
                 
                 for(Slot s: daoSlot.getAll()){
-                    if(s.getShift().getShiftId() == morning.getShiftId()){
+                    if(s.getStatus() == 1 && s.getShift().getShiftId() == morning.getShiftId()){
                         for(SlotTime st: slotList) 
                              if(st.getSlotTimeId() == s.getSlotTime().getSlotTimeId()) if(!deleteList.contains(st)) deleteList.add(st);
                     }
@@ -108,7 +108,7 @@ public class loadDoctorDetail extends HttpServlet {
                 request.setAttribute("afternoon", afternoon);
                 slotList.addAll(daoSlotTime.getAfternoon());
                 for(Slot s: daoSlot.getAll()){
-                    if(s.getShift().getShiftId() == afternoon.getShiftId()){
+                    if(s.getStatus() == 1 && s.getShift().getShiftId() == afternoon.getShiftId()){
                         for(SlotTime st: slotList) 
                             if(st.getSlotTimeId() == s.getSlotTime().getSlotTimeId()) if(!deleteList.contains(st)) deleteList.add(st);
                     }

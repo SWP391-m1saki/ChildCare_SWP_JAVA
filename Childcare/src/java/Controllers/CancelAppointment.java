@@ -33,7 +33,8 @@ public class CancelAppointment extends HttpServlet {
             throws ServletException, IOException {
         try{
             int appId = Integer.parseInt(request.getParameter("AppId"));
-            daoSlot.updateStatus(daoApp.getAppointmentById(appId).getSlot().getSlotId(), 2);
+            daoSlot.updateStatus(daoApp.getAppointmentById(appId).getSlot().getSlotId(), 0);
+            daoApp.updateStatus(appId, 2);
             response.sendRedirect("loadCustomerAppointment");
         }catch(Exception e){
             System.out.println(e.getMessage());
