@@ -41,8 +41,8 @@ public class AppointmentDAO implements DAO<Appointment> {
 
     @Override
     public Appointment get(int id) {
-        for (Appointment app : list) {
-            if (app.getAppointmentId() == id) {
+        for(Appointment app : list){
+            if(app.getAppointmentId() ==id){
                 return app;
             }
         }
@@ -98,7 +98,7 @@ public class AppointmentDAO implements DAO<Appointment> {
         }
         return list;
     }
-
+    
     public List<Appointment> getAppointmentOfDoctor(int doctorId) {
         list.clear();
         String sql = "select *\n"
@@ -142,7 +142,7 @@ public class AppointmentDAO implements DAO<Appointment> {
                 Appointment ap = new Appointment(appointmentId, c, s, appointmentStatus);
                 list.add(ap);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             status = "Error load Appointment for customer " + e.getMessage();
             System.out.println(status);
         }
@@ -263,7 +263,6 @@ public class AppointmentDAO implements DAO<Appointment> {
         }
         return null;
     }
-
     @Override
     public void load() {
         list.clear();
@@ -350,7 +349,7 @@ public class AppointmentDAO implements DAO<Appointment> {
     }
 
     public void updateStatus(int appointmentId, int newStatus) {
-        String sql = "update appointment set appointmentStatus=" + newStatus + "where appointment_id=" + appointmentId;
+        String sql = "update appointment set appointmentStatus=" + newStatus + " where appointment_id=" + appointmentId;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.execute();
