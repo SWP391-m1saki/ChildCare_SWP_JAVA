@@ -160,6 +160,26 @@
         <servlet-class>controller.doctor.DoctorSlotDetail</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SendRequestController</servlet-name>
+        <servlet-class>controller.doctor.SendRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftList</servlet-name>
+        <servlet-class>controller.doctor.ChangeShiftList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftListDoctor</servlet-name>
+        <servlet-class>controller.manager.ChangeShiftListDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeShiftDoctor</servlet-name>
+        <servlet-class>controller.manager.ChangeShiftDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackController</servlet-name>
+        <servlet-class>Controllers.LoadFeedback</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>loadDoctorDetail</servlet-name>
         <servlet-class>Controllers.loadDoctorDetail</servlet-class>
     </servlet>
@@ -296,6 +316,7 @@
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>Error404Handler</servlet-name>
         <url-pattern>/error</url-pattern>
     </servlet-mapping>
@@ -442,6 +463,22 @@
     <servlet-mapping>
         <servlet-name>AppointmentDetailController</servlet-name>
         <url-pattern>/manager/appointment/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendRequestController</servlet-name>
+        <url-pattern>/doctor/request/send</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftList</servlet-name>
+        <url-pattern>/doctor/request/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftListDoctor</servlet-name>
+        <url-pattern>/manager/doctor/shift/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeShiftDoctor</servlet-name>
+        <url-pattern>/manager/doctor/shift/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

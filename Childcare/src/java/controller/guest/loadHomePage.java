@@ -27,12 +27,14 @@ public class loadHomePage extends HttpServlet {
     }
 
     final DoctorProfileDAO daoDoctor = new DoctorProfileDAO();
-
+    final FeedbackDAO daoFeedback = new FeedbackDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         daoDoctor.load();
         request.setAttribute("doctors", daoDoctor.getAll());
+        daoFeedback.load();
+        request.setAttribute("feedbacks", daoFeedback.getAll());
         request.getRequestDispatcher("Views/index.jsp").forward(request, response);
     }
 

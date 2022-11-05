@@ -27,6 +27,7 @@ public class loadDoctorDetail extends HttpServlet {
     ShiftDAO daoShift;
     SlotDAO daoSlot;
     SlotTimeDAO daoSlotTime;
+    FeedbackDAO daoFeedback;
 
     @Override
     public void init() {
@@ -36,6 +37,8 @@ public class loadDoctorDetail extends HttpServlet {
         daoSlot = new SlotDAO();
         daoSlotTime = new SlotTimeDAO();
         daoDepart = new DepartmentDAO();
+        daoFeedback = new FeedbackDAO();
+        daoFeedback.load();
     }
 
     @Override
@@ -47,6 +50,7 @@ public class loadDoctorDetail extends HttpServlet {
             daoDoctor.load();
             daoDepart.load();
             DoctorProfile doctor = daoDoctor.get(id);
+            request.setAttribute("feedbacks",daoFeedback.getByDoctorId(id));
             request.setAttribute("doctors", doctor);
             request.setAttribute("DepartmentName", daoDepart.get(doctor.getDepartmentId()).getDepartmentName());
             request.getRequestDispatcher("Views/Guests/doctor-profile-detail.jsp").forward(request, response);
@@ -119,6 +123,7 @@ public class loadDoctorDetail extends HttpServlet {
             
             //System.out.println("morning: " + morning);
             //System.out.println("afternoon: " + afternoon);
+            request.setAttribute("feedbacks",daoFeedback.getByDoctorId(doctorId));
             request.setAttribute("slotList", slotList);
             request.setAttribute("doctors", daoDoctor.get(doctorId));
             request.setAttribute("choosedDate", choosedDate);

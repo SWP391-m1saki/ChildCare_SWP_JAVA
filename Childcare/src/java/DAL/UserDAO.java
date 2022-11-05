@@ -1,4 +1,4 @@
-package DAL;
+    package DAL;
 
 import Models.PageInfo;
 import Models.User;
@@ -55,13 +55,16 @@ public class UserDAO implements DAO<User> {
     @Override
     public void load() {
         list = new ArrayList<User>();
+
         list.clear();
 
         String sql = "select * from [User]";
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+
                 int id = rs.getInt("id");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
@@ -75,6 +78,7 @@ public class UserDAO implements DAO<User> {
                 int statuss = rs.getInt("status");
                 User newU = new User(id, email, password, name, gender, dob == null ? null : dob.toLocalDate(), roleId, phone, address, avatar, statuss);
                 list.add(newU);
+
             }
         } catch (Exception e) {
             status = "Error Load " + e.getMessage();
@@ -191,8 +195,9 @@ public class UserDAO implements DAO<User> {
         }
     }
 
-    public List<User> searchByMailAndName(String emailOrName) {
-        if (emailOrName == null || emailOrName.length() == 0) {
+
+    public List<User> searchByMailAndName(String emailOrName){
+        if(emailOrName == null ||emailOrName.length() == 0){
             return list;
         }
         List<User> userSearch = new ArrayList<>();
