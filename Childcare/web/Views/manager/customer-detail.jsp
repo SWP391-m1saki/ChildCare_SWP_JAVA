@@ -133,8 +133,6 @@
 
                         </div> <!-- card body end// -->
                     </div> <!-- card end// -->
-
-
                 </section>
             </main>
         </div>

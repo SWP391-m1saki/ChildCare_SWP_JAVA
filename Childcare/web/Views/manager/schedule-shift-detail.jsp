@@ -106,15 +106,20 @@
                                                         </c:forEach>
                                                     </tbody>
                                                 </table> <!-- table-responsive.// -->
-                                            </c:if>
-                                            <c:if test="${requestScope.work_doctors == null || requestScope.work_doctors.size() == 0}">
-                                                <h3>Không có bác sĩ nào</h3>
-                                            </c:if>
-                                        </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${requestScope.work_doctors == null || requestScope.work_doctors.size() == 0}">
+                                            <h3>Không có bác sĩ nào</h3>
+                                        </c:if>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 ps-4">
                                     <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên bác sĩ" class="form-control fw-bold w-75" value="${requestScope.search}">
+                                    <form method="POST" action="">
+                                        <div class="container scroll-overflow px-0 pt-2 search-list" style="max-height: 500px">
+
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -139,13 +144,28 @@
                                                                 shift: document.querySelector('form input[name="shift"]').value
                                                             },
                                                             async: true,
-                                                            success: function () {
+                                                            success: function (data) {
+
                                                             }
                                                         });
                                                         e.currentTarget.parentElement.parentElement.remove();
                                                     }
                                                 }));
-
+                                            document.querySelector('input[name="search"]').addEventListener('input', (e) => {
+                                                $.ajax({
+                                                    url: '/Childcare/ajax/schedule/search-doctor-to-add',
+                                                    type: "POST",
+                                                    data: {
+                                                        search: e.currentTarget.value,
+                                                        weeknum: document.querySelector('form input[name="weeknum"]').value,
+                                                        shift: document.querySelector('form input[name="shift"]').value
+                                                    },
+                                                    async: true,
+                                                    success: function (data) {
+                                                        document.querySelector('.search-list').innerHTML = data;
+                                                    }
+                                                });
+                                            });
         </script>
     </body>
 </html>

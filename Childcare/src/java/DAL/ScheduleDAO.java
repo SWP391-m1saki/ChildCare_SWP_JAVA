@@ -54,6 +54,15 @@ public class ScheduleDAO implements DAO<Schedule> {
         return null;
     }
 
+    public int getScheduleId(int doctorId, int dayOfWeek, boolean isMorningShift) {
+        for (Schedule s : list) {
+            if (s.getDayOfWeek() == dayOfWeek && s.getIsMorningShift() == isMorningShift && s.getDoctorId() == doctorId) {
+                return s.getScheduleId();
+            }
+        }
+        return -1;
+    }
+
     public List<Schedule> getScheduleOfDoctor(int doctorId) {
         List<Schedule> shifts = new ArrayList<Schedule>();
         for (Schedule s : list) {

@@ -8,10 +8,6 @@
         <location>/error</location>
     </error-page>
     <servlet>
-        <servlet-name>loadDoctorDetail</servlet-name>
-        <servlet-class>Controllers.loadDoctorDetail</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PostController</servlet-name>
         <servlet-class>controller.manager.PostController</servlet-class>
     </servlet>
@@ -25,11 +21,11 @@
     </servlet>
     <servlet>
         <servlet-name>PostList</servlet-name>
-        <servlet-class>controller.user.PostList</servlet-class>
+        <servlet-class>controller.guest.PostList</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostDetail</servlet-name>
-        <servlet-class>controller.user.PostDetail</servlet-class>
+        <servlet-class>controller.guest.PostDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateDoctorController</servlet-name>
@@ -53,19 +49,19 @@
     </servlet>
     <servlet>
         <servlet-name>AjaxDoctorList</servlet-name>
-        <servlet-class>controller.manager.AjaxDoctorList</servlet-class>
+        <servlet-class>controller.manager.ajax.AjaxDoctorList</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AjaxPostList</servlet-name>
-        <servlet-class>controller.manager.AjaxPostList</servlet-class>
+        <servlet-class>controller.manager.ajax.AjaxPostList</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AjaxPostLoadmore</servlet-name>
-        <servlet-class>controller.manager.AjaxPostLoadmore</servlet-class>
+        <servlet-class>controller.guest.AjaxPostLoadmore</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AjaxCreateCategory</servlet-name>
-        <servlet-class>controller.manager.AjaxCreateCategory</servlet-class>
+        <servlet-class>controller.manager.ajax.AjaxCreateCategory</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddChildrenController</servlet-name>
@@ -77,7 +73,7 @@
     </servlet>
     <servlet>
         <servlet-name>UpdateChildrenProfile</servlet-name>
-        <servlet-class>Controllers.UpdateChildrenProfile</servlet-class>
+        <servlet-class>controller.user.UpdateChildrenProfile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteChildrenController</servlet-name>
@@ -125,7 +121,7 @@
     </servlet>
     <servlet>
         <servlet-name>AjaxDoctorListOfShift</servlet-name>
-        <servlet-class>controller.manager.AjaxDoctorListOfShift</servlet-class>
+        <servlet-class>controller.manager.ajax.AjaxDoctorListOfShift</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ScheduleShiftDetail</servlet-name>
@@ -133,7 +129,7 @@
     </servlet>
     <servlet>
         <servlet-name>AjaxScheduleRemoveDoctor</servlet-name>
-        <servlet-class>controller.manager.AjaxScheduleRemoveDoctor</servlet-class>
+        <servlet-class>controller.manager.ajax.AjaxScheduleRemoveDoctor</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MakeAppointment</servlet-name>
@@ -147,10 +143,30 @@
         <servlet-name>LoadCustomerAppointment</servlet-name>
         <servlet-class>Controllers.LoadCustomerAppointment</servlet-class>
     </servlet>
-    <servlet-mapping>
+    <servlet>
+        <servlet-name>AjaxShiftAddDoctor</servlet-name>
+        <servlet-class>controller.manager.ajax.AjaxShiftAddDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShiftAddDoctor</servlet-name>
+        <servlet-class>controller.manager.ShiftAddDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorViewSchedule</servlet-name>
+        <servlet-class>controller.doctor.DoctorViewSchedule</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorSlotDetail</servlet-name>
+        <servlet-class>controller.doctor.DoctorSlotDetail</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>loadDoctorDetail</servlet-name>
-        <url-pattern>/loadDoctorDetail</url-pattern>
-    </servlet-mapping>
+        <servlet-class>Controllers.loadDoctorDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AppointmentListController</servlet-name>
+        <servlet-class>controller.manager.AppointmentListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
@@ -193,7 +209,7 @@
     </servlet>
     <servlet>
         <servlet-name>UserProfileController</servlet-name>
-        <servlet-class>Controllers.UserProfileController</servlet-class>
+        <servlet-class>controller.user.UserProfileController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -209,15 +225,19 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>loadHomePage</servlet-name>
-        <servlet-class>Controllers.loadHomePage</servlet-class>
+        <servlet-class>controller.guest.loadHomePage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loadAbout</servlet-name>
-        <servlet-class>Controller.loadAbout</servlet-class>
+        <servlet-class>controller.guest.loadAbout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loadDoctor</servlet-name>
-        <servlet-class>Controller.loadDoctor</servlet-class>
+        <servlet-class>controller.guest.loadDoctor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelAppointment</servlet-name>
+        <servlet-class>Controllers.CancelAppointment</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loadHomePage</servlet-name>
@@ -374,6 +394,34 @@
     <servlet-mapping>
         <servlet-name>LoadCustomerAppointment</servlet-name>
         <url-pattern>/loadCustomerAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxShiftAddDoctor</servlet-name>
+        <url-pattern>/ajax/schedule/search-doctor-to-add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShiftAddDoctor</servlet-name>
+        <url-pattern>/manager/shift/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorViewSchedule</servlet-name>
+        <url-pattern>/doctor/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorSlotDetail</servlet-name>
+        <url-pattern>/doctor/slot/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadDoctorDetail</servlet-name>
+        <url-pattern>/loadDoctorDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelAppointment</servlet-name>
+        <url-pattern>/cancelAppointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppointmentListController</servlet-name>
+        <url-pattern>/manager/appointment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

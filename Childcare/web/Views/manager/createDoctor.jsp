@@ -29,15 +29,14 @@
                 <!--ASIDE-->
                 <main class="main-admin-page">
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
+                <jsp:include page="header.jsp"></jsp:include>
                 <!--HEADER-->
 
-                <section class="content-main edit-account">
+                <section class="content-main p-3">
 
-                    <div class="content-header">
-                        <h2 class="content-title">Tạo tài khoản bác sĩ</h2>
+                    <div class="content-header mb-3">
+                        <h3 class="content-title m-0 ms-2">Tạo tài khoản bác sĩ</h3>
                     </div>
-
                     <div class="card">
                         <div class="card-body">
                             <div class="row">

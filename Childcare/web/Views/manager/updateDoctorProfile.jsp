@@ -33,13 +33,11 @@
                     <!--HEADER-->
                 <jsp:include page="header.jsp"></jsp:include>
                     <!--HEADER-->
-
-                    <section class="content-main" style="max-width: 900px">
-                        <div class="content-header p-1 ps-3 mb-3">
-                            <h3 class="content-title">Chỉnh sửa hồ sơ bác sĩ</h3>
-                        </div>
-
+                    <section class="content-main pt-2" style="max-width: 900px">
                         <div class="content-body">
+                            <div class="content-header p-1 ps-3 mb-1">
+                                <h3 class="content-title fs-4 m-3 mb-0">Chỉnh sửa hồ sơ bác sĩ</h3>
+                            </div>
                             <div class="add-form ms-3">
                                 <div class="form-item">
                                     <h5 class="p-3" style="

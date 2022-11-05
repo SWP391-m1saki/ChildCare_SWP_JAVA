@@ -6,9 +6,6 @@
         <meta charset="utf-8">
         <title>Childcare System</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
-
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
 
@@ -30,12 +27,7 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-    <!-- Pills navs -->
     <body>
-
-
-        <!-- Pills content -->
-
         <section class="vh-100">
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">

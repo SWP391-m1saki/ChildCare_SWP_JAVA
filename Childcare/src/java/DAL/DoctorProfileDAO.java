@@ -200,4 +200,45 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
         return doctors;
     }
 
+    
+    public DoctorProfile getDoctorByID(int doctorId){
+        String sql = "select * from [User] inner join DoctorProfile on [User].id = DoctorProfile.doctor_id "
+                + "WHERE doctor_id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, doctorId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                DoctorProfile doctor = new DoctorProfile();
+
+//                add user start
+                int id = rs.getInt("id");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                Boolean gender = rs.getBoolean("gender");
+                Date dob = rs.getDate("dob");
+                int roleId = rs.getInt("role_id");
+                String phone = rs.getString("phone_number");
+                String address = rs.getString("address");
+                String avatar = rs.getString("avatar");
+                int statuss = rs.getInt("status");
+                User user = new User(id, email, password, name, gender, dob == null ? null : dob.toLocalDate(), roleId, phone, address, avatar, statuss);
+//                add user end
+
+                doctor.setDoctorId(rs.getInt("doctor_id"));
+                doctor.setTitle(rs.getString("title"));
+                doctor.setPrice(rs.getDouble("price"));
+                doctor.setQualification(rs.getString("qualification"));
+                doctor.setDescription(rs.getString("description"));
+                doctor.setDepartmentId(rs.getInt("department_id"));
+                doctor.setUser(user);
+                return doctor;
+            }
+        } catch (SQLException e) {
+            status = "Error getAll doctorProfile " + e.getMessage();
+            System.out.println(status);
+        }
+        return new DoctorProfile();
+    }
 }

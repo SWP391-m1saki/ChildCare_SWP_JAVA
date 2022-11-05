@@ -1,6 +1,7 @@
 package DAL;
 
 import Models.ChildrenProfile;
+import Models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,21 +20,9 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
     private Connection con;
     private String status;
 
-    public void setList(List<ChildrenProfile> list) {
-        this.list = list;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public ChildrenProfileDAO() {
         try {
-            con = new DBContext().getConnection();
+            con = DBContext.getConnection();
         } catch (Exception e) {
             status = "Error connection at ChildrenProfileDAO" + e.getMessage();
         }
@@ -57,10 +46,12 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
     @Override
     public void load() {
         list = new ArrayList<ChildrenProfile>();
-        String sql = "select * from ChildrenProfile";
+        String sql = "select * from ChildrenProfile c\n"
+                + "INNER JOIN [USER] u ON u.id = c.children_id";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            UserDAO userDao = new UserDAO();
             while (rs.next()) {
                 int childrenId = rs.getInt("children_id");
                 String name = rs.getString("name");
@@ -69,10 +60,10 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
                 int parentId = rs.getInt("parent_id");
                 String avatar = rs.getString("avatar");
                 //System.out.println(roleId);
-                ChildrenProfile c = new ChildrenProfile(childrenId, name, gender, dob, parentId, avatar);
+                ChildrenProfile c = new ChildrenProfile(childrenId, name, gender, dob, parentId, avatar, userDao.getUserByID(parentId));
                 list.add(c);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             status = "Error Load Children Profile " + e.getMessage();
             System.out.println(status);
         }
@@ -95,7 +86,6 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
             System.out.println(status);
         }
     }
-
 
     @Override
     public void update(ChildrenProfile t) {
@@ -130,7 +120,9 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
     public ArrayList<ChildrenProfile> getChildrenOfUser(int parentId) {
         ArrayList<ChildrenProfile> list1 = new ArrayList<ChildrenProfile>();
         for (ChildrenProfile c : list) {
-            if (c.getParentId() == parentId) list1.add(c);
+            if (c.getParentId() == parentId) {
+                list1.add(c);
+            }
         }
         return list1;
     }

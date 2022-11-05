@@ -9,6 +9,7 @@ public class Schedule {
     private int dayOfWeek;
     private Boolean isMorningShift;
     private boolean isWorked;
+    private DoctorProfile doctor;
 
     public Schedule() {
     }
@@ -26,6 +27,15 @@ public class Schedule {
         this.dayOfWeek = dayOfWeek;
         this.isMorningShift = isMorningShift;
         this.isWorked = isWorked;
+    }
+    
+    public Schedule(int scheduleId, int doctorId, int dayOfWeek, Boolean isMorningShift, boolean isWorked, DoctorProfile doctor) {
+        this.scheduleId = scheduleId;
+        this.doctorId = doctorId;
+        this.dayOfWeek = dayOfWeek;
+        this.isMorningShift = isMorningShift;
+        this.isWorked = isWorked;
+        this.doctor = doctor;
     }
 
     public int getScheduleId() {
@@ -68,9 +78,18 @@ public class Schedule {
         this.isWorked = isWorked;
     }
 
+    public DoctorProfile getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorProfile doctor) {
+        this.doctor = doctor;
+    }
 
     @Override
     public String toString() {
-        return "Schedule{" + "ScheduleId=" + scheduleId + ", doctorId=" + doctorId + ", dayOfWeek=" + dayOfWeek + ", isMorningShift=" + isMorningShift + ", status=" + isWorked + '}';
+        return "Schedule{" + "scheduleId=" + scheduleId + ", doctorId=" + doctorId + ", dayOfWeek=" + dayOfWeek + ", isMorningShift=" + isMorningShift + ", isWorked=" + isWorked + ", doctor=" + doctor + '}';
     }
+
+
 }

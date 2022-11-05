@@ -86,9 +86,15 @@
             </li>
 
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/appointment">
-                    <i style="color: #91969b" class="fa-solid fa-briefcase"></i>                    
-                    <span class="text ms-4">Lịch đặt khám</span>
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/account">
+                    <img src="${pageContext.request.contextPath}/img/settings_gray.svg">
+                    <span class="text ms-4">Account Setting</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/review">
+                    <img src="${pageContext.request.contextPath}/img/calendar.svg">
+                    <span class="text ms-4">Đánh giá</span>
                 </a>
             </li>
             <li class="menu-item">
@@ -100,12 +106,6 @@
                 <a class="menu-link" href="${pageContext.request.contextPath}/admin/chat">
                     <img src="${pageContext.request.contextPath}/img/calendar.svg">
                     <span class="text ms-4">Chat với người dùng</span> </a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/account">
-                    <img src="${pageContext.request.contextPath}/img/settings_gray.svg">
-                    <span class="text ms-4">Hồ sơ tài khoản</span>
-                </a>
             </li>
         </ul>
     </div>

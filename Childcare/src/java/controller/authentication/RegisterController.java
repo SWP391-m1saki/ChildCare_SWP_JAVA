@@ -19,7 +19,6 @@ import java.io.IOException;
 /**
  * @author Misaki
  */
-
 public class RegisterController extends HttpServlet {
 
     UserDAO dao;
@@ -56,7 +55,9 @@ public class RegisterController extends HttpServlet {
         boolean b1 = password.equals(confirmPassword);
         boolean b2 = dao.EmailDuplicate(email);
         if (!b1 || b2) {
-            if (!b1) request.setAttribute("NOTIFICATION", "Wrong confirm password");
+            if (!b1) {
+                request.setAttribute("NOTIFICATION", "Wrong confirm password");
+            }
             if (b2) {
                 request.setAttribute("NOTFICATION", "Email have been used!");
             }
@@ -67,9 +68,8 @@ public class RegisterController extends HttpServlet {
             User newUser = new User(0, email, password, name, true, null, 4, null, null, avatar, 0);
             dao.add(newUser);
             //System.out.println("concakkk");
-            sendEmail sm = new sendEmail();
-            String code = sm.getRandom();
-            boolean test = sm.SendEmail(email, code);
+            String code = sendEmail.getRandom();
+            boolean test = sendEmail.SendEmail(email, code);
             if (test) {
                 HttpSession session = request.getSession();
                 if (session.getAttribute("verifying") != null) {
@@ -82,7 +82,9 @@ public class RegisterController extends HttpServlet {
                 session.setAttribute("verifyingEmail", email);
                 request.setAttribute("register", true);
                 request.getRequestDispatcher("Views/Customers/Verify.jsp").forward(request, response);
-            } else response.sendRedirect("loadHomePage");
+            } else {
+                response.sendRedirect("loadHomePage");
+            }
         }
 
     }

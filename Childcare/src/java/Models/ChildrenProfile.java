@@ -17,6 +17,7 @@ public class ChildrenProfile {
     private LocalDate dob;
     private int parentId;
     private String avatar;
+    private User parent;
 
     public ChildrenProfile() {
     }
@@ -28,6 +29,16 @@ public class ChildrenProfile {
         this.dob = dob;
         this.parentId = parentId;
         this.avatar = avatar;
+    }
+    
+    public ChildrenProfile(int childrenId, String name, Boolean gender, LocalDate dob, int parentId, String avatar, User parent) {
+        this.childrenId = childrenId;
+        this.name = name;
+        this.gender = gender;
+        this.dob = dob;
+        this.parentId = parentId;
+        this.avatar = avatar;
+        this.parent = parent;
     }
 
     public int getChildrenId() {
@@ -78,5 +89,17 @@ public class ChildrenProfile {
         this.avatar = avatar;
     }
 
+    public User getParent() {
+        return parent;
+    }
+
+    public void setParent(User parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public String toString() {
+        return "ChildrenProfile{" + "childrenId=" + childrenId + ", name=" + name + ", gender=" + gender + ", dob=" + dob + ", parentId=" + parentId + ", avatar=" + avatar + ", parent=" + parent + '}';
+    }
 
 }

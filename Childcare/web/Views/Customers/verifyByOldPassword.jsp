@@ -7,9 +7,6 @@
         <meta charset="utf-8">
         <title>Childcare System</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
-
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
@@ -24,45 +21,34 @@
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <link href="css/admin.css" rel="stylesheet">
     </head>
-    <!-- Pills navs -->
     <body>
         <jsp:include page="../Shared/_Header.jsp"></jsp:include>
 
 
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4 bg-light text-white mx-auto p-5 align-items-center" >
-                        <ul class="list-group list-group-flush">
+                <jsp:include page="ASIDE.jsp"/>
 
-                            <li><a href='userProfile'>Chỉnh sửa tài khoản</a></li>
-                            <li><a href='loadChildren'>Hồ sơ của trẻ</a></li>
-                            <li><a href='#'>Lịch của bạn</a></li>
-                            <li><a href='verifyByOldPassword'>Đổi mật khẩu</a></li>
-                        </ul>
-                    </div>
+                <div class="col-sm-8 mx-auto p-5">
+                    <h1 class="mb-5">Đổi mật khẩu của bạn</h1>
+                    <form action="verifyByOldPassword" method="post">
 
-
-                    <div class="col-sm-8 mx-auto p-5">
-                        <form action="verifyByOldPassword" method="post">
-
-                            <div class="form-outline mb-4">
-                                <input type="password" class="form-control form-control-lg" name="oldPassword" />
-                            <label class="form-label" for="name">Old Password</label>
+                        <div class="form-outline mb-4">
+                            <label class="form-label fs-5" for="name">Nhập mật khẩu cũ</label>
+                            <input type="password" class="form-control form-control-lg w-50" name="oldPassword" />
                         </div>
-                            
-                             <div class="d-flex justify-content-between align-items-center">
-                            <div class="text-center text-lg-start mt-4 pt-2">
-                                <button class="btn btn-primary btn-lg" type="submit"
-                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Submit</button>
 
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-center text-lg-start pt-2">
+                                <button class="btn btn-primary px-3" type="submit">Kiểm tra</button>
                             </div>
                         </div>
-
-
                     </form>
                 </div>
 

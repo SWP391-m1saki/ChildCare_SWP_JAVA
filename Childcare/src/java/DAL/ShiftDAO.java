@@ -126,6 +126,28 @@ public class ShiftDAO implements DAO<Shift> {
         }
         return shifts;
     }
+    
+    public List<Shift> getShiftsOfWeekOfDoctor(int week_number, int doctorId) {
+        LocalDate start_date = Utils.Utility.getFirstDayOfWeek(week_number);
+        LocalDate end_date = Utils.Utility.getLastDayOfWeek(start_date);
+
+        List<Shift> shifts = new ArrayList<>();
+        for (Shift shift : list) {
+            if (shift.getSchedule().getDoctorId() == doctorId && shift.getDate().compareTo(end_date) <= 0 && shift.getDate().compareTo(start_date) >= 0) {
+                shifts.add(shift);
+            }
+        }
+        return shifts;
+    }
+    
+    public Shift getShiftByDay(List<Shift> shifts, int dayOfWeek, boolean isMorning) {
+        for (Shift shift : shifts) {
+            if (shift.getSchedule().getDayOfWeek() == dayOfWeek && shift.getSchedule().getIsMorningShift() == isMorning) {
+                return shift;
+            }
+        }
+        return null;
+    }
 
     public List<DoctorProfile> getDoctorListOfShift(int week_number, int dayOfWeek, boolean isMorningShift) {
         List<DoctorProfile> doctors = new ArrayList<>();
@@ -169,10 +191,10 @@ public class ShiftDAO implements DAO<Shift> {
 
         List<DoctorProfile> doctors = new ArrayList<>();
         LocalDate date = Utils.Utility.getFirstDayOfWeek(week_number).plusDays(dayOfWeek - 1);
-        String sql = "SELECT id, [name], avatar, title, email FROM [Shift] s\n"
-                + "                INNER JOIN Schedule sch ON s.scheduleId = sch.scheduleId\n"
-                + "                INNER JOIN DoctorProfile d ON d.doctor_id = sch.doctorId\n"
-                + "                INNER JOIN [User] u ON u.id = d.doctor_id\n"
+        String sql = "SELECT id, [name], avatar, title, email FROM [User] u\n"
+                + "                INNER JOIN DoctorProfile d ON u.id = d.doctor_id\n "
+                + "                INNER JOIN Schedule sch ON d.doctor_id = sch.doctorId\n"
+                + "                FULL JOIN [Shift] s ON s.scheduleId = sch.scheduleId\n"
                 + "                WHERE date = ?\n"
                 + "                AND isMorningShift = ?\n"
                 + "                AND d.department_id = ?";
@@ -183,7 +205,6 @@ public class ShiftDAO implements DAO<Shift> {
             ps.setInt(3, depId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                System.out.println("Okay");
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
@@ -242,5 +263,62 @@ public class ShiftDAO implements DAO<Shift> {
             }
         }
         return false;
+    }
+
+    public List<DoctorProfile> getDoctorsNotWorkInShift(int week_number, int dayOfWeek, boolean isMorningShift, int depId) {
+        List<DoctorProfile> doctors = new ArrayList<>();
+        LocalDate date = Utils.Utility.getFirstDayOfWeek(week_number).plusDays(dayOfWeek - 1);
+        String sql = "SELECT id, [name], avatar, title, email \n"
+                + "		FROM (\n"
+                + "			SELECT DISTINCT id, [name], avatar, title, email, department_id FROM [User] u\n"
+                + "			INNER JOIN DoctorProfile d ON u.id = d.doctor_id\n"
+                + (depId > 0 ? "WHERE department_id = ?" : "") + "\n"
+                + "		) doctor\n"
+                + "LEFT JOIN (SELECT shiftId, sch.scheduleId, doctorId FROM [Shift] s\n"
+                + "			INNER JOIN Schedule sch ON s.scheduleId = sch.scheduleId\n"
+                + "			WHERE s.[date] = ?\n"
+                + "			AND isMorningShift = ?\n"
+                + "		   ) s1 ON s1.doctorId = doctor.id\n"
+                + "WHERE s1.shiftId IS NULL";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            if (depId == -1) {
+                ps.setDate(1, java.sql.Date.valueOf(date));
+                ps.setBoolean(2, isMorningShift);
+            } else {
+                ps.setInt(1, depId);
+                ps.setDate(2, java.sql.Date.valueOf(date));
+                ps.setBoolean(3, isMorningShift);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setAvatar(rs.getString("avatar"));
+                user.setEmail(rs.getString("email"));
+
+                DoctorProfile doctor = new DoctorProfile();
+                doctor.setDoctorId(rs.getInt("id"));
+                doctor.setTitle(rs.getString("title"));
+                doctor.setUser(user);
+                doctors.add(doctor);
+            }
+        } catch (SQLException e) {
+            status = "Error " + e.getMessage();
+            System.out.println(status);
+        }
+        return doctors;
+    }
+
+    public void addDoctorToShift(int week_number, int dayOfWeek, boolean morningShift, int doctorId) {
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        scheduleDAO.load();
+        int scheduleId = scheduleDAO.getScheduleId(doctorId, dayOfWeek, morningShift);
+        if (scheduleId >= 0) {
+            Schedule schedule = new Schedule();
+            schedule.setScheduleId(scheduleId);
+            add(new Shift(scheduleId, Utils.Utility.getFirstDayOfWeek(week_number).plusDays(dayOfWeek - 1), schedule));
+        }
     }
 }

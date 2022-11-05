@@ -5,7 +5,8 @@
 package DAL;
 
 import Models.DoctorProfile;
-import Models.SlotTime;
+import Models.Schedule;
+import Models.*;
 
 /**
  * @author Admin
@@ -14,17 +15,48 @@ import Models.SlotTime;
 public class testData {
 
     public static void main(String[] args) {
-        getSchedule();
+        testAppointment();
     }
 
     private static void getSchedule() {
+//        ShiftDAO dao = new ShiftDAO();
+//        dao.addDoctorToShift(45, 1, true, 2);
+//        ScheduleDAO scheduleDAO = new ScheduleDAO();
+//        scheduleDAO.load();
+//        int scheduleId = scheduleDAO.getScheduleId(2, 2, true);
+//        System.out.println(scheduleId);
+
+    }
+
+    private static void testShift() {
         ShiftDAO dao = new ShiftDAO();
         dao.load();
-//        dao.removeDoctorOfShift(44, 1, true, 2);
-        for (DoctorProfile shift : dao.getDoctorListOfShift(44, 1, false)) {
-            System.out.println(shift);
-
+        for (DoctorProfile doc : dao.getDoctorsNotWorkInShift(45, 1, true, -1)) {
+            System.out.println(doc);
         }
+    }
+    
+    private static void testAppointment() {
+        AppointmentDAO dao = new AppointmentDAO();
+        dao.load();
+//        Slot s = new Slot();
+//        s.setSlotId(8);
+        for (Appointment doc : dao.filterAppointmentExtended(" ", "con", "", "581", 6, -1)) {
+            System.out.println(doc);
+        }
+    }
+
+    private static void testSlot() {
+        SlotDAO dao = new SlotDAO();
+        dao.load();
+//        for (int i = 148; i <= 150; i++) {
+//            for (int j = 1; j <= 8; j++) {
+////                dao.add(new Slot(true, 1, j, i));
+//            }
+//        }
+//        for (Slot slot : dao.getByShift(2, 0)) {
+            System.out.println(dao.getByShift(148, 6));
+//        }
     }
 
     //    private static void getSlotData(){

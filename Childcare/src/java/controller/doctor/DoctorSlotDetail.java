@@ -2,67 +2,55 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.user;
+package controller.doctor;
 
-import DAL.CategoryDAO;
-import DAL.PostDAO;
-import Models.Post;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-
 /**
- * @author ADMIN
+ *
+ * @author Admin
  */
-public class PostDetail extends HttpServlet {
-
-    PostDAO postDao;
-    CategoryDAO categoryDao;
-
-    @Override
-    public void init() {
-        postDao = new PostDAO();
-        categoryDao = new CategoryDAO();
-    }
+public class DoctorSlotDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int id = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-        Post post = postDao.get(id);
-        if (post != null) {
-            request.setAttribute("postDetail", post);
-            request.setAttribute("cid", post.getCateId());
-            request.setAttribute("categoryList", categoryDao.getAll());
-            request.setAttribute("postRecent", postDao.getPostByCate(post.getCateId()));
-        } else {
-            request.setAttribute("postRecent", postDao.getAll());
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DoctorSlotDetail</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DoctorSlotDetail at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        request.getRequestDispatcher("Views/guests/postDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -73,10 +61,10 @@ public class PostDetail extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

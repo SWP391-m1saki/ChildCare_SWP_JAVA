@@ -44,17 +44,16 @@
                 <jsp:include page="header.jsp"></jsp:include>
                     <!--HEADER-->
 
-                    <section class="content-main">
-
-                        <div class="content-header">
-                            <h2 class="content-title">Quản lí người dùng</h2>
+                    <section class="content-main mx-2">
+                        <div class="content-header mb-3">
+                            <h2 class="content-title ms-2 fs-4">Quản lí người dùng</h2>
                             <div>
                                 <!--<a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>-->
                             </div>
                         </div>
 
                         <div class="card mb-4">
-                            <header class="card-header">
+                            <header class="card-header bg-white">
                                 <div class="row gx-3">
                                     <div class="col-lg-4 col-md-6 me-auto">
                                         <input type="text" name="search" form="main-form" placeholder="Tìm kiếm tên hoặc email" class="form-control" value="${requestScope.search}">

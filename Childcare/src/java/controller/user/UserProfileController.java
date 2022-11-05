@@ -1,4 +1,4 @@
-package Controllers;
+package controller.user;
 
 import DAL.UserDAO;
 import Models.User;
@@ -81,9 +81,8 @@ public class UserProfileController extends HttpServlet {
         for (Part part : request.getParts()) {
             fileName = getFileName(part);
             part.write(uploadPath + "\\" + fileName);
-            newUser.setAvatar("img" + "/ " + fileName);
+            newUser.setAvatar(fileName);
         }
-
 
         dao.update(newUser);
         session.setAttribute("UserLogined", newUser);

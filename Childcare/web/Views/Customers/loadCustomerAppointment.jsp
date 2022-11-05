@@ -7,8 +7,6 @@
         <meta charset="utf-8">
         <title>Childcare System</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
 
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
@@ -33,113 +31,83 @@
     </head>
     <!-- Pills navs -->
     <body>
-        <style>
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                border: 1px solid #e7e7e7;
-                background-color: #f3f3f3;
-            }
-
-            li {
-                float: left;
-            }
-
-            li a {
-                display: block;
-                color: #666;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-            li a:hover:not(.active) {
-                background-color: #ddd;
-            }
-
-            li a.active {
-                color: white;
-                background-color: #04AA6D;
-            }
-        </style>
+        <c:set var="context" value="${pageContext.request.contextPath}" />  
         <div id="colorlib-page">
             <jsp:include page="../Shared/_Header.jsp"></jsp:include>
                 <!-- Pills content -->
                 <div class="container">
                     <div class="row">
 
-                        <div class="col-sm-4 bg-light text-white mx-auto p-5 align-items-center" >
-                            <ul class="list-group list-group-flush">
-
-                                <li class="list-group-item list-group-item-dark"><a href='userProfile'>Chỉnh sửa tài khoản</a></li>
-                                <li class="list-group-item list-group-item-dark"><a href='loadChildren'>Hồ sơ của trẻ</a></li>
-                                <li class="list-group-item list-group-item-dark"><a href='loadCustomerAppointment'>Lịch của bạn</a></li>
-                                <li class="list-group-item list-group-item-dark"><a href='verifyByOldPassword'>Đổi mật khẩu</a></li>
-                            </ul>
-
-                        </div>
+                    <jsp:include page="ASIDE.jsp"/>
 
 
-                        <div class="col-sm-8 mx-auto p-5">
+                        <div class="col-sm-8 mx-auto p-5 mt-3">
                             <ul>
 
-                                <li><a href="loadCustomerAppointment?typeId=1">Lịch sắp đến</a></li>
-                                <li><a href="loadCustomerAppointment?typeId=2">Hoàn thành</a></li>
-                                <li><a href="loadCustomerAppointment?typeId=3">Lịch sử đặt lịch</a></li>
-                            </ul>
+                                <li><a href="loadCustomerAppointment?typeId=1" 
+                                    ${requestScope.typeId == 1 ? 'class="active"':''}>Lịch sắp đến</a></li>
+                            <li><a href="loadCustomerAppointment?typeId=2" 
+                                   ${requestScope.typeId == 2 ? 'class="active"':''}>Hoàn thành</a></li>
+                            <li><a href="loadCustomerAppointment?typeId=3" 
+                                   ${requestScope.typeId == 3 ? 'class="active"':''}>Lịch sử đặt lịch</a></li>
+                        </ul>
 
-                        </div>
-
-                        <div class="col-sm-8 mx-auto p-5">
-                            <div class="card-group">
+                        <div class="card-group" style="margin-top: 50px;">
+                            <c:if test="${requestScope.AppHm.isEmpty()}"><p style="margin:0 auto" class="fs-5">Lịch trống</p></c:if>
                             <c:forEach items="${requestScope.AppHm}" var="app">
                                 <div class="col-md-12" style="padding: 10px 20px">
-                                    <form action="loadAppointmentDetail" method="post">
+                                    <form action="cancelAppointment" method="post">
                                         <input type="hidden" name="AppId" value="${app.key.appointmentId}">
                                         <div class="card mb-5 text-dark" style="background-color: white;
                                              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.08); border-radius: 10px;">
 
                                             <div class="card-body">
-                                                <div class="row doctor-profile-header">
+                                                <div class="d-flex align-items-center doctor-profile-header">
                                                     <div class="profileImage">
-                                                        <img src="${app.value.user.avatar}" style="border-radius: 50%; width: 70px; height: 70px;">
+                                                        <img src="${context}/img/${app.value.user.avatar}" width="80" height="80" class="rounded-circle">
                                                     </div>
-                                                    <div class="doctorInfoHeader">
-                                                        <h3 >
+                                                    <div class="doctorInfoHeader ms-3">
+                                                        <h3 class="fs-4">
                                                             <span class="title">${app.value.title}</span> 
                                                             <span class="fullname">${app.value.user.name}</span>
                                                         </h3>
-
                                                     </div >
                                                 </div>
-                                                <div class="doctor-detail" style="padding-top: 20px;">
+                                                <div class="doctor-detail pt-3 ps-2">
                                                     <div class="description-section">
                                                         <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
                                                             Ngày:    
-                                                            <span style="color:#030B12">${app.value.slot.shift.date}</span>
+                                                            <span style="color:#030B12">${app.key.slot.shift.date}</span>
                                                         </p>
                                                         <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
                                                             Thời gian: 
-                                                            <span style="color:#030B12">${app.value.slot.slotTime.startTime} - ${app.slot.slotTime.endTime}</span>
+                                                            <span style="color:#030B12">${app.key.slot.slotTime.startTime} - ${app.key.slot.slotTime.endTime}</span>
                                                         </p>
                                                         <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
                                                             Phí: 
-                                                            <span style="color:#030B12">${app.value.user.price}</span>
+                                                            <span style="color:#030B12">${app.value.price}</span>
                                                         </p>
+                                                        <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
+                                                            Trạng thái: 
+                                                            <c:if test="${app.key.status == 0}"><span style="color: #1794DC; font-size: 14px;">Sắp đến</span></c:if>
+                                                            <c:if test="${app.key.status == 1}"><span style="color: #12D80C; font-size: 14px;">Hoàn thành</span></c:if>
+                                                            <c:if test="${app.key.status == 2}"><span style="color: #F33E11; font-size: 14px;">Đã hủy</span></c:if>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="card-footer d-flex justify-content-center"> 
+                                                <c:if test="${app.key.status == 0}"><button type="submit" class="btn btn-danger">Hủy</button></c:if>
+                                                </div>
                                             </div>
-                                            <div class="card-footer d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-dark">Đặt Lịch</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                        </form>
+                                    </div>
                             </c:forEach>
                         </div>
+
                     </div>
+
+
 
                 </div>
             </div>

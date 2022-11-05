@@ -1,4 +1,4 @@
-package Controllers;
+package controller.guest;
 
 import DAL.DoctorProfileDAO;
 import jakarta.servlet.ServletException;

@@ -1,6 +1,5 @@
 package DAL;
 
-
 import Models.*;
 
 import java.sql.Connection;
@@ -53,7 +52,18 @@ public class SlotDAO implements DAO<Slot> {
         return null;
     }
 
+    public List<Slot> getSlotsByShiftID(int shiftId) {
+        List<Slot> slots = new ArrayList<>();
+        for (Slot s : list) {
+            if (s.getShift().getShiftId() == shiftId) {
+                slots.add(s);
+            }
+        }
+        return slots;
+    }
+
     @Override
+
     public void load() {
         list.clear();
         String sql = "select *\n"
@@ -79,14 +89,13 @@ public class SlotDAO implements DAO<Slot> {
                 String startTime = rs.getString("startTime");
                 String endTime = rs.getString("endTime");
                 //System.out.println(roleId);
-                Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime), 
+                Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime),
                         new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
                 list.add(s);
             }
         } catch (SQLException e) {
             status = "Error Load Slot " + e.getMessage();
             System.out.println(status);
-            //System.out.println("Helloooooo");
         }
     }
 
@@ -107,7 +116,6 @@ public class SlotDAO implements DAO<Slot> {
         }
     }
 
-    
     public void update(int slotId, int slotTimeId, boolean isExamination, int statuss, int shiftId) {
         String sql = "Update slot set slotTimeId=?, isExamination=?, status=?, shiftId=? where slot_id=?";
         try {
@@ -139,25 +147,7 @@ public class SlotDAO implements DAO<Slot> {
         }
     }
 
-//    public int getNumOfWorkDoctorOfShift(List<Slot> slots, int dayOfWeek, boolean isMorningShift) {
-//        int countDoctor = 0;
-//        for (Slot slot : slots) {
-//            if (slot.getDate().getDayOfWeek().getValue() == dayOfWeek) {
-//                if (isMorningShift == slot.isMorningShift()) {
-//                    countDoctor++;
-//                }
-//            }
-//        }
-//        return countDoctor;
-//    }
-//    public static void main(String[] args) {
-//           SlotDAO dao = new SlotDAO();
-//           dao.load();
-//           for(Slot s: dao.getAll()){
-//               System.out.println(s.getSlotId() + " " + s.getSlotTimeId());
-//           }
-//    }
-
+    
     @Override
     public void add(Slot t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -166,5 +156,9 @@ public class SlotDAO implements DAO<Slot> {
     @Override
     public void update(Slot t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updateStatus(int slotId, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

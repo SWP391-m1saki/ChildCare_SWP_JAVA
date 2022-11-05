@@ -1,10 +1,17 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
+<%-- 
+    Document   : doctor-scheduling
+    Created on : Oct 20, 2022, 3:32:46 PM
+    Author     : Admin
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+
+<!DOCTYPE html>
+<html>
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Childcare System</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
@@ -33,6 +40,7 @@
     </head>
 
     <body>
+        <c:set var="context" value="${pageContext.request.contextPath}" />  
         <jsp:include page="Shared/_Header.jsp"/>
         <!-- Hero Start -->
         <div class="container-fluid bg-primary py-5 mb-5 hero-header">
@@ -61,23 +69,23 @@
                 <div class="owl-carousel team-carousel position-relative">
                     <c:forEach items="${requestScope.doctors}" var="d">
                         <div class="team-item">
-                                <div class="row g-0 bg-light rounded overflow-hidden">
-                                    <div class="col-12 col-sm-5 h-100">
-                                        <img class="img-fluid h-100" src="${d.user.avatar}" style="object-fit: cover;">
+                            <div class="row g-0 bg-light rounded overflow-hidden">
+                                <div class="col-12 col-sm-5 h-100">
+                                    <img class="img-fluid h-100" src="${d.user.avatar}" style="object-fit: cover;">
+                                </div>
+                                <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                                    <div class="mt-auto p-4">
+                                        <h3><a href="loadDoctorDetail?id=${d.doctorId}">${d.user.name}</a></h3>
+                                        <h6 class="fw-normal fst-italic text-primary mb-4">${d.title}</h6>
+                                        <p class="m-0">${d.description}</p>
                                     </div>
-                                    <div class="col-12 col-sm-7 h-100 d-flex flex-column">
-                                        <div class="mt-auto p-4">
-                                            <h3><a href="loadDoctorDetail?id=${d.doctorId}">${d.user.name}</a></h3>
-                                            <h6 class="fw-normal fst-italic text-primary mb-4">${d.title}</h6>
-                                            <p class="m-0">${d.description}</p>
-                                        </div>
-                                        <div class="d-flex mt-auto border-top p-4">
-                                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                        </div>
+                                    <div class="d-flex mt-auto border-top p-4">
+                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </c:forEach>    
                 </div>

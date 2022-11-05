@@ -31,51 +31,66 @@
     <!-- Pills navs -->
     <body>
         <jsp:include page="../Shared/_Header.jsp"></jsp:include>
+        <c:set var="context" value="${pageContext.request.contextPath}" />
 
-            <style>
-                .doctor-profile-header{
-                    display: grid;
-                    grid-gap: 16px;
-                    position: relative;
-                    margin: 24px;
-                    border-bottom: 1px solid rgb(228, 232, 236);
-                    grid-template-columns: 1fr 10fr;
-                    align-items: center;
-                    vertical-align: middle;
-                }
+        <style>
+            .doctor-profile-header{
+                display: grid;
+                grid-gap: 16px;
+                position: relative;
+                margin: 24px;
+                border-bottom: 1px solid rgb(228, 232, 236);
+                grid-template-columns: 1fr 10fr;
+                align-items: center;
+                vertical-align: middle;
+            }
 
-                .service-detail {
-                    background: rgb(248, 249, 252);
-                    border-radius: 6px;
-                    padding: 16px;
-                }
+            .service-detail {
+                background: rgb(248, 249, 252);
+                border-radius: 6px;
+                padding: 16px;
+            }
 
-                .price-des {
-                    display: flex;
-                    -webkit-box-align: center;
-                    align-items: center;
-                    margin-top: 10px;
-                    margin-bottom: 0;
-                    gap: 8px;
-                    font-size: 14px;
-                    line-height: 24px;
-                    color: #262626;
-                }
+            .price-des {
+                display: flex;
+                -webkit-box-align: center;
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 0;
+                gap: 8px;
+                font-size: 14px;
+                line-height: 24px;
+                color: #262626;
+            }
 
-                .price-des .price {
-                    color: #009e5c;
-                }
-            </style>
-            <div class="container">
-                <div class="row">
+            .price-des .price {
+                color: #009e5c;
+            }
+        </style>
 
-                    <div class="col-sm-12 mx-auto p-5">
+        <div class="container">
+<!--            <div class="row">
+                BreadCrum
+                <div class="container-fluid fs-6 mt-4 ms-5">
+                    <div class="container nav-item nav-link">
 
-                        <div class="row">
-                            <div style="padding-left: 50px; padding-top: 100px; padding-bottom: 30px;">
-                                <h5>${requestScope.DoctorList.size()} bác sĩ ${requestScope.DepartmentName}: </h5>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" class="">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Danh sách bác sĩ
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="row" style="max-width: 1120px; margin: 0 auto;">
+                <div class="col-sm-12 mx-auto">
+                    <div class="row" >
+                        <div class="ps-4 py-3 ms-2">
+                            <h5>${requestScope.DoctorList.size()} bác sĩ ${requestScope.DepartmentName}: </h5>
                         </div>
-                        <div class="card-group">
+                        <div class="card-group" >
                             <c:forEach items="${requestScope.DoctorList}" var="d">
                                 <div class="col-md-12" style="padding:10px 20px" >
                                     <form action="chooseDoctor" method="post" id="doctorFrm">
@@ -83,10 +98,10 @@
                                         <div class="card mb-5 text-dark" style="background-color: white;
                                              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.08); border-radius: 10px;">
 
-                                            <div class="card-body">
+                                            <div class="card-body" >
                                                 <div class="row doctor-profile-header">
                                                     <div class="profileImage">
-                                                        <img src="${d.user.avatar}" style="border-radius: 50%; width: 70px; height: 70px;">
+                                                        <img src="${context}/img/${d.user.avatar}" style="border-radius: 50%; width: 70px; height: 70px;">
                                                     </div>
                                                     <div class="doctorInfoHeader">
                                                         <h3 >

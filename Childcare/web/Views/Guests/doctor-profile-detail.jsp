@@ -12,13 +12,6 @@
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
-
-
-
-
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
-
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
 
@@ -40,19 +33,18 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-    <body>
+    <body onload="onload()">
         <script src="js/DateChoose.js"></script>
         <jsp:include page="../Shared/_Header.jsp"></jsp:include>
-        <%--<c:set var="context" value="${pageContext.request.contextPath}" />--%>
+        <c:set var="context" value="${pageContext.request.contextPath}" />
 
         <main class="main-admin-page">
             <!--HEADER-->
 
             <section class="content-main edit-account">
-
-                <div class="content-header">
-                    <h2 class="content-title">Thông tin bác sĩ</h2>
-                </div>
+                <!--                <div class="content-header">
+                                    <h2 class="content-title">Thông tin bác sĩ</h2>
+                                </div>-->
 
                 <style>
                     .doctor-profile-header{
@@ -182,18 +174,18 @@
                         cursor: not-allowed;
                     }
                 </style>
-                <div class="card">
+                <div class="card" style="max-width: 1120px; margin: 0 auto;">
                     <div class="card-body">
                         <div class="row doctor-profile-header">
                             <div class="profileImage">
-                                <img class="mb-3 rounded-circle shadow-4" src="${doctors.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/>
+                                <img class="mb-3 rounded-circle shadow-4" src="${context}/img/${doctors.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/>
                             </div>
                             <div class="doctorInfoHeader">
                                 <h1 class="fs-4">
                                     <span class="title">${doctors.title}</span> 
                                     <span class="fullname">${doctors.user.name}</span>
                                 </h1>
-                                    <p class="text-sm-start">${requestScope.DepartmentName}</p>
+                                <p class="text-sm-start">${requestScope.DepartmentName}</p>
                             </div>
                         </div>
                         <div class="row doctor-profile-body">
@@ -318,17 +310,16 @@
                 </div> <!-- card end// -->
                 <script>
 
-                    var header = document.getElementById("myDiv");
-                    var btns = header.getElementsByClassName("btnSlot");
-                    for (var i = 0; i < btns.length; i++) {
-                        btns[i].addEventListener("click", function () {
+                    var btns = Array.from(document.querySelectorAll("#myDiv .btnSlot"));
+                    btns.forEach((btn) => {
+                        btn.addEventListener("click", () => {
                             document.getElementById("SubmitButton").disabled = false;
-                            var current = document.getElementsByClassName("active");
-                            current[0].className = current[0].className.replace(" active", "");
-                            if (this.className.indexOf("btnSlot") !== -1)
-                                this.className += " active";
+                            if (document.querySelector('#frmDate .active') !== null)
+                                document.querySelector('#frmDate .active').classList.remove('active');
+                            if (btn.classList.contains("btnSlot"))
+                                btn.classList.add('active');
                         });
-                    }
+                    });
 
                     function myFunction() {
                         //alert("The input value has changed. The new value is: ");
@@ -337,14 +328,19 @@
 
                     function processSlotTime() {
 
-                        var selectedSlot = document.getElementsByClassName("active");
-                        var SlotTimeId = selectedSlot[0].getAttribute("data-slotTime-id");
+                        var SlotTimeId = document.querySelector('#frmDate .active').getAttribute("data-slotTime-id");
                         //alert(SlotTimeId);
                         var hiddenSlotTimeId = document.getElementById("slotTimeId");
                         hiddenSlotTimeId.value = SlotTimeId;
 
-                        var form = document.getElementById("frmDate");
-                        form.submit();
+                        //submit form
+                        document.getElementById("frmDate").submit();
+                    }
+
+                    function onload() {
+                        const inputDate = document.querySelector('#choosedDate');
+                        inputDate.min = new Date().toISOString().slice(0,10);
+                        inputDate.max = new Date(new Date().getTime() + (15 * 24 * 60 * 60 * 1000)).toISOString().slice(0,10);
                     }
                 </script>
 

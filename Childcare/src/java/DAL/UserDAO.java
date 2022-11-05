@@ -31,7 +31,7 @@ public class UserDAO implements DAO<User> {
 
     public UserDAO() {
         try {
-            con = new DBContext().getConnection();
+            con = DBContext.getConnection();
         } catch (Exception e) {
             status = "Error connection at UerDAO " + e.getMessage();
         }
@@ -250,10 +250,32 @@ public class UserDAO implements DAO<User> {
             System.out.println(status);
         }
     }
-
-
-//        //System.out.println(dao.ValidateLogin("admin", "123").toString());
-//        // cc = new User(9, "lon", "Lon", "Lon", "long", 3, )
-//        //dao.delete(new User);
-//    }
+    
+    public User getUserByID(int userID){
+        String sql = "select * from [User] where id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String name = rs.getString("name");
+                Boolean gender = rs.getBoolean("gender");
+                Date dob = rs.getDate("dob");
+                int roleId = rs.getInt("role_id");
+                String phone = rs.getString("phone_number");
+                String address = rs.getString("address");
+                String avatar = rs.getString("avatar");
+                int statuss = rs.getInt("status");
+                return new User(id, email, password, name, gender, 
+                        dob == null ? null : dob.toLocalDate(), roleId, phone, address, avatar, statuss);
+            }
+        } catch (SQLException e) {
+            status = "Error Load " + e.getMessage();
+            System.out.println(status);
+        }
+        return new User();
+    }
 }

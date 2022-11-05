@@ -30,13 +30,13 @@
                 <!--ASIDE-->
                 <main class="main-admin-page">
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
+                <jsp:include page="header.jsp"></jsp:include>
                 <!--HEADER-->
 
-                <section class="content-main edit-account">
+                <section class="content-main edit-account p-4 pt-3">
 
-                    <div class="content-header">
-                        <h2 class="content-title">Thông tin bác sĩ</h2>
+                    <div class="content-header mb-3">
+                        <h3 class="content-title m-0 ms-2 fs-3 text-secondary">Thông tin bác sĩ</h3>
                     </div>
 
                     <style>
@@ -152,7 +152,7 @@
                     </style>
                     <div class="card" style="max-width:1120px;">
                         <div class="card-body">
-                            <div class="row doctor-profile-header">
+                            <div class="row doctor-profile-header mt-1">
                                 <div class="profileImage">
                                     <img class="mb-3 rounded-circle shadow-4" src="${context}/img/${doctorProfile.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/>
                                 </div>

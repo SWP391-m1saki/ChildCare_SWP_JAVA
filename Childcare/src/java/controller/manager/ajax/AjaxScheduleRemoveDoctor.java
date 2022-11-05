@@ -2,11 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.user;
+package controller.manager.ajax;
 
-import DAL.CategoryDAO;
-import DAL.PostDAO;
-import Utils.Utility;
+import DAL.ShiftDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,38 +15,14 @@ import java.io.IOException;
 /**
  * @author Admin
  */
-public class PostList extends HttpServlet {
+public class AjaxScheduleRemoveDoctor extends HttpServlet {
 
-    PostDAO postDao;
-    CategoryDAO categoryDao;
+    ShiftDAO shiftDAO;
 
     @Override
     public void init() {
-        postDao = new PostDAO();
-        categoryDao = new CategoryDAO();
-    }
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int cateId = Utility.parseIntParameter(request.getParameter("cid"), -1);
-        request.setAttribute("categoryList", categoryDao.getAll());
-        request.setAttribute("cid", cateId);
-
-        String searchTxt = request.getParameter("search");
-        request.setAttribute("search", searchTxt);
-        request.setAttribute("postList", postDao.loadMoreWithFilter(0, 6, searchTxt, cateId));
-        request.setAttribute("postRecent", postDao.loadMoreWithFilter(0, 4, "", -1));
-        request.getRequestDispatcher("Views/guests/postList.jsp").forward(request, response);
+        shiftDAO = new ShiftDAO();
+        shiftDAO.load();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,7 +38,6 @@ public class PostList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -78,7 +51,14 @@ public class PostList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int doctorId = Utils.Utility.parseIntParameter(request.getParameter("doctorId"), -1);
+        int week_number = Utils.Utility.parseIntParameter(request.getParameter("weeknum"), Utils.Utility.getCurrentWeekNumber());
+        String shift_string = request.getParameter("shift");
+        if (shift_string != null) {
+            int dayOfWeek = Utils.Utility.parseIntParameter(shift_string.substring(1), 1);
+            boolean isMorningShift = shift_string.startsWith("S");
+            shiftDAO.removeDoctorOfShift(week_number, dayOfWeek, isMorningShift, doctorId);
+        }
     }
 
     /**

@@ -1,6 +1,5 @@
-package Controllers;
+package controller.guest;
 
-import DAL.DoctorProfileDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,31 +8,28 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class loadHomePage extends HttpServlet {
+public class loadAbout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loadHomePage</title>");
+            out.println("<title>Servlet loadAbout</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loadHomePage at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet loadAbout at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    final DoctorProfileDAO daoDoctor = new DoctorProfileDAO();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        daoDoctor.load();
-        request.setAttribute("doctors", daoDoctor.getAll());
-        request.getRequestDispatcher("Views/index.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Guests/about.jsp").forward(request, response);
     }
 
     @Override
@@ -42,6 +38,9 @@ public class loadHomePage extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * @noinspection SameReturnValue
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

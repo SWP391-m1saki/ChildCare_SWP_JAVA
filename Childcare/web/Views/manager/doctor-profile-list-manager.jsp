@@ -48,14 +48,15 @@
                         }
                 </script>
 
-                <section class="content-main">
+                <section class="content-main p-4 pt-3">
 
-                    <div class="content-header">
-                        <h2 class="content-title">Quản lí bác sĩ</h2>
+                    <div class="content-header d-flex mb-3">
+                        <h3 class="content-title ms-2">Quản lí bác sĩ</h3>
+                        <div class="">
+                            <a href="${context}/manager/doctor/new" class="btn btn-primary py-2"><i class="material-icons md-plus"></i>Thêm bác sĩ</a>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <a href="${context}/manager/doctor/new" class="btn btn-primary"><i class="material-icons md-plus"></i>Thêm bác sĩ</a>
-                    </div>
+
 
                     <div class="card mb-4">
                         <header class="card-header">
@@ -151,40 +152,40 @@
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-                                                                function doctorListAjax() {
-                                                                    ajaxCall('/Childcare/AjaxDoctorList', 'list-display');
-                                                                    ajaxCall('/Childcare/AjaxDoctorPaging', 'paging-div');
-                                                                }
+                                        function doctorListAjax() {
+                                            ajaxCall('/Childcare/AjaxDoctorList', 'list-display');
+                                            ajaxCall('/Childcare/AjaxDoctorPaging', 'paging-div');
+                                        }
 
-                                                                function ajaxCall(url, id) {
-                                                                    $.ajax({
-                                                                        url: url,
-                                                                        type: "POST",
-                                                                        data: {
-                                                                            search: document.querySelector('input[name="search"]').value,
-                                                                            depId: document.querySelector('select[name="depId"]').value,
-                                                                            pagesize: document.querySelector('select[name="pagesize"]').value,
-                                                                            page: document.querySelector('input[name="pageindex"]').value
-                                                                        },
-                                                                        async: true,
-                                                                        success: function (data) {
-                                                                            var row = document.getElementById(id);
-                                                                            row.innerHTML = data;
-                                                                        },
-                                                                        error: function () {
-                                                                            alert('Errore');
-                                                                        },
-                                                                        complete: function () {
-                                                                            if (id === 'paging-div') {
-                                                                                pagger('pagger', parseInt(document.querySelector('input[name="pageindex"]').value, 10), document.querySelector('input[name="totalpage"]').value, 2, -1);
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                                document.querySelector('select[name="depId"]').addEventListener('change', function () {
-                                                                    doctorListAjax();
-                                                                    alert();
-                                                                });
+                                        function ajaxCall(url, id) {
+                                            $.ajax({
+                                                url: url,
+                                                type: "POST",
+                                                data: {
+                                                    search: document.querySelector('input[name="search"]').value,
+                                                    depId: document.querySelector('select[name="depId"]').value,
+                                                    pagesize: document.querySelector('select[name="pagesize"]').value,
+                                                    page: document.querySelector('input[name="pageindex"]').value
+                                                },
+                                                async: true,
+                                                success: function (data) {
+                                                    var row = document.getElementById(id);
+                                                    row.innerHTML = data;
+                                                },
+                                                error: function () {
+                                                    alert('Errore');
+                                                },
+                                                complete: function () {
+                                                    if (id === 'paging-div') {
+                                                        pagger('pagger', parseInt(document.querySelector('input[name="pageindex"]').value, 10), document.querySelector('input[name="totalpage"]').value, 2, -1);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                        document.querySelector('select[name="depId"]').addEventListener('change', function () {
+                                            doctorListAjax();
+                                            alert();
+                                        });
         </script>
     </body>
 </html>

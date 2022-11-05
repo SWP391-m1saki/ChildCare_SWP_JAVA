@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 
 <!DOCTYPE html>
 <html>
@@ -22,26 +23,22 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
         <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-        <script src='${pageContext.request.contextPath}/js/pagger.js'></script>
-        <link href="${pageContext.request.contextPath}/css/pagger.css" rel="stylesheet" type="text/css"/>
+
     <body>
         <style type="text/css">
-
-        </style>
-        <!--Message display-->
-        <script type="text/javascript">
-            if (${requestScope.mess != null}) {
-                if (${requestScope.mess[0] == "sucess"}) {
-                    toastr.success(${requestScope.mess[1]});
-                } else {
-                    toastr.error(${requestScope.mess[1]});
-                }
+            .table td {
+                padding: 7px 0;
             }
-        </script>
-        <c:set var="context" value="${pageContext.request.contextPath}" />        
+
+            span.btn-secondary {
+                width: fit-content;
+            }
+        </style>
+        <c:set var="context" value="${pageContext.request.contextPath}" />  
+        <c:set var="slots" value="${requestScope.slots}" />  
+
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -82,49 +79,43 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <c:forEach var="slotTime" begin="1" end="14">
                                                 <tr>
                                                     <td class="align-middle">
-                                                        <span>Sáng</span>
-                                                        <div class="margin-10px-top font-size14">7:30-11:30</div>
+                                                        <span>Slot ${slotTime}</span>
                                                     </td>
-                                                <c:forEach var = "day" begin = "1" end = "7">
-                                                    <td>
-                                                        <div class="">
-                                                            <input type="hidden" name="work-shift" value="${day}-S">
-                                                            <a href="${context}/manager/schedule/detail?weeknum=${requestScope.selectedWeek}&shift=S${day}"
-                                                               class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
-                                                            <div class="margin-10px-top font-size14">${morningShifts != null ? morningShifts[day-1]: 0} bác sĩ</div>
-                                                        </div>
-                                                    </td>
-                                                </c:forEach>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <span>Chiều</span>
-                                                    <div class="margin-10px-top font-size14">13:00-16:00</div>
-                                                </td>
-                                                <c:forEach var = "day" begin = "1" end = "7">
-                                                    <td>
-                                                        <div class="">
-                                                            <input type="hidden" name="work-shift" value="${day}-C">
-                                                            <a href="${context}/manager/schedule/detail?weeknum=${requestScope.selectedWeek}&shift=C${day}"
-                                                               class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 show-doctor-working">Xem</a>
-                                                            <div class="margin-10px-top font-size14">${afternoonShifts != null ? afternoonShifts[day-1]: 0} bác sĩ</div>
-                                                        </div>
-                                                    </td>
-                                                </c:forEach>
-                                            </tr>
+                                                    <c:forEach var="dayOfWeek" begin="1" end="7">
+                                                        <td>
+                                                            <div class="">
+                                                                <c:choose>
+                                                                    <c:when test="${slots[dayOfWeek-1][slotTime-1].getSlotStatusExtended() == -1}">
+                                                                        <span class="badge rounded-pill alert-secondary">Đang trống</span>
+                                                                    </c:when>
+                                                                    <c:when test="${slots[dayOfWeek-1][slotTime-1].getSlotStatusExtended() == 0}">
+                                                                        <a href="${context}/doctor/slot/detail?id=${slots[dayOfWeek-1][slotTime-1].slotId}" class="badge rounded-pill alert-warning">${slots[dayOfWeek-1][slotTime-1].getStatusLable()}</a>
+                                                                    </c:when>
+                                                                    <c:when test="${slots[dayOfWeek-1][slotTime-1].getSlotStatusExtended() == 1}">
+                                                                        <a href="${context}/doctor/slot/detail?id=${slots[dayOfWeek-1][slotTime-1].slotId}" class="badge rounded-pill alert-primary">${slots[dayOfWeek-1][slotTime-1].getStatusLable()}</a>
+                                                                    </c:when>
+                                                                    <c:when test="${slots[dayOfWeek-1][slotTime-1].getSlotStatusExtended() == 2}">
+                                                                        <a href="${context}/doctor/slot/detail?id=${slots[dayOfWeek-1][slotTime-1].slotId}" class="badge rounded-pill alert-danger">${slots[dayOfWeek-1][slotTime-1].getStatusLable()}</a>
+                                                                    </c:when>
+                                                                    <c:when test="${slots[dayOfWeek-1][slotTime-1].getSlotStatusExtended() == 3}">
+                                                                        <a href="${context}/doctor/slot/detail?id=${slots[dayOfWeek-1][slotTime-1].slotId}" class="badge rounded-pill alert-success">${slots[dayOfWeek-1][slotTime-1].getStatusLable()}</a>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span>-</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </div>
+                                                        </td>
+                                                    </c:forEach>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <c:if test="${requestScope.hadScheduled == null}">
-                                <div class="control-item d-flex justify-content-center">
-                                    <input type="hidden" value="false" name="mapping-schedule" form="main-form">
-                                    <button class="btn btn-primary py-2 mt-3 mapping-schedule-submit" type="submit" form="main-form">Lên lịch cho tuần</button>
-                                </div>
-                            </c:if>
                         </div>
 
                     </div> <!-- card end// -->
@@ -135,13 +126,6 @@
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
-                                                                const mappingBtn = document.querySelector('.mapping-schedule-submit')
-                                                                if (mappingBtn) {
-                                                                    mappingBtn.addEventListener('click', (e) => {
-                                                                        document.querySelector('input[name="mapping-schedule"]').value = 'true';
-                                                                    });
-                                                                }
-
                                                                 const selectedWeekNum = ${requestScope.selectedWeek};
                                                                 const currentWeekNum = parseInt(moment().format('w'), 10);
                                                                 $(document).ready(function () {
