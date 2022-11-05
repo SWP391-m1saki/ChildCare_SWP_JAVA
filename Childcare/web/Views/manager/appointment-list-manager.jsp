@@ -133,10 +133,10 @@
                                                                         <span class="badge rounded-pill alert-primary">Sắp tới</span>
                                                                     </c:when>
                                                                     <c:when test="${app.status == 1}">
-                                                                        <span class="badge rounded-pill alert-primary">Thành công</span>
+                                                                        <span class="badge rounded-pill alert-success">Thành công</span>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <span class="badge rounded-pill alert-primary">Đã hủy</span>
+                                                                        <span class="badge rounded-pill alert-danger">Đã hủy</span>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </td>
@@ -191,12 +191,12 @@
                                     </div>
                                     <div class="mb-4">
                                         <button class="btn btn-primary py-2" form="main-form"  type="submit">Tìm kiếm</button>
+                                        <button class="btn btn-primary-light py-2">Xóa bộ lọc</button>
                                     </div>
                                 </div>
                             </div> <!-- card end// -->
                         </div>
                     </div>
-
                 </section>
             </main>
         </div>

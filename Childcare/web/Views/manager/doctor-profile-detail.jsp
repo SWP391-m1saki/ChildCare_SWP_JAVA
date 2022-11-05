@@ -31,141 +31,137 @@
                 <main class="main-admin-page">
                     <!--HEADER-->
                 <jsp:include page="header.jsp"></jsp:include>
-                <!--HEADER-->
+                    <!--HEADER-->
 
-                <section class="content-main edit-account p-4 pt-3">
+                    <section class="content-main edit-account p-4 pt-3">
 
-                    <div class="content-header mb-3">
-                        <h3 class="content-title m-0 ms-2 fs-3 text-secondary">Thông tin bác sĩ</h3>
-                    </div>
+                        <div class="content-header mb-3">
+                            <h3 class="content-title m-0 ms-2 fs-3 text-secondary">Thông tin bác sĩ</h3>
+                        </div>
 
-                    <style>
-                        .doctor-profile-header{
-                            display: grid;
-                            grid-gap: 16px;
-                            position: relative;
-                            margin: 24px;
-                            border-bottom: 1px solid rgb(228, 232, 236);
-                            grid-template-columns: 1fr 10fr 3.5fr;
-                            align-items: center;
-                            vertical-align: middle;
-                        }
+                        <style>
+                            .doctor-profile-header{
+                                display: grid;
+                                grid-gap: 16px;
+                                position: relative;
+                                margin: 24px;
+                                border-bottom: 1px solid rgb(228, 232, 236);
+                                grid-template-columns: 1fr 10fr 3.5fr;
+                                align-items: center;
+                                vertical-align: middle;
+                            }
 
-                        .tablist{
-                            display: block;
-                            max-width: 100%;
-                            border-bottom: 1px solid rgb(228, 232, 236);
-                            margin-bottom: 24px;
-                        }
+                            .tablist{
+                                display: block;
+                                max-width: 100%;
+                                border-bottom: 1px solid rgb(228, 232, 236);
+                                margin-bottom: 24px;
+                            }
 
-                        .tablist li{
-                            color: rgb(45, 135, 243);
-                            border-bottom: 3px solid rgb(45, 135, 243);
-                            padding-bottom: 4px;
-                            height: 35px;
-                            font-weight: 600;
-                            width: fit-content;
-                        }
+                            .tablist li{
+                                color: rgb(45, 135, 243);
+                                border-bottom: 3px solid rgb(45, 135, 243);
+                                padding-bottom: 4px;
+                                height: 35px;
+                                font-weight: 600;
+                                width: fit-content;
+                            }
 
-                        .doctor-detail>*{
-                            margin-bottom: 25px;
-                        }
+                            .doctor-detail>*{
+                                margin-bottom: 25px;
+                            }
 
-                        .doctor-detail .header {
-                            position: relative;
-                            margin: auto 0;
-                            margin-bottom: 16px;
-                            font-size: 16px;
-                            line-height: 24px;
-                            padding-left: 8px;
-                            font-weight: 700;
-                        }
-                        .description-section .header::after {
-                            position: absolute;
-                            top: 1px;
-                            left: 0px;
-                            width: 2px;
-                            height: 15px;
-                            margin-top: 4px;
-                            background-color: rgb(45, 135, 243);
-                            content: "";
-                        }
+                            .doctor-detail .header {
+                                position: relative;
+                                margin: auto 0;
+                                margin-bottom: 16px;
+                                font-size: 16px;
+                                line-height: 24px;
+                                padding-left: 8px;
+                                font-weight: 700;
+                            }
+                            .description-section .header::after {
+                                position: absolute;
+                                top: 1px;
+                                left: 0px;
+                                width: 2px;
+                                height: 15px;
+                                margin-top: 4px;
+                                background-color: rgb(45, 135, 243);
+                                content: "";
+                            }
 
-                        .service-detail {
-                            background: rgb(248, 249, 252);
-                            border-radius: 6px;
-                            padding: 16px;
-                        }
+                            .service-detail {
+                                background: rgb(248, 249, 252);
+                                border-radius: 6px;
+                                padding: 16px;
+                            }
 
-                        .price-des {
-                            display: flex;
-                            -webkit-box-align: center;
-                            align-items: center;
-                            margin-top: 10px;
-                            margin-bottom: 0;
-                            gap: 8px;
-                            font-size: 14px;
-                            line-height: 24px;
-                            color: #262626;
-                        }
+                            .price-des {
+                                display: flex;
+                                -webkit-box-align: center;
+                                align-items: center;
+                                margin-top: 10px;
+                                margin-bottom: 0;
+                                gap: 8px;
+                                font-size: 14px;
+                                line-height: 24px;
+                                color: #262626;
+                            }
 
-                        .price-des .price {
-                            color: #009e5c;
-                        }
+                            .price-des .price {
+                                color: #009e5c;
+                            }
 
-                        .qualication-detail p{
-                            margin-bottom: 0;
-                        }
+                            .qualication-detail p{
+                                margin-bottom: 0;
+                            }
 
-                        .qualication-detail li {
-                            list-style-type: disc;
-                        }
+                            .qualication-detail li {
+                                list-style-type: disc;
+                            }
 
-                        .account-info {
-                            position: sticky;
-                            background: rgb(248, 249, 252);
-                            top: 5rem;
-                            right: 0px;
-                            border: 1px solid #dbdfe5;
-                            margin-top: 15px;
-                            display: flex;
-                            padding: 16px;
-                            border: 1px solid #dbdfe5;
-                            margin-bottom: 8px;
-                            flex-direction: column;
-                            border-radius: 6px;
-                            max-height: calc(100vh - 6rem);
-                        }
+                            .account-info {
+                                position: sticky;
+                                background: rgb(248, 249, 252);
+                                top: 5rem;
+                                right: 0px;
+                                border: 1px solid #dbdfe5;
+                                margin-top: 15px;
+                                display: flex;
+                                padding: 16px;
+                                border: 1px solid #dbdfe5;
+                                margin-bottom: 8px;
+                                flex-direction: column;
+                                border-radius: 6px;
+                                max-height: calc(100vh - 6rem);
+                            }
 
-                        .account-infor_header {
-                            font-size: 18px;
-                            line-height: 28px;
-                            letter-spacing: -0.2px;
-                            margin-top: 8px;
-                            margin-bottom: 8px;
-                            font-weight: 700;
-                        }
+                            .account-infor_header {
+                                font-size: 18px;
+                                line-height: 28px;
+                                letter-spacing: -0.2px;
+                                margin-top: 8px;
+                                margin-bottom: 8px;
+                                font-weight: 700;
+                            }
 
-                        .account-info span {
-                            font-weight: 600;
-                        }
-                    </style>
-                    <div class="card" style="max-width:1120px;">
-                        <div class="card-body">
-                            <div class="row doctor-profile-header mt-1">
-                                <div class="profileImage">
-                                    <img class="mb-3 rounded-circle shadow-4" src="${context}/img/${doctorProfile.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/>
+                            .account-info span {
+                                font-weight: 600;
+                            }
+                        </style>
+                        <div class="card" style="max-width:1120px;">
+                            <div class="card-body">
+                                <div class="row doctor-profile-header mt-1">
+                                    <div class="profileImage">
+                                        <img class="mb-3 rounded-circle shadow-4" src="${context}/img/${doctorProfile.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/>
                                 </div>
                                 <div class="doctorInfoHeader">
                                     <h1 class="fs-4">
                                         <span class="title">${doctorProfile.title}</span> 
                                         <span class="fullname">${doctorProfile.user.name}</span>
                                     </h1>
-                                    <c:forEach items="${requestScope.departments}" var="d">
-<!--                                        <option ${d.key == doctorProfile.departmentId ? 'selected' : ''} value="${d.key}">${d.value.getDepartmentName()}</option>-->
-                                        <p class="text-sm-start" ${d.key != doctorProfile.departmentId ? 'hidden' : ''}>${d.value.getDepartmentName()}</p>
-                                    </c:forEach>
-
+                                    <p class="text-sm-start" ${doctorProfile.departmentId}>${requestScope.departments[doctorProfile.departmentId].departmentName}</p>
                                 </div>
                                 <div class="action">
                                     <a class="btn btn-primary fw-bold" href="${context}/manager/doctor/profile/update?id=${doctorProfile.doctorId}">Chỉnh sửa</a>

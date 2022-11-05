@@ -5,85 +5,87 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Childcare System</title>
+        <title>Quản lý Chuyên khoa</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
 
-
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
-
-        <!-- Icon Font Stylesheet -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-        <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/bootstrap.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/responsive.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/ui.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
+        <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
     </head>
-    <!-- Pills navs -->
     <body>
-        <jsp:include page="../Shared/_Header.jsp"></jsp:include>
+        <c:set var="context" value="${pageContext.request.contextPath}" />
+        <div class="page-wrapper">
+            <!--ASIDE-->
+            <jsp:include page="ASIDE.jsp"></jsp:include>
+                <!--ASIDE-->
 
-
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-sm-8 mx-auto p-5">
-
-                        <table class="table">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Department name</th>
-                                    <th scope="col">Image</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${requestScope.departmentList}" var="d">
-                                <tr>
-                                    <th scope="row">${d.departmentId}</th>
-                                    <td>${d.departmentName}</td>
-                                    <td><img src="${d.image}" class="img-thumbnail" length="80" width="80"></td>
-                                    <td class="text-end"><a class="btn btn-secondary" href="deleteDepartment?id=${d.departmentId}"> Delete </a></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-
-                    <form action="addDepartment" method="post">
-
-                        <div class="form-outline mb-4">
-                            <input type="text" id="name" class="form-control form-control-lg" name="name"/>
-                            <label class="form-label" for="name">Department name</label>
+                <style>
+                    .content-main{
+                        padding: 20px 50px;
+                    }
+                </style>
+                <main class="main-admin-page">
+                    <!--HEADER-->
+                <jsp:include page="header.jsp"></jsp:include>
+                    <section class="content-main mx-2">
+                        <div class="content-header mb-3">
+                            <h2 class="content-title ms-2 fs-3">Quản lý chuyên khoa</h2>
                         </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-10 mx-auto py-3">
 
-                        <div class="form-outline mb-4">
-                            <input type="text" id="img" class="form-control form-control-lg" name="img"/>
-                            <label class="form-label" for="img">Image</label>
-                        </div>
+                                            <table class="table">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">Id</th>
+                                                        <th scope="col">Department name</th>
+                                                        <th scope="col">Image</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach items="${requestScope.departmentList}" var="d">
+                                                    <tr>
+                                                        <th scope="row">${d.departmentId}</th>
+                                                        <td>${d.departmentName}</td>
+                                                        <td><img src="${pageContext.request.contextPath}/img/${d.image}" class="img-thumbnail" length="80" width="80"></td>
+                                                        <td class="text-end"><a class="btn btn-secondary" href="deleteDepartment?id=${d.departmentId}"> Delete </a></td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
 
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="text-center text-lg-start mt-4 pt-2">
-                                <button class="btn btn-primary btn-lg" type="submit"
-                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Add</button>
+                                        <form action="addDepartment" method="post">
 
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="name" class="form-control form-control-lg" name="name"/>
+                                                <label class="form-label" for="name">Department name</label>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="img" class="form-control form-control-lg" name="img"/>
+                                                <label class="form-label" for="img">Image</label>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="text-center text-lg-start mt-4 pt-2">
+                                                    <button class="btn btn-primary btn-lg" type="submit"
+                                                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Add</button>
+
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-
-                    </form>
-                </div>
-
-            </div>
+                </section>
+            </main>
         </div>
-
-        <jsp:include page="../Shared/_Footer.jsp"></jsp:include>
     </body>
 </html>

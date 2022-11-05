@@ -63,6 +63,7 @@ public class AppointmentDAO implements DAO<Appointment> {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            DoctorProfileDAO doctorDAO = new DoctorProfileDAO();
             while (rs.next()) {
                 int appointmentId = rs.getInt("appointment_id");
                 int childrenId = rs.getInt("children_id");
@@ -87,7 +88,8 @@ public class AppointmentDAO implements DAO<Appointment> {
                 int appointmentStatus = rs.getInt("appointmentStatus");
                 //System.out.println(roleId);
                 Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime),
-                        new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
+                                    new Shift(shiftId, date, 
+                                            new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status, doctorDAO.getDoctorByID(doctorId))));
                 ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, customerId, avatar);
                 Appointment ap = new Appointment(appointmentId, c, s, appointmentStatus);
                 list.add(ap);
@@ -167,10 +169,12 @@ public class AppointmentDAO implements DAO<Appointment> {
                 + "inner join SlotTime on slot.slotTimeId = SlotTime.slotTimeId\n"
                 + "inner join [shift]  on slot.shiftId = [shift].shiftId\n"
                 + "inner join Schedule on  [shift].scheduleId = Schedule.scheduleId\n"
-                + "where slot.slot_id = ";
+                + "where Slot.slot_id = ";
         sql += slot.getSlotId() + "";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            UserDAO userDAO = new UserDAO();
+            userDAO.load();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int appointmentId = rs.getInt("appointment_id");
@@ -198,7 +202,7 @@ public class AppointmentDAO implements DAO<Appointment> {
                 //System.out.println(roleId);
                 Slot s = new Slot(slotId, isExamination, slot_status, new SlotTime(slotTimeId, startTime, endTime),
                         new Shift(shiftId, date, new Schedule(scheduleId, doctorId, dayOfWeek, isMorningShift, status)));
-                ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, parentId, avatar);
+                ChildrenProfile c = new ChildrenProfile(childrenId, childrenName, gender, dob, parentId, avatar, userDAO.get(parentId));
                 Appointment ap = new Appointment(appointmentId, c, s, appointmentStatus);
                 list.add(ap);
             }
@@ -209,8 +213,13 @@ public class AppointmentDAO implements DAO<Appointment> {
         return list;
     }
 
-    public List<Appointment> filterAppointmentBySlot(List<Appointment> appointments, int slotId) {
-        appointments.removeIf(a -> a.getSlot().getSlotId() != slotId);
+    public List<Appointment> filterAppointmentBySlot(List<Appointment> fullAppointments, int slotId) {
+        List<Appointment> appointments = new ArrayList<>();
+        for (Appointment appointment : fullAppointments) {
+            if(appointment.getSlot().getSlotId() == slotId){
+                appointments.add(appointment);
+            }
+        }
         return appointments;
     }
 
@@ -368,13 +377,15 @@ public class AppointmentDAO implements DAO<Appointment> {
 
     public List<Appointment> filterAppointmentExtended(String customer_name, String child_name, String doctor_name, String phone_email, int depId, int appStatus) {
         List<Appointment> appointments = new ArrayList<>();
+        List<Appointment> fullAppointments = list;
+        
         if (appStatus != -1) {
-                list.removeIf(a -> a.getStatus() != appStatus);
+                fullAppointments.removeIf(a -> a.getStatus() != appStatus);
             }
             if (depId != -1) {
-                list.removeIf(a -> a.getSlot().getShift().getSchedule().getDoctor().getDepartmentId() != depId);
+                fullAppointments.removeIf(a -> a.getSlot().getShift().getSchedule().getDoctor().getDepartmentId() != depId);
             }
-        for (Appointment appointment : list) {
+        for (Appointment appointment : fullAppointments) {
             if (appointment.getChild().getName().toLowerCase().contains(child_name.toLowerCase())
                     && appointment.getChild().getParent().getName().toLowerCase().contains(customer_name.toLowerCase())
                     && appointment.getSlot().getShift().getSchedule().getDoctor().getUser().getName().toLowerCase().contains(doctor_name.toLowerCase())

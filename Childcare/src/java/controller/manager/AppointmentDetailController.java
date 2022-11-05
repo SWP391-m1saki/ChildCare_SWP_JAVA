@@ -2,34 +2,58 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.doctor;
+package controller.manager;
 
 import DAL.AppointmentDAO;
 import DAL.DepartmentDAO;
 import Models.Appointment;
-import Models.Slot;
-import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class DoctorSlotDetail extends HttpServlet {
+public class AppointmentDetailController extends HttpServlet {
 
     AppointmentDAO appointmentDAO;
+    DepartmentDAO depDAO;
 
     @Override
     public void init() {
         appointmentDAO = new AppointmentDAO();
+        depDAO = new DepartmentDAO();
+        appointmentDAO.load();
     }
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        int appointmentId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
+        Appointment appoitment = appointmentDAO.get(appointmentId);
+        if (appoitment == null) {
+            response.sendRedirect("../appointment");
+        } else {
+            request.setAttribute("appointment", appoitment);
+            request.setAttribute("departments", depDAO.getAllHashMap());
+            request.getRequestDispatcher("../../Views/manager/appointment-detail.jsp").forward(request, response);
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -41,22 +65,7 @@ public class DoctorSlotDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User loggedInUser = (User) request.getSession().getAttribute("UserLogined");
-        if (loggedInUser != null) {
-            int slotId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-            Slot slot = new Slot();
-            slot.setSlotId(slotId);
-            List<Appointment> appointments = appointmentDAO.getAppointmentOfSlot(slot);
-            if (appointments.isEmpty()) {
-                response.sendRedirect("../schedule");
-            } else {
-                request.setAttribute("appointments", appointments);
-                request.getRequestDispatcher("../../Views/doctor/doctor-slot-detail.jsp").forward(request, response);
-            }
-
-        } else {
-            response.sendRedirect("../../loadHomePage");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -70,15 +79,7 @@ public class DoctorSlotDetail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User loggedInUser = (User) request.getSession().getAttribute("UserLogined");
-        if (loggedInUser != null) {
-            int appId = Utils.Utility.parseIntParameter(request.getParameter("appId"), -1);
-            appointmentDAO.updateStatus(appId, 1);
-            int slotId = Utils.Utility.parseIntParameter(request.getParameter("id"), -1);
-            response.sendRedirect("detail?id=" + slotId);
-        } else {
-            response.sendRedirect("../../loadHomePage");
-        }
+        processRequest(request, response);
     }
 
     /**

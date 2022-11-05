@@ -92,7 +92,7 @@ public class Slot {
     }
 
     // status = -2 : dont work  : -
-    //status = -1 : not has slot : Empty
+    //status = -1 : not has app : Empty
     //status = 0 : slot has waiting : Empty
     // status = 1: slot no sucess, no waiting: Empty
     // status = 2: slot no success in past: Canceled
@@ -124,6 +124,10 @@ public class Slot {
             return status;
         }
 
+        if(appointments.isEmpty()){
+            return -1;
+        }
+        
         //search the appointment
         for (Appointment appointment : appointments) {
             if (appointment.getStatus() == 1) {

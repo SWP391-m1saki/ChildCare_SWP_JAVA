@@ -15,7 +15,9 @@ import Models.*;
 public class testData {
 
     public static void main(String[] args) {
-        testAppointment();
+//        testAppointment();
+//        getDepartment();
+        testSlot();
     }
 
     private static void getSchedule() {
@@ -35,13 +37,13 @@ public class testData {
             System.out.println(doc);
         }
     }
-    
+
     private static void testAppointment() {
         AppointmentDAO dao = new AppointmentDAO();
         dao.load();
-//        Slot s = new Slot();
-//        s.setSlotId(8);
-        for (Appointment doc : dao.filterAppointmentExtended(" ", "con", "", "581", 6, -1)) {
+        Slot s = new Slot();
+        s.setSlotId(5);
+        for (Appointment doc : dao.getAll()) {
             System.out.println(doc);
         }
     }
@@ -55,21 +57,25 @@ public class testData {
 //            }
 //        }
 //        for (Slot slot : dao.getByShift(2, 0)) {
-            System.out.println(dao.getByShift(148, 6));
+        System.out.println(dao.getByShift(148, 4));
 //        }
     }
 
-    //    private static void getSlotData(){
-//        SlotDAO dao = new SlotDAO();
-//        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 39));
-//        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 1, 50));
-//        dao.add(new Slot(LocalDate.now().plusDays(1), true, 0, 9, 40));
-//        dao.add(new Slot(LocalDate.now().plusDays(2), true, 0, 9, 52));
-//        dao.load();
-//        for(Slot s : dao.getAll()) {
-//            System.out.println(s);
-//        }
-//    }
+    private static void getDepartment() {
+        DepartmentDAO dao = new DepartmentDAO();
+        dao.load();
+        Department dep3 = dao.get(6);
+        dep3.setImage("tam_ly.png");
+        dao.update(dep3);
+        Department dep4 = dao.get(8);
+        dep4.setImage("Healthy-Eating.png");
+        dao.update(dep4);
+        Department dep5 = dao.get(5);
+        dep5.setImage("Digestive-Health.png");
+        dao.update(dep5);
+
+    }
+
     private static void getSlotTimeData() {
         SlotTimeDAO dao = new SlotTimeDAO();
         dao.add(new SlotTime(1, "7:30", "8:00"));

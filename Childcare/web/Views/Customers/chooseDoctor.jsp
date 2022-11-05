@@ -7,9 +7,6 @@
         <meta charset="utf-8">
         <title>Childcare System</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
-
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
@@ -69,20 +66,20 @@
         </style>
 
         <div class="container">
-<!--            <div class="row">
-                BreadCrum
-                <div class="container-fluid fs-6 mt-4 ms-5">
-                    <div class="container nav-item nav-link">
-
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#" class="">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                Danh sách bác sĩ
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>-->
+            <!--            <div class="row">
+                            BreadCrum
+                            <div class="container-fluid fs-6 mt-4 ms-5">
+                                <div class="container nav-item nav-link">
+            
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="">Trang chủ</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            Danh sách bác sĩ
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>-->
 
             <div class="row" style="max-width: 1120px; margin: 0 auto;">
                 <div class="col-sm-12 mx-auto">
@@ -134,5 +131,7 @@
         </div>
 
         <jsp:include page="../Shared/_Footer.jsp"></jsp:include>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

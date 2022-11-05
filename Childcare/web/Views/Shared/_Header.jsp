@@ -74,11 +74,11 @@
                             </button>
 
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="${context}/userProfile">Edit Account</a>
-                                <a class="dropdown-item" href="${context}/loadChildren">Children's profiles</a> 
-                                <a class="dropdown-item" href="${context}/loadCustomerAppointment">Appointment</a>
+                                <a class="dropdown-item" href="${context}/userProfile">Thông tin cá nhân</a>
+                                <a class="dropdown-item" href="${context}/loadChildren">Hồ sơ của trẻ</a> 
+                                <a class="dropdown-item" href="${context}/loadCustomerAppointment">Lịch sử đặt khám</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="${context}/logout">Logout</a>
+                                <a class="dropdown-item" href="${context}/logout">Đăng xuất</a>
                             </div>
                         </div>
                     </c:if>

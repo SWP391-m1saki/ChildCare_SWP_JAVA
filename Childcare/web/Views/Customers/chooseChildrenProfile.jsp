@@ -13,15 +13,6 @@
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
 
-
-
-
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
-
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
-
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
@@ -134,9 +125,9 @@
                     cursor: not-allowed;
                 }
                 .cc{
-                    padding: 10px; 
-                    border: 1px solid rgb(228, 232, 236); 
-                    border-radius: 6px; 
+                    padding: 10px;
+                    border: 1px solid rgb(228, 232, 236);
+                    border-radius: 6px;
                     margin-bottom: 10px;
                 }
                 .activee{
@@ -241,18 +232,18 @@
                     cards[i].addEventListener("click", function () {
                         document.getElementById("SubmitChildButton").disabled = false;
                         var currentt = document.getElementsByClassName("activee");
-                        for(var i=0;i<currentt.length;i++)
+                        for (var i = 0; i < currentt.length; i++)
                         {
                             currentt[i].className = currentt[i].className.replace(" activee", "");
                         }
-                        
+
                         if (this.className.indexOf("card-hghlght") !== -1)
                             this.className += " activee";
                     });
                 }
 
-                
-                function ChildSubmit(){
+
+                function ChildSubmit() {
                     var ChildDiv2 = document.getElementsByClassName("activee");
                     var ChildForm = ChildDiv2[0].getElementsByClassName("childFrm");
                     ChildForm[0].submit();
@@ -263,6 +254,7 @@
 
         </section>
         <jsp:include page="../Shared/_Footer.jsp"></jsp:include>
-
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

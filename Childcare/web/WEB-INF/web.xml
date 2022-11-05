@@ -93,7 +93,7 @@
     </servlet>
     <servlet>
         <servlet-name>AddDepartment</servlet-name>
-        <servlet-class>Controllers.AddDepartment</servlet-class>
+        <servlet-class>controller.manager.AddDepartment</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteDepartment</servlet-name>
@@ -166,6 +166,10 @@
     <servlet>
         <servlet-name>AppointmentListController</servlet-name>
         <servlet-class>controller.manager.AppointmentListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AppointmentDetailController</servlet-name>
+        <servlet-class>controller.manager.AppointmentDetailController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
@@ -353,7 +357,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddDepartment</servlet-name>
-        <url-pattern>/addDepartment</url-pattern>
+        <url-pattern>/manager/department</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteDepartment</servlet-name>
@@ -434,6 +438,10 @@
     <servlet-mapping>
         <servlet-name>AppointmentListController</servlet-name>
         <url-pattern>/manager/appointment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppointmentDetailController</servlet-name>
+        <url-pattern>/manager/appointment/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

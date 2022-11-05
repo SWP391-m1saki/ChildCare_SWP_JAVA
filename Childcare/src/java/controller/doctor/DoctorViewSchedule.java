@@ -34,6 +34,7 @@ public class DoctorViewSchedule extends HttpServlet {
         shiftDAO = new ShiftDAO();
         slotDAO = new SlotDAO();
         appointmentDAO = new AppointmentDAO();
+        appointmentDAO.load();
         shiftDAO.load();
         slotDAO.load();
     }
@@ -68,7 +69,7 @@ public class DoctorViewSchedule extends HttpServlet {
                 //morning
                 for (int i = 1; i <= 7; i++) {
                     Shift shift = shiftDAO.getShiftByDay(shiftsOfWeek, i, true);
-                    for (int j = 1; j <= 14; j++) {
+                    for (int j = 1; j <= 8; j++) {
                         if (shift == null) {
                             slotsOfWeek[i - 1][j - 1] = new Slot(-2);
                         } else {
@@ -88,7 +89,7 @@ public class DoctorViewSchedule extends HttpServlet {
                     Shift shift = shiftDAO.getShiftByDay(shiftsOfWeek, i, false);
                     for (int j = 9; j <= 14; j++) {
                         if (shift == null) {
-                            slotsOfWeek[i - 1][j - 1] = new Slot(-1);
+                            slotsOfWeek[i - 1][j - 1] = new Slot(-2);
                         } else {
                             //get shift status
                             Slot slot = slotDAO.getByShift(shift.getShiftId(), j);
@@ -96,7 +97,7 @@ public class DoctorViewSchedule extends HttpServlet {
                                 slot.setAppointments(appointmentDAO.filterAppointmentBySlot(appointmentsOfWeek, slot.getSlotId()));
                                 slotsOfWeek[i - 1][j - 1] = slot;
                             } else {
-                                slotsOfWeek[i - 1][j - 1] = new Slot(-2);
+                                slotsOfWeek[i - 1][j - 1] = new Slot(-1);
                             }
                         }
                     }

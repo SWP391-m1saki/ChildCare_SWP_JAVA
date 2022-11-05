@@ -6,11 +6,6 @@
         <meta charset="utf-8">
         <title>Childcare System</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
-
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -45,7 +40,7 @@
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form action="ChangePassword" method="post">
-                            
+
 
                             <div class="divider d-flex align-items-center my-4">
                                 <p class="text-center fw-bold mx-3 mb-0">Enter your new password</p>
@@ -58,7 +53,7 @@
                                 <input type="password" id="password" class="form-control form-control-lg" name="password" required/>
                                 <label class="form-label" for="password">New password</label>
                             </div>
-                            
+
                             <div class="form-outline mb-4">
                                 <input type="password" id="passwordConfirm" class="form-control form-control-lg" name="passwordConfirm" required/>
                                 <label class="form-label" for="passwordConfirm">Confirm Password</label>
@@ -67,7 +62,7 @@
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <button class="btn btn-info btn-lg" type="submit"
                                         style="padding-left: 2.5rem; padding-right: 2.5rem;">Submit</button>
-                                
+
                             </div>
 
                         </form>
@@ -75,7 +70,8 @@
                 </div>
 
         </section>
-
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
 <!-- Pills content -->

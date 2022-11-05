@@ -18,47 +18,43 @@ import java.util.List;
  * @author Misaki
  */
 public class LoadCustomerAppointment extends HttpServlet {
-    AppointmentDAO daoApp;
-    
-    public void init(){
-        daoApp = new AppointmentDAO();
+
+    AppointmentDAO appointmentDAO;
+    DepartmentDAO depDAO;
+
+    @Override
+    public void init() {
+        appointmentDAO = new AppointmentDAO();
+        depDAO = new DepartmentDAO();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int typeId=1;
-        try{
-            typeId = Integer.parseInt(request.getParameter("typeId"));
-        }catch(Exception e){
-            typeId=1;
-        }
-        try{
-            DoctorProfileDAO daoDoctor = new DoctorProfileDAO();
-            daoDoctor.load();
-            HttpSession session = request.getSession();
-            User userLogined = (User)session.getAttribute("UserLogined");
-            List<Appointment> listApp = new ArrayList<Appointment>();
-            listApp =  daoApp.getAppointmentOfCustomer(userLogined.getId());
-            
-            HashMap<Appointment,DoctorProfile> map = new HashMap<Appointment, DoctorProfile>();
-            
-            for(Appointment ap: listApp){
-                if(typeId == 1 && ap.getStatus()== 0) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
-                if(typeId == 2 && ap.getStatus() == 1) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
-                if(typeId == 3 && ap.getStatus() != 0) map.put(ap, daoDoctor.get(ap.getSlot().getShift().getSchedule().getDoctorId()));
+        int typeId = Utils.Utility.parseIntParameter(request.getParameter("typeId"), 1);
+
+        User userLogined = (User) request.getSession().getAttribute("UserLogined");
+        if (userLogined != null) {
+            List<Appointment> listApp = appointmentDAO.getAppointmentOfCustomer(userLogined.getId());
+            if(typeId == 3){
+                listApp.removeIf(a -> a.getStatus() == 0);
+            } else {
+                listApp.removeIf(a -> a.getStatus() != (typeId - 1));
             }
             
-            request.setAttribute("AppHm", map);
+            request.setAttribute("appointments", listApp);
+            request.setAttribute("departments", depDAO.getAllHashMap());
             request.setAttribute("typeId", typeId);
             request.getRequestDispatcher("Views/Customers/loadCustomerAppointment.jsp").forward(request, response);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            response.sendRedirect("loadHomePage");
+        } else {
+            response.sendRedirect("login");
         }
+
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-    }  
+
+    }
 }

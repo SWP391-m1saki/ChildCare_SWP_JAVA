@@ -1,4 +1,4 @@
-package Controllers;
+package controller.manager;
 
 import DAL.DepartmentDAO;
 import Models.Department;
@@ -26,7 +26,7 @@ public class AddDepartment extends HttpServlet {
             throws ServletException, IOException {
         dao.load();
         request.setAttribute("departmentList", dao.getAll());
-        request.getRequestDispatcher("Views/manager/addDepartment.jsp").forward(request, response);
+        request.getRequestDispatcher("../Views/manager/addDepartment.jsp").forward(request, response);
     }
 
     @Override
@@ -36,14 +36,14 @@ public class AddDepartment extends HttpServlet {
         String image = request.getParameter("img");
         if (name.equals("")) {
             request.setAttribute("departmentList", dao.getAll());
-            request.getRequestDispatcher("Views/manager/addDepartment.jsp").forward(request, response);
+            request.getRequestDispatcher("../Views/manager/addDepartment.jsp").forward(request, response);
         } //System.out.println(name);
         //System.out.println(image);
         else {
             dao.add(new Department(0, name, image));
             dao.load();
             request.setAttribute("departmentList", dao.getAll());
-            request.getRequestDispatcher("Views/manager/addDepartment.jsp").forward(request, response);
+            request.getRequestDispatcher("../Views/manager/addDepartment.jsp").forward(request, response);
         }
     }
 
