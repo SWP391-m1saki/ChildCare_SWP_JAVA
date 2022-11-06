@@ -44,7 +44,7 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         list = new ArrayList<ChildrenProfile>();
         String sql = "select * from ChildrenProfile c\n"
                 + "INNER JOIN [USER] u ON u.id = c.children_id";
@@ -66,11 +66,13 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
         } catch (SQLException e) {
             status = "Error Load Children Profile " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void add(ChildrenProfile t) {
+    public boolean add(ChildrenProfile t) {
         String sql = "insert into ChildrenProfile (name, gender, dob, parent_id, avatar) values(?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -84,11 +86,13 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
         } catch (SQLException ex) {
             status = "Error add Children profile " + ex.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(ChildrenProfile t) {
+    public boolean update(ChildrenProfile t) {
         String sql = "update ChildrenProfile set name=?, gender=?, dob=?, avatar=? where children_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -101,11 +105,13 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
         } catch (SQLException ex) {
             status = "Error update Children profile " + ex.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(ChildrenProfile t) {
+    public boolean delete(ChildrenProfile t) {
         String sql = "delete from ChildrenProfile where children_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -114,7 +120,9 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
         } catch (Exception e) {
             status = "Error at delete Children Profile";
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     public ArrayList<ChildrenProfile> getChildrenOfUser(int parentId) {

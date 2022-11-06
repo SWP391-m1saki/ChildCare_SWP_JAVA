@@ -65,7 +65,7 @@ public class SlotTimeDAO implements DAO<SlotTime> {
         return listAfternoon;
     }
     @Override
-    public void load() {
+    public boolean load() {
         list.clear();
         String sql = "select * from SlotTime";
         try {
@@ -81,11 +81,13 @@ public class SlotTimeDAO implements DAO<SlotTime> {
         } catch (Exception e) {
             status = "Error Load SlotTime " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void add(SlotTime t) {
+    public boolean add(SlotTime t) {
         String sql = "insert into SlotTime (slotTimeId, startTime, endTime) values(?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -96,11 +98,13 @@ public class SlotTimeDAO implements DAO<SlotTime> {
             ps.execute();
         } catch (Exception e) {
             status = "Error Add slotTime" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(SlotTime t) {
+    public boolean update(SlotTime t) {
         String sql = "Update SlotTime set startTime=?, endTime=? where slotTimeId=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -112,11 +116,13 @@ public class SlotTimeDAO implements DAO<SlotTime> {
         } catch (Exception e) {
             status = "Error update SlotTime " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(SlotTime t) {
+    public boolean delete(SlotTime t) {
         String sql = "delete from SlotTime where slotTimeId=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -125,7 +131,9 @@ public class SlotTimeDAO implements DAO<SlotTime> {
         } catch (Exception e) {
             status = "Error delete SlotTime " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
 }

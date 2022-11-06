@@ -41,7 +41,7 @@ public class PostDAO implements DAO<Post> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         postList.clear();
         String sql = "SELECT * FROM Post ORDER BY created_at DESC";
         try {
@@ -60,7 +60,9 @@ public class PostDAO implements DAO<Post> {
             }
         } catch (SQLException e) {
             status = "Error connection" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -85,7 +87,7 @@ public class PostDAO implements DAO<Post> {
 
 
     @Override
-    public void add(Post t) {
+    public boolean add(Post t) {
         String sql = "Insert into Post(title,description, detail, cate_id, [image]) values(?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -100,11 +102,13 @@ public class PostDAO implements DAO<Post> {
             load();
         } catch (SQLException e) {
             status = "Error at insert Post" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(Post t) {
+    public boolean update(Post t) {
         String sql = "update Post set title = ?, description = ?,detail = ?,cate_id= ?,[image] = ? where post_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -119,11 +123,13 @@ public class PostDAO implements DAO<Post> {
         } catch (SQLException e) {
             System.out.println("UPdate that bai!");
             status = "Error at Update Post" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Post t) {
+    public boolean delete(Post t) {
         String sql = "delete from Post where post_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -132,7 +138,9 @@ public class PostDAO implements DAO<Post> {
             load();
         } catch (SQLException e) {
             status = "Error at Delete Post" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     // Get posts by pageindex
@@ -212,5 +220,8 @@ public class PostDAO implements DAO<Post> {
             }
         }
         return posts;
+    }
+    public static void main(String[] args) {
+        
     }
 }

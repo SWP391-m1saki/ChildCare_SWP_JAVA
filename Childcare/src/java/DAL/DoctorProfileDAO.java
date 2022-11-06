@@ -40,7 +40,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         list.clear();
         String sql = "select * from [User] inner join DoctorProfile on [User].id = DoctorProfile.doctor_id";
         try {
@@ -75,7 +75,9 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             }
         } catch (Exception e) {
             status = "Error getAll doctorProfile " + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -87,7 +89,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
     }
 
     @Override
-    public void add(DoctorProfile t) {
+    public boolean add(DoctorProfile t) {
         String sql = "insert into DoctorProfile(doctor_id,price,qualification,description,department_id,title)  values(?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -100,11 +102,13 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             ps.execute();
         } catch (SQLException ex) {
             status = "Error add DoctorProfile " + ex.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(DoctorProfile t) {
+    public boolean update(DoctorProfile t) {
         String sql = "update DoctorProfile set price = ?, qualification = ?,"
                 + "[description] = ?, department_id = ?, title = ? where doctor_id = ?";
         try {
@@ -119,11 +123,13 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
             load();
         } catch (SQLException e) {
             status = "Error at Update DoctorProfile" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(DoctorProfile t) {
+    public boolean delete(DoctorProfile t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

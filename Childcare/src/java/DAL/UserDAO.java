@@ -53,7 +53,7 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         list = new ArrayList<User>();
 
         list.clear();
@@ -83,7 +83,9 @@ public class UserDAO implements DAO<User> {
         } catch (Exception e) {
             status = "Error Load " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     public User ValidateLogin(String email, String password) {
@@ -98,7 +100,7 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public void add(User t) {
+    public boolean add(User t) {
         String sql = "insert into [user] (email, password, name, role_id, avatar, status) values(?,?,?,?,?,?)";
         //System.out.println(sql);
 
@@ -118,12 +120,14 @@ public class UserDAO implements DAO<User> {
         } catch (SQLException ex) {
             status = "Error add user " + ex.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
 
     }
 
     @Override
-    public void update(User t) {
+    public boolean update(User t) {
         String sql = "update [user] set email=?, name=?, gender=?, dob=?, phone_number=?, address=?, avatar=? where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -146,11 +150,13 @@ public class UserDAO implements DAO<User> {
         } catch (Exception e) {
             status = "Error update User " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(User t) {
+    public boolean delete(User t) {
         String sql = "delete from [user] where id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -158,7 +164,9 @@ public class UserDAO implements DAO<User> {
             ps.execute();
         } catch (Exception e) {
             status = "Error at delete User " + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     public boolean EmailDuplicate(String email) {

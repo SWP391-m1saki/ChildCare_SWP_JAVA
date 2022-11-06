@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * @author Misaki
  */
-public class DepartmentDAO {
+public class DepartmentDAO implements DAO<Department> {
 
     private Connection con;
     private String status;
@@ -53,8 +53,8 @@ public class DepartmentDAO {
         List<Department> list = new ArrayList(values);
         return list;
     }
-    //@Override
-    public void load() {
+    @Override
+    public boolean load() {
         departments.clear();
         String sql = "SELECT * FROM Department";
         try {
@@ -72,10 +72,13 @@ public class DepartmentDAO {
         } catch (Exception e) {
             status = "Error Load Department " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
-    public void add(Department t) {
+    @Override
+    public boolean add(Department t) {
         String sql = "insert into Department (department_name, image) values(?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -85,10 +88,13 @@ public class DepartmentDAO {
         } catch (Exception e) {
             status = "Error Add Department" + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
-    public void update(Department t) {
+    @Override
+    public boolean update(Department t) {
         String sql = "Update department set department_name=?, image=? where department_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -99,10 +105,13 @@ public class DepartmentDAO {
         } catch (Exception e) {
             status = "Error update Department" + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
-    public void delete(Department t) {
+    @Override
+    public boolean delete(Department t) {
         String sql = "delete from Department where department_id=?";
         //System.out.println(sql);
         try {
@@ -112,7 +121,9 @@ public class DepartmentDAO {
         } catch (Exception e) {
             status = "Error delete Department " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
 }

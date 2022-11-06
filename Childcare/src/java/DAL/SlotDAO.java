@@ -63,8 +63,7 @@ public class SlotDAO implements DAO<Slot> {
     }
 
     @Override
-
-    public void load() {
+    public boolean load() {
         list.clear();
         String sql = "select *\n"
                 + "from slot\n"
@@ -96,7 +95,9 @@ public class SlotDAO implements DAO<Slot> {
         } catch (SQLException e) {
             status = "Error Load Slot " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     public void add(int slotTimeId, boolean isExamination, int statuss, int shiftId) {
@@ -160,17 +161,17 @@ public class SlotDAO implements DAO<Slot> {
 
     
     @Override
-    public void add(Slot t) {
+    public boolean add(Slot t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(Slot t) {
+    public boolean update(Slot t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(Slot t) {
+    public boolean delete(Slot t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

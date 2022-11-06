@@ -84,7 +84,7 @@ public class ScheduleDAO implements DAO<Schedule> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         list.clear();
         String sql = "select * from Schedule";
         try {
@@ -102,11 +102,13 @@ public class ScheduleDAO implements DAO<Schedule> {
         } catch (SQLException e) {
             status = "Error Load Schedule " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void add(Schedule t) {
+    public boolean add(Schedule t) {
         String sql = "insert into Schedule (doctorId, dayOfWeek, isMorningShift, [status]) values(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -118,11 +120,13 @@ public class ScheduleDAO implements DAO<Schedule> {
             ps.execute();
         } catch (SQLException e) {
             status = "Error Add Schedule" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(Schedule t) {
+    public boolean update(Schedule t) {
         String sql = "Update Schedule set doctorId= ?, dayOfWeek= ?, isMorningShift= ?, [status] = ? where scheduleId=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -135,11 +139,13 @@ public class ScheduleDAO implements DAO<Schedule> {
         } catch (SQLException e) {
             status = "Error update Schedule " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Schedule t) {
+    public boolean delete(Schedule t) {
         String sql = "delete from Schedule where scheduleId=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -148,7 +154,9 @@ public class ScheduleDAO implements DAO<Schedule> {
         } catch (SQLException e) {
             status = "Error delete Schedule " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     public void updateSchedule(Schedule t) {

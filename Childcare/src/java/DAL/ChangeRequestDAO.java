@@ -53,7 +53,7 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         changeRequestList.clear();
         String sql = "select c.*, title, avatar, name from ChangeRequest c\n"
                 + "inner join DoctorProfile d on c.doctor_id = d.doctor_id\n"
@@ -82,11 +82,13 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
             }
         } catch (Exception e) {
             status = "Error connection" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void add(ChangeRequest cR) {
+    public boolean add(ChangeRequest cR) {
         String sql = "Insert into ChangeRequest values(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -97,11 +99,14 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
             ps.execute();
         } catch (Exception e) {
             status = "Error at insert changeRequest" + e.getMessage();
+            return false;
+            
         }
+        return true;
     }
 
     @Override
-    public void update(ChangeRequest t) {
+    public boolean update(ChangeRequest t) {
         String sql = "update ChangeRequest set reponse_time = ?, reponse_description = ?, [status] = ? where request_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -116,11 +121,13 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
         } catch (SQLException e) {
             System.out.println("UPdate that bai!");
             status = "Error at Update Post" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(ChangeRequest t) {
+    public boolean delete(ChangeRequest t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

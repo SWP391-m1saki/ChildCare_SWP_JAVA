@@ -51,7 +51,7 @@ public class ShiftDAO implements DAO<Shift> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         list.clear();
         String sql = "select s.shiftId, date, s.scheduleId, doctorId, dayOfWeek, isMorningShift, [status] \n"
                 + "	from Shift s\n"
@@ -70,11 +70,13 @@ public class ShiftDAO implements DAO<Shift> {
         } catch (SQLException e) {
             status = "Error Load Slot " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void add(Shift t) {
+    public boolean add(Shift t) {
         String sql = "INSERT INTO Shift([date], scheduleId) values(?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -83,11 +85,13 @@ public class ShiftDAO implements DAO<Shift> {
             ps.execute();
         } catch (SQLException e) {
             status = "Error Add slot" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(Shift t) {
+    public boolean update(Shift t) {
         String sql = "Update Shift set date= ?, scheduleId=? where shiftId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -98,11 +102,13 @@ public class ShiftDAO implements DAO<Shift> {
         } catch (SQLException e) {
             status = "Error update Slot " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Shift t) {
+    public boolean delete(Shift t) {
         String sql = "delete from Shift where shiftId=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -111,7 +117,9 @@ public class ShiftDAO implements DAO<Shift> {
         } catch (SQLException e) {
             status = "Error delete Slot " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     public List<Shift> getShiftsOfWeek(int week_number) {

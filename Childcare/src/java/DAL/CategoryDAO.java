@@ -47,7 +47,7 @@ public class CategoryDAO implements DAO<PostCategory> {
     }
 
     @Override
-    public void load() {
+    public boolean load() {
         postCategoryList.clear();
         String sql = "select * from PostCategory";
         try {
@@ -61,11 +61,13 @@ public class CategoryDAO implements DAO<PostCategory> {
             }
         } catch (Exception e) {
             status = "Error connection" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void add(PostCategory t) {
+    public boolean add(PostCategory t) {
         String sql = "Insert into PostCategory values(?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -73,11 +75,13 @@ public class CategoryDAO implements DAO<PostCategory> {
             ps.execute();
         } catch (Exception e) {
             status = "Error at insert PostCategory" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(PostCategory t) {
+    public boolean update(PostCategory t) {
         String sql = "update PostCategory set cate_name = ? where cate_id = ? ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -86,11 +90,13 @@ public class CategoryDAO implements DAO<PostCategory> {
             ps.execute();
         } catch (Exception e) {
             status = "Error at Update PostCategory" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(PostCategory t) {
+    public boolean delete(PostCategory t) {
         String sql = "delete from PostCategory where cate_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -98,8 +104,9 @@ public class CategoryDAO implements DAO<PostCategory> {
             ps.execute();
         } catch (Exception e) {
             status = "Error at Delete PostCategory" + e.getMessage();
+            return  false;
         }
-
+        return true;
     }
 
 }

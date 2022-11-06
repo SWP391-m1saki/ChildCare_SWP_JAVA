@@ -54,7 +54,7 @@ public class FeedbackDAO implements DAO<Feedback> {
     UserDAO dao = new UserDAO();
 
     @Override
-    public void load() {
+    public boolean load() {
         feedbackList.clear();
         dao.load();
         String sql = "select feedback_id,discription,doctor_id,customer_id,created_at from Feedback";
@@ -73,7 +73,9 @@ public class FeedbackDAO implements DAO<Feedback> {
             }
         } catch (Exception e) {
             status = "Error connection" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -85,7 +87,7 @@ public class FeedbackDAO implements DAO<Feedback> {
     }
 
     @Override
-    public void add(Feedback t) {
+    public boolean add(Feedback t) {
         String sql = "Insert into Feedback(discription,doctor_id, customer_id, created_at) values(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -98,16 +100,18 @@ public class FeedbackDAO implements DAO<Feedback> {
             load();
         } catch (SQLException e) {
             status = "Error at insert Post" + e.getMessage();
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(Feedback t) {
+    public boolean update(Feedback t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(Feedback t) {
+    public boolean delete(Feedback t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

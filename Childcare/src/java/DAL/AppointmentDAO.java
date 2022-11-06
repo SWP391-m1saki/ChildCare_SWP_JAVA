@@ -273,7 +273,7 @@ public class AppointmentDAO implements DAO<Appointment> {
         return null;
     }
     @Override
-    public void load() {
+    public boolean load() {
         list.clear();
         String sql = "select *\n"
                 + "from Appointment\n"
@@ -321,11 +321,13 @@ public class AppointmentDAO implements DAO<Appointment> {
         } catch (SQLException e) {
             status = "Error load Appointment for customer " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void add(Appointment t) {
+    public boolean add(Appointment t) {
         String sql = "insert into Appointment(slot_id, children_id, appointmentStatus) values(?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -336,16 +338,19 @@ public class AppointmentDAO implements DAO<Appointment> {
         } catch (SQLException e) {
             status = "Error add appointment " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void update(Appointment t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean update(Appointment t) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
-    public void delete(Appointment t) {
+    public boolean delete(Appointment t) {
         String sql = "delete from Appointment where appointment_id=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -354,10 +359,12 @@ public class AppointmentDAO implements DAO<Appointment> {
         } catch (SQLException e) {
             status = "Error delete Appointment " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
-    public void updateStatus(int appointmentId, int newStatus) {
+    public boolean updateStatus(int appointmentId, int newStatus) {
         String sql = "update appointment set appointmentStatus=" + newStatus + " where appointment_id=" + appointmentId;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -365,7 +372,9 @@ public class AppointmentDAO implements DAO<Appointment> {
         } catch (SQLException e) {
             status = "error update status of appointment: " + e.getMessage();
             System.out.println(status);
+            return false;
         }
+        return true;
     }
 
     public static void main(String[] args) {
