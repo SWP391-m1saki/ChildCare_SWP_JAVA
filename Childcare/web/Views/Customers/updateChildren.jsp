@@ -35,15 +35,7 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4 bg-light text-white mx-auto p-5 align-items-center" >
-                        <ul class="list-group list-group-flush">
-
-                            <li><a href='userProfile'>Chỉnh sửa tài khoản</a></li>
-                            <li><a href='loadChildren'>Hồ sơ của trẻ</a></li>
-                            <li><a href='#'>Lịch của bạn</a></li>
-                            <li><a href='verifyByOldPassword'>Đổi mật khẩu</a></li>
-                        </ul>
-                    </div>
+                    <jsp:include page="ASIDE.jsp"/>
 
 
                     <div class="col-sm-8 mx-auto p-5">
@@ -80,5 +72,7 @@
         </div>
 
         <jsp:include page="../Shared/_Footer.jsp"></jsp:include>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -14,9 +14,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Childcare System</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
-
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
 
@@ -58,125 +55,8 @@
             </div>
         </div>
         <!-- Hero End -->
-
-        <!-- Team Start -->
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
-                    <h1 class="display-4">Qualified Healthcare Professionals</h1>
-                </div>
-                <div>
-                    <c:forEach items="${requestScope.doctors}" var="d">
-                        <div class="team-item">
-                            <div class="row g-0 bg-light rounded overflow-hidden">
-                                <div class="col-12 col-sm-5 h-100">
-                                    <img class="img-fluid h-100" src="${d.user.avatar}" style="object-fit: cover;">
-                                </div>
-                                <div class="col-12 col-sm-7 h-100 d-flex flex-column">
-                                    <div class="mt-auto p-4">
-                                        <h3><a href="loadDoctorDetail?id=${d.doctorId}">${d.user.name}</a></h3>
-                                        <h6 class="fw-normal fst-italic text-primary mb-4">${d.title}</h6>
-                                        <p class="m-0">${d.description}</p>
-                                    </div>
-                                    <div class="d-flex mt-auto border-top p-4">
-                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </c:forEach>    
-                </div>
-            </div>
-        </div>
-        <!-- Team End -->
-
-
-        <!-- Search Start -->
-<!--        <div class="container-fluid bg-primary my-5 py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Find A Doctor</h5>
-                    <h1 class="display-4 mb-4">Find A Healthcare Professionals</h1>
-                    <h5 class="text-white fw-normal">Duo ipsum erat stet dolor sea ut nonumy tempor. Tempor duo lorem eos sit sed ipsum takimata ipsum sit est. Ipsum ea voluptua ipsum sit justo</h5>
-                </div>
-                <div class="mx-auto" style="width: 100%; max-width: 600px;">
-                    <div class="input-group">
-                        <select class="form-select border-primary w-25" style="height: 60px;">
-                            <option selected>Department</option>
-                            <option value="1">Department 1</option>
-                            <option value="2">Department 2</option>
-                            <option value="3">Department 3</option>
-                        </select>
-                        <input type="text" class="form-control border-primary w-50" placeholder="Keyword">
-                        <button class="btn btn-dark border-0 w-25">Search</button>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-        <!-- Search End -->
-
-
-        <!-- Testimonial Start -->
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Feedback</h5>
-                    <h1 class="display-4">Patients Say About Our Services</h1>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div>
-                            <c:forEach items="${requestScope.feedbacks}" var="f">
-                                <div class="testimonial-item text-center">
-                                    <div class="position-relative mb-5">
-                                        <img style="width: 160px; height: 160px;" class="img-fluid rounded-circle mx-auto" src="${f.user.avatar}" alt="">
-                                        <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                            <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                        </div>
-                                    </div>
-                                    <p class="fs-4 fw-normal">${f.description}</p>
-                                    <hr class="w-25 mx-auto">
-                                    <h3>${f.user.name}</h3>
-                                    <!--<h6 class="fw-normal text-primary mb-3">Profession</h6>-->
-                                </div>
-                            </c:forEach>
-                            <!--                            <div class="testimonial-item text-center">
-                                                            <div class="position-relative mb-5">
-                                                                <img class="img-fluid rounded-circle mx-auto" src="img/testimonial-2.jpg" alt="">
-                                                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                                                </div>
-                                                            </div>
-                                                            <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
-                                                            <hr class="w-25 mx-auto">
-                                                            <h3>Patient Name</h3>
-                                                            <h6 class="fw-normal text-primary mb-3">Profession</h6>
-                                                        </div>
-                                                        <div class="testimonial-item text-center">
-                                                            <div class="position-relative mb-5">
-                                                                <img class="img-fluid rounded-circle mx-auto" src="img/testimonial-3.jpg" alt="">
-                                                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                                                </div>
-                                                            </div>
-                                                            <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
-                                                            <hr class="w-25 mx-auto">
-                                                            <h3>Patient Name</h3>
-                                                            <h6 class="fw-normal text-primary mb-3">Profession</h6>
-                                                        </div>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Testimonial End -->
-
-
-        <!-- Blog Start -->
+        
+         <!-- Blog Start -->
         <div class="container-fluid py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5" style="max-width: 500px;">
@@ -248,6 +128,73 @@
             </div>
         </div>
         <!-- Blog End -->
+
+        <!-- Team Start -->
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
+                    <h1 class="display-4">Qualified Healthcare Professionals</h1>
+                </div>
+                <div>
+                    <c:forEach items="${requestScope.doctors}" var="d">
+                        <div class="team-item">
+                            <div class="row g-0 bg-light rounded overflow-hidden">
+                                <div class="col-12 col-sm-5 h-100">
+                                    <img class="img-fluid h-100" src="${d.user.avatar}" style="object-fit: cover;">
+                                </div>
+                                <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                                    <div class="mt-auto p-4">
+                                        <h3><a href="loadDoctorDetail?id=${d.doctorId}">${d.user.name}</a></h3>
+                                        <h6 class="fw-normal fst-italic text-primary mb-4">${d.title}</h6>
+                                        <p class="m-0">${d.description}</p>
+                                    </div>
+                                    <div class="d-flex mt-auto border-top p-4">
+                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </c:forEach>    
+                </div>
+            </div>
+        </div>
+        <!-- Team End -->
+
+
+        <!-- Testimonial Start -->
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Feedback</h5>
+                    <h1 class="display-4">Patients Say About Our Services</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div>
+                            <c:forEach items="${requestScope.feedbacks}" var="f">
+                                <div class="testimonial-item text-center">
+                                    <div class="position-relative mb-5">
+                                        <img style="width: 160px; height: 160px;" class="img-fluid rounded-circle mx-auto" src="${f.user.avatar}" alt="">
+                                        <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
+                                            <i class="fa fa-quote-left fa-2x text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <p class="fs-4 fw-normal">${f.description}</p>
+                                    <hr class="w-25 mx-auto">
+                                    <h3>${f.user.name}</h3>
+                                    <!--<h6 class="fw-normal text-primary mb-3">Profession</h6>-->
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
 
 
         <!-- Footer Start -->

@@ -58,14 +58,14 @@
                     <div class="collapse navbar-collapse " id="navbarCollapse">
                         <div class="navbar-nav ms-auto py-0 align-items-center">
                             <a href="${context}/loadHomePage" class="nav-item nav-link fs-6 fw-bold ">Trang chủ</a>
-                            <a href="${context}/chooseDepartment" class="nav-item nav-link fs-6 fw-bold ms-2">Đặt lịch
+                            <a href="${context}/chooseDepartment" class="nav-item nav-link fs-6 fw-bold">Đặt lịch
                                 khám</a>
-                            <a href="${context}/loadDoctor" class="nav-item nav-link fs-6 fw-bold ms-2">Bác sĩ</a>
-                            <a href="${context}/chuyen-muc" class="nav-item nav-link fs-6 fw-bold ms-2">Chuyên mục</a>
+                            <a href="${context}/loadDoctor" class="nav-item nav-link fs-6 fw-bold">Bác sĩ</a>
+                            <a href="${context}/chuyen-muc" class="nav-item nav-link fs-6 fw-bold">Chuyên mục</a>
                             <!--                    <a href="${context}/loadAbout" class="nav-item nav-link active fs-6 fw-bold">Về chúng tôi</a>-->
 
                             <c:if test="${sessionScope.UserLogined == null}">
-                                <a href="login" class="nav-item active nav-link fs-6 fw-bold ms-2">Login</a>
+                                <a href="login" class="nav-item active nav-link fs-6 fw-bold">Đăng nhập</a>
                             </c:if>
 
                             <c:if test="${sessionScope.UserLogined != null}">
@@ -73,7 +73,7 @@
                                 <!--<span class="">${sessionScope.UserLogined.name}</span>-->
                                 <div class="btn-group">
                                     <button type="img" class="btn btn-infor pe-0"> <img
-                                            src="${context}/img/${sessionScope.UserLogined.avatar}"
+                                            src="${context}/img/${sessionScope.UserLogined.avatar != null ? sessionScope.UserLogined.avatar : 'default-avatar.jpg'}"
                                             class="rounded-circle" width="45" height="45" alt="Avatar"
                                             loading="lazy" /></button>
                                     <button type="button" class="btn btn-infor btn-sm dropdown-toggle fs-5"

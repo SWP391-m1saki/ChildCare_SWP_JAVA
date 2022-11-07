@@ -7,6 +7,30 @@
         <error-code>404</error-code>
         <location>/error</location>
     </error-page>
+    <filter>
+        <filter-name>Filter_Manager</filter-name>
+        <filter-class>filter.Filter_Manager</filter-class>
+    </filter>
+    <filter>
+        <filter-name>Filter_Doctor</filter-name>
+        <filter-class>filter.Filter_Doctor</filter-class>
+    </filter>
+    <filter>
+        <filter-name>Filter_Customer</filter-name>
+        <filter-class>filter.Filter_Customer</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Filter_Customer</filter-name>
+        <url-pattern>/chooseChild</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter_Doctor</filter-name>
+        <url-pattern>/doctor/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter_Manager</filter-name>
+        <url-pattern>/manager/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>PostController</servlet-name>
         <servlet-class>controller.manager.PostController</servlet-class>
@@ -316,7 +340,6 @@
         <url-pattern>/ChangePassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>Error404Handler</servlet-name>
         <url-pattern>/error</url-pattern>
     </servlet-mapping>

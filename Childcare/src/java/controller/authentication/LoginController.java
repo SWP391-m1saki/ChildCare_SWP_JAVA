@@ -88,9 +88,17 @@ public class LoginController extends HttpServlet {
                     response.addCookie(cRemember);
                 }
                 session.setAttribute("UserLogined", userLogin);
-                response.sendRedirect("loadHomePage");
-                //request.getRequestDispatcher("loadHomePage").forward(request, response);
-                //System.out.println("HELLO");
+                switch (userLogin.getRoleId()) {
+                    case 2:
+                        response.sendRedirect(request.getContextPath() + "/manager/schedule");
+                        break;
+                    case 3:
+                        response.sendRedirect(request.getContextPath() + "/doctor/schedule");
+                        break;
+                    default:
+                        response.sendRedirect("loadHomePage");
+                        break;
+                }
             } else if (userLogin.getStatus() == 2) {
                 request.setAttribute("UserDAO", dao);
                 request.setAttribute("NOTIFICATION", "This account is inactive! ");

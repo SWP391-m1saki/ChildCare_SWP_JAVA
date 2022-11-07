@@ -1,6 +1,7 @@
 package controller.guest;
 
 import DAL.DoctorProfileDAO;
+import DAL.FeedbackDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

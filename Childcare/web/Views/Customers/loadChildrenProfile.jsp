@@ -78,14 +78,8 @@
         </div>
 
         <jsp:include page="../Shared/_Footer.jsp"></jsp:include>
-        <div class="container-fluid bg-dark text-light border-top border-secondary py-4">
-            <div class="container">
-                <div class="row g-5">
-                    <div class="col-md-6 text-center text-md-start">
-                        <p class="mb-md-0">&copy; <a class="text-primary" href="#">ChildCare System</a>. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
