@@ -50,6 +50,9 @@
                 <!--HEADER-->
 
                 <section class="content-main edit-account">
+                    <div class="content-header">
+                        <h2 class="content-title" style="margin: 15px 150px 20px;">Thông tin bác sĩ</h2>
+                    </div>
 
                     <style>
                         .doctor-profile-header {
@@ -303,8 +306,7 @@
 
                                     </section> <!-- content-body .// -->
                                     <div class="feedback-section">
-                                        <!--<div class="sc-fvEvSO hVVIhR mb-16" data-size="md" data-icon-position="left">-->
-                                        <h6 class="header ps-0">
+                                        <h6 class="header ps-4">
 
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -417,7 +419,7 @@
                                                 <div
                                                     style="display: flex; align-items: center; justify-content: center; margin-bottom: 40px;">
                                                     <button id="SubmitButton" type="submit"
-                                                        style="background-color: #1B7ED1; color:white;" disabled="true"
+                                                        class="btn btn-primary py-1 fw-normal" disabled="true"
                                                         onclick="processSlotTime()">Đặt lịch</button>
                                                 </div>
                                             </form>
