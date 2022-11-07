@@ -62,6 +62,10 @@
                 max-height: 3em;       /* fallback */
             }
 
+            a {
+                color: #354760;
+                text-decoration: none;
+            }
         </style>
 
         <jsp:include page="../Shared/_Header.jsp"/>

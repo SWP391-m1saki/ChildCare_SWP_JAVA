@@ -77,37 +77,40 @@ public class UserProfileController extends HttpServlet {
         } else if (dob != null && (now.getYear() - dob.getYear()) <= 18) {
             request.setAttribute("mess", "Tuổi không hợp lệ");
             request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
-        }
+        } else {
+            HttpSession session = request.getSession();
+            User newUser = (User) session.getAttribute("UserLogined");
 
-        HttpSession session = request.getSession();
-        User newUser = (User) session.getAttribute("UserLogined");
+            newUser.setName(name);
+            newUser.setGender(gender);
+            newUser.setPhoneNumber(phoneNumber);
+            newUser.setDob(dob);
+            newUser.setAddress(address);
 
-        newUser.setName(name);
-        newUser.setGender(gender);
-        newUser.setPhoneNumber(phoneNumber);
-        newUser.setDob(dob);
-        newUser.setAddress(address);
-
-        String uploadPath = "C:\\Users\\Admin\\Documents\\GitHub\\ChildCare_SWP_JAVA\\Childcare\\web\\img";
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
-        //System.out.println(uploadPath);
-        try {
-            String fileName;
-            for (Part part : request.getParts()) {
-                fileName = getFileName(part);
-                part.write(uploadPath + "\\" + fileName);
-                newUser.setAvatar(fileName);
+            String uploadPath = "C:\\Users\\Admin\\Documents\\GitHub\\ChildCare_SWP_JAVA\\Childcare\\web\\img";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
             }
-        } catch (Exception e) {
-            System.out.println("Edit profile: " + e);
-        }
+//            System.out.println(uploadPath);
+            try {
+                String fileName;
+                for (Part part : request.getParts()) {
+                    fileName = getFileName(part);
+                    part.write(uploadPath + "\\" + fileName);
+                    System.out.println(fileName);
+                    if (fileName != null && fileName.length() != 0) {
+                        newUser.setAvatar(fileName);
+                    }
+                }
+            } catch (ServletException | IOException e) {
+                System.out.println("Edit profile: " + e);
+            }
 
-        dao.update(newUser);
-        session.setAttribute("UserLogined", newUser);
-        request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
+            dao.update(newUser);
+            session.setAttribute("UserLogined", newUser);
+            request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
+        }
     }
 
     private String getFileName(Part part) {
