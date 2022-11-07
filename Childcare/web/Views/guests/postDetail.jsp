@@ -67,6 +67,10 @@
                 margin-top: 4px;
                 border-radius: 3px;
             }
+            a {
+                color: #354760;
+                text-decoration: none;
+            }
         </style>
 
         <!-- Header Start -->
@@ -110,17 +114,6 @@
                             </div>
 
                             <p>${post.detail}</p>
-
-                        <!--                        <div class="d-flex justify-content-between bg-light rounded p-4 mt-4 mb-4">
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="rounded-circle me-2" src="img/user.jpg" width="40" height="40" alt="">
-                                                        <span>John Doe</span>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</span>
-                                                        <span class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</span>
-                                                    </div>
-                                                </div>-->
                         <div class="entry-cat">
                             <span><i class="fa-regular fa-tag"></i> Chuyên mục: </span>
                             <a href="chuyen-muc?cid=${requestScope.cid}">

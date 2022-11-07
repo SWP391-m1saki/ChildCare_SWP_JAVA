@@ -34,7 +34,7 @@
             <c:if test="${post.postId != rcPost.postId}">
                 <div class="d-flex rounded overflow-hidden mb-3 w-300">
                     <img class="img-fluid" src="${pageContext.request.contextPath}/img/${rcPost.image}" style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                    <a href="" class="h5 d-flex align-items-center px-3 mb-0" style="min-width: 270px; background: #f1f1f1">${rcPost.title}
+                    <a href="bai-viet?id=${rcPost.postId}" class="h5 d-flex align-items-center px-3 mb-0" style="min-width: 270px; background: #f1f1f1">${rcPost.title}
                     </a>
                 </div>
             </c:if>

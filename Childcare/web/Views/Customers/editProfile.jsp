@@ -54,10 +54,12 @@
                     <div class="row">
                     <jsp:include page="ASIDE.jsp"/>
                     <div class="col-sm-8 mx-auto py-4">
-                        <div class="alert alert-dismissible">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>Bạn ưi!</strong> Bạn cần cập nhật số điện thoại trước khi đặt lịch.
-                        </div>
+                        <c:if test="${sessionScope.UserLogined.phoneNumber.trim().length() == 0}">
+                            <div class="alert alert-dismissible">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Bạn ưi!</strong> Bạn cần cập nhật số điện thoại trước khi đặt lịch.
+                            </div>
+                        </c:if>
                         <h1 class="mb-3 ms-3">Hồ sơ của bạn</h1>
                         <c:if test="${requestScope.mess != null}">
                             <div class="alert alert-danger center mb-4 pb-1" role="alert">
