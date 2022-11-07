@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 //import java.nio.file.Path;
 
-
 import java.io.IOException;
 
 import java.time.LocalDate;
@@ -44,7 +43,11 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
+        String name = "", phoneNumber = "", address = "";
+
+        if (request.getParameter("name") != null) {
+            name = request.getParameter("name");
+        }
         Boolean gender = null;
         try {
             gender = request.getParameter("gender").equals("male");
@@ -52,14 +55,18 @@ public class UserProfileController extends HttpServlet {
 
         }
 
-        String phoneNumber = request.getParameter("phonenumber");
+        if (request.getParameter("phonenumber") != null) {
+            phoneNumber = request.getParameter("phonenumber");
+        }
         LocalDate dob;
         try {
             dob = LocalDate.parse(request.getParameter("dob"));
         } catch (Exception ex) {
             dob = null;
         }
-        String address = request.getParameter("address");
+        if (request.getParameter("address") != null) {
+            address = request.getParameter("address");
+        }
         LocalDate now = LocalDate.now();
         if (!Utils.Utility.validateString(phoneNumber, "(84|0[3|5|7|8|9])+([0-9]{8})")) {
             request.setAttribute("mess", "Số điện thoại không hợp lệ");
@@ -67,7 +74,7 @@ public class UserProfileController extends HttpServlet {
         } else if (address.length() > 250) {
             request.setAttribute("mess", "Địa chỉ quá dài, địa chỉ phải có độ dài ít hơn 250 ký tự");
             request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
-        } else if ((now.getYear() - dob.getYear()) <= 18) {
+        } else if (dob != null && (now.getYear() - dob.getYear()) <= 18) {
             request.setAttribute("mess", "Tuổi không hợp lệ");
             request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
         }
@@ -81,18 +88,21 @@ public class UserProfileController extends HttpServlet {
         newUser.setDob(dob);
         newUser.setAddress(address);
 
-
-        String uploadPath = "C:\\Users\\Admin\\Documents\\GitHub\\ChildCare_SWP_JAVA\\Childcare\\web\\img"; 
+        String uploadPath = "C:\\Users\\Admin\\Documents\\GitHub\\ChildCare_SWP_JAVA\\Childcare\\web\\img";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
         }
         //System.out.println(uploadPath);
-        String fileName;
-        for (Part part : request.getParts()) {
-            fileName = getFileName(part);
-            part.write(uploadPath + "\\" + fileName);
-            newUser.setAvatar(fileName);
+        try {
+            String fileName;
+            for (Part part : request.getParts()) {
+                fileName = getFileName(part);
+                part.write(uploadPath + "\\" + fileName);
+                newUser.setAvatar(fileName);
+            }
+        } catch (Exception e) {
+            System.out.println("Edit profile: " + e);
         }
 
         dao.update(newUser);

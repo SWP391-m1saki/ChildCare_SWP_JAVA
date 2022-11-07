@@ -23,6 +23,28 @@
         <link href="css/admin.css" rel="stylesheet">
     </head>
     <body>
+        <style>
+            .alert {
+                position: relative;
+                padding: 1rem 1rem;
+                margin-bottom: 1rem;
+                color: inherit;
+                background-color: #E2BDA2;
+                border: 1px solid transparent;
+                border-radius: 0.4rem;
+
+                .alert-dismissible {
+                    padding-right: 3rem;
+                }
+                .alert-dismissible .btn-close {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 2;
+                    padding: 1.25rem 1rem;
+                }
+            }
+        </style>
         <c:set var="context" value="${pageContext.request.contextPath}" />  
         <c:set var="user" value="${sessionScope.UserLogined}" ></c:set>
             <div id="colorlib-page">
@@ -32,6 +54,10 @@
                     <div class="row">
                     <jsp:include page="ASIDE.jsp"/>
                     <div class="col-sm-8 mx-auto py-4">
+                        <div class="alert alert-dismissible">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong>Bạn ưi!</strong> Bạn cần cập nhật số điện thoại trước khi đặt lịch.
+                        </div>
                         <h1 class="mb-3 ms-3">Hồ sơ của bạn</h1>
                         <c:if test="${requestScope.mess != null}">
                             <div class="alert alert-danger center mb-4 pb-1" role="alert">

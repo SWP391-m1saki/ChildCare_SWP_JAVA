@@ -48,7 +48,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
             <a href="loadHomePage" class="navbar-brand">
-                <h1 class="m-0 text-uppercase text-primary fs-2 my-2"><i
+                <h1 class="m-0 text-uppercase fs-2 my-2"><i
                         class="fa fa-clinic-medical me-2"></i>Childcare System</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -58,13 +58,13 @@
             <div class="collapse navbar-collapse " id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 align-items-center">
                     <a href="${context}/loadHomePage" class="nav-item nav-link fs-6 fw-bold ">Trang chủ</a>
-                    <c:if test="${sessionScope.UserLogined != null && sessionScope.UserLogined.phoneNumber==null}"> 
+                    <c:if test="${sessionScope.UserLogined != null && sessionScope.UserLogined.phoneNumber.trim().length()==0}"> 
                         <a href="${context}/userProfile" class="nav-item nav-link fs-6 fw-bold">Đặt lịch khám</a>
                     </c:if>
                     <c:if test="${sessionScope.UserLogined == null}"> 
-                        <a href="${context}/chooseDepartment" class="nav-item nav-link fs-6 fw-bold">Đặt lịch khám</a>
+                        <a href="${context}/login" class="nav-item nav-link fs-6 fw-bold">Đặt lịch khám</a>
                     </c:if>
-                    <c:if test="${sessionScope.UserLogined != null && sessionScope.UserLogined.phoneNumber!=null}"> 
+                    <c:if test="${sessionScope.UserLogined != null && sessionScope.UserLogined.phoneNumber.trim().length()!=0}"> 
                         <a href="${context}/chooseDepartment" class="nav-item nav-link fs-6 fw-bold">Đặt lịch khám</a>
                     </c:if>
                     <a href="${context}/loadDoctor" class="nav-item nav-link fs-6 fw-bold">Bác sĩ</a>

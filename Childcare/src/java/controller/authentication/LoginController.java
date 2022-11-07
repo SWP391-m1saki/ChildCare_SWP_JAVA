@@ -87,6 +87,7 @@ public class LoginController extends HttpServlet {
                     response.addCookie(cPass);
                     response.addCookie(cRemember);
                 }
+                //System.out.println(userLogin.getPhoneNumber());
                 session.setAttribute("UserLogined", userLogin);
                 switch (userLogin.getRoleId()) {
                     case 2:

@@ -44,7 +44,7 @@
             <div class="container py-5">
                 <div class="row justify-content-start">
                     <div class="col-lg-8 text-center text-lg-start">
-                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To ChildCare System</h5>
+                        <h5 class="d-inline-block text-light text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To ChildCare System</h5>
                         <h1 class="display-1 text-white mb-md-4">Best Healthcare Solution In Your City</h1>
                         <div class="pt-2">
                             <a href="chooseDepartment" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
@@ -60,7 +60,7 @@
         <div class="container-fluid py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog Post</h5>
+                    <h5 class="d-inline-block text-uppercase border-bottom border-5">Blog Post</h5>
                     <h1 class="display-4">Our Latest Medical Blog Posts</h1>
                 </div>
                 <div class="row g-5">
