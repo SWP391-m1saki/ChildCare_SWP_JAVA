@@ -33,9 +33,9 @@
             <jsp:include page="ASIDE.jsp"></jsp:include>
                 <!--ASIDE-->
                 <main class="main-admin-page">
+                     <!--HEADER-->
+                <jsp:include page="header.jsp"></jsp:include>
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
-                <!--HEADER-->
 
                 <section class="content-main">
                     <div class="content-header">

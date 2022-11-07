@@ -81,13 +81,15 @@ public class CustomerDetailController extends HttpServlet {
             doGet(request, response);
         } else {
             User user = userDAO.get(id);
-            user.setId(id);
+            if(avatar != null && avatar.length() > 0){
+                user.setAvatar(avatar);
+            }
             user.setName(name);
             user.setEmail(email);
             user.setDob(dob);
             user.setPhoneNumber(phoneNumber);
             user.setAddress(address);
-            userDAO.update(new User(id, email, "", name, gender, dob, 1, phoneNumber, address, avatar, 1));
+            userDAO.update(user);
             userDAO.load();
             response.sendRedirect("../../manager/user");
         }

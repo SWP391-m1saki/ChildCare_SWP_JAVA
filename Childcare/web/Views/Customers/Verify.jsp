@@ -38,16 +38,18 @@
 
                     <div class="d-flex align-items-center mb-3 pb-1">
                         <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                        <span class="h1 fw-bold mb-0">Verify Account</span>
+                        <span class="h1 fw-bold mb-0">Xác nhận tài khoản</span>
                     </div>
 
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">We already send a verification code to your email.</h5>
-                    <div class="alert alert-success center mb-4" role="alert">
-                        <p>${NOTIFICATION}</p>
-                    </div>
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Chúng tôi đã gửi mã xác nhận qua email của bạn.</h5>
+                    <c:if test="${requestScope.NOTIFICATION != null}">
+                        <div class="alert alert-danger center mb-4 pb-1" role="alert">
+                            <p>${requestScope.NOTIFICATION}</p>
+                        </div>
+                    </c:if>
 
                     <div class="form-outline mb-4">
-                        <input type="text" class="form-control form-control-lg" placeholder="Code" name="VerifyCode" required>
+                        <input type="text" class="form-control w-25 form-control-lg" placeholder="Nhập mã xác nhận" name="VerifyCode" required>
                     </div>
 
                     <div class="pt-1 mb-4">
@@ -58,10 +60,10 @@
                     </c:if>
                 </form>
             </div>
-                    
+
         </div>
 
-        
+
 
 
 

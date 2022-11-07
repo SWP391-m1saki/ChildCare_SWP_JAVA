@@ -68,7 +68,7 @@
                                 </div>
 
                                 <div class="col-lg-2 col-md-3 col-6">
-                                    <select class="form-select fw-bold" name="depId" form="main-form">
+                                    <select class="form-select fw-bold" name="depId" form="main-form" onchange="this.form.submit()">
                                         <option value="-1" ${(requestScope.depId == -1)?'selected':''}>
                                         <span>Chuyên khoa</span>
                                         </option>
@@ -150,42 +150,7 @@
         </div>
         <script src="${context}/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-                                        function doctorListAjax() {
-                                            ajaxCall('/Childcare/AjaxDoctorList', 'list-display');
-                                            ajaxCall('/Childcare/AjaxDoctorPaging', 'paging-div');
-                                        }
 
-                                        function ajaxCall(url, id) {
-                                            $.ajax({
-                                                url: url,
-                                                type: "POST",
-                                                data: {
-                                                    search: document.querySelector('input[name="search"]').value,
-                                                    depId: document.querySelector('select[name="depId"]').value,
-                                                    pagesize: document.querySelector('select[name="pagesize"]').value,
-                                                    page: document.querySelector('input[name="pageindex"]').value
-                                                },
-                                                async: true,
-                                                success: function (data) {
-                                                    var row = document.getElementById(id);
-                                                    row.innerHTML = data;
-                                                },
-                                                error: function () {
-                                                    alert('Errore');
-                                                },
-                                                complete: function () {
-                                                    if (id === 'paging-div') {
-                                                        pagger('pagger', parseInt(document.querySelector('input[name="pageindex"]').value, 10), document.querySelector('input[name="totalpage"]').value, 2, -1);
-                                                    }
-                                                }
-                                            });
-                                        }
-                                        document.querySelector('select[name="depId"]').addEventListener('change', function () {
-                                            doctorListAjax();
-                                            alert();
-                                        });
-        </script>
+        
     </body>
 </html>

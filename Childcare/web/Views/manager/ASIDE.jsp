@@ -60,12 +60,7 @@
 
     <div class="aside-body p-3">
         <ul class="menu-aside menu">
-            <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/dashboard">
-                    <img src="${pageContext.request.contextPath}/img/home.svg">
-                    <span class="text ms-4">Dashboard</span>
-                </a>
-            </li>
+           
             <li class="menu-item">
                 <a class="menu-link" href="${pageContext.request.contextPath}/manager/doctor/profile">
                     <img src="${pageContext.request.contextPath}/img/users.svg">
@@ -97,12 +92,12 @@
                     <span class="text ms-4">Quản lí bài viết</span> </a>
             </li>
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/chat">
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/doctor/shift/list">
                     <img src="${pageContext.request.contextPath}/img/calendar.svg">
-                    <span class="text ms-4">Chat với người dùng</span> </a>
+                    <span class="text ms-4">Quản lí thay đổi lịch</span> </a>
             </li>
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/account">
+                <a class="menu-link" href="${pageContext.request.contextPath}/manager/user/detail?id=${sessionScope.UserLogined.id}#">
                     <img src="${pageContext.request.contextPath}/img/settings_gray.svg">
                     <span class="text ms-4">Hồ sơ tài khoản</span>
                 </a>

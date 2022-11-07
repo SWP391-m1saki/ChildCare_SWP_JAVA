@@ -43,29 +43,11 @@
                              class="img" alt="Sample image" width="600">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form action="register" method="post">
-                            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-                                <button type="button" class="btn btn-primary btn-floating mx-1">
-                                    <i class="fab fa-facebook-f"></i>
-                                </button>
-
-                                <button type="button" class="btn btn-primary btn-floating mx-1">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
-
-                                <button type="button" class="btn btn-primary btn-floating mx-1">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </button>
-                            </div>
-
-                            <div class="divider d-flex align-items-center my-4">
-                                <p class="text-center fw-bold mx-3 mb-0">Or</p>
-                            </div>
-                            <c:if test="${NOTIFICATION != null}">
-                                <div class="alert alert-danger center mb-4" role="alert">
-                                <p>${NOTIFICATION}</p>
-                            </div>
+                        <form action="register" method="post">      
+                            <c:if test="${requestScope.mess != null}">
+                                <div class="alert alert-danger center mb-4 pb-1" role="alert">
+                                    <p>${requestScope.mess}</p>
+                                </div>
                             </c:if>
                             
                             <div class="form-outline mb-4">
