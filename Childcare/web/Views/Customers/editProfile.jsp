@@ -33,6 +33,11 @@
                     <jsp:include page="ASIDE.jsp"/>
                     <div class="col-sm-8 mx-auto py-4">
                         <h1 class="mb-3 ms-3">Hồ sơ của bạn</h1>
+                        <c:if test="${requestScope.mess != null}">
+                            <div class="alert alert-danger center mb-4 pb-1" role="alert">
+                                <p>${requestScope.mess }</p>
+                            </div>
+                        </c:if>
                         <section class="content-body p-xl-4">
                             <form action="userProfile" method="post" enctype="multipart/form-data">
                                 <div class="row">

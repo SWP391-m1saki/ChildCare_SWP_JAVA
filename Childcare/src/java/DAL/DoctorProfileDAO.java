@@ -42,7 +42,7 @@ public class DoctorProfileDAO implements DAO<DoctorProfile> {
     @Override
     public void load() {
         list.clear();
-        String sql = "select * from [User] inner join DoctorProfile on [User].id = DoctorProfile.doctor_id";
+        String sql = "select * from [User] inner join DoctorProfile on [User].id = DoctorProfile.doctor_id order by doctor_id DESC";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

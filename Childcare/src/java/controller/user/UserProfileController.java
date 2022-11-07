@@ -60,6 +60,17 @@ public class UserProfileController extends HttpServlet {
             dob = null;
         }
         String address = request.getParameter("address");
+        LocalDate now = LocalDate.now();
+        if (!Utils.Utility.validateString(phoneNumber, "(84|0[3|5|7|8|9])+([0-9]{8})")) {
+            request.setAttribute("mess", "Số điện thoại không hợp lệ");
+            request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
+        } else if (address.length() > 250) {
+            request.setAttribute("mess", "Địa chỉ quá dài, địa chỉ phải có độ dài ít hơn 250 ký tự");
+            request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
+        } else if ((now.getYear() - dob.getYear()) <= 18) {
+            request.setAttribute("mess", "Tuổi không hợp lệ");
+            request.getRequestDispatcher("Views/Customers/editProfile.jsp").forward(request, response);
+        }
 
         HttpSession session = request.getSession();
         User newUser = (User) session.getAttribute("UserLogined");
