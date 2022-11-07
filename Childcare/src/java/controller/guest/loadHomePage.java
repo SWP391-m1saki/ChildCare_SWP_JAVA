@@ -1,7 +1,9 @@
 package controller.guest;
 
+import DAL.CategoryDAO;
 import DAL.DoctorProfileDAO;
 import DAL.FeedbackDAO;
+import DAL.PostDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,38 +13,34 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class loadHomePage extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet loadHomePage</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet loadHomePage at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
+    PostDAO postDao;
+    CategoryDAO categoryDao;
+    DoctorProfileDAO daoDoctor;
+    FeedbackDAO daoFeedback;
+
+    @Override
+    public void init() {
+        postDao = new PostDAO();
+        categoryDao = new CategoryDAO();
+        daoDoctor = new DoctorProfileDAO();
+        daoFeedback = new FeedbackDAO();
+        daoDoctor.load();
+        daoFeedback.load();
     }
 
-    final DoctorProfileDAO daoDoctor = new DoctorProfileDAO();
-    final FeedbackDAO daoFeedback = new FeedbackDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        daoDoctor.load();
         request.setAttribute("doctors", daoDoctor.getAll());
-        daoFeedback.load();
         request.setAttribute("feedbacks", daoFeedback.getAll());
+        request.setAttribute("postList", postDao.loadMoreWithFilter(0, 3, "", -1));
         request.getRequestDispatcher("Views/index.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     @Override

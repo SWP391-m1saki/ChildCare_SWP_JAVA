@@ -24,6 +24,30 @@
         <url-pattern>/chooseChild</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>Filter_Customer</filter-name>
+        <url-pattern>/chooseChild</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter_Customer</filter-name>
+        <url-pattern>/userProfile</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter_Customer</filter-name>
+        <url-pattern>/chooseChild</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter_Customer</filter-name>
+        <url-pattern>/loadCustomerAppointment</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter_Customer</filter-name>
+        <url-pattern>/loadChildren</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter_Customer</filter-name>
+        <url-pattern>/verifyByOldPassword</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>Filter_Doctor</filter-name>
         <url-pattern>/doctor/*</url-pattern>
     </filter-mapping>

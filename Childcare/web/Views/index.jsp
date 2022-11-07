@@ -37,23 +37,57 @@
     </head>
 
     <body>
+        <style>
+            img {
+                width: 100%;
+            }
+
+            .post-description {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3; /* number of lines to show */
+                line-height: 1.5em;        /* fallback */
+                max-height: 4.5em;
+                color: #464646;
+            }
+
+            .post-title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2; /* number of lines to show */
+                line-height: 1.5em;        /* fallback */
+                max-height: 3em;       /* fallback */
+            }
+
+            .hero-header{
+                background: url('img/banner.png') top right no-repeat;
+            }
+        </style>
         <c:set var="context" value="${pageContext.request.contextPath}" />  
         <jsp:include page="Shared/_Header.jsp"/>
         <!-- Hero Start -->
         <div class="container-fluid bg-primary py-5 mb-5 hero-header">
             <div class="container py-5">
-                <div class="row justify-content-start">
-                    <div class="col-lg-8 text-center text-lg-start">
-                        <h5 class="d-inline-block text-light text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To ChildCare System</h5>
-                        <h1 class="display-1 text-white mb-md-4">Best Healthcare Solution In Your City</h1>
-                        <div class="pt-2">
-                            <a href="chooseDepartment" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
-                            <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Chat with Doctor</a>
-                        </div>
+                <div class="row justify-content-start" style="width: 600px;">
+                    <div class="col-lg-12 text-center text-lg-start">
+                        <h2 class="display-1 mb-md-4 fs-1 fw-bold">Đặt lịch hẹn với bác sĩ dễ dàng</h2>                
+                    </div>
+                    <p style="line-height: 32px;font-size: 17px;font-family: system-ui;">
+                        Giúp bạn đơn giản hóa việc tìm kiếm bác sĩ và dịch vụ y tế phù hợp với nhu cầu sức khoẻ, dù ở bất kỳ đâu.
+                    </p>
+                    <div class="pt-4">
+                        <a href="chooseDepartment" class="btn btn-outline-primary rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
+                        <a href="" class="btn btn-outline-primary rounded-pill py-md-3 px-md-5 mx-2">Chat with Doctor</a>
+
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Hero End -->
         
          <!-- Blog Start -->
@@ -129,94 +163,120 @@
         </div>
         <!-- Blog End -->
 
-        <!-- Team Start -->
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
-                    <h1 class="display-4">Qualified Healthcare Professionals</h1>
-                </div>
-                <div>
-                    <c:forEach items="${requestScope.doctors}" var="d">
-                        <div class="team-item">
-                            <div class="row g-0 bg-light rounded overflow-hidden">
-                                <div class="col-12 col-sm-5 h-100">
-                                    <img class="img-fluid h-100" src="${d.user.avatar}" style="object-fit: cover;">
-                                </div>
-                                <div class="col-12 col-sm-7 h-100 d-flex flex-column">
-                                    <div class="mt-auto p-4">
-                                        <h3><a href="loadDoctorDetail?id=${d.doctorId}">${d.user.name}</a></h3>
-                                        <h6 class="fw-normal fst-italic text-primary mb-4">${d.title}</h6>
-                                        <p class="m-0">${d.description}</p>
-                                    </div>
-                                    <div class="d-flex mt-auto border-top p-4">
-                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
+    <!-- Blog Start -->
+    <div class="container-fluid py-5 " >
+        <div class="container" >
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog Post</h5>
+                <h1 class="display-4">Bài viết mới nhất</h1>
+            </div>
+            <div class="row g-5">
+                <c:forEach items="${requestScope.postList}" var="post">
+                    <div class="post col-xl-4 col-lg-6" >
+                        <div class="bg-light rounded overflow-hidden" style="height: 460px">
+                            <a href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">
+                                <img class="img-fluid w-100" style="aspect-ratio: 3 / 2;" src="${pageContext.request.contextPath}/img/${post.image}" alt="">
+                            </a>
+                            <div class="p-4">
+                                <a class="h4 d-block mb-3 post-title" href="${pageContext.request.contextPath}/bai-viet?id=${post.postId}">${post.title}</a>
+                                <p class="m-0 post-description">${post.description}</p>
                             </div>
                         </div>
-                        <br>
-                    </c:forEach>    
-                </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
-        <!-- Team End -->
+    </div>
+</div>
+<!-- Blog End -->
 
-
-        <!-- Testimonial Start -->
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Feedback</h5>
-                    <h1 class="display-4">Patients Say About Our Services</h1>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div>
-                            <c:forEach items="${requestScope.feedbacks}" var="f">
-                                <div class="testimonial-item text-center">
-                                    <div class="position-relative mb-5">
-                                        <img style="width: 160px; height: 160px;" class="img-fluid rounded-circle mx-auto" src="${f.user.avatar}" alt="">
-                                        <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                            <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                        </div>
-                                    </div>
-                                    <p class="fs-4 fw-normal">${f.description}</p>
-                                    <hr class="w-25 mx-auto">
-                                    <h3>${f.user.name}</h3>
-                                    <!--<h6 class="fw-normal text-primary mb-3">Profession</h6>-->
-                                </div>
-                            </c:forEach>
+<!-- Team Start -->
+<div class="container-fluid py-5" style="max-width: 1000px;">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5">Danh sách bác sĩ</h4>
+        </div>
+        <div>
+            <c:forEach items="${requestScope.doctors}" var="d">
+                <div class="team-item">
+                    <div class="row g-0 bg-light rounded overflow-hidden">
+                        <div class="col-12 col-sm-4 h-100 p-4">
+                            <img class="img-fluid h-100" width="220" height="220"
+                                 src="${context}/img/${d.user.avatar}" style="object-fit: cover;">
+                        </div>
+                        <div class="col-12 col-sm-8 h-100 d-flex flex-column">
+                            <div class="mt-auto p-4">
+                                <h3><a href="loadDoctorDetail?id=${d.doctorId}">${d.user.name}</a></h3>
+                                <h6 class="fw-normal fst-italic text-primary mb-4">${d.title}</h6>
+                                <p class="m-0" style="    line-height: 1.5;
+                                   overflow: hidden;
+                                   white-space: normal;
+                                   max-height: 9rem;">${d.description}</p>
+                                <br>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <br>
+            </c:forEach>  
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+
+
+<!-- Testimonial Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Feedback</h5>
+            <h1 class="display-4">Patients Say About Our Services</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div>
+                    <c:forEach items="${requestScope.feedbacks}" var="f">
+                        <div class="testimonial-item text-center">
+                            <div class="position-relative mb-5">
+                                <img style="width: 160px; height: 160px;" class="img-fluid rounded-circle mx-auto" src="${f.user.avatar}" alt="">
+                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
+                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
+                                </div>
+                            </div>
+                            <p class="fs-4 fw-normal">${f.description}</p>
+                            <hr class="w-25 mx-auto">
+                            <h3>${f.user.name}</h3>
+                            <!--<h6 class="fw-normal text-primary mb-3">Profession</h6>-->
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
-        <!-- Testimonial End -->
+    </div>
+</div>
+<!-- Testimonial End -->
 
 
-        <!-- Footer Start -->
-        <jsp:include page="Shared/_Footer.jsp"/>
-        <!-- Footer End -->
+<!-- Footer Start -->
+<jsp:include page="Shared/_Footer.jsp"/>
+<!-- Footer End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/tempusdominus/js/moment.min.js"></script>
-        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-        <script src="js/main.js"></script>
-    </body>
+<script src="js/main.js"></script>
+</body>
 
 </html>
