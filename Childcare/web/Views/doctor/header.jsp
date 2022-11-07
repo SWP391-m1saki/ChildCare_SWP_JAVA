@@ -72,8 +72,8 @@
         <li class="dropdown nav-item">
             <a class="dropdown-account-toggle ms-3" href="#">
                 <c:choose>
-                    <c:when test="${sessionScope.user.avatar != null}">
-                        <img src="${fn:startsWith(sessionScope.user.avatar,'https')?'':pageContext.request.contextPath.concat("/")}${sessionScope.user.avatar}" class="img-user" alt="User Photo">
+                    <c:when test="${sessionScope.UserLogined.avatar != null}">
+                        <img src="${pageContext.request.contextPath}/img/${sessionScope.UserLogined.avatar}" class="img-user" alt="User Photo">
                     </c:when>
                     <c:otherwise>
                         <img src="${pageContext.request.contextPath}/img/default-avatar.jpg" class="img-user" alt="User Photo">
@@ -82,9 +82,7 @@
                 <i class="fa-solid fa-caret-down" style="font-size: 16px"></i>
             </a>
             <div class="dropdown-menu-list dropdown-menu-end">
-                <a class="dropdown-item ">
-                    <img src="${context}/img/settings.svg" alt="alt"/> Settings
-                </a>
+                
                 <a class="dropdown-item" href="${context}/manager/account">
                     <img src="${context}/img/user.svg" alt="alt"/> Thông tin cá nhân
                 </a>

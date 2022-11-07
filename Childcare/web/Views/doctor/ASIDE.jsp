@@ -98,9 +98,9 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/post">
+                <a class="menu-link" href="${pageContext.request.contextPath}/doctor/request/list">
                     <img src="${pageContext.request.contextPath}/img/edit.svg">
-                    <span class="text ms-4">Quản lí bài viết</span> </a>
+                    <span class="text ms-4">Quản lí đơn xin nghỉ</span> </a>
             </li>
             <li class="menu-item">
                 <a class="menu-link" href="${pageContext.request.contextPath}/admin/chat">
