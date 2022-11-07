@@ -28,9 +28,9 @@ public class DBContext {
 
     private static String serverName = "localhost";
     private static String dbName = "SWP";
-    private static String portNumber = "1209";
+    private static String portNumber = "1234";
     private static String userID = "sa";
-    private static String password = "khai1209";
+    private static String password = "123";
 
 
 //    public static void main(String[] args) throws Exception {

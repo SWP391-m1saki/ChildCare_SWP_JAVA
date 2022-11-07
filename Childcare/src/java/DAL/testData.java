@@ -15,9 +15,14 @@ import Models.*;
 public class testData {
 
     public static void main(String[] args) {
-//        testAppointment();
-//        getDepartment();
-        testSlot();
+        Post t = new Post();
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setDetail("Test");
+        t.setImage("Test");
+        t.setCateId(3);
+         PostDAO instance = new PostDAO();
+         instance.add(t);
     }
 
     private static void getSchedule() {

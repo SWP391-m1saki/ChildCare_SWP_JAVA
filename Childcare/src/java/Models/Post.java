@@ -92,4 +92,16 @@ public class Post {
     public String toString() {
         return "Post{" + "postId=" + postId + ", title=" + title + ", image=" + image + ", createdAt=" + createdAt + ", cateId=" + cateId + '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this.getPostId() == ((Post)obj).getPostId()){
+            return true;
+        }
+        return false;
+    }
+    
+    
+    
+    
 }
