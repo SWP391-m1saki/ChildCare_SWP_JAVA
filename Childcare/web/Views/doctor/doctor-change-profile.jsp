@@ -1,9 +1,8 @@
 <%-- 
-    Document   : add-product
-    Created on : Jun 26, 2022, 9:41:27 AM
-    Author     : Admin
+    Document   : doctor-change-profile
+    Created on : Nov 7, 2022, 10:12:35 PM
+    Author     : ADMIN
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -30,7 +29,7 @@
     </head>
     <body>
         <c:set var="context" value="${pageContext.request.contextPath}" />
-         <c:set var="user" value="${sessionScope.UserLogined}" ></c:set>
+        <c:set value="${sessionScope.UserLogined}" var="u" />
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -55,17 +54,7 @@
                     </div>
                     <div class="card">
                         <header class="card-header">
-                            <div class="row gx-3">
-                                <div class="col-lg-4 col-md-6 me-auto"></div>
-                                <div class="col-lg-2 col-md-3 col-6">
-                                    
-                                    </div>
-                                    <div class="col-lg-2 col-md-3 col-6">
-                                        <div>
-                                            <a href="${context}/manager/user" class="btn btn-primary p-1 ms-2">Quay lại</a>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </header> <!-- card-header end// -->
                         <div class="card-body">
                             <div class="row">
@@ -82,7 +71,7 @@
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-6  mb-3">
                                                             <label class="form-label">Email</label>
-                                                            <input name="email" class="form-control" type="email" placeholder="example@mail.com" value="${u.email}">
+                                                            <input name="email" class="form-control" type="email" placeholder="example@mail.com" value="${u.email}" readonly="">
                                                         </div> <!-- col .// -->
                                                         <div class="col-lg-6  mb-3">
                                                             <label class="form-label">Ngày sinh</label>

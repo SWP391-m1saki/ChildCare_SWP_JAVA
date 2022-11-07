@@ -61,52 +61,25 @@
     <div class="aside-body p-3">
         <ul class="menu-aside menu">
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/dashboard">
-                    <img src="${pageContext.request.contextPath}/img/home.svg">
-                    <span class="text ms-4">Dashboard</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/doctor/profile">
-                    <img src="${pageContext.request.contextPath}/img/users.svg">
-                    <span class="text ms-4">Bác sĩ</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/schedule">
+                <a class="menu-link" href="${pageContext.request.contextPath}/doctor/schedule">
                     <img src="${pageContext.request.contextPath}/img/calendar.svg">
                     <span class="text ms-4">Lịch làm việc</span>
                 </a>
             </li>
             <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/user">
+                <a class="menu-link" href="${pageContext.request.contextPath}/doctor/profile">
                     <img src="${pageContext.request.contextPath}/img/users.svg">
-                    <span class="text ms-4">Người dùng</span>
+                    <span class="text ms-4">Hồ sơ thông tin</span>
                 </a>
             </li>
 
-            <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/account">
-                    <img src="${pageContext.request.contextPath}/img/settings_gray.svg">
-                    <span class="text ms-4">Account Setting</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/manager/review">
-                    <img src="${pageContext.request.contextPath}/img/calendar.svg">
-                    <span class="text ms-4">Đánh giá</span>
-                </a>
-            </li>
+            
             <li class="menu-item">
                 <a class="menu-link" href="${pageContext.request.contextPath}/doctor/request/list">
                     <img src="${pageContext.request.contextPath}/img/edit.svg">
                     <span class="text ms-4">Quản lí đơn xin nghỉ</span> </a>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="${pageContext.request.contextPath}/admin/chat">
-                    <img src="${pageContext.request.contextPath}/img/calendar.svg">
-                    <span class="text ms-4">Chat với người dùng</span> </a>
-            </li>
+          
         </ul>
     </div>
 </nav>

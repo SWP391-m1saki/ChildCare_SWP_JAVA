@@ -83,7 +83,7 @@
             </a>
             <div class="dropdown-menu-list dropdown-menu-end">
                 
-                <a class="dropdown-item" href="${context}/manager/account">
+                <a class="dropdown-item" href="${context}/doctor/profile">
                     <img src="${context}/img/user.svg" alt="alt"/> Thông tin cá nhân
                 </a>
                 <a class="dropdown-item" href="${context}/logout">

@@ -239,6 +239,10 @@
         <servlet-name>AppointmentDetailController</servlet-name>
         <servlet-class>controller.manager.AppointmentDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DoctorChangeProfile</servlet-name>
+        <servlet-class>controller.doctor.DoctorChangeProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostController</servlet-name>
         <url-pattern>/manager/post/create</url-pattern>
@@ -526,6 +530,10 @@
     <servlet-mapping>
         <servlet-name>ChangeShiftDoctor</servlet-name>
         <url-pattern>/manager/doctor/shift/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorChangeProfile</servlet-name>
+        <url-pattern>/doctor/profile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
