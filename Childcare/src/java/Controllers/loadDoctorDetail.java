@@ -46,7 +46,11 @@ public class loadDoctorDetail extends HttpServlet {
             throws ServletException, IOException {
         int id = 0;
         try {
-            id = Integer.parseInt(getServletContext().getAttribute("ChoosedDoctorId").toString());
+            if(getServletContext().getAttribute("ChoosedDoctorId") !=  null) 
+                id = Integer.parseInt(getServletContext().getAttribute("ChoosedDoctorId").toString());
+            System.out.println(id);
+            System.out.println(request.getParameter("id"));
+            if(request.getParameter("id")!=null) id=Integer.parseInt(request.getParameter("id"));
             daoDoctor.load();
             daoDepart.load();
             DoctorProfile doctor = daoDoctor.get(id);
@@ -56,6 +60,7 @@ public class loadDoctorDetail extends HttpServlet {
             request.getRequestDispatcher("Views/Guests/doctor-profile-detail.jsp").forward(request, response);
             //System.out.println(id);
         } catch (Exception e) {
+            System.out.println("djtconmem");
             response.sendRedirect("loadHomePage");
         }
     }

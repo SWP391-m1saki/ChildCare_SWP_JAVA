@@ -42,9 +42,6 @@
 
         <section class="row" style="display: flex; justify-content: center; margin-top: 100px">
 
-            <div class="col-md-8">
-                <h5> Bạn đang đặt lịch hẹn cho:</h5>
-            </div>
             <style>
                 .main-infor{
                     border-bottom: 1px solid rgb(228, 232, 236);
@@ -137,51 +134,69 @@
             </style>
             <div class="col-lg-8">
 
+
                 <div class="row doctor-profile-body" id="ChildDiv">
-                    <div class="card-group col-md-6">
-                        <c:forEach items="${requestScope.ChildrenList}" var="child">
-                            <div class="col-md-12  card-hghlght cc " name="ChildCard" child-id="${child.childrenId}">
-                                <form class="childFrm" action="chooseChild" method="post" name="childFrm">
-                                    <input type="hidden" name="ChildId" value="${child.childrenId}">
-                                    <div class="row main-infor">
-                                        <div class="col-md-2">
-                                            <img src="${child.avatar}" style="border-radius: 50%; width: 70px; height: 70px;">
-                                        </div>
-                                        <div class="col-md-8 ">
-                                            <p style="font-size: 16px; line-height: 24px; padding-top: 20px; font-weight: bold;">
-                                                ${child.name}
-                                            </p>
-                                        </div>
-                                    </div>
+                    <c:if test="${not empty requestScope.ChildrenList}">
+                        <div class="card-group col-md-6">
 
-                                    <div class="col-md-4" style="padding-top: 20px;">
-                                        <div class="row">
-                                            <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
-                                                Ngày sinh: 
-                                                <span style="color:#030B12">${child.dob}</span>
-                                            </p>
+                            <h5> Bạn đang đặt lịch hẹn cho:</h5>
+                            <c:forEach items="${requestScope.ChildrenList}" var="child">
+                                <div class="col-md-12  card-hghlght cc " name="ChildCard" child-id="${child.childrenId}">
+                                    <form class="childFrm" action="chooseChild" method="post" name="childFrm">
+                                        <input type="hidden" name="ChildId" value="${child.childrenId}">
+                                        <div class="row main-infor">
+                                            <div class="col-md-2">
+                                                <img src="${child.avatar}" style="border-radius: 50%; width: 70px; height: 70px;">
+                                            </div>
+                                            <div class="col-md-8 ">
+                                                <p style="font-size: 16px; line-height: 24px; padding-top: 20px; font-weight: bold;">
+                                                    ${child.name}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="row">
-                                            <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
-                                                Giới tính: 
-                                                <c:if test="${child.gender == true}">
-                                                    <span style="color:#030B12">Nam</span>
-                                                </c:if>
-                                                <c:if test="${child.gender == false}">
-                                                    <span style="color:#030B12">Nữ</span>
-                                                </c:if>
-                                            </p>
 
+                                        <div class="col-md-4" style="padding-top: 20px;">
+                                            <div class="row">
+                                                <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
+                                                    Ngày sinh: 
+                                                    <span style="color:#030B12">${child.dob}</span>
+                                                </p>
+                                            </div>
+                                            <div class="row">
+                                                <p style="color: #8c8c8c; font-size: 14px; line-height: 18px;">
+                                                    Giới tính: 
+                                                    <c:if test="${child.gender == true}">
+                                                        <span style="color:#030B12">Nam</span>
+                                                    </c:if>
+                                                    <c:if test="${child.gender == false}">
+                                                        <span style="color:#030B12">Nữ</span>
+                                                    </c:if>
+                                                </p>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+                            </c:forEach>
+                            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 40px;">
+                                <button id="SubmitChildButton" type="button" style="background-color: #1B7ED1; color:white;" disabled="true" onclick="ChildSubmit()">Xác nhận</button>
                             </div>
-                        </c:forEach>
 
-                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 40px;">
-                            <button id="SubmitChildButton" type="button" style="background-color: #1B7ED1; color:white;" disabled="true" onclick="ChildSubmit()">Xác nhận</button>
                         </div>
-                    </div>
+                    </c:if>
+                    <c:if test="${empty requestScope.ChildrenList}">
+                        
+                        <div class="col-md-6">
+                            <h5>Bạn chưa tạo hồ sơ cho trẻ.</h5>  
+                            <form action="addChildren" method="get">
+                                <div style="display: flex; margin-top: 100px;">
+                                    <button type="submit" class="btn btn-success">
+                                        Thêm hồ sơ cho trẻ.
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </c:if>
 
 
 

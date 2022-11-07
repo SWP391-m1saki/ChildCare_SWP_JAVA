@@ -47,7 +47,7 @@ public class ChildrenProfileDAO implements DAO<ChildrenProfile> {
     public void load() {
         list = new ArrayList<ChildrenProfile>();
         String sql = "select * from ChildrenProfile c\n"
-                + "INNER JOIN [USER] u ON u.id = c.children_id";
+                + "INNER JOIN [USER] u ON u.id = c.parent_id";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

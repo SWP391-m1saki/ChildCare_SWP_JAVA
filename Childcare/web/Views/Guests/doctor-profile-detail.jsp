@@ -50,9 +50,6 @@
                 <!--HEADER-->
 
                 <section class="content-main edit-account">
-                    <div class="content-header">
-                        <h2 class="content-title">Thông tin bác sĩ</h2>
-                    </div>
 
                     <style>
                         .doctor-profile-header {
