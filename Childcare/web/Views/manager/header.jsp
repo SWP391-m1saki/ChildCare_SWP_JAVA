@@ -82,9 +82,7 @@
                 <i class="fa-solid fa-caret-down" style="font-size: 16px"></i>
             </a>
             <div class="dropdown-menu-list dropdown-menu-end">
-                <a class="dropdown-item ">
-                    <img src="${context}/img/settings.svg" alt="alt"/> Settings
-                </a>
+                
                 <a class="dropdown-item" href="${context}/manager/user/detail?id=${sessionScope.UserLogined.id}#">
                     <img src="${context}/img/user.svg" alt="alt"/> Thông tin cá nhân
                 </a>

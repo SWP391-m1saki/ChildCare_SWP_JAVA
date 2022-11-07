@@ -7,6 +7,8 @@ package DAL;
 import Models.DoctorProfile;
 import Models.Schedule;
 import Models.*;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author Admin
@@ -15,9 +17,13 @@ import Models.*;
 public class testData {
 
     public static void main(String[] args) {
-//        testAppointment();
-//        getDepartment();
-        testSlot();
+        ChangeRequestDAO c = new ChangeRequestDAO();
+        ChangeRequest cR = new ChangeRequest();
+        cR.setDoctorId(3);
+        cR.setDescription("aa");
+        cR.setRequestTime(Date.valueOf(LocalDate.now()));
+        cR.setStatus(1);
+        c.add(cR);
     }
 
     private static void getSchedule() {

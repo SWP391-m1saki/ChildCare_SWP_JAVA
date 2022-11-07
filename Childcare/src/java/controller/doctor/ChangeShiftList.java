@@ -48,7 +48,7 @@ public class ChangeShiftList extends HttpServlet {
             
             HttpSession session = request.getSession();
             User doctor = (User) session.getAttribute("UserLogined");
-
+            changeRequestDAO.load();
             // get depID of the current  selected filter
             int status = Utility.parseIntParameter(request.getParameter("status"), -1);
 

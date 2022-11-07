@@ -67,6 +67,7 @@ public class SendRequestController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        changeRequestDAO.load();
         request.getRequestDispatcher("../../Views/doctor/doctor-create-change-shift.jsp").forward(request, response);
     }
 
@@ -81,12 +82,13 @@ public class SendRequestController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        changeRequestDAO.load();
         HttpSession session = request.getSession();
         User doctor =(User)session.getAttribute("UserLogined");
         String description = request.getParameter("description");
         if(description.length() > 500){
             request.setAttribute("mess", "Thông tin xin nghỉ quá dài, độ dài không được vượt quá 500 kí tự");
-            doGet(request, response);
+            request.getRequestDispatcher("../../Views/doctor/doctor-create-change-shift.jsp").forward(request, response);
         }else{
             ChangeRequest cR = new ChangeRequest();
             cR.setDoctorId(doctor.getId());
@@ -94,7 +96,7 @@ public class SendRequestController extends HttpServlet {
             cR.setRequestTime(Date.valueOf(LocalDate.now()));
             cR.setStatus(1);
             changeRequestDAO.add(cR);
-            doGet(request, response);
+            response.sendRedirect("list");
         }
     }
 
