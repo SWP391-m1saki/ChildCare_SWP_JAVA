@@ -54,17 +54,20 @@ public class RegisterController extends HttpServlet {
 
         boolean b1 = password.equals(confirmPassword);
         boolean b2 = dao.EmailDuplicate(email);
-        if (!b1 || b2) {
+        if(!Utils.Utility.isValidPassword(password, "^.*(?=.{6,30})(?=..*[0-9])(?=.*[a-zA-Z]).*$")){
+            request.setAttribute("mess", "Password cần có 6 - 30 kí tự, bao gồm chữ cái và chữ số");
+            request.getRequestDispatcher("Views/Guests/register.jsp").forward(request, response);
+        }else if (!b1 || b2) {
             if (!b1) {
-                request.setAttribute("NOTIFICATION", "Wrong confirm password");
+                request.setAttribute("mess", "Confirm password khác với Password");
             }
             if (b2) {
-                request.setAttribute("NOTFICATION", "Email have been used!");
+                request.setAttribute("mess", "Email đã được sử dụng!");
             }
             request.setAttribute("email", email);
             request.setAttribute("name", name);
-            request.getRequestDispatcher("Views/guests/register.jsp").forward(request, response);
-        } else {
+            request.getRequestDispatcher("Views/Guests/register.jsp").forward(request, response);
+        }else {
             User newUser = new User(0, email, password, name, true, null, 4, null, null, avatar, 0);
             dao.add(newUser);
             //System.out.println("concakkk");

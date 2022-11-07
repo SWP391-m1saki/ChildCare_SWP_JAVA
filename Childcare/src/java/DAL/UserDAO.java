@@ -58,7 +58,7 @@ public class UserDAO implements DAO<User> {
 
         list.clear();
 
-        String sql = "select * from [User]";
+        String sql = "select * from [User] order by id DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);

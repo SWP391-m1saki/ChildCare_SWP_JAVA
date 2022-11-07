@@ -88,7 +88,7 @@
 
                                 <input type="password" id="form3Example4" class="form-control form-control-lg" name="password" value="<%=pass%>" required/>
 
-                                <label class="form-label" for="form3Example4">Password</label>
+                                <label class="form-label" for="form3Example4">Mật khẩu</label>
                                 
                             </div>
 
@@ -97,21 +97,20 @@
                                 <div class="form-check mb-0">
                                     <input class="form-check-input me-2" type="checkbox" value="remember" id="form2Example3" name="remember" <%= "remember".equals(remember.trim()) ? "checked=\"checked\"" : "" %>/>
                                     <label class="form-check-label" for="form2Example3">
-                                        Remember me
+                                        Nhớ tài khoản?
                                     </label>
                                 </div>
-                                <a href="ResetPassword" class="text-body">Forgot password?</a>
+                                <a href="ResetPassword" class="text-body">Quên mật khẩu?</a>
                             </div>
                             <!--                            <div class="pt-1 mb-4">
                                                             <button class="btn btn-dark btn-lg btn-block" type="submit">Sign in</button>
                                                         </div>-->
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <button class="btn btn-info btn-lg" type="submit"
-                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="register"
-                                                                                                  class="link-danger">Register</a></p>
+                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Đăng nhập</button>
+                                <p class="small fw-bold mt-2 pt-1 mb-0">Bạn chưa có tài khoản? <a href="register"
+                                                                                                  class="link-danger">Đăng kí</a></p>
                             </div>
-
                         </form>
                     </div>
                 </div>

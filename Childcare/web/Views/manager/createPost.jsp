@@ -42,9 +42,9 @@
                 <!--ASIDE-->
 
                 <main class="main-admin-page">
+                     <!--HEADER-->
+                <jsp:include page="header.jsp"></jsp:include>
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
-                <!--HEADER-->
 
                 <section class="content-main" style="max-width: 980px">
                     <div class="content-header">

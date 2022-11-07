@@ -33,9 +33,9 @@
             <jsp:include page="ASIDE.jsp"></jsp:include>
                 <!--ASIDE-->
                 <main class="main-admin-page">
-                    <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
-                <!--HEADER-->
+                     <!--HEADER-->
+                <jsp:include page="header.jsp"></jsp:include>
+                    <!--HEADER-->>
 
                 <!--Message display-->
                 <script type="text/javascript">

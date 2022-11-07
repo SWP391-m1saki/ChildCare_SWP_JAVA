@@ -74,7 +74,6 @@
                                             <th>Người dùng</th>
                                             <th>Email</th>
                                             <th>Điện thoại</th>
-                                            <th>Trạng thái</th>
                                             <th class="text-end"> Hành động </th>
                                         </tr>
                                     </thead>
@@ -101,9 +100,6 @@
                                                 </td>
                                                 <td>${u.email}</td>
                                                 <td>${u.phoneNumber}</td>
-                                                <td>
-                                                    <span class="badge rounded-pill alert-warning">Unverified</span>
-                                                </td>
                                                 <td class="text-end">
                                                     <a href="${context}/manager/user/detail?id=${u.id}" class="btn btn-light">Chỉnh sửa</a>
                                                 </td>
