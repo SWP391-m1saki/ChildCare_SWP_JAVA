@@ -7,6 +7,7 @@ package DAL;
 import Models.DoctorProfile;
 import Models.Schedule;
 import Models.*;
+import java.sql.Date;
 
 /**
  * @author Admin
@@ -15,14 +16,18 @@ import Models.*;
 public class testData {
 
     public static void main(String[] args) {
-        Post t = new Post();
-        t.setTitle("Test");
-        t.setDescription("Test");
-        t.setDetail("Test");
-        t.setImage("Test");
-        t.setCateId(3);
-         PostDAO instance = new PostDAO();
-         instance.add(t);
+        PostDAO p = new PostDAO();
+        p.load();
+        Post t = p.getLast();
+        
+        for(Post d : p.getAll()){
+            System.out.println(d.getPostId());
+        }
+        System.out.println("--");
+        Post d = new Post(37,"TestSearchAndCate", "TestSearchAndCate","TestSearchAndCate", "TestSearchAndCate", Date.valueOf("2022-11-8"), 7);
+        System.out.println(t.getPostId());
+        System.out.println(t.equals(d));
+        
     }
 
     private static void getSchedule() {

@@ -105,6 +105,7 @@ public class PostDAOTest {
 //    /**
 //     * Test of add method, of class PostDAO.
 //     */
+    
    @Test
     public void testAddTrue() {
         System.out.println("Test add true");
@@ -251,20 +252,45 @@ public class PostDAOTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of delete method, of class PostDAO.
-//     */
-//    @Test
-//    public void testDelete() {
-//        System.out.println("delete");
-//        Post t = null;
-//        PostDAO instance = new PostDAO();
-//        boolean expResult = false;
-//        boolean result = instance.delete(t);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of delete method, of class PostDAO.
+     */
+    @Test
+    public void testDelete() {
+        System.out.println("delete");
+        PostDAO instance = new PostDAO();
+        instance.load();
+        Post t = instance.getLast();
+        boolean expResult = true;
+        boolean result = instance.delete(t);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+      
+    }
+    
+    @Test
+    public void testCheckDuplicateSuccess() {
+        System.out.println("Test check duplicateSuccess");
+        PostDAO instance = new PostDAO();
+        int i = 29;
+        boolean expResult = true;
+        boolean result = instance.duplicateCode(i);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+      
+    }
+    
+    @Test
+    public void testCheckDuplicateFalse() {
+        System.out.println("Test check duplicate false");
+        PostDAO instance = new PostDAO();
+        int i = -1;
+        boolean expResult = false;
+        boolean result = instance.duplicateCode(i);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+      
+    }
 //
 //    /**
 //     * Test of getPostsByPage method, of class PostDAO.

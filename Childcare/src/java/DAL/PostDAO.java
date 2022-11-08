@@ -48,7 +48,7 @@ public class PostDAO implements DAO<Post> {
     public boolean load() 
     {
         postList.clear();
-        String sql = "SELECT * FROM Post ORDER BY created_at DESC";
+        String sql = "SELECT * FROM Post ORDER BY post_id DESC";
         try 
         {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -157,6 +157,30 @@ public class PostDAO implements DAO<Post> {
     @Override
     public boolean update(Post t) 
     {
+        if(!duplicateCode(t.getPostId())){
+             return false;
+        }
+        if(t.getTitle() == null || t.getTitle().length() == 0)
+        {
+            return false;
+        }
+        else if(t.getDescription()== null || t.getDescription().length() == 0)
+        {
+            return false;
+        }
+         
+        else if(t.getDetail()== null || t.getDetail().length()==0)
+        {
+            return false;
+        }
+          
+        else if(t.getImage() == null || t.getImage().length() == 0 || t.getImage().length() >=250)
+        {
+            return false;
+        }
+        else if(t.getCateId() <=0 || t.getCateId() >7){
+            return false;
+        }
         String sql = "update Post set title = ?, description = ?,detail = ?,cate_id= ?,[image] = ? where post_id = ?";
         try 
         {
@@ -298,6 +322,21 @@ public class PostDAO implements DAO<Post> {
             }
         }
         return posts;
+    }
+    
+
+    public Post getLast() 
+    {
+        return postList.get(0);
+    }
+    
+    public boolean duplicateCode(int postId){
+        for(Post p: postList){
+            if(p.getPostId() == postId ){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
