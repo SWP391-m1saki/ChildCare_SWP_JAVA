@@ -27,10 +27,14 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
     private Connection con;
     private List<ChangeRequest> changeRequestList;
 
-    public ChangeRequestDAO() {
-        try {
+    public ChangeRequestDAO() 
+    {
+        try 
+        {
             con = DBContext.getConnection();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             status = "Error connection" + e.getMessage();
         }
         changeRequestList = new ArrayList<ChangeRequest>();
@@ -38,14 +42,18 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
     }
 
     @Override
-    public List<ChangeRequest> getAll() {
+    public List<ChangeRequest> getAll() 
+    {
         return changeRequestList;
     }
 
     @Override
-    public ChangeRequest get(int id) {
-        for (ChangeRequest changeRequest : changeRequestList) {
-            if (changeRequest.getRequestId() == id) {
+    public ChangeRequest get(int id) 
+    {
+        for (ChangeRequest changeRequest : changeRequestList) 
+        {
+            if (changeRequest.getRequestId() == id) 
+            {
                 return changeRequest;
             }
         }
@@ -53,13 +61,15 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
     }
 
     @Override
-    public boolean load() {
+    public boolean load() 
+    {
         changeRequestList.clear();
         String sql = "select c.*, title, avatar, name from ChangeRequest c\n"
                 + "inner join DoctorProfile d on c.doctor_id = d.doctor_id\n"
                 + "inner join [User] u on u.id = d.doctor_id\n"
                 + "order by request_time desc";
-        try {
+        try 
+        {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -80,7 +90,9 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
                 cR.setReponseDescription(rs.getString("reponse_description"));
                 changeRequestList.add(cR);
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             status = "Error connection" + e.getMessage();
             return false;
         }
@@ -88,16 +100,20 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
     }
 
     @Override
-    public boolean add(ChangeRequest cR) {
+    public boolean add(ChangeRequest cR) 
+    {
         String sql = "Insert into ChangeRequest([description],request_time,[status],doctor_id) values(?,?,?,?)";
-        try {
+        try 
+        {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cR.getDescription());
             ps.setDate(2, cR.getRequestTime());
             ps.setInt(3, cR.getStatus());
             ps.setInt(4, cR.getDoctorId());
             ps.execute();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             status = "Error at insert changeRequest" + e.getMessage();
             return false;
             
@@ -106,9 +122,11 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
     }
 
     @Override
-    public boolean update(ChangeRequest t) {
+    public boolean update(ChangeRequest t) 
+    {
         String sql = "update ChangeRequest set reponse_time = ?, reponse_description = ?, [status] = ? where request_id = ?";
-        try {
+        try 
+        {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, t.getReponseTime());
             ps.setString(2, t.getReponseDescription());
@@ -118,7 +136,8 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
             System.out.println("UPdate ok!");
 
             load();
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             System.out.println("UPdate that bai!");
             status = "Error at Update Post" + e.getMessage();
             return false;
@@ -131,22 +150,28 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public List<ChangeRequest> getChangeRequestListByDoctorID(int doctorId) {
+    public List<ChangeRequest> getChangeRequestListByDoctorID(int doctorId) 
+    {
         List<ChangeRequest> cR = new ArrayList<>();
-        for (ChangeRequest c : changeRequestList) {
-            if (c.getDoctorId() == doctorId) {
+        for (ChangeRequest c : changeRequestList) 
+        {
+            if (c.getDoctorId() == doctorId) 
+            {
                 cR.add(c);
             }
         }
         return cR;
     }
 
-    public List<ChangeRequest> getChangeRequestListByStatus(int status, int doctorId) {
-        if (status == -1) {
+    public List<ChangeRequest> getChangeRequestListByStatus(int status, int doctorId) 
+    {
+        if (status == -1) 
+        {
             return getChangeRequestListByDoctorID(doctorId);
         }
         List<ChangeRequest> cR = new ArrayList<>();
-        for (ChangeRequest c : changeRequestList) {
+        for (ChangeRequest c : changeRequestList) 
+        {
             if (c.getStatus() == status && c.getDoctorId() == doctorId) {
                 cR.add(c);
             }
@@ -154,14 +179,20 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
         return cR;
     }
 
-    public List<ChangeRequest> getChangeRequestListByStatusAndSearch(int status, String search) {
-        if (status == -1) {
-            if (search == null || search.length() == 0) {
+    public List<ChangeRequest> getChangeRequestListByStatusAndSearch(int status, String search) 
+    {
+        if (status == -1) 
+        {
+            if (search == null || search.length() == 0) 
+            {
                 return getAll();
-            } else {
+            } 
+            else 
+            {
                 List<ChangeRequest> cR = new ArrayList<>();
                 for (ChangeRequest c : changeRequestList) {
-                    if (c.getDoctor().getUser().getName().toLowerCase().contains(search.toLowerCase())) {
+                    if (c.getDoctor().getUser().getName().toLowerCase().contains(search.toLowerCase())) 
+                    {
                         cR.add(c);
                     }
                 }
@@ -170,22 +201,27 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
         }
         search = search == null ? "" : search;
         List<ChangeRequest> cR = new ArrayList<>();
-        for (ChangeRequest c : changeRequestList) {
-            if (c.getStatus() == status && c.getDoctor().getUser().getName().toLowerCase().contains(search.toLowerCase())) {
+        for (ChangeRequest c : changeRequestList) 
+        {
+            if (c.getStatus() == status && c.getDoctor().getUser().getName().toLowerCase().contains(search.toLowerCase())) 
+            {
                 cR.add(c);
             }
         }
         return cR;
     }
 
-    public List<ChangeRequest> getChangeRequestByPage(PageInfo page, List<ChangeRequest> fullList) {
+    public List<ChangeRequest> getChangeRequestByPage(PageInfo page, List<ChangeRequest> fullList) 
+    {
         List<ChangeRequest> cR = new ArrayList<>();
-        if (fullList.isEmpty()) {
+        if (fullList.isEmpty()) 
+        {
             return cR;
         }
         int maxIndex = page.getPageindex() * page.getPagesize();
         maxIndex = (maxIndex > fullList.size()) ? fullList.size() : maxIndex;
-        for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) {
+        for (int i = (page.getPageindex() - 1) * page.getPagesize(); i < maxIndex; i++) 
+        {
             cR.add(fullList.get(i));
         }
         return cR;
