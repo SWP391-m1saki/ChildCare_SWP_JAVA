@@ -89,7 +89,7 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
 
     @Override
     public boolean add(ChangeRequest cR) {
-        String sql = "Insert into ChangeRequest values(?,?,?,?)";
+        String sql = "Insert into ChangeRequest([description],request_time,[status],doctor_id) values(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, cR.getDescription());

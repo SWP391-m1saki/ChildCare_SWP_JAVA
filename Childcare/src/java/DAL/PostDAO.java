@@ -205,6 +205,9 @@ public class PostDAO implements DAO<Post> {
     @Override
     public boolean delete(Post t) 
     {
+        if(!duplicateCode(t.getPostId())){
+            return false;
+        }
         String sql = "delete from Post where post_id = ?";
         try 
         {

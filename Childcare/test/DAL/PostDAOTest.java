@@ -6,6 +6,8 @@ package DAL;
 
 import Models.PageInfo;
 import Models.Post;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,43 +21,26 @@ import static org.junit.Assert.*;
  * @author ADMIN
  */
 public class PostDAOTest {
-    
+
     public PostDAOTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
-//    /**
-//     * Test of getAll method, of class PostDAO.
-//     */
-//    @Test
-//    public void testGetAll() {
-//        System.out.println("getAll");
-//        PostDAO instance = new PostDAO();
-//        List<Post> expResult = null;
-//        List<Post> result = instance.getAll();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-    /**
-     * Test of load method, of class PostDAO.
-     */
     @Test
     public void testLoadSuccess() {
         System.out.println("load");
@@ -65,25 +50,36 @@ public class PostDAOTest {
         boolean result = instance.load();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
-    }
-    
 
-//    /**
-//     * Test of get method, of class PostDAO.
-//     */
-//    @Test
-//    public void testGet() {
-//        System.out.println("get");
-//        int id = 0;
-//        PostDAO instance = new PostDAO();
-//        Post expResult = null;
-//        Post result = instance.get(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+    }
+
+    /**
+     * Test of get method, of class PostDAO.
+     */
+    @Test
+    public void testGetSuccess() {
+        System.out.println("get Post success");
+        int id = 29;
+        PostDAO instance = new PostDAO();
+        Post expResult = new Post(29, "TestSearch", "TestSearch", "TestSearch", "TestSearch", Date.valueOf("2022-11-08"), 7);
+        Post result = instance.get(id);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+
+    }
+
+    @Test
+    public void testGetFail() {
+        System.out.println("get Post fail");
+        int id = -1;
+        PostDAO instance = new PostDAO();
+        Post expResult = null;
+        Post result = instance.get(id);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+      
+    }
+
 //    /**
 //     * Test of loadMoreWithFilter method, of class PostDAO.
 //     */
@@ -105,8 +101,7 @@ public class PostDAOTest {
 //    /**
 //     * Test of add method, of class PostDAO.
 //     */
-    
-   @Test
+    @Test
     public void testAddTrue() {
         System.out.println("Test add true");
         Post t = new Post();
@@ -115,14 +110,14 @@ public class PostDAOTest {
         t.setDetail("Test");
         t.setImage("Test");
         t.setCateId(3);
-     
+
         PostDAO instance = new PostDAO();
         boolean expResult = true;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testAddFalseTitle() {
         System.out.println("Test False Title");
@@ -135,9 +130,9 @@ public class PostDAOTest {
         boolean expResult = false;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testAddDescriotionFalse() {
         System.out.println("Test Descripton False");
@@ -150,9 +145,9 @@ public class PostDAOTest {
         boolean expResult = false;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testAddDetailFalse() {
         System.out.println("Test add Detail null");
@@ -165,9 +160,9 @@ public class PostDAOTest {
         boolean expResult = false;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testAddImageFalseNull() {
         System.out.println("Test add Image null");
@@ -175,14 +170,14 @@ public class PostDAOTest {
         t.setTitle("Test");
         t.setDescription("Test");
         t.setDetail("Test");
-        t.setCateId(3);    
+        t.setCateId(3);
         PostDAO instance = new PostDAO();
         boolean expResult = false;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testAddImageM250False() {
         System.out.println("Test Image more than 250 char");
@@ -200,9 +195,9 @@ public class PostDAOTest {
         boolean expResult = false;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testAddCateL1() {
         System.out.println("Test add Cate less than 1");
@@ -216,9 +211,9 @@ public class PostDAOTest {
         boolean expResult = false;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testAddCateM7() {
         System.out.println("Test add Cate more than 7");
@@ -228,35 +223,175 @@ public class PostDAOTest {
         t.setDetail("Test");
         t.setImage("Test");
         t.setCateId(8);
-     
+
         PostDAO instance = new PostDAO();
         boolean expResult = false;
         boolean result = instance.add(t);
         assertEquals(expResult, result);
-        
+
+    }
+
+    /**
+     * Test of update method, of class PostDAO.
+     */
+    @Test
+    public void testUpdateSuccess() {
+        System.out.println("update Post Success");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setDetail("Test");
+        t.setImage("Test");
+        t.setCateId(3);
+        PostDAO instance = new PostDAO();
+        boolean expResult = true;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
     }
     
+     @Test
+    public void testUpdateIdFail() {
+        System.out.println("update Post ID Fail");
+        Post t = new Post();
+        t.setPostId(-1);
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setDetail("Test");
+        t.setImage("Test");
+        t.setCateId(3);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
 
-//    /**
-//     * Test of update method, of class PostDAO.
-//     */
-//    @Test
-//    public void testUpdate() {
-//        System.out.println("update");
-//        Post t = null;
-//        PostDAO instance = new PostDAO();
-//        boolean expResult = false;
-//        boolean result = instance.update(t);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+    }
+    
+     @Test
+    public void testUpdateTitleFail() {
+        System.out.println("update Title Null");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setDescription("Test");
+        t.setDetail("Test");
+        t.setImage("Test");
+        t.setCateId(3);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
+    }
+    
+     @Test
+    public void testUpdateDescriptionFail() {
+        System.out.println("update Description Null");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setTitle("Test");
+        t.setDetail("Test");
+        t.setImage("Test");
+        t.setCateId(3);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
+    }
+    
+     @Test
+    public void testUpdateDetailFail() {
+        System.out.println("update Detail Fail");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setImage("Test");
+        t.setCateId(3);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
+    }
+    
+     @Test
+    public void testUpdateImageNull() {
+        System.out.println("update image Null");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setDetail("Test");
+        t.setCateId(3);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
+    }
+    
+     @Test
+    public void testUpdateImageM255() {
+        System.out.println("update Image more than 255 char");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setDetail("Test");
+         String image = "";
+        for (int i = 0; i < 260; i++) {
+            image += "0123456789";
+        }
+        t.setImage(image);
+        t.setCateId(3);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
+    }
+    
+     @Test
+    public void testUpdateCateL1() {
+        System.out.println("update CateID less than 1");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setDetail("Test");
+        t.setImage("Test");
+        t.setCateId(-1);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
+    }
+    
+     @Test
+    public void testUpdateCateM7() {
+        System.out.println("update CateID more than 7");
+        Post t = new Post();
+        t.setPostId(28);
+        t.setTitle("Test");
+        t.setDescription("Test");
+        t.setDetail("Test");
+        t.setImage("Test");
+        t.setCateId(8);
+        PostDAO instance = new PostDAO();
+        boolean expResult = false;
+        boolean result = instance.update(t);
+        assertEquals(expResult, result);
+
+    }
+
     /**
      * Test of delete method, of class PostDAO.
      */
     @Test
-    public void testDelete() {
+    public void testDeleteSuccess() {
         System.out.println("delete");
         PostDAO instance = new PostDAO();
         instance.load();
@@ -265,9 +400,23 @@ public class PostDAOTest {
         boolean result = instance.delete(t);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-      
+
     }
-    
+
+    @Test
+    public void testDeleteSuccessFail() {
+        System.out.println("delete");
+        PostDAO instance = new PostDAO();
+        instance.load();
+        Post t = new Post();
+        t.setPostId(-1);
+        boolean expResult = false;
+        boolean result = instance.delete(t);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+
+    }
+
     @Test
     public void testCheckDuplicateSuccess() {
         System.out.println("Test check duplicateSuccess");
@@ -277,9 +426,9 @@ public class PostDAOTest {
         boolean result = instance.duplicateCode(i);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-      
+
     }
-    
+
     @Test
     public void testCheckDuplicateFalse() {
         System.out.println("Test check duplicate false");
@@ -289,7 +438,7 @@ public class PostDAOTest {
         boolean result = instance.duplicateCode(i);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-      
+
     }
 //
 //    /**
@@ -308,36 +457,41 @@ public class PostDAOTest {
 //        fail("The test case is a prototype.");
 //    }
 //
-//    /**
-//     * Test of getPostBySearch method, of class PostDAO.
-//     */
-//    @Test
-//    public void testGetPostBySearch() {
-//        System.out.println("getPostBySearch");
-//        String searchText = "";
-//        PostDAO instance = new PostDAO();
-//        List<Post> expResult = null;
-//        List<Post> result = instance.getPostBySearch(searchText);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of getPostByCate method, of class PostDAO.
-//     */
-//    @Test
-//    public void testGetPostByCate() {
-//        System.out.println("getPostByCate");
-//        int cateId = 0;
-//        PostDAO instance = new PostDAO();
-//        List<Post> expResult = null;
-//        List<Post> result = instance.getPostByCate(cateId);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+
+
+    /**
+     * Test of getPostByCate method, of class PostDAO.
+     */
+    @Test
+    public void testGetPostByCateSuccess() {
+        System.out.println("getPostByCate success");
+        int cateId = 7;
+        PostDAO instance = new PostDAO();
+        List<Post> expResult = new ArrayList<>();
+        expResult.add(new Post(37, "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", Date.valueOf("2022-11-08"), 7));
+        expResult.add(new Post(36, "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", Date.valueOf("2022-11-08"), 7));
+         expResult.add(new Post(33, "TestCate", "TestCate", "TestCate", "TestCate", Date.valueOf("2022-11-08"), 7));
+        expResult.add(new Post(32, "TestCate", "TestCate", "TestCate", "TestCate", Date.valueOf("2022-11-08"), 7));
+        List<Post> result = instance.getPostByCate(cateId);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+    }
+    
+     @Test
+    public void testGetPostBySearchSuccess() {
+        System.out.println("getPostBySearch success");
+        String search = "TestSearch";
+        PostDAO instance = new PostDAO();
+        List<Post> expResult = new ArrayList<>();
+        expResult.add(new Post(37, "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", Date.valueOf("2022-11-08"), 7));
+        expResult.add(new Post(36, "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", "TestSearchAndCate", Date.valueOf("2022-11-08"), 7));
+        expResult.add(new Post(30, "TestSearch", "TestSearch", "TestSearch", "TestSearch", Date.valueOf("2022-11-08"), 3));
+        expResult.add(new Post(29, "TestSearch", "TestSearch", "TestSearch", "TestSearch", Date.valueOf("2022-11-08"), 3));
+        List<Post> result = instance.getPostBySearch(search);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+    }
+
 //    /**
 //     * Test of getPostBySearchAndCategory method, of class PostDAO.
 //     */
