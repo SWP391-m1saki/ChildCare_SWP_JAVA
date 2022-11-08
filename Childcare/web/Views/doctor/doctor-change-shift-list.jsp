@@ -45,11 +45,11 @@
                     <div class="card mb-4">
                         <header class="card-header">
                             <div class="row gx-3" id="filter-control">
-                                <div class="">
+                                <div class="col-lg-4 col-md-6 me-auto"">
                                     <a href="${context}/doctor/request/send" class="btn btn-primary py-2"><i class="material-icons md-plus"></i>Thêm đơn</a>
                                 </div>
                                 <!--SEARCH BAR-->
-                                <div class="col-lg-4 col-md-6 me-auto">
+                                <div class="col-lg-4 col-md-6 me-auto offset-4">
                                     <select class="form-select fw-bold w-50" name="status" form="main-form" onchange="this.form.submit()">
                                         <option value="-1" ${(requestScope.status == -1)?'selected':''}>
                                         <span>Trạng thái</span>

@@ -77,7 +77,7 @@ public class AjaxShiftAddDoctor extends HttpServlet {
                     for (DoctorProfile doctor : doctors) {
                         s += "<tr>\n"
                                 + "                                                                <td>\n"
-                                + "                                                                    <a href=\"${context}/manager/doctor/profile/detail?id=" + doctor.getDoctorId() + "\" class=\"text-dark d-flex justify-content-start align-items-center\">\n"
+                                + "                                                                    <a href=\"../../manager/doctor/profile/detail?id=" + doctor.getDoctorId() + "\" class=\"text-dark d-flex justify-content-start align-items-center\">\n"
                                 + "                                                                        <div class=\"left\">\n"
                                 + "                                                                            <img src=\"../../img/" + doctor.getUser().getAvatar() + "\" class=\"img-xs image p-1 rounded-circle\" width=\"50\" height=\"50\" alt=\"Ảnh bac si\">\n"
                                 + "                                                                        </div>\n"

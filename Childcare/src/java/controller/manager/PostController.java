@@ -150,7 +150,6 @@ public class PostController extends HttpServlet {
 
         postDao.update(post);
         request.setAttribute("post", post);
-//        request.setAttribute("mess", new String[]{"success", "Chỉnh sửa bài viết thành công"});
         request.setAttribute("mess", "Chỉnh sửa bài viết thành công");
         request.getRequestDispatcher("../../Views/manager/updatePost.jsp").forward(request, response);
     }

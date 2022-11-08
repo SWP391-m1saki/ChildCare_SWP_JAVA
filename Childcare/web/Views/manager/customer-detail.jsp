@@ -30,9 +30,9 @@
     </head>
     <body>
         <c:set var="context" value="${pageContext.request.contextPath}" />
-         <c:set var="user" value="${sessionScope.UserLogined}" ></c:set>
-        <div class="page-wrapper">
-            <!--ASIDE-->
+        <c:set var="u" value="${requestScope.user}" ></c:set>
+            <div class="page-wrapper">
+                <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
                 <!--ASIDE-->
 
@@ -41,28 +41,26 @@
                 <jsp:include page="header.jsp"></jsp:include>
                     <!--HEADER-->
 
-                <c:if test="${requestScope.mess != null}">
-                    <div class="alert-danger w-50 mx-4">
-                        <p class="p-2 ps-3">${requestScope.mess}</p>
-                    </div>
-                </c:if>
-                <section class="content-main edit-account">
-                    <div>
-                        <h2 >${requestScope.mess}</h2>
-                    </div>
-                    <div class="content-header">
-                        <h2 class="content-title">Chỉnh sửa thông tin </h2>
-                    </div>
+                    <section class="content-main edit-account">
+
+                        <div class="content-header">
+                            <h2 class="content-title">Chỉnh sửa thông tin </h2>
+                        </div>
+                    <c:if test="${requestScope.mess != null}">
+                        <div class="alert-danger w-50 mx-4">
+                            <p class="p-2 ps-3">${requestScope.mess}</p>
+                        </div>
+                    </c:if>
                     <div class="card">
                         <header class="card-header">
                             <div class="row gx-3">
                                 <div class="col-lg-4 col-md-6 me-auto"></div>
                                 <div class="col-lg-2 col-md-3 col-6">
-                                    
-                                    </div>
-                                    <div class="col-lg-2 col-md-3 col-6">
-                                        <div>
-                                            <a href="${context}/manager/user" class="btn btn-primary p-1 ms-2">Quay lại</a>
+
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-6">
+                                    <div>
+                                        <a href="${context}/manager/user" class="btn btn-primary p-1 ms-2">Quay lại</a>
                                     </div>
                                 </div>
                             </div>

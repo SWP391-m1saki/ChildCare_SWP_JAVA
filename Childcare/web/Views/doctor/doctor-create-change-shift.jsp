@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,6 +27,7 @@
         <link href="${pageContext.request.contextPath}/css/pagger.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <c:set var="context" value="${pageContext.request.contextPath}" />
         <div class="page-wrapper">
             <!--ASIDE-->
             <jsp:include page="ASIDE.jsp"></jsp:include>
@@ -32,33 +35,35 @@
                 <main class="main-admin-page">
                     <!--HEADER-->
                 <jsp:include page="header.jsp"></jsp:include>
-                <!--HEADER-->
 
-                <section class="content-main edit-account">
+                    <!--HEADER-->
 
-                    <div class="content-header">
-                        <h2 class="content-title">Thay đổi lịch làm việc</h2>
-                    </div>
+                    <section class="content-main edit-account">
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-11">
+                        <div class="content-header">
+                            <h2 class="content-title">Thay đổi lịch làm việc</h2>
+                        </div>
 
-                                    <section class="content-body p-xl-4">
-                                        <form method="POST">
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <div class="row gx-3">
-                                                        <div class="col-12  mb-3 me-3">
-                                                            <label class="form-label">Thông tin xin nghỉ</label>
-                                                            <textarea name="description" class="form-control" placeholder="Type here" style="min-height:500px "></textarea>
-                                                        </div> <!-- col .// -->                                                 
-                                                    </div> <!-- row.// -->
-                                                </div> <!-- col.// -->
-                                            </div> <!-- row.// -->
-                                            <br>
-                                            <button class="btn btn-primary" type="submit">Gửi</button>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-11">
+
+                                        <section class="content-body p-xl-4">
+                                            <form method="POST">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <div class="row gx-3">
+                                                            <div class="col-12  mb-3 me-3">
+                                                                <label class="form-label">Thông tin xin nghỉ</label>
+                                                                <textarea name="description" class="form-control" placeholder="Type here" style="min-height:400px "></textarea>
+                                                            </div> <!-- col .// -->                                                 
+                                                        </div> <!-- row.// -->
+                                                    </div> <!-- col.// -->
+                                                </div> <!-- row.// -->
+                                                <br>
+                                                <button class="btn btn-primary py-2 px-4" type="submit">Gửi</button>
+                                                <a class="btn btn-secondary ms-3" href="${context}/doctor/request/list" type="submit">Quay lại</a>
                                         </form>
 
                                         <hr class="my-5">

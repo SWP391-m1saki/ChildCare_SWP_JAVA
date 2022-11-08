@@ -42,21 +42,23 @@
                 <!--ASIDE-->
 
                 <main class="main-admin-page">
-                     <!--HEADER-->
+                    <!--HEADER-->
                 <jsp:include page="header.jsp"></jsp:include>
                     <!--HEADER-->
 
-                <section class="content-main" style="max-width: 980px">
-                    <div class="content-header">
-                        <h2 class="content-title">Tạo bài viết mới</h2>
-                        <div>
-                            <a href="${pageContext.request.getContextPath()}/manager/post" class="btn btn-danger fw-bold"> × Hủy</a>
+                    <section class="content-main" style="max-width: 980px">
+                        <div class="content-header">
+                            <h2 class="content-title">Tạo bài viết mới</h2>
+                            <div>
+                                <a href="${pageContext.request.getContextPath()}/manager/post" class="btn btn-danger fw-bold"> × Hủy</a>
                         </div>
                     </div>
+                    <c:if test="${requestScope.mess != null}">
+                        <div class="message">
+                            <p class="text-danger">${requestScope.mess}</p>
+                        </div>
+                    </c:if>
 
-                    <div class="message">
-                        <p class="text-danger">${requestScope.mess}</p>
-                    </div>
 
                     <div class="content-body">
                         <div class="add-form">
@@ -125,9 +127,6 @@
                                                 <c:forEach items="${requestScope.postCategory}" var="c">
                                                     <li value="${c.cateId}" class="list-group-item">
                                                         <span>${c.cateName}</span>
-                                                        <!--                                                        <button>
-                                                                                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                                                                                </button>-->
                                                     </li>
                                                 </c:forEach>
                                             </ul>
@@ -143,7 +142,7 @@
                                 </div>
 
                                 <div class="form-item">
-                                    <label class="form-label fw-bold fs-6">Nội dung bài viết</label>
+                                    <label class="form-label fw-bold fs-6" >Nội dung bài viết</label>
                                     <textarea name="content" id="div_editor1" class="form-control">
                                         ${requestScope.post.detail}
                                     </textarea>
@@ -161,7 +160,8 @@
                                     </div><!-- comment -->
                                 </div> <!-- row.// -->
 
-                                <button type="submit" class="btn btn-primary">Đăng bài</button>
+                                <input type="submit" value="Dang bai">
+                                <!--<button type="submit" class="btn btn-primary">Đăng bài</button>-->
                             </form>
                         </div>
                     </div> <!-- card end// -->
@@ -171,42 +171,42 @@
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
-            var editor1 = new RichTextEditor("#div_editor1");
-            const expandBtn = document.querySelector('.open');
-            const closeBtn = document.querySelector('.close');
-            const addCategoryDiv = document.querySelector('.add-category-div');
+                                                   var editor1 = new RichTextEditor("#div_editor1");
+                                                   const expandBtn = document.querySelector('.open');
+                                                   const closeBtn = document.querySelector('.close');
+                                                   const addCategoryDiv = document.querySelector('.add-category-div');
 
-            expandBtn.addEventListener('click', function (e) {
-                e.target.style.display = "none";
-                addCategoryDiv.style.display = "block";
-            });
+                                                   expandBtn.addEventListener('click', function (e) {
+                                                       e.target.style.display = "none";
+                                                       addCategoryDiv.style.display = "block";
+                                                   });
 
-            closeBtn.addEventListener('click', function (e) {
-                addCategoryDiv.style.display = "none";
-                expandBtn.style.display = "block";
-            });
+                                                   closeBtn.addEventListener('click', function (e) {
+                                                       addCategoryDiv.style.display = "none";
+                                                       expandBtn.style.display = "block";
+                                                   });
 
-            function ajaxCall() {
-                $.ajax({
-                    url: '/Childcare/ajax/post/create-category',
-                    type: "POST",
-                    data: {
-                        new_category: document.querySelector('input[name="new-category"]').value
-                    },
-                    async: true,
-                    success: function (data) {
-                        var row = document.querySelector('select[name="category"]');
-                        row.innerHTML = data;
-                    }
-                });
+                                                   function ajaxCall() {
+                                                       $.ajax({
+                                                           url: '/Childcare/ajax/post/create-category',
+                                                           type: "POST",
+                                                           data: {
+                                                               new_category: document.querySelector('input[name="new-category"]').value
+                                                           },
+                                                           async: true,
+                                                           success: function (data) {
+                                                               var row = document.querySelector('select[name="category"]');
+                                                               row.innerHTML = data;
+                                                           }
+                                                       });
 
-            }
+                                                   }
 
-            document.querySelector('.btn-category-add').addEventListener('click', function () {
-                ajaxCall();
-                addCategoryDiv.style.display = "none";
-                expandBtn.style.display = "block";
-            });
+                                                   document.querySelector('.btn-category-add').addEventListener('click', function () {
+                                                       ajaxCall();
+                                                       addCategoryDiv.style.display = "none";
+                                                       expandBtn.style.display = "block";
+                                                   });
         </script>
     </body>
 </html>
