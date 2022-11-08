@@ -27,11 +27,71 @@
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/bootstrap.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
 
-        <!--RichTextEditor-->
-        <base href="${pageContext.request.contextPath}/lib/richtexteditor"/>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/lib/richtexteditor/rte_theme_default.css" />
-        <script type="text/javascript" src="${pageContext.request.contextPath}/lib/richtexteditor/rte.js"></script>
-        <script type="text/javascript" src='${pageContext.request.contextPath}/lib/richtexteditor/plugins/all_plugins.js'></script>
+        <script src='${pageContext.request.contextPath}/lib/tinymce/tinymce.min.js'></script>
+        <script>
+            tinymce.init({
+                selector: '#myTextarea',
+                height: 300,
+                plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+                imagetools_cors_hosts: ['picsum.photos'],
+                menubar: 'file edit view insert format tools table help',
+                toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+                toolbar_sticky: false,
+                autosave_ask_before_unload: true,
+                autosave_interval: "30s",
+                autosave_prefix: "{path}{query}-{id}-",
+                autosave_restore_when_empty: false,
+                autosave_retention: "2m",
+                image_advtab: true,
+                /*content_css: '//www.tiny.cloud/css/codepen.min.css',*/
+                link_list: [
+                    {title: 'My page 1', value: 'https://www.codexworld.com'},
+                    {title: 'My page 2', value: 'https://www.xwebtools.com'}
+                ],
+                image_list: [
+                    {title: 'My page 1', value: 'https://www.codexworld.com'},
+                    {title: 'My page 2', value: 'https://www.xwebtools.com'}
+                ],
+                image_class_list: [
+                    {title: 'None', value: ''},
+                    {title: 'Some class', value: 'class-name'}
+                ],
+                importcss_append: true,
+                file_picker_callback: function (callback, value, meta) {
+                    /* Provide file and text for the link dialog */
+                    if (meta.filetype === 'file') {
+                        callback('https://www.google.com/logos/google.jpg', {text: 'My text'});
+                    }
+
+                    /* Provide image and alt text for the image dialog */
+                    if (meta.filetype === 'image') {
+                        callback('https://www.google.com/logos/google.jpg', {alt: 'My alt text'});
+                    }
+
+                    /* Provide alternative source and posted for the media dialog */
+                    if (meta.filetype === 'media') {
+                        callback('movie.mp4', {source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg'});
+                    }
+                },
+                templates: [
+                    {title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'},
+                    {title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...'},
+                    {title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'}
+                ],
+                template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+                template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+                image_caption: true,
+                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                noneditable_noneditable_class: "mceNonEditable",
+                toolbar_mode: 'sliding',
+                contextmenu: "link image imagetools table"
+            });
+        </script>
+        <!--        RichTextEditor
+                <base href="${pageContext.request.contextPath}/lib/richtexteditor/richtexteditor"/>
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/lib/richtexteditor/rte_theme_default.css" />
+                <script type="text/javascript" src="${pageContext.request.contextPath}/lib/richtexteditor/richtexteditor/rte.js"></script>
+                <script type="text/javascript" src='${pageContext.request.contextPath}/lib/richtexteditor/plugins/all_plugins.js'></script>-->
         <script src="https://kit.fontawesome.com/cc5cf43e7a.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -62,7 +122,7 @@
 
                     <div class="content-body">
                         <div class="add-form">
-                            <form method="POST">
+                            <form method="POST" id="main-form">
                                 <div class="form-item">
                                     <input type="text" name="title" required="required" placeholder="Tiêu đề bài viết" class="form-control fw-bold fs-5" value="${requestScope.post.title}">
                                 </div>
@@ -143,7 +203,7 @@
 
                                 <div class="form-item">
                                     <label class="form-label fw-bold fs-6" >Nội dung bài viết</label>
-                                    <textarea name="content" id="div_editor1" class="form-control">
+                                    <textarea name="content" id="myTextarea" class="form-control">
                                         ${requestScope.post.detail}
                                     </textarea>
                                 </div>
@@ -153,15 +213,14 @@
                                         <label class="form-label fs-6 fw-bold">Hình ảnh chính</label>
                                         <input name="image" accept="image/*" class="form-control" type="file" 
                                                onchange="
-                                                       document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0]);
-                                                       document.getElementById('image-preview').style = 'visibility: visible';
+                                            document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0]);
+                                            document.getElementById('image-preview').style = 'visibility: visible';
                                                ">
                                         <img style="visibility: hidden" id="image-preview" alt="your image" width="150" />
                                     </div><!-- comment -->
                                 </div> <!-- row.// -->
 
-                                <input type="submit" value="Dang bai">
-                                <!--<button type="submit" class="btn btn-primary">Đăng bài</button>-->
+                                <button type="submit" form="main-form" class="btn btn-primary">Đăng bài</button>
                             </form>
                         </div>
                     </div> <!-- card end// -->
@@ -171,42 +230,46 @@
         <script src="${context}/js/jquery-3.5.0.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
-                                                   var editor1 = new RichTextEditor("#div_editor1");
-                                                   const expandBtn = document.querySelector('.open');
-                                                   const closeBtn = document.querySelector('.close');
-                                                   const addCategoryDiv = document.querySelector('.add-category-div');
+//            var editor1 = new RichTextEditor("#div_editor1");
+            const expandBtn = document.querySelector('.open');
+            const closeBtn = document.querySelector('.close');
+            const addCategoryDiv = document.querySelector('.add-category-div');
 
-                                                   expandBtn.addEventListener('click', function (e) {
-                                                       e.target.style.display = "none";
-                                                       addCategoryDiv.style.display = "block";
-                                                   });
+            expandBtn.addEventListener('click', function (e) {
+                e.target.style.display = "none";
+                addCategoryDiv.style.display = "block";
+            });
 
-                                                   closeBtn.addEventListener('click', function (e) {
-                                                       addCategoryDiv.style.display = "none";
-                                                       expandBtn.style.display = "block";
-                                                   });
+            closeBtn.addEventListener('click', function (e) {
+                addCategoryDiv.style.display = "none";
+                expandBtn.style.display = "block";
+            });
 
-                                                   function ajaxCall() {
-                                                       $.ajax({
-                                                           url: '/Childcare/ajax/post/create-category',
-                                                           type: "POST",
-                                                           data: {
-                                                               new_category: document.querySelector('input[name="new-category"]').value
-                                                           },
-                                                           async: true,
-                                                           success: function (data) {
-                                                               var row = document.querySelector('select[name="category"]');
-                                                               row.innerHTML = data;
-                                                           }
-                                                       });
+            function ajaxCall() {
+                $.ajax({
+                    url: '/Childcare/ajax/post/create-category',
+                    type: "POST",
+                    data: {
+                        new_category: document.querySelector('input[name="new-category"]').value
+                    },
+                    async: true,
+                    success: function (data) {
+                        var row = document.querySelector('select[name="category"]');
+                        row.innerHTML = data;
+                    }
+                });
 
-                                                   }
+            }
 
-                                                   document.querySelector('.btn-category-add').addEventListener('click', function () {
-                                                       ajaxCall();
-                                                       addCategoryDiv.style.display = "none";
-                                                       expandBtn.style.display = "block";
-                                                   });
+            document.querySelector('.btn-category-add').addEventListener('click', function () {
+                ajaxCall();
+                addCategoryDiv.style.display = "none";
+                expandBtn.style.display = "block";
+            });
+            
+            document.querySelector('button[type="submit"]').addEventListener('click', () =>{
+                document.querySelector('form').submit();
+            });
         </script>
     </body>
 </html>

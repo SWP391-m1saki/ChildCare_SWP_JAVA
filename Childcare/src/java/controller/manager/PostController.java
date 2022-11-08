@@ -124,7 +124,7 @@ public class PostController extends HttpServlet {
         boolean valid = true;
         if (valid) {
             //message
-            request.getRequestDispatcher("../../Views/manager/createPost.jsp").forward(request, response);
+            response.sendRedirect("../post");
         } else {
             response.sendRedirect("create");
         }
@@ -142,7 +142,7 @@ public class PostController extends HttpServlet {
         post.setDescription(request.getParameter("description"));
         post.setCateId(Utility.parseIntParameter(request.getParameter("category"), -1));
         post.setDetail(request.getParameter("content"));
-        if (request.getParameter("image") != null) {
+        if (request.getParameter("image") != null && request.getParameter("image").length() > 0) {
             post.setImage(request.getParameter("image"));
         } else {
             post.setImage(postDao.get(postId).getImage());

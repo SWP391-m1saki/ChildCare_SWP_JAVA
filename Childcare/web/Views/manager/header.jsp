@@ -10,8 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <style>
-    .col-search form {
-        width: 480px;
+    .col-search {
         position: relative;
     }
     .dropdown-menu-list img {
@@ -51,17 +50,18 @@
         padding-left: 40px;
         padding-right: 11px;
     }
+    .search_field {
+        width: 480px;
+    }
 
 </style>
 <header class="main-header navbar py-3 ms-1">
     <div class="col-search">
-        <form action="#">
-            <div class="search_field">
-                <input type="text" class="text-secondary" style="padding-left: 87px;
-                       padding-right: 15px;" placeholder="Search here...">
-            </div>
-            <button type="submit" class="search-btn"> <img src="${context}/img/search.svg"> </button>
-        </form>
+        <div class="search_field">
+            <input type="text" class="text-secondary" style="padding-left: 87px;
+                   padding-right: 15px;" placeholder="Search here...">
+        </div>
+        <button class="search-btn"> <img src="${context}/img/search.svg"> </button>
     </div>
     <div class="col-user">
         <li class="nav-item">
@@ -82,7 +82,7 @@
                 <i class="fa-solid fa-caret-down" style="font-size: 16px"></i>
             </a>
             <div class="dropdown-menu-list dropdown-menu-end">
-                
+
                 <a class="dropdown-item" href="${context}/manager/user/detail?id=${sessionScope.UserLogined.id}">
                     <img src="${context}/img/user.svg" alt="alt"/> Thông tin cá nhân
                 </a>

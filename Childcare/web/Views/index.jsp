@@ -94,8 +94,8 @@
                         Giúp bạn đơn giản hóa việc tìm kiếm bác sĩ và dịch vụ y tế phù hợp với nhu cầu sức khoẻ, dù ở bất kỳ đâu.
                     </p>
                     <div class="pt-4">
-                        <a href="chooseDepartment" class="btn btn-outline-primary rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
-                        <a href="" class="btn btn-outline-primary rounded-pill py-md-3 px-md-5 mx-2">Chat with Doctor</a>
+                        <a href="chooseDepartment" class="btn btn-outline-primary rounded-pill py-md-3 px-md-5 mx-2">Đặt lịch khám</a>
+                        <a href="" class="btn btn-outline-primary rounded-pill py-md-3 px-md-5 mx-2">Danh sách bác sĩ</a>
 
                     </div>
                 </div>
@@ -108,7 +108,7 @@
         <div class="container-fluid py-5 " >
             <div class="container" style="max-width: 1200px;">
                 <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog Post</h5>
+                    <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog</h5>
                     <h1 class="display-4">Bài viết mới nhất</h1>
                 </div>
                 <!--<hr class="hr-style">-->
@@ -169,7 +169,7 @@
 
 
     <!-- Testimonial Start -->
-    <div class="container-fluid py-5">
+<!--    <div class="container-fluid py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5" style="max-width: 500px;">
                 <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Feedback</h5>
@@ -189,14 +189,14 @@
                                 <p class="fs-4 fw-normal">${f.description}</p>
                                 <hr class="w-25 mx-auto">
                                 <h3>${f.user.name}</h3>
-                                <!--<h6 class="fw-normal text-primary mb-3">Profession</h6>-->
+                                <h6 class="fw-normal text-primary mb-3">Profession</h6>
                             </div>
                         </c:forEach>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- Testimonial End -->
 
 

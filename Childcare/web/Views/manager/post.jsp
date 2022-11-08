@@ -33,28 +33,28 @@
             <jsp:include page="ASIDE.jsp"></jsp:include>
                 <!--ASIDE-->
                 <main class="main-admin-page">
-                     <!--HEADER-->
+                    <!--HEADER-->
                 <jsp:include page="header.jsp"></jsp:include>
-                    <!--HEADER-->>
-
-                <!--Message display-->
-                <script type="text/javascript">
-                    if (${requestScope.mess != null}) {
-                        if (${requestScope.mess[0] == "sucess"}) {
-                            toastr.success(${requestScope.mess[1]});
-                        } else {
-                            toastr.error(${requestScope.mess[1]});
+                    <!--HEADER-->
+                    <!--Message display-->
+                    <script type="text/javascript">
+                        if (${requestScope.mess != null}) {
+                            if (${requestScope.mess[0] == "sucess"}) {
+                                toastr.success(${requestScope.mess[1]});
+                            } else {
+                                toastr.error(${requestScope.mess[1]});
+                            }
                         }
-                    }
                 </script>
 
                 <section class="content-main">
-
-                    <div class="content-header">
-                        <h2 class="content-title">Quản lí bài viết</h2>
-                    </div>
-                    <div class="mb-3">
-                        <a href="${context}/manager/post/create" class="btn btn-primary"><i class="material-icons md-plus"></i>Viết bài mới</a>
+                    <div class="row">
+                        <div class="content-header col-6">
+                            <h2 class="content-title">Quản lí bài viết</h2>
+                        </div>
+                        <div class="mb-3 col-2 offset-4">
+                            <a href="${context}/manager/post/create" class="btn btn-primary"><i class="material-icons md-plus"></i>Viết bài mới</a>
+                        </div>
                     </div>
 
                     <div class="card mb-4">

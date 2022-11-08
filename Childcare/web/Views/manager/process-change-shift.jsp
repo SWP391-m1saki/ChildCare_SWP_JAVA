@@ -15,6 +15,7 @@
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/lib/bootstrap/responsive.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/ui.css'>
         <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/admin.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href='${pageContext.request.contextPath}/css/doctor-detail.css'>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
         <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -33,7 +34,7 @@
                 <!--ASIDE-->
                 <main class="main-admin-page">
                     <!--HEADER-->
-                <%--<jsp:include page="header.jsp"></jsp:include>--%>
+                <jsp:include page="header.jsp"></jsp:include>
                 <!--HEADER-->
 
                 <section class="content-main edit-account">
@@ -43,12 +44,12 @@
                     </div>
                     <c:set value="${requestScope.doctor}" var="doctorProfile"/>
                     <c:set value="${requestScope.changeRequest}" var="r"/>
-                    <div class="card">
-                        <div class="row doctor-profile-header">
+                    <div class="card p-4 ps-0">
+                        <div class="d-flex align-items-center doctor-profile-header">
                             <div class="profileImage">
                                 <img class="mb-3 rounded-circle shadow-4" src="${context}/img/${doctorProfile.user.avatar}" style="width: 100px;height:100px" alt="Avatar"/>
                             </div>
-                            <div class="doctorInfoHeader">
+                            <div class="doctorInfoHeader ms-3">
                                 <h1 class="fs-4">
                                     <span class="title">${doctorProfile.title}</span> 
                                     <span class="fullname">${doctorProfile.user.name}</span>
@@ -57,7 +58,6 @@
 <!--                                        <option ${d.key == doctorProfile.departmentId ? 'selected' : ''} value="${d.key}">${d.value.getDepartmentName()}</option>-->
                                     <p class="text-sm-start" ${d.key != doctorProfile.departmentId ? 'hidden' : ''}>${d.value.getDepartmentName()}</p>
                                 </c:forEach>
-
                             </div>
 
                         </div>
@@ -110,7 +110,8 @@
                                                 </div> <!-- col.// -->
                                             </div> <!-- row.// -->
                                             <br>
-                                            <button class="btn btn-primary" type="submit">Gửi</button>
+                                            <button class="btn btn-primary py-2 px-3" type="submit">Gửi</button>
+                                            <a href="/Childcare/manager/doctor/shift/list" class="btn btn-secondary fw-bold ms-3">Quay lại</a>
                                         </form>
 
                                         <hr class="my-5">
