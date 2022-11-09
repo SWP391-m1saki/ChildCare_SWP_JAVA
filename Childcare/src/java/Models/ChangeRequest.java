@@ -119,4 +119,14 @@ public class ChangeRequest {
                 return "";
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this.getRequestId() == ((ChangeRequest)obj).getRequestId() && this.getDescription().equals(((ChangeRequest)obj).getDescription())){
+            return true;
+        }
+        return false;
+    }
+    
+    
 }

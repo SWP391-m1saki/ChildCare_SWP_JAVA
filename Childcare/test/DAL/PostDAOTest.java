@@ -392,7 +392,7 @@ public class PostDAOTest {
      */
     @Test
     public void testDeleteSuccess() {
-        System.out.println("delete");
+        System.out.println("delete success");
         PostDAO instance = new PostDAO();
         instance.load();
         Post t = instance.getLast();
@@ -405,7 +405,7 @@ public class PostDAOTest {
 
     @Test
     public void testDeleteSuccessFail() {
-        System.out.println("delete");
+        System.out.println("delete fail");
         PostDAO instance = new PostDAO();
         instance.load();
         Post t = new Post();
