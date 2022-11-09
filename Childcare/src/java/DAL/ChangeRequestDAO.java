@@ -176,7 +176,24 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
         return true;
     }
 
+    
+    public List<ChangeRequest> getChangeRequestListBySearchDoctorName(String doctorName) {
+        if(doctorName == null || doctorName.length() == 0){
+            return null;
+        }
+        List<ChangeRequest> cR = new ArrayList<>();
+        for (ChangeRequest c : changeRequestList) {
+            if (c.getDoctor().getUser().getName().contains(doctorName)) {
+                cR.add(c);
+            }
+        }
+        return cR;
+    }
+    
     public List<ChangeRequest> getChangeRequestListByDoctorID(int doctorId) {
+        if(doctorId == - 1){
+            return null;
+        }
         List<ChangeRequest> cR = new ArrayList<>();
         for (ChangeRequest c : changeRequestList) {
             if (c.getDoctorId() == doctorId) {
@@ -186,14 +203,13 @@ public class ChangeRequestDAO implements DAO<ChangeRequest> {
         return cR;
     }
 
-    public List<ChangeRequest> getChangeRequestListByStatus(int status, int doctorId) {
-        if (status == -1) {
-            return getChangeRequestListByDoctorID(doctorId);
+    public List<ChangeRequest> getChangeRequestListByStatus(int status) {
+        if (status <1 || status > 3) {
+            return null;
         }
-
         List<ChangeRequest> cR = new ArrayList<>();
         for (ChangeRequest c : changeRequestList) {
-            if (c.getStatus() == status && c.getDoctorId() == doctorId) {
+            if (c.getStatus() == status ) {
                 cR.add(c);
             }
         }
